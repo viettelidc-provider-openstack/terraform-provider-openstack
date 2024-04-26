@@ -24,43 +24,43 @@ func TestAccBlockStorageQosV3_basic(t *testing.T) {
 			{
 				Config: testAccBlockStorageQosV3Basic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageQosV3Exists("viettelidc_blockstorage_qos_v3.qos", &qosTest),
+					testAccCheckBlockStorageQosV3Exists("openstack_blockstorage_qos_v3.qos", &qosTest),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "name", "foo"),
+						"openstack_blockstorage_qos_v3.qos", "name", "foo"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "consumer", "front-end"),
+						"openstack_blockstorage_qos_v3.qos", "consumer", "front-end"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "specs.%", "1"),
+						"openstack_blockstorage_qos_v3.qos", "specs.%", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "specs.read_iops_sec", "20000"),
+						"openstack_blockstorage_qos_v3.qos", "specs.read_iops_sec", "20000"),
 				),
 			},
 			{
 				Config: testAccBlockStorageQosV3Update1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageQosV3Exists("viettelidc_blockstorage_qos_v3.qos", &qosTest),
+					testAccCheckBlockStorageQosV3Exists("openstack_blockstorage_qos_v3.qos", &qosTest),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "name", "foo"),
+						"openstack_blockstorage_qos_v3.qos", "name", "foo"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "consumer", "back-end"),
+						"openstack_blockstorage_qos_v3.qos", "consumer", "back-end"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "specs.%", "2"),
+						"openstack_blockstorage_qos_v3.qos", "specs.%", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "specs.read_iops_sec", "40000"),
+						"openstack_blockstorage_qos_v3.qos", "specs.read_iops_sec", "40000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "specs.write_iops_sec", "40000"),
+						"openstack_blockstorage_qos_v3.qos", "specs.write_iops_sec", "40000"),
 				),
 			},
 			{
 				Config: testAccBlockStorageQosV3Update2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageQosV3Exists("viettelidc_blockstorage_qos_v3.qos", &qosTest),
+					testAccCheckBlockStorageQosV3Exists("openstack_blockstorage_qos_v3.qos", &qosTest),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "name", "foo"),
+						"openstack_blockstorage_qos_v3.qos", "name", "foo"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "consumer", "back-end"),
+						"openstack_blockstorage_qos_v3.qos", "consumer", "back-end"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_qos_v3.qos", "specs.%", "0"),
+						"openstack_blockstorage_qos_v3.qos", "specs.%", "0"),
 				),
 			},
 		},
@@ -75,7 +75,7 @@ func testAccCheckBlockStorageQosV3Destroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_blockstorage_qos_v3" {
+		if rs.Type != "openstack_blockstorage_qos_v3" {
 			continue
 		}
 
@@ -121,7 +121,7 @@ func testAccCheckBlockStorageQosV3Exists(n string, qosTest *qos.QoS) resource.Te
 }
 
 const testAccBlockStorageQosV3Basic = `
-resource "viettelidc_blockstorage_qos_v3" "qos" {
+resource "openstack_blockstorage_qos_v3" "qos" {
 	name = "foo"
 	consumer = "front-end"
     specs = {
@@ -132,7 +132,7 @@ resource "viettelidc_blockstorage_qos_v3" "qos" {
 `
 
 const testAccBlockStorageQosV3Update1 = `
-resource "viettelidc_blockstorage_qos_v3" "qos" {
+resource "openstack_blockstorage_qos_v3" "qos" {
 	name = "foo"
 	consumer = "back-end"
     specs = {
@@ -144,7 +144,7 @@ resource "viettelidc_blockstorage_qos_v3" "qos" {
 `
 
 const testAccBlockStorageQosV3Update2 = `
-resource "viettelidc_blockstorage_qos_v3" "qos" {
+resource "openstack_blockstorage_qos_v3" "qos" {
 	name = "foo"
 	consumer = "back-end"
     specs = {

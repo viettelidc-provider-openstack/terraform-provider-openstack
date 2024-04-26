@@ -19,19 +19,19 @@ func TestAccKeyManagerSecretV1DataSource_basic(t *testing.T) {
 				Config: testAccKeyManagerSecretV1DataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_1", "id",
-						"viettelidc_keymanager_secret_v1.secret_1", "id"),
+						"data.openstack_keymanager_secret_v1.secret_1", "id",
+						"openstack_keymanager_secret_v1.secret_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_2", "id",
-						"viettelidc_keymanager_secret_v1.secret_2", "id"),
+						"data.openstack_keymanager_secret_v1.secret_2", "id",
+						"openstack_keymanager_secret_v1.secret_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_1", "payload",
-						"viettelidc_keymanager_secret_v1.secret_1", "payload"),
+						"data.openstack_keymanager_secret_v1.secret_1", "payload",
+						"openstack_keymanager_secret_v1.secret_1", "payload"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_2", "payload",
-						"viettelidc_keymanager_secret_v1.secret_2", "payload"),
+						"data.openstack_keymanager_secret_v1.secret_2", "payload",
+						"openstack_keymanager_secret_v1.secret_2", "payload"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_keymanager_secret_v1.secret_1", "metadata.foo", "update"),
+						"data.openstack_keymanager_secret_v1.secret_1", "metadata.foo", "update"),
 				),
 			},
 		},
@@ -51,23 +51,23 @@ func TestAccKeyManagerSecretV1DataSource_acls(t *testing.T) {
 				Config: testAccKeyManagerSecretV1DataSourceAcls,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_1", "id",
-						"viettelidc_keymanager_secret_v1.secret_1", "id"),
+						"data.openstack_keymanager_secret_v1.secret_1", "id",
+						"openstack_keymanager_secret_v1.secret_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_2", "id",
-						"viettelidc_keymanager_secret_v1.secret_2", "id"),
+						"data.openstack_keymanager_secret_v1.secret_2", "id",
+						"openstack_keymanager_secret_v1.secret_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_1", "payload",
-						"viettelidc_keymanager_secret_v1.secret_1", "payload"),
+						"data.openstack_keymanager_secret_v1.secret_1", "payload",
+						"openstack_keymanager_secret_v1.secret_1", "payload"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_keymanager_secret_v1.secret_2", "payload",
-						"viettelidc_keymanager_secret_v1.secret_2", "payload"),
+						"data.openstack_keymanager_secret_v1.secret_2", "payload",
+						"openstack_keymanager_secret_v1.secret_2", "payload"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_keymanager_secret_v1.secret_1", "metadata.foo", "update"),
-					resource.TestCheckResourceAttr("data.viettelidc_keymanager_secret_v1.secret_1", "acl.0.read.0.project_access", "false"),
-					resource.TestCheckResourceAttr("data.viettelidc_keymanager_secret_v1.secret_1", "acl.0.read.0.users.#", "1"),
-					resource.TestCheckResourceAttr("data.viettelidc_keymanager_secret_v1.secret_2", "acl.0.read.0.project_access", "true"),
-					resource.TestCheckResourceAttr("data.viettelidc_keymanager_secret_v1.secret_2", "acl.0.read.0.users.#", "0"),
+						"data.openstack_keymanager_secret_v1.secret_1", "metadata.foo", "update"),
+					resource.TestCheckResourceAttr("data.openstack_keymanager_secret_v1.secret_1", "acl.0.read.0.project_access", "false"),
+					resource.TestCheckResourceAttr("data.openstack_keymanager_secret_v1.secret_1", "acl.0.read.0.users.#", "1"),
+					resource.TestCheckResourceAttr("data.openstack_keymanager_secret_v1.secret_2", "acl.0.read.0.project_access", "true"),
+					resource.TestCheckResourceAttr("data.openstack_keymanager_secret_v1.secret_2", "acl.0.read.0.users.#", "0"),
 				),
 			},
 		},
@@ -75,7 +75,7 @@ func TestAccKeyManagerSecretV1DataSource_acls(t *testing.T) {
 }
 
 const testAccKeyManagerSecretV1DataSourceBasic = `
-resource "viettelidc_keymanager_secret_v1" "secret_1" {
+resource "openstack_keymanager_secret_v1" "secret_1" {
   algorithm   = "aes"
   bit_length  = 192
   mode        = "cbc"
@@ -88,7 +88,7 @@ resource "viettelidc_keymanager_secret_v1" "secret_1" {
   }
 }
 
-resource "viettelidc_keymanager_secret_v1" "secret_2" {
+resource "openstack_keymanager_secret_v1" "secret_2" {
   algorithm   = "aes"
   bit_length  = 256
   mode        = "cbc"
@@ -99,20 +99,20 @@ resource "viettelidc_keymanager_secret_v1" "secret_2" {
   payload_content_type = "text/plain"
 }
 
-data "viettelidc_keymanager_secret_v1" "secret_1" {
-  bit_length  = "${viettelidc_keymanager_secret_v1.secret_1.bit_length}"
+data "openstack_keymanager_secret_v1" "secret_1" {
+  bit_length  = "${openstack_keymanager_secret_v1.secret_1.bit_length}"
   secret_type = "passphrase"
 }
 
-data "viettelidc_keymanager_secret_v1" "secret_2" {
+data "openstack_keymanager_secret_v1" "secret_2" {
   mode              = "cbc"
   secret_type       = "passphrase"
-  expiration_filter = "${viettelidc_keymanager_secret_v1.secret_2.expiration}"
+  expiration_filter = "${openstack_keymanager_secret_v1.secret_2.expiration}"
 }
 `
 
 const testAccKeyManagerSecretV1DataSourceAcls = `
-resource "viettelidc_keymanager_secret_v1" "secret_1" {
+resource "openstack_keymanager_secret_v1" "secret_1" {
   algorithm   = "aes"
   bit_length  = 192
   mode        = "cbc"
@@ -133,7 +133,7 @@ resource "viettelidc_keymanager_secret_v1" "secret_1" {
   }
 }
 
-resource "viettelidc_keymanager_secret_v1" "secret_2" {
+resource "openstack_keymanager_secret_v1" "secret_2" {
   algorithm   = "aes"
   bit_length  = 256
   mode        = "cbc"
@@ -149,14 +149,14 @@ resource "viettelidc_keymanager_secret_v1" "secret_2" {
   }
 }
 
-data "viettelidc_keymanager_secret_v1" "secret_1" {
-  bit_length  = "${viettelidc_keymanager_secret_v1.secret_1.bit_length}"
+data "openstack_keymanager_secret_v1" "secret_1" {
+  bit_length  = "${openstack_keymanager_secret_v1.secret_1.bit_length}"
   secret_type = "passphrase"
 }
 
-data "viettelidc_keymanager_secret_v1" "secret_2" {
+data "openstack_keymanager_secret_v1" "secret_2" {
   mode              = "cbc"
   secret_type       = "passphrase"
-  expiration_filter = "${viettelidc_keymanager_secret_v1.secret_2.expiration}"
+  expiration_filter = "${openstack_keymanager_secret_v1.secret_2.expiration}"
 }
 `

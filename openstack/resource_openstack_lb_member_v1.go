@@ -28,7 +28,7 @@ func resourceLBMemberV1() *schema.Resource {
 			Delete: schema.DefaultTimeout(10 * time.Minute),
 		},
 
-		DeprecationMessage: "use viettelidc_lb_member_v2 resource instead",
+		DeprecationMessage: "use openstack_lb_member_v2 resource instead",
 		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,

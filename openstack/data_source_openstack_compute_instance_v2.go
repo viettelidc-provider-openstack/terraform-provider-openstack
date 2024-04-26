@@ -245,7 +245,7 @@ func dataSourceComputeInstanceV2Read(ctx context.Context, d *schema.ResourceData
 	computeClient.Microversion = computeV2TagsExtensionMicroversion
 	instanceTags, err := tags.List(computeClient, server.ID).Extract()
 	if err != nil {
-		log.Printf("[DEBUG] Unable to get tags for viettelidc_compute_instance_v2: %s", err)
+		log.Printf("[DEBUG] Unable to get tags for openstack_compute_instance_v2: %s", err)
 	} else {
 		d.Set("tags", instanceTags)
 	}

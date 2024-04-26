@@ -190,19 +190,19 @@ func dataSourceImagesImageIdsV2Read(ctx context.Context, d *schema.ResourceData,
 		MemberStatus: memberStatus,
 	}
 
-	log.Printf("[DEBUG] List Options in viettelidc_images_image_ids_v2: %#v", listOpts)
+	log.Printf("[DEBUG] List Options in openstack_images_image_ids_v2: %#v", listOpts)
 
 	allPages, err := images.List(imageClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list images in viettelidc_images_image_ids_v2: %s", err)
+		return diag.Errorf("Unable to list images in openstack_images_image_ids_v2: %s", err)
 	}
 
 	allImages, err := images.ExtractImages(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve images in viettelidc_images_image_ids_v2: %s", err)
+		return diag.Errorf("Unable to retrieve images in openstack_images_image_ids_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Retrieved %d images in viettelidc_images_image_ids_v2: %+v", len(allImages), allImages)
+	log.Printf("[DEBUG] Retrieved %d images in openstack_images_image_ids_v2: %+v", len(allImages), allImages)
 
 	allImages = imagesFilterByProperties(allImages, properties)
 
@@ -214,7 +214,7 @@ func dataSourceImagesImageIdsV2Read(ctx context.Context, d *schema.ResourceData,
 		log.Printf("[DEBUG] Image list filtered by regex: %s", d.Get("name_regex"))
 	}
 
-	log.Printf("[DEBUG] Got %d images after filtering in viettelidc_images_image_ids_v2: %+v", len(allImages), allImages)
+	log.Printf("[DEBUG] Got %d images after filtering in openstack_images_image_ids_v2: %+v", len(allImages), allImages)
 
 	imageIDs := make([]string, len(allImages))
 	for i, image := range allImages {

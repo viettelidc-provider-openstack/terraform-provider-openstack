@@ -26,13 +26,13 @@ func TestAccDatabaseV1Configuration_basic(t *testing.T) {
 				Config: testAccDatabaseV1ConfigurationBasic(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDatabaseV1ConfigurationExists(
-						"viettelidc_db_configuration_v1.basic", &configuration),
+						"openstack_db_configuration_v1.basic", &configuration),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_configuration_v1.basic", "name", "basic"),
+						"openstack_db_configuration_v1.basic", "name", "basic"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_configuration_v1.basic", "configuration.2.name", "max_connections"),
+						"openstack_db_configuration_v1.basic", "configuration.2.name", "max_connections"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_configuration_v1.basic", "configuration.2.value", "200"),
+						"openstack_db_configuration_v1.basic", "configuration.2.value", "200"),
 				),
 			},
 		},
@@ -80,7 +80,7 @@ func testAccCheckDatabaseV1ConfigurationDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_db_configuration_v1" {
+		if rs.Type != "openstack_db_configuration_v1" {
 			continue
 		}
 
@@ -95,7 +95,7 @@ func testAccCheckDatabaseV1ConfigurationDestroy(s *terraform.State) error {
 
 func testAccDatabaseV1ConfigurationBasic() string {
 	return fmt.Sprintf(`
-resource "viettelidc_db_configuration_v1" "basic" {
+resource "openstack_db_configuration_v1" "basic" {
   name        = "basic"
   description = "test"
 

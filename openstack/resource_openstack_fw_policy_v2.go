@@ -105,14 +105,14 @@ func resourceFWPolicyV2Create(ctx context.Context, d *schema.ResourceData, meta 
 		opts.Shared = &shared
 	}
 
-	log.Printf("[DEBUG] viettelidc_fw_policy_v2 create options: %#v", opts)
+	log.Printf("[DEBUG] openstack_fw_policy_v2 create options: %#v", opts)
 
 	policy, err := policies.Create(networkingClient, opts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_fw_policy_v2: %s", err)
+		return diag.Errorf("Error creating openstack_fw_policy_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] viettelidc_fw_policy_v2 %s created: %#v", policy.ID, policy)
+	log.Printf("[DEBUG] openstack_fw_policy_v2 %s created: %#v", policy.ID, policy)
 
 	d.SetId(policy.ID)
 
@@ -128,10 +128,10 @@ func resourceFWPolicyV2Read(_ context.Context, d *schema.ResourceData, meta inte
 
 	policy, err := policies.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_policy_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_policy_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_fw_policy_v2 %s: %#v", d.Id(), policy)
+	log.Printf("[DEBUG] Retrieved openstack_fw_policy_v2 %s: %#v", d.Id(), policy)
 
 	d.Set("name", policy.Name)
 	d.Set("description", policy.Description)
@@ -188,11 +188,11 @@ func resourceFWPolicyV2Update(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_fw_policy_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_fw_policy_v2 %s update options: %#v", d.Id(), updateOpts)
 
 		_, err = policies.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_fw_policy_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_fw_policy_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -208,7 +208,7 @@ func resourceFWPolicyV2Delete(ctx context.Context, d *schema.ResourceData, meta 
 
 	_, err = policies.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_policy_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_policy_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -221,7 +221,7 @@ func resourceFWPolicyV2Delete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	if _, err = stateConf.WaitForStateContext(ctx); err != nil {
-		return diag.Errorf("Error waiting for viettelidc_fw_policy_v2 %s to be deleted: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_fw_policy_v2 %s to be deleted: %s", d.Id(), err)
 	}
 
 	return nil

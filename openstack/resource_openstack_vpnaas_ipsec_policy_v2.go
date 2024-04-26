@@ -162,7 +162,7 @@ func resourceIPSecPolicyV2Create(ctx context.Context, d *schema.ResourceData, me
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for viettelidc_vpnaas_ipsec_policy_v2 %s to become active: %s", policy.ID, err)
+			"Error waiting for openstack_vpnaas_ipsec_policy_v2 %s to become active: %s", policy.ID, err)
 	}
 
 	log.Printf("[DEBUG] IPSec policy created: %#v", policy)

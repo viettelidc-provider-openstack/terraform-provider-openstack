@@ -168,12 +168,12 @@ func resourceMembersV2Read(ctx context.Context, d *schema.ResourceData, meta int
 
 	allPages, err := octaviapools.ListMembers(lbClient, d.Id(), octaviapools.ListMembersOpts{}).AllPages()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_lb_members_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_lb_members_v2"))
 	}
 
 	members, err := octaviapools.ExtractMembers(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_lb_members_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_lb_members_v2: %s", err)
 	}
 
 	log.Printf("[DEBUG] Retrieved members for the %s pool: %#v", d.Id(), members)

@@ -9,7 +9,7 @@ import (
 )
 
 const testAccAggregateResource = `
-resource "viettelidc_compute_aggregate_v2" "test2" {
+resource "openstack_compute_aggregate_v2" "test2" {
   name = "test2"
   zone = "nova"
   metadata = {
@@ -19,11 +19,11 @@ resource "viettelidc_compute_aggregate_v2" "test2" {
 `
 
 const testAccAggregateDataSource = `
-data "viettelidc_compute_aggregate_v2" "test2" {
-  name = viettelidc_compute_aggregate_v2.test2.name
+data "openstack_compute_aggregate_v2" "test2" {
+  name = openstack_compute_aggregate_v2.test2.name
 }
 
-resource "viettelidc_compute_aggregate_v2" "test2" {
+resource "openstack_compute_aggregate_v2" "test2" {
   name = "test2"
   zone = "nova"
   metadata = {
@@ -43,10 +43,10 @@ func TestAccAggregateDataSource(t *testing.T) {
 			{
 				Config: testAccAggregateDataSource,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeAggregateV2DataSourceID("data.viettelidc_compute_aggregate_v2.test2"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_aggregate_v2.test2", "name", "test2"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_aggregate_v2.test2", "zone", "nova"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_aggregate_v2.test2", "metadata.test", "test123"),
+					testAccCheckComputeAggregateV2DataSourceID("data.openstack_compute_aggregate_v2.test2"),
+					resource.TestCheckResourceAttr("data.openstack_compute_aggregate_v2.test2", "name", "test2"),
+					resource.TestCheckResourceAttr("data.openstack_compute_aggregate_v2.test2", "zone", "nova"),
+					resource.TestCheckResourceAttr("data.openstack_compute_aggregate_v2.test2", "metadata.test", "test123"),
 				),
 			},
 		},
@@ -55,7 +55,7 @@ func TestAccAggregateDataSource(t *testing.T) {
 
 func testAccAggregateResourceWithHypervisor() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_aggregate_v2" "test3" {
+resource "openstack_compute_aggregate_v2" "test3" {
   name = "test3"
   zone = "nova"
   hosts = ["%s"]
@@ -65,11 +65,11 @@ resource "viettelidc_compute_aggregate_v2" "test3" {
 
 func testAccAggregateDataSourceWithHypervisor() string {
 	return fmt.Sprintf(`
-data "viettelidc_compute_aggregate_v2" "test3" {
-  name = viettelidc_compute_aggregate_v2.test3.name
+data "openstack_compute_aggregate_v2" "test3" {
+  name = openstack_compute_aggregate_v2.test3.name
 }
 
-resource "viettelidc_compute_aggregate_v2" "test3" {
+resource "openstack_compute_aggregate_v2" "test3" {
   name = "test3"
   zone = "nova"
   hosts = ["%s"]
@@ -91,10 +91,10 @@ func TestAccAggregateDataSourceWithHypervisor(t *testing.T) {
 			{
 				Config: testAccAggregateDataSourceWithHypervisor(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeAggregateV2DataSourceID("data.viettelidc_compute_aggregate_v2.test3"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_aggregate_v2.test3", "name", "test3"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_aggregate_v2.test3", "zone", "nova"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_aggregate_v2.test3", "hosts.#", "1"),
+					testAccCheckComputeAggregateV2DataSourceID("data.openstack_compute_aggregate_v2.test3"),
+					resource.TestCheckResourceAttr("data.openstack_compute_aggregate_v2.test3", "name", "test3"),
+					resource.TestCheckResourceAttr("data.openstack_compute_aggregate_v2.test3", "zone", "nova"),
+					resource.TestCheckResourceAttr("data.openstack_compute_aggregate_v2.test3", "hosts.#", "1"),
 				),
 			},
 		},

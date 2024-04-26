@@ -23,9 +23,9 @@ func TestAccNetworkingV2QoSMinimumBandwidthRuleDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingQoSMinimumBandwidthRuleV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQoSMinimumBandwidthRuleV2DataSourceID("data.viettelidc_networking_qos_minimum_bandwidth_rule_v2.min_bw_rule_1"),
+					testAccCheckNetworkingQoSMinimumBandwidthRuleV2DataSourceID("data.openstack_networking_qos_minimum_bandwidth_rule_v2.min_bw_rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_minimum_bandwidth_rule_v2.min_bw_rule_1", "min_kbps", "3000"),
+						"data.openstack_networking_qos_minimum_bandwidth_rule_v2.min_bw_rule_1", "min_kbps", "3000"),
 				),
 			},
 		},
@@ -48,12 +48,12 @@ func testAccCheckNetworkingQoSMinimumBandwidthRuleV2DataSourceID(n string) resou
 }
 
 const testAccNetworkingV2QoSMinimumBandwidthRuleDataSource = `
-resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "viettelidc_networking_qos_minimum_bandwidth_rule_v2" "min_bw_rule_1" {
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
+resource "openstack_networking_qos_minimum_bandwidth_rule_v2" "min_bw_rule_1" {
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
   min_kbps       = 3000
 }
 `
@@ -61,9 +61,9 @@ resource "viettelidc_networking_qos_minimum_bandwidth_rule_v2" "min_bw_rule_1" {
 func testAccOpenStackNetworkingQoSMinimumBandwidthRuleV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
-data "viettelidc_networking_qos_minimum_bandwidth_rule_v2" "min_bw_rule_1" {
-  qos_policy_id = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
-  min_kbps      = "${viettelidc_networking_qos_minimum_bandwidth_rule_v2.min_bw_rule_1.min_kbps}"
+data "openstack_networking_qos_minimum_bandwidth_rule_v2" "min_bw_rule_1" {
+  qos_policy_id = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+  min_kbps      = "${openstack_networking_qos_minimum_bandwidth_rule_v2.min_bw_rule_1.min_kbps}"
 }
 `, testAccNetworkingV2QoSMinimumBandwidthRuleDataSource)
 }

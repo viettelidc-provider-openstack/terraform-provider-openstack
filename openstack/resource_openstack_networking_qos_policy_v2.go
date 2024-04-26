@@ -124,13 +124,13 @@ func resourceNetworkingQoSPolicyV2Create(ctx context.Context, d *schema.Resource
 		MapValueSpecs(d),
 	}
 
-	log.Printf("[DEBUG] viettelidc_networking_qos_policy_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_networking_qos_policy_v2 create options: %#v", createOpts)
 	p, err := policies.Create(networkingClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_networking_qos_policy_v2: %s", err)
+		return diag.Errorf("Error creating openstack_networking_qos_policy_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for viettelidc_networking_qos_policy_v2 %s to become available.", p.ID)
+	log.Printf("[DEBUG] Waiting for openstack_networking_qos_policy_v2 %s to become available.", p.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE"},
@@ -142,7 +142,7 @@ func resourceNetworkingQoSPolicyV2Create(ctx context.Context, d *schema.Resource
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_qos_policy_v2 %s to become available: %s", p.ID, err)
+		return diag.Errorf("Error waiting for openstack_networking_qos_policy_v2 %s to become available: %s", p.ID, err)
 	}
 
 	d.SetId(p.ID)
@@ -152,12 +152,12 @@ func resourceNetworkingQoSPolicyV2Create(ctx context.Context, d *schema.Resource
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "qos/policies", p.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on viettelidc_networking_qos_policy_v2 %s: %s", p.ID, err)
+			return diag.Errorf("Error setting tags on openstack_networking_qos_policy_v2 %s: %s", p.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_qos_policy_v2 %s", tags, p.ID)
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_qos_policy_v2 %s", tags, p.ID)
 	}
 
-	log.Printf("[DEBUG] Created viettelidc_networking_qos_policy_v2 %s: %#v", p.ID, p)
+	log.Printf("[DEBUG] Created openstack_networking_qos_policy_v2 %s: %#v", p.ID, p)
 
 	return resourceNetworkingQoSPolicyV2Read(ctx, d, meta)
 }
@@ -171,10 +171,10 @@ func resourceNetworkingQoSPolicyV2Read(ctx context.Context, d *schema.ResourceDa
 
 	p, err := policies.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_qos_policy_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_qos_policy_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_qos_policy_v2 %s: %#v", d.Id(), p)
+	log.Printf("[DEBUG] Retrieved openstack_networking_qos_policy_v2 %s: %#v", d.Id(), p)
 
 	d.Set("name", p.Name)
 	d.Set("project_id", p.ProjectID)
@@ -187,10 +187,10 @@ func resourceNetworkingQoSPolicyV2Read(ctx context.Context, d *schema.ResourceDa
 	networkingV2ReadAttributesTags(d, p.Tags)
 
 	if err := d.Set("created_at", p.CreatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_qos_policy_v2 created_at: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_qos_policy_v2 created_at: %s", err)
 	}
 	if err := d.Set("updated_at", p.UpdatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_qos_policy_v2 updated_at: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_qos_policy_v2 updated_at: %s", err)
 	}
 
 	return nil
@@ -230,10 +230,10 @@ func resourceNetworkingQoSPolicyV2Update(ctx context.Context, d *schema.Resource
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_networking_qos_policy_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_networking_qos_policy_v2 %s update options: %#v", d.Id(), updateOpts)
 		_, err = policies.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_networking_qos_policy_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_networking_qos_policy_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -242,9 +242,9 @@ func resourceNetworkingQoSPolicyV2Update(ctx context.Context, d *schema.Resource
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "qos/policies", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on viettelidc_networking_qos_policy_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on openstack_networking_qos_policy_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_qos_policy_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_qos_policy_v2 %s", tags, d.Id())
 	}
 
 	return resourceNetworkingQoSPolicyV2Read(ctx, d, meta)
@@ -258,7 +258,7 @@ func resourceNetworkingQoSPolicyV2Delete(ctx context.Context, d *schema.Resource
 	}
 
 	if err := policies.Delete(networkingClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_qos_policy_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_qos_policy_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -272,7 +272,7 @@ func resourceNetworkingQoSPolicyV2Delete(ctx context.Context, d *schema.Resource
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_qos_policy_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_networking_qos_policy_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

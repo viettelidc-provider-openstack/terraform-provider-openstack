@@ -33,12 +33,12 @@ func TestAccComputeV2Instance_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceMetadata(&instance, "foo", "bar"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "all_metadata.foo", "bar"),
+						"openstack_compute_instance_v2.instance_1", "all_metadata.foo", "bar"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "availability_zone", "nova"),
+						"openstack_compute_instance_v2.instance_1", "availability_zone", "nova"),
 				),
 			},
 		},
@@ -59,27 +59,27 @@ func TestAccComputeV2Instance_initialStateActive(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceStateActive(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "active"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "active"),
 					testAccCheckComputeV2InstanceState(&instance, "active"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceStateShutoff(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "shutoff"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "shutoff"),
 					testAccCheckComputeV2InstanceState(&instance, "shutoff"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceStateActive(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "active"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "active"),
 					testAccCheckComputeV2InstanceState(&instance, "active"),
 				),
 			},
@@ -101,27 +101,27 @@ func TestAccComputeV2Instance_initialStateShutoff(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceStateShutoff(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "shutoff"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "shutoff"),
 					testAccCheckComputeV2InstanceState(&instance, "shutoff"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceStateActive(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "active"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "active"),
 					testAccCheckComputeV2InstanceState(&instance, "active"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceStateShutoff(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "shutoff"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "shutoff"),
 					testAccCheckComputeV2InstanceState(&instance, "shutoff"),
 				),
 			},
@@ -143,27 +143,27 @@ func TestAccComputeV2Instance_initialShelve(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceStateActive(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "active"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "active"),
 					testAccCheckComputeV2InstanceState(&instance, "active"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceStateShelve(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "shelved_offloaded"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "shelved_offloaded"),
 					testAccCheckComputeV2InstanceState(&instance, "shelved_offloaded"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceStateActive(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "power_state", "active"),
+						"openstack_compute_instance_v2.instance_1", "power_state", "active"),
 					testAccCheckComputeV2InstanceState(&instance, "active"),
 				),
 			},
@@ -187,9 +187,9 @@ func TestAccComputeV2Instance_secgroupMulti(t *testing.T) {
 				Config: testAccComputeV2InstanceSecgroupMulti(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2SecGroupExists(
-						"viettelidc_compute_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_compute_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance1),
+						"openstack_compute_instance_v2.instance_1", &instance1),
 				),
 			},
 		},
@@ -212,22 +212,22 @@ func TestAccComputeV2Instance_secgroupMultiUpdate(t *testing.T) {
 				Config: testAccComputeV2InstanceSecgroupMultiUpdate1(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2SecGroupExists(
-						"viettelidc_compute_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_compute_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckComputeV2SecGroupExists(
-						"viettelidc_compute_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_compute_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance1),
+						"openstack_compute_instance_v2.instance_1", &instance1),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceSecgroupMultiUpdate2(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2SecGroupExists(
-						"viettelidc_compute_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_compute_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckComputeV2SecGroupExists(
-						"viettelidc_compute_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_compute_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance1),
+						"openstack_compute_instance_v2.instance_1", &instance1),
 				),
 			},
 		},
@@ -248,7 +248,7 @@ func TestAccComputeV2Instance_bootFromVolumeImage(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBootFromVolumeImage(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceBootVolumeAttachment(&instance),
 				),
 			},
@@ -270,7 +270,7 @@ func TestAccComputeV2Instance_bootFromVolumeVolume(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBootFromVolumeVolume(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceBootVolumeAttachment(&instance),
 				),
 			},
@@ -294,14 +294,14 @@ func TestAccComputeV2Instance_bootFromVolumeForceNew(t *testing.T) {
 				Config: testAccComputeV2InstanceBootFromVolumeForceNew1(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance1),
+						"openstack_compute_instance_v2.instance_1", &instance1),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceBootFromVolumeForceNew2(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance2),
+						"openstack_compute_instance_v2.instance_1", &instance2),
 					testAccCheckComputeV2InstanceInstanceIDsDoNotMatch(&instance1, &instance2),
 				),
 			},
@@ -323,7 +323,7 @@ func TestAccComputeV2Instance_blockDeviceNewVolume(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBlockDeviceNewVolume(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -344,7 +344,7 @@ func TestAccComputeV2Instance_blockDeviceNewVolumeTypeAndBus(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBlockDeviceNewVolumeTypeAndBus(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -366,9 +366,9 @@ func TestAccComputeV2Instance_blockDeviceExistingVolume(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBlockDeviceExistingVolume(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckBlockStorageV3VolumeExists(
-						"viettelidc_blockstorage_volume_v3.volume_1", &volume),
+						"openstack_blockstorage_volume_v3.volume_1", &volume),
 				),
 			},
 		},
@@ -390,7 +390,7 @@ func TestAccComputeV2Instance_personality(t *testing.T) {
 			{
 				Config: testAccComputeV2InstancePersonality(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -411,13 +411,13 @@ func TestAccComputeV2Instance_personalityRebuild(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 			{
 				Config: testAccComputeV2InstancePersonality(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -439,7 +439,7 @@ func TestAccComputeV2Instance_multiEphemeral(t *testing.T) {
 				Config: testAccComputeV2InstanceMultiEphemeral(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance),
+						"openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -460,9 +460,9 @@ func TestAccComputeV2Instance_accessIPv4(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceAccessIPv4(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "access_ip_v4", "192.168.1.100"),
+						"openstack_compute_instance_v2.instance_1", "access_ip_v4", "192.168.1.100"),
 				),
 			},
 		},
@@ -485,14 +485,14 @@ func TestAccComputeV2Instance_changeFixedIP(t *testing.T) {
 				Config: testAccComputeV2InstanceChangeFixedIP1(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance1),
+						"openstack_compute_instance_v2.instance_1", &instance1),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceChangeFixedIP2(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckComputeV2InstanceExists(
-						"viettelidc_compute_instance_v2.instance_1", &instance2),
+						"openstack_compute_instance_v2.instance_1", &instance2),
 					testAccCheckComputeV2InstanceInstanceIDsDoNotMatch(&instance1, &instance2),
 				),
 			},
@@ -513,7 +513,7 @@ func TestAccComputeV2Instance_stopBeforeDestroy(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceStopBeforeDestroy(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -534,26 +534,26 @@ func TestAccComputeV2Instance_metadataRemove(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceMetadataRemove1(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceMetadata(&instance, "foo", "bar"),
 					testAccCheckComputeV2InstanceMetadata(&instance, "abc", "def"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "all_metadata.foo", "bar"),
+						"openstack_compute_instance_v2.instance_1", "all_metadata.foo", "bar"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "all_metadata.abc", "def"),
+						"openstack_compute_instance_v2.instance_1", "all_metadata.abc", "def"),
 				),
 			},
 			{
 				Config: testAccComputeV2InstanceMetadataRemove2(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceMetadata(&instance, "foo", "bar"),
 					testAccCheckComputeV2InstanceMetadata(&instance, "ghi", "jkl"),
 					testAccCheckComputeV2InstanceNoMetadataKey(&instance, "abc"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "all_metadata.foo", "bar"),
+						"openstack_compute_instance_v2.instance_1", "all_metadata.foo", "bar"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "all_metadata.ghi", "jkl"),
+						"openstack_compute_instance_v2.instance_1", "all_metadata.ghi", "jkl"),
 				),
 			},
 		},
@@ -573,7 +573,7 @@ func TestAccComputeV2Instance_forceDelete(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceForceDelete(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -593,7 +593,7 @@ func TestAccComputeV2Instance_timeout(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceTimeout(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -613,8 +613,8 @@ func TestAccComputeV2Instance_networkModeAuto(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceNetworkModeAuto(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckComputeV2InstanceNetworkExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceNetworkExists("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -634,8 +634,8 @@ func TestAccComputeV2Instance_networkModeNone(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceNetworkModeNone(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckComputeV2InstanceNetworkDoesNotExist("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceNetworkDoesNotExist("openstack_compute_instance_v2.instance_1", &instance),
 				),
 			},
 		},
@@ -656,10 +656,10 @@ func TestAccComputeV2Instance_networkNameToID(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceNetworkNameToID(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.1.uuid", &network.ID),
+						"openstack_compute_instance_v2.instance_1", "network.1.uuid", &network.ID),
 				),
 			},
 		},
@@ -686,63 +686,63 @@ func TestAccComputeV2Instance_crazyNICs(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceCrazyNICs(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
 					testAccCheckNetworkingV2NetworkExists(
-						"viettelidc_networking_network_v2.network_1", &network1),
+						"openstack_networking_network_v2.network_1", &network1),
 					testAccCheckNetworkingV2NetworkExists(
-						"viettelidc_networking_network_v2.network_2", &network2),
+						"openstack_networking_network_v2.network_2", &network2),
 					testAccCheckNetworkingV2PortExists(
-						"viettelidc_networking_port_v2.port_1", &port1),
+						"openstack_networking_port_v2.port_1", &port1),
 					testAccCheckNetworkingV2PortExists(
-						"viettelidc_networking_port_v2.port_2", &port2),
+						"openstack_networking_port_v2.port_2", &port2),
 					testAccCheckNetworkingV2PortExists(
-						"viettelidc_networking_port_v2.port_3", &port3),
+						"openstack_networking_port_v2.port_3", &port3),
 					testAccCheckNetworkingV2PortExists(
-						"viettelidc_networking_port_v2.port_4", &port4),
+						"openstack_networking_port_v2.port_4", &port4),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.1.uuid", &network1.ID),
+						"openstack_compute_instance_v2.instance_1", "network.1.uuid", &network1.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.2.uuid", &network2.ID),
+						"openstack_compute_instance_v2.instance_1", "network.2.uuid", &network2.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.3.uuid", &network1.ID),
+						"openstack_compute_instance_v2.instance_1", "network.3.uuid", &network1.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.4.uuid", &network2.ID),
+						"openstack_compute_instance_v2.instance_1", "network.4.uuid", &network2.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.5.uuid", &network1.ID),
+						"openstack_compute_instance_v2.instance_1", "network.5.uuid", &network1.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.6.uuid", &network2.ID),
+						"openstack_compute_instance_v2.instance_1", "network.6.uuid", &network2.ID),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.1.name", "network_1"),
+						"openstack_compute_instance_v2.instance_1", "network.1.name", "network_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.2.name", "network_2"),
+						"openstack_compute_instance_v2.instance_1", "network.2.name", "network_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.3.name", "network_1"),
+						"openstack_compute_instance_v2.instance_1", "network.3.name", "network_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.4.name", "network_2"),
+						"openstack_compute_instance_v2.instance_1", "network.4.name", "network_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.5.name", "network_1"),
+						"openstack_compute_instance_v2.instance_1", "network.5.name", "network_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.6.name", "network_2"),
+						"openstack_compute_instance_v2.instance_1", "network.6.name", "network_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.7.name", "network_1"),
+						"openstack_compute_instance_v2.instance_1", "network.7.name", "network_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.8.name", "network_2"),
+						"openstack_compute_instance_v2.instance_1", "network.8.name", "network_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.1.fixed_ip_v4", "192.168.1.100"),
+						"openstack_compute_instance_v2.instance_1", "network.1.fixed_ip_v4", "192.168.1.100"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.2.fixed_ip_v4", "192.168.2.100"),
+						"openstack_compute_instance_v2.instance_1", "network.2.fixed_ip_v4", "192.168.2.100"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.3.fixed_ip_v4", "192.168.1.101"),
+						"openstack_compute_instance_v2.instance_1", "network.3.fixed_ip_v4", "192.168.1.101"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_compute_instance_v2.instance_1", "network.4.fixed_ip_v4", "192.168.2.101"),
+						"openstack_compute_instance_v2.instance_1", "network.4.fixed_ip_v4", "192.168.2.101"),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.5.port", &port1.ID),
+						"openstack_compute_instance_v2.instance_1", "network.5.port", &port1.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.6.port", &port2.ID),
+						"openstack_compute_instance_v2.instance_1", "network.6.port", &port2.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.7.port", &port3.ID),
+						"openstack_compute_instance_v2.instance_1", "network.7.port", &port3.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.8.port", &port4.ID),
+						"openstack_compute_instance_v2.instance_1", "network.8.port", &port4.ID),
 				),
 			},
 		},
@@ -752,7 +752,7 @@ func TestAccComputeV2Instance_crazyNICs(t *testing.T) {
 func TestAccComputeV2Instance_tags(t *testing.T) {
 	var instance servers.Server
 
-	resourceName := "viettelidc_compute_instance_v2.instance_1"
+	resourceName := "openstack_compute_instance_v2.instance_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -802,7 +802,7 @@ func testAccCheckComputeV2InstanceDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_compute_instance_v2" {
+		if rs.Type != "openstack_compute_instance_v2" {
 			continue
 		}
 
@@ -1025,7 +1025,7 @@ func testAccCheckComputeV2InstanceNetworkDoesNotExist(n string, _ *servers.Serve
 
 func testAccComputeV2InstanceBasic() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   metadata = {
@@ -1040,7 +1040,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceSecgroupMulti() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
+resource "openstack_compute_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "a security group"
   rule {
@@ -1051,9 +1051,9 @@ resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
   }
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
-  security_groups = ["default", "${viettelidc_compute_secgroup_v2.secgroup_1.name}"]
+  security_groups = ["default", "${openstack_compute_secgroup_v2.secgroup_1.name}"]
   network {
     uuid = "%s"
   }
@@ -1063,7 +1063,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceSecgroupMultiUpdate1() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
+resource "openstack_compute_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "a security group"
   rule {
@@ -1074,7 +1074,7 @@ resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
   }
 }
 
-resource "viettelidc_compute_secgroup_v2" "secgroup_2" {
+resource "openstack_compute_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "another security group"
   rule {
@@ -1085,7 +1085,7 @@ resource "viettelidc_compute_secgroup_v2" "secgroup_2" {
   }
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -1097,7 +1097,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceSecgroupMultiUpdate2() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
+resource "openstack_compute_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "a security group"
   rule {
@@ -1108,7 +1108,7 @@ resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
   }
 }
 
-resource "viettelidc_compute_secgroup_v2" "secgroup_2" {
+resource "openstack_compute_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "another security group"
   rule {
@@ -1119,9 +1119,9 @@ resource "viettelidc_compute_secgroup_v2" "secgroup_2" {
   }
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
-  security_groups = ["default", "${viettelidc_compute_secgroup_v2.secgroup_1.name}", "${viettelidc_compute_secgroup_v2.secgroup_2.name}"]
+  security_groups = ["default", "${openstack_compute_secgroup_v2.secgroup_1.name}", "${openstack_compute_secgroup_v2.secgroup_2.name}"]
   network {
     uuid = "%s"
   }
@@ -1131,7 +1131,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBootFromVolumeImage() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
@@ -1151,17 +1151,17 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBootFromVolumeVolume() string {
 	return fmt.Sprintf(`
-resource "viettelidc_blockstorage_volume_v3" "vol_1" {
+resource "openstack_blockstorage_volume_v3" "vol_1" {
   name = "vol_1"
   size = 5
   image_id = "%s"
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
-    uuid = "${viettelidc_blockstorage_volume_v3.vol_1.id}"
+    uuid = "${openstack_blockstorage_volume_v3.vol_1.id}"
     source_type = "volume"
     boot_index = 0
     destination_type = "volume"
@@ -1176,7 +1176,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBootFromVolumeForceNew1() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
@@ -1196,7 +1196,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBootFromVolumeForceNew2() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
@@ -1216,7 +1216,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBlockDeviceNewVolume() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
@@ -1242,7 +1242,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBlockDeviceNewVolumeTypeAndBus() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
@@ -1272,12 +1272,12 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceBlockDeviceExistingVolume() string {
 	return fmt.Sprintf(`
-resource "viettelidc_blockstorage_volume_v3" "volume_1" {
+resource "openstack_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 1
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   block_device {
@@ -1288,7 +1288,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
     delete_on_termination = true
   }
   block_device {
-    uuid = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
+    uuid = "${openstack_blockstorage_volume_v3.volume_1.id}"
     source_type = "volume"
     destination_type = "volume"
     boot_index = 1
@@ -1303,7 +1303,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstancePersonality() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   personality {
@@ -1323,7 +1323,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceMultiEphemeral() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "terraform-test"
   security_groups = ["default"]
   block_device {
@@ -1356,21 +1356,21 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceAccessIPv4() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   cidr = "192.168.1.0/24"
   ip_version = 4
   enable_dhcp = true
   no_gateway = true
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
-  depends_on = ["viettelidc_networking_subnet_v2.subnet_1"]
+resource "openstack_compute_instance_v2" "instance_1" {
+  depends_on = ["openstack_networking_subnet_v2.subnet_1"]
 
   name = "instance_1"
   security_groups = ["default"]
@@ -1380,7 +1380,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 
   network {
-    uuid = "${viettelidc_networking_network_v2.network_1.id}"
+    uuid = "${openstack_networking_network_v2.network_1.id}"
     fixed_ip_v4 = "192.168.1.100"
     access_network = true
   }
@@ -1390,7 +1390,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceChangeFixedIP1() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -1403,7 +1403,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceChangeFixedIP2() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -1416,7 +1416,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceStopBeforeDestroy() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   stop_before_destroy = true
@@ -1430,21 +1430,21 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 func testAccComputeV2InstanceDetachPortsBeforeDestroy() string {
 	return fmt.Sprintf(`
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   network_id = "%s"
   admin_state_up = "true"
 }
 
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   vendor_options {
     detach_ports_before_destroy = true
   }
   network {
-    port = "${viettelidc_networking_port_v2.port_1.id}"
+    port = "${openstack_networking_port_v2.port_1.id}"
   }
 }
 `, osNetworkID)
@@ -1452,7 +1452,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceMetadataRemove1() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   metadata = {
@@ -1468,7 +1468,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceMetadataRemove2() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   metadata = {
@@ -1484,7 +1484,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceForceDelete() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   force_delete = true
@@ -1497,7 +1497,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceTimeout() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
 
@@ -1512,7 +1512,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 }
 
 func testAccComputeV2InstanceNetworkModeAuto() string {
-	return `resource "viettelidc_compute_instance_v2" "instance_1" {
+	return `resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
 
   network_mode = "auto"
@@ -1522,7 +1522,7 @@ func testAccComputeV2InstanceNetworkModeAuto() string {
 
 func testAccComputeV2InstanceNetworkModeNone() string {
 	return `
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "test-instance-1"
 
   network_mode = "none"
@@ -1532,21 +1532,21 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceNetworkNameToID() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   cidr = "192.168.1.0/24"
   ip_version = 4
   enable_dhcp = true
   no_gateway = true
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
-  depends_on = ["viettelidc_networking_subnet_v2.subnet_1"]
+resource "openstack_compute_instance_v2" "instance_1" {
+  depends_on = ["openstack_networking_subnet_v2.subnet_1"]
 
   name = "instance_1"
   security_groups = ["default"]
@@ -1556,7 +1556,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 
   network {
-    name = "${viettelidc_networking_network_v2.network_1.name}"
+    name = "${openstack_networking_network_v2.network_1.name}"
   }
 
 }
@@ -1565,82 +1565,82 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceCrazyNICs() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   cidr = "192.168.1.0/24"
   ip_version = 4
   enable_dhcp = true
   no_gateway = true
 }
 
-resource "viettelidc_networking_network_v2" "network_2" {
+resource "openstack_networking_network_v2" "network_2" {
   name = "network_2"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   name = "subnet_2"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
   cidr = "192.168.2.0/24"
   ip_version = 4
   enable_dhcp = true
   no_gateway = true
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   admin_state_up = "true"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.1.103"
   }
 }
 
-resource "viettelidc_networking_port_v2" "port_2" {
+resource "openstack_networking_port_v2" "port_2" {
   name = "port_2"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
   admin_state_up = "true"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_2.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_2.id}"
     ip_address = "192.168.2.103"
   }
 }
 
-resource "viettelidc_networking_port_v2" "port_3" {
+resource "openstack_networking_port_v2" "port_3" {
   name = "port_3"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   admin_state_up = "true"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.1.104"
   }
 }
 
-resource "viettelidc_networking_port_v2" "port_4" {
+resource "openstack_networking_port_v2" "port_4" {
   name = "port_4"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
   admin_state_up = "true"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_2.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_2.id}"
     ip_address = "192.168.2.104"
   }
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   depends_on = [
-    "viettelidc_networking_subnet_v2.subnet_1",
-    "viettelidc_networking_subnet_v2.subnet_2",
-    "viettelidc_networking_port_v2.port_1",
-    "viettelidc_networking_port_v2.port_2",
+    "openstack_networking_subnet_v2.subnet_1",
+    "openstack_networking_subnet_v2.subnet_2",
+    "openstack_networking_port_v2.port_1",
+    "openstack_networking_port_v2.port_2",
   ]
 
   name = "instance_1"
@@ -1651,39 +1651,39 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 
   network {
-    uuid = "${viettelidc_networking_network_v2.network_1.id}"
+    uuid = "${openstack_networking_network_v2.network_1.id}"
     fixed_ip_v4 = "192.168.1.100"
   }
 
   network {
-    uuid = "${viettelidc_networking_network_v2.network_2.id}"
+    uuid = "${openstack_networking_network_v2.network_2.id}"
     fixed_ip_v4 = "192.168.2.100"
   }
 
   network {
-    uuid = "${viettelidc_networking_network_v2.network_1.id}"
+    uuid = "${openstack_networking_network_v2.network_1.id}"
     fixed_ip_v4 = "192.168.1.101"
   }
 
   network {
-    uuid = "${viettelidc_networking_network_v2.network_2.id}"
+    uuid = "${openstack_networking_network_v2.network_2.id}"
     fixed_ip_v4 = "192.168.2.101"
   }
 
   network {
-    port = "${viettelidc_networking_port_v2.port_1.id}"
+    port = "${openstack_networking_port_v2.port_1.id}"
   }
 
   network {
-    port = "${viettelidc_networking_port_v2.port_2.id}"
+    port = "${openstack_networking_port_v2.port_2.id}"
   }
 
   network {
-    port = "${viettelidc_networking_port_v2.port_3.id}"
+    port = "${openstack_networking_port_v2.port_3.id}"
   }
 
   network {
-    port = "${viettelidc_networking_port_v2.port_4.id}"
+    port = "${openstack_networking_port_v2.port_4.id}"
   }
 }
 `, osNetworkID)
@@ -1691,7 +1691,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceStateActive() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   power_state = "active"
@@ -1704,7 +1704,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceStateShutoff() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   power_state = "shutoff"
@@ -1717,7 +1717,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceStateShelve() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   power_state = "shelved_offloaded"
@@ -1730,7 +1730,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceTagsCreate() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -1743,7 +1743,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceTagsAdd() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -1756,7 +1756,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceTagsDelete() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -1769,7 +1769,7 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2InstanceTagsClear() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {

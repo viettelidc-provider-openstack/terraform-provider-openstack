@@ -98,10 +98,10 @@ func resourceIdentityEndpointV3Create(ctx context.Context, d *schema.ResourceDat
 		ServiceID:    d.Get("service_id").(string),
 	}
 
-	log.Printf("[DEBUG] viettelidc_identity_endpoint_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_identity_endpoint_v3 create options: %#v", createOpts)
 	endpoint, err := endpoints.Create(identityClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_identity_endpoint_v3: %s", err)
+		return diag.Errorf("Error creating openstack_identity_endpoint_v3: %s", err)
 	}
 
 	d.SetId(endpoint.ID)
@@ -132,7 +132,7 @@ func resourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceData,
 	})
 
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_endpoint_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_endpoint_v3"))
 	}
 
 	if endpoint == (endpoints.Endpoint{}) {
@@ -146,12 +146,12 @@ func resourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceData,
 	serviceName := d.Get("service_name").(string)
 	allServicePages, err := services.List(identityClient, services.ListOpts{ServiceType: serviceType, Name: serviceName}).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_identity_endpoint_v3 services: %s", err)
+		return diag.Errorf("Unable to query openstack_identity_endpoint_v3 services: %s", err)
 	}
 
 	allServices, err := services.ExtractServices(allServicePages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_identity_endpoint_v3 services: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_identity_endpoint_v3 services: %s", err)
 	}
 
 	for _, service := range allServices {
@@ -163,7 +163,7 @@ func resourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceData,
 		}
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_identity_endpoint_v3: %#v", endpoint)
+	log.Printf("[DEBUG] Retrieved openstack_identity_endpoint_v3: %#v", endpoint)
 
 	d.Set("name", endpoint.Name)
 	d.Set("interface", string(endpoint.Availability))
@@ -217,7 +217,7 @@ func resourceIdentityEndpointV3Update(ctx context.Context, d *schema.ResourceDat
 	if hasChange {
 		_, err := endpoints.Update(identityClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_identity_endpoint_v3: %s", err)
+			return diag.Errorf("Error updating openstack_identity_endpoint_v3: %s", err)
 		}
 	}
 
@@ -233,7 +233,7 @@ func resourceIdentityEndpointV3Delete(ctx context.Context, d *schema.ResourceDat
 
 	err = endpoints.Delete(identityClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting viettelidc_identity_endpoint_v3: %s", err)
+		return diag.Errorf("Error deleting openstack_identity_endpoint_v3: %s", err)
 	}
 
 	return nil

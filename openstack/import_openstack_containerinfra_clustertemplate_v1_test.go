@@ -9,7 +9,7 @@ import (
 
 func TestAccContainerInfraV1ClusterTemplateImportBasic(t *testing.T) {
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
-	resourceName := "viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1"
+	resourceName := "openstack_containerinfra_clustertemplate_v1.clustertemplate_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

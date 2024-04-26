@@ -27,16 +27,16 @@ func TestAccComputeV2FloatingIPAssociate_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2FloatingIPAssociateBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &fip),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &fip),
 					testAccCheckComputeV2FloatingIPAssociateAssociated(&fip, &instance, 1),
 				),
 			},
 			{
 				Config: testAccComputeV2FloatingIPAssociateUpdate(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &fip),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &fip),
 					testAccCheckComputeV2FloatingIPAssociateAssociated(&fip, &instance, 1),
 				),
 			},
@@ -59,8 +59,8 @@ func TestAccComputeV2FloatingIPAssociate_fixedIP(t *testing.T) {
 			{
 				Config: testAccComputeV2FloatingIPAssociateFixedIP(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &fip),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &fip),
 					testAccCheckComputeV2FloatingIPAssociateAssociated(&fip, &instance, 1),
 				),
 			},
@@ -71,21 +71,21 @@ func TestAccComputeV2FloatingIPAssociate_fixedIP(t *testing.T) {
 // Note: test disabled due to SDK V2 fails with the following error:
 // Error: Invalid index
 //
-//   on terraform_plugin_test.tf line 17, in resource "viettelidc_compute_floatingip_associate_v2" "fip_1":
-//   17:   fixed_ip = "${viettelidc_compute_instance_v2.instance_1.network.0.fixed_ip_v4}"
+//   on terraform_plugin_test.tf line 17, in resource "openstack_compute_floatingip_associate_v2" "fip_1":
+//   17:   fixed_ip = "${openstack_compute_instance_v2.instance_1.network.0.fixed_ip_v4}"
 //     ├────────────────
-//     │ viettelidc_compute_instance_v2.instance_1.network is empty list of object
+//     │ openstack_compute_instance_v2.instance_1.network is empty list of object
 //
 // The given key does not identify an element in this collection value: the
 // collection has no elements.
-//     TestAccComputeV2FloatingIPAssociate_attachToFirstNetwork: resource_viettelidc_compute_floatingip_associate_v2_test.go:75: Step 1/1 error: Error running apply: exit status 1
+//     TestAccComputeV2FloatingIPAssociate_attachToFirstNetwork: resource_openstack_compute_floatingip_associate_v2_test.go:75: Step 1/1 error: Error running apply: exit status 1
 //
 //         Error: Invalid index
 //
-//           on terraform_plugin_test.tf line 17, in resource "viettelidc_compute_floatingip_associate_v2" "fip_1":
-//           17:   fixed_ip = "${viettelidc_compute_instance_v2.instance_1.network.0.fixed_ip_v4}"
+//           on terraform_plugin_test.tf line 17, in resource "openstack_compute_floatingip_associate_v2" "fip_1":
+//           17:   fixed_ip = "${openstack_compute_instance_v2.instance_1.network.0.fixed_ip_v4}"
 //             ├────────────────
-//             │ viettelidc_compute_instance_v2.instance_1.network is empty list of object
+//             │ openstack_compute_instance_v2.instance_1.network is empty list of object
 //
 //         The given key does not identify an element in this collection value: the
 //         collection has no elements.
@@ -104,8 +104,8 @@ func TestAccComputeV2FloatingIPAssociate_fixedIP(t *testing.T) {
 //			{
 //				Config: testAccComputeV2FloatingIPAssociateAttachToFirstNetwork(),
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-//					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &fip),
+//					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+//					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &fip),
 //					testAccCheckComputeV2FloatingIPAssociateAssociated(&fip, &instance, 1),
 //				),
 //			},
@@ -129,18 +129,18 @@ func TestAccComputeV2FloatingIPAssociate_attachNew(t *testing.T) {
 			{
 				Config: testAccComputeV2FloatingIPAssociateAttachNew1(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &floatingIP1),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_2", &floatingIP2),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &floatingIP1),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_2", &floatingIP2),
 					testAccCheckComputeV2FloatingIPAssociateAssociated(&floatingIP1, &instance, 1),
 				),
 			},
 			{
 				Config: testAccComputeV2FloatingIPAssociateAttachNew2(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &floatingIP1),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_2", &floatingIP2),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &floatingIP1),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_2", &floatingIP2),
 					testAccCheckComputeV2FloatingIPAssociateAssociated(&floatingIP2, &instance, 1),
 				),
 			},
@@ -163,8 +163,8 @@ func TestAccComputeV2FloatingIPAssociate_waitUntilAssociated(t *testing.T) {
 			{
 				Config: testAccComputeV2FloatingIPAssociateWaitUntilAssociated(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
-					testAccCheckNetworkingV2FloatingIPExists("viettelidc_networking_floatingip_v2.fip_1", &fip),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckNetworkingV2FloatingIPExists("openstack_networking_floatingip_v2.fip_1", &fip),
 					testAccCheckComputeV2FloatingIPAssociateAssociated(&fip, &instance, 1),
 				),
 			},
@@ -180,7 +180,7 @@ func testAccCheckComputeV2FloatingIPAssociateDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_compute_floatingip_associate_v2" {
+		if rs.Type != "openstack_compute_floatingip_associate_v2" {
 			continue
 		}
 
@@ -248,7 +248,7 @@ func testAccCheckComputeV2FloatingIPAssociateAssociated(
 
 func testAccComputeV2FloatingIPAssociateBasic() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -256,19 +256,19 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_1" {
+resource "openstack_networking_floatingip_v2" "fip_1" {
 }
 
-resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-  floating_ip = "${viettelidc_networking_floatingip_v2.fip_1.address}"
-  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip_1.address}"
+  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
 }
 `, osNetworkID)
 }
 
 func testAccComputeV2FloatingIPAssociateUpdate() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -276,20 +276,20 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_1" {
+resource "openstack_networking_floatingip_v2" "fip_1" {
   description = "test"
 }
 
-resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-  floating_ip = "${viettelidc_networking_floatingip_v2.fip_1.address}"
-  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip_1.address}"
+  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
 }
 `, osNetworkID)
 }
 
 func testAccComputeV2FloatingIPAssociateFixedIP() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -297,20 +297,20 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_1" {
+resource "openstack_networking_floatingip_v2" "fip_1" {
 }
 
-resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-  floating_ip = "${viettelidc_networking_floatingip_v2.fip_1.address}"
-  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
-  fixed_ip = "${viettelidc_compute_instance_v2.instance_1.access_ip_v4}"
+resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip_1.address}"
+  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
+  fixed_ip = "${openstack_compute_instance_v2.instance_1.access_ip_v4}"
 }
 `, osNetworkID)
 }
 
 //func testAccComputeV2FloatingIPAssociateAttachToFirstNetwork() string {
 //	return fmt.Sprintf(`
-//resource "viettelidc_compute_instance_v2" "instance_1" {
+//resource "openstack_compute_instance_v2" "instance_1" {
 //  name = "instance_1"
 //  security_groups = ["default"]
 //
@@ -319,20 +319,20 @@ resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
 //  }
 //}
 //
-//resource "viettelidc_networking_floatingip_v2" "fip_1" {
+//resource "openstack_networking_floatingip_v2" "fip_1" {
 //}
 //
-//resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-//  floating_ip = "${viettelidc_networking_floatingip_v2.fip_1.address}"
-//  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
-//  fixed_ip = "${viettelidc_compute_instance_v2.instance_1.network.0.fixed_ip_v4}"
+//resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+//  floating_ip = "${openstack_networking_floatingip_v2.fip_1.address}"
+//  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
+//  fixed_ip = "${openstack_compute_instance_v2.instance_1.network.0.fixed_ip_v4}"
 //}
 //`, osNetworkID)
 //}
 
 func testAccComputeV2FloatingIPAssociateAttachNew1() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -340,22 +340,22 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_1" {
+resource "openstack_networking_floatingip_v2" "fip_1" {
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_2" {
+resource "openstack_networking_floatingip_v2" "fip_2" {
 }
 
-resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-  floating_ip = "${viettelidc_networking_floatingip_v2.fip_1.address}"
-  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip_1.address}"
+  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
 }
 `, osNetworkID)
 }
 
 func testAccComputeV2FloatingIPAssociateAttachNew2() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -363,22 +363,22 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_1" {
+resource "openstack_networking_floatingip_v2" "fip_1" {
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_2" {
+resource "openstack_networking_floatingip_v2" "fip_2" {
 }
 
-resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-  floating_ip = "${viettelidc_networking_floatingip_v2.fip_2.address}"
-  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip_2.address}"
+  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
 }
 `, osNetworkID)
 }
 
 func testAccComputeV2FloatingIPAssociateWaitUntilAssociated() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -386,12 +386,12 @@ resource "viettelidc_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "viettelidc_networking_floatingip_v2" "fip_1" {
+resource "openstack_networking_floatingip_v2" "fip_1" {
 }
 
-resource "viettelidc_compute_floatingip_associate_v2" "fip_1" {
-  floating_ip = "${viettelidc_networking_floatingip_v2.fip_1.address}"
-  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+resource "openstack_compute_floatingip_associate_v2" "fip_1" {
+  floating_ip = "${openstack_networking_floatingip_v2.fip_1.address}"
+  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
 
   wait_until_associated = true
 }

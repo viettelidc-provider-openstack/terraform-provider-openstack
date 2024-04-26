@@ -24,27 +24,27 @@ func TestAccNetworkingV2Subnet_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2SubnetDNSConsistency("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetDNSConsistency("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pools.0.start", "192.168.199.100"),
+						"openstack_networking_subnet_v2.subnet_1", "allocation_pools.0.start", "192.168.199.100"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "description", "my subnet description"),
+						"openstack_networking_subnet_v2.subnet_1", "description", "my subnet description"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "name", "subnet_1"),
+						"openstack_networking_subnet_v2.subnet_1", "name", "subnet_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "gateway_ip", "192.168.199.1"),
+						"openstack_networking_subnet_v2.subnet_1", "gateway_ip", "192.168.199.1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "enable_dhcp", "true"),
+						"openstack_networking_subnet_v2.subnet_1", "enable_dhcp", "true"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pools.0.start", "192.168.199.150"),
+						"openstack_networking_subnet_v2.subnet_1", "allocation_pools.0.start", "192.168.199.150"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "description", ""),
+						"openstack_networking_subnet_v2.subnet_1", "description", ""),
 				),
 			},
 		},
@@ -65,9 +65,9 @@ func TestAccNetworkingV2Subnet_enableDHCP(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetEnableDhcp,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "enable_dhcp", "true"),
+						"openstack_networking_subnet_v2.subnet_1", "enable_dhcp", "true"),
 				),
 			},
 		},
@@ -88,9 +88,9 @@ func TestAccNetworkingV2Subnet_disableDHCP(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetDisableDhcp,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "enable_dhcp", "false"),
+						"openstack_networking_subnet_v2.subnet_1", "enable_dhcp", "false"),
 				),
 			},
 		},
@@ -111,9 +111,9 @@ func TestAccNetworkingV2Subnet_noGateway(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetNoGateway,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "gateway_ip", ""),
+						"openstack_networking_subnet_v2.subnet_1", "gateway_ip", ""),
 				),
 			},
 		},
@@ -134,9 +134,9 @@ func TestAccNetworkingV2Subnet_impliedGateway(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetImpliedGateway,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "gateway_ip", "192.168.199.1"),
+						"openstack_networking_subnet_v2.subnet_1", "gateway_ip", "192.168.199.1"),
 				),
 			},
 		},
@@ -157,7 +157,7 @@ func TestAccNetworkingV2Subnet_timeout(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 				),
 			},
 		},
@@ -178,7 +178,7 @@ func TestAccNetworkingV2Subnet_subnetPool(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetPool,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 				),
 			},
 		},
@@ -199,7 +199,7 @@ func TestAccNetworkingV2Subnet_subnetPoolNoCIDR(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetPoolNoCIDR,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
 				),
 			},
 		},
@@ -220,12 +220,12 @@ func TestAccNetworkingV2Subnet_subnetPrefixLength(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetPrefixLength,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet[0]),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_2", &subnet[1]),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet[0]),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_2", &subnet[1]),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "prefix_length", "27"),
+						"openstack_networking_subnet_v2.subnet_1", "prefix_length", "27"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_2", "prefix_length", "32"),
+						"openstack_networking_subnet_v2.subnet_2", "prefix_length", "32"),
 				),
 			},
 		},
@@ -245,21 +245,21 @@ func TestAccNetworkingV2Subnet_multipleAllocationPools(t *testing.T) {
 				Config: testAccNetworkingV2SubnetMultipleAllocationPools1,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pools.#", "2"),
+						"openstack_networking_subnet_v2.subnet_1", "allocation_pools.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetMultipleAllocationPools2,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pools.#", "2"),
+						"openstack_networking_subnet_v2.subnet_1", "allocation_pools.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetMultipleAllocationPools3,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pools.#", "2"),
+						"openstack_networking_subnet_v2.subnet_1", "allocation_pools.#", "2"),
 				),
 			},
 		},
@@ -280,26 +280,26 @@ func TestAccNetworkingV2Subnet_multipleAllocationPools(t *testing.T) {
 //				Config: testAccNetworkingV2SubnetAllocationPool1,
 //				Check: resource.ComposeTestCheckFunc(
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.start", "10.3.0.2"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.start", "10.3.0.2"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.end", "10.3.0.255"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.end", "10.3.0.255"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.1586215448.start", "10.3.255.0"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.1586215448.start", "10.3.255.0"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.1586215448.end", "10.3.255.254"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.1586215448.end", "10.3.255.254"),
 //				),
 //			},
 //			{
 //				Config: testAccNetworkingV2SubnetAllocationPool2,
 //				Check: resource.ComposeTestCheckFunc(
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.start", "10.3.0.2"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.start", "10.3.0.2"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.end", "10.3.0.255"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.1804036869.end", "10.3.0.255"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.2876574713.start", "10.3.255.10"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.2876574713.start", "10.3.255.10"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_subnet_v2.subnet_1", "allocation_pool.2876574713.end", "10.3.255.154"),
+//						"openstack_networking_subnet_v2.subnet_1", "allocation_pool.2876574713.end", "10.3.255.154"),
 //				),
 //			},
 //		},
@@ -320,17 +320,17 @@ func TestAccNetworkingV2Subnet_clearDNSNameservers(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetClearDNSNameservers1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2SubnetDNSConsistency("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetDNSConsistency("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "dns_nameservers.#", "2"),
+						"openstack_networking_subnet_v2.subnet_1", "dns_nameservers.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetClearDNSNameservers2,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "dns_nameservers.#", "0"),
+						"openstack_networking_subnet_v2.subnet_1", "dns_nameservers.#", "0"),
 				),
 			},
 		},
@@ -351,17 +351,17 @@ func TestAccNetworkingV2Subnet_ServiceTypes(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetServiceTypes,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2SubnetDNSConsistency("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2SubnetDNSConsistency("openstack_networking_subnet_v2.subnet_1", &subnet),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "service_types.#", "1"),
+						"openstack_networking_subnet_v2.subnet_1", "service_types.#", "1"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetServiceTypesUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnet_v2.subnet_1", "service_types.#", "0"),
+						"openstack_networking_subnet_v2.subnet_1", "service_types.#", "0"),
 				),
 			},
 		},
@@ -376,7 +376,7 @@ func testAccCheckNetworkingV2SubnetDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_subnet_v2" {
+		if rs.Type != "openstack_networking_subnet_v2" {
 			continue
 		}
 
@@ -443,15 +443,15 @@ func testAccCheckNetworkingV2SubnetDNSConsistency(n string, subnet *subnets.Subn
 }
 
 const testAccNetworkingV2SubnetBasic = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   description = "my subnet description"
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   dns_nameservers = ["10.0.16.4", "213.186.33.99"]
 
@@ -463,16 +463,16 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   gateway_ip = "192.168.199.1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   dns_nameservers = ["10.0.16.4", "213.186.33.99"]
 
@@ -484,69 +484,69 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetEnableDhcp = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   gateway_ip = "192.168.199.1"
   enable_dhcp = true
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetDisableDhcp = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   enable_dhcp = false
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetNoGateway = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   no_gateway = true
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetImpliedGateway = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetTimeout = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   allocation_pools {
     start = "192.168.199.100"
@@ -561,82 +561,82 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetPool = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
   name = "my_ipv4_pool"
   prefixes = ["10.11.12.0/24"]
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "10.11.12.0/25"
   no_gateway = true
-	network_id = "${viettelidc_networking_network_v2.network_1.id}"
-	subnetpool_id = "${viettelidc_networking_subnetpool_v2.subnetpool_1.id}"
+	network_id = "${openstack_networking_network_v2.network_1.id}"
+	subnetpool_id = "${openstack_networking_subnetpool_v2.subnetpool_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetPoolNoCIDR = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
   name = "my_ipv4_pool"
   prefixes = ["10.11.12.0/24"]
   min_prefixlen = "24"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-	network_id = "${viettelidc_networking_network_v2.network_1.id}"
-	subnetpool_id = "${viettelidc_networking_subnetpool_v2.subnetpool_1.id}"
+	network_id = "${openstack_networking_network_v2.network_1.id}"
+	subnetpool_id = "${openstack_networking_subnetpool_v2.subnetpool_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetPrefixLength = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name           = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
   name     = "my_ipv4_pool"
   prefixes = ["10.11.12.0/24"]
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name          = "subnet_1"
   prefix_length = 27
   enable_dhcp   = false
-  network_id    = "${viettelidc_networking_network_v2.network_1.id}"
-  subnetpool_id = "${viettelidc_networking_subnetpool_v2.subnetpool_1.id}"
+  network_id    = "${openstack_networking_network_v2.network_1.id}"
+  subnetpool_id = "${openstack_networking_subnetpool_v2.subnetpool_1.id}"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   name          = "subnet_2"
   prefix_length = 32
   enable_dhcp   = false
-  network_id    = "${viettelidc_networking_network_v2.network_1.id}"
-  subnetpool_id = "${viettelidc_networking_subnetpool_v2.subnetpool_1.id}"
+  network_id    = "${openstack_networking_network_v2.network_1.id}"
+  subnetpool_id = "${openstack_networking_subnetpool_v2.subnetpool_1.id}"
 }
 `
 
 const testAccNetworkingV2SubnetMultipleAllocationPools1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "10.3.0.0/16"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   allocation_pools {
     start = "10.3.0.2"
@@ -651,15 +651,15 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetMultipleAllocationPools2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "10.3.0.0/16"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   allocation_pools {
     start = "10.3.255.0"
@@ -674,15 +674,15 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetMultipleAllocationPools3 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "10.3.0.0/16"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   allocation_pools {
     start = "10.3.255.10"
@@ -697,15 +697,15 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 //const testAccNetworkingV2SubnetAllocationPool1 = `
-//resource "viettelidc_networking_network_v2" "network_1" {
+//resource "openstack_networking_network_v2" "network_1" {
 //  name = "network_1"
 //  admin_state_up = "true"
 //}
 //
-//resource "viettelidc_networking_subnet_v2" "subnet_1" {
+//resource "openstack_networking_subnet_v2" "subnet_1" {
 //  name = "subnet_1"
 //  cidr = "10.3.0.0/16"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //
 //  allocation_pool {
 //    start = "10.3.0.2"
@@ -720,15 +720,15 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 //`
 //
 //const testAccNetworkingV2SubnetAllocationPool2 = `
-//resource "viettelidc_networking_network_v2" "network_1" {
+//resource "openstack_networking_network_v2" "network_1" {
 //  name = "network_1"
 //  admin_state_up = "true"
 //}
 //
-//resource "viettelidc_networking_subnet_v2" "subnet_1" {
+//resource "openstack_networking_subnet_v2" "subnet_1" {
 //  name = "subnet_1"
 //  cidr = "10.3.0.0/16"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //
 //  allocation_pool {
 //    start = "10.3.255.10"
@@ -743,14 +743,14 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 //`
 
 const testAccNetworkingV2SubnetClearDNSNameservers1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   dns_nameservers = ["10.0.16.4", "213.186.33.99"]
 
@@ -762,15 +762,15 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetClearDNSNameservers2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   allocation_pools {
     start = "192.168.199.100"
@@ -780,30 +780,30 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccNetworkingV2SubnetServiceTypes = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   service_types = ["network:distributed"]
 }
 `
 
 const testAccNetworkingV2SubnetServiceTypesUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   service_types = []
 }

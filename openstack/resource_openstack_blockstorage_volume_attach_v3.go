@@ -173,7 +173,7 @@ func resourceBlockStorageVolumeAttachV3Create(ctx context.Context, d *schema.Res
 	connInfo, err := volumeactions.InitializeConnection(client, volumeID, connOpts).Extract()
 	if err != nil {
 		return diag.Errorf(
-			"Unable to initialize connection for viettelidc_blockstorage_volume_attach_v3: %s", err)
+			"Unable to initialize connection for openstack_blockstorage_volume_attach_v3: %s", err)
 	}
 
 	// Only uncomment this when debugging since connInfo contains sensitive information.
@@ -212,16 +212,16 @@ func resourceBlockStorageVolumeAttachV3Create(ctx context.Context, d *schema.Res
 		Mode:       attachMode,
 	}
 
-	log.Printf("[DEBUG] viettelidc_blockstorage_volume_attach_v3 attach options: %#v", attachOpts)
+	log.Printf("[DEBUG] openstack_blockstorage_volume_attach_v3 attach options: %#v", attachOpts)
 
 	if err := volumeactions.Attach(client, volumeID, attachOpts).ExtractErr(); err != nil {
 		return diag.Errorf(
-			"Error attaching viettelidc_blockstorage_volume_attach_v3 for volume %s: %s", volumeID, err)
+			"Error attaching openstack_blockstorage_volume_attach_v3 for volume %s: %s", volumeID, err)
 	}
 
 	// Wait for the volume to become available.
 	log.Printf(
-		"[DEBUG] Waiting for viettelidc_blockstorage_volume_attach_v3 volume %s to become available", volumeID)
+		"[DEBUG] Waiting for openstack_blockstorage_volume_attach_v3 volume %s to become available", volumeID)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"available", "attaching"},
@@ -235,7 +235,7 @@ func resourceBlockStorageVolumeAttachV3Create(ctx context.Context, d *schema.Res
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for viettelidc_blockstorage_volume_attach_v3 volume %s to become in-use: %s", volumeID, err)
+			"Error waiting for openstack_blockstorage_volume_attach_v3 volume %s to become in-use: %s", volumeID, err)
 	}
 
 	// Once the volume has been marked as attached,
@@ -243,7 +243,7 @@ func resourceBlockStorageVolumeAttachV3Create(ctx context.Context, d *schema.Res
 	volume, err := volumes.Get(client, volumeID).Extract()
 	if err != nil {
 		return diag.Errorf(
-			"Unable to retrieve viettelidc_blockstorage_volume_attach_v3 volume %s: %s", volumeID, err)
+			"Unable to retrieve openstack_blockstorage_volume_attach_v3 volume %s: %s", volumeID, err)
 	}
 
 	// Search for the attachmentID
@@ -257,7 +257,7 @@ func resourceBlockStorageVolumeAttachV3Create(ctx context.Context, d *schema.Res
 
 	if attachmentID == "" {
 		return diag.Errorf(
-			"Unable to determine attachment ID for viettelidc_blockstorage_volume_attach_v3 volume %s", volumeID)
+			"Unable to determine attachment ID for openstack_blockstorage_volume_attach_v3 volume %s", volumeID)
 	}
 
 	// The ID must be a combination of the volume and attachment ID
@@ -283,10 +283,10 @@ func resourceBlockStorageVolumeAttachV3Read(_ context.Context, d *schema.Resourc
 	volume, err := volumes.Get(client, volumeID).Extract()
 	if err != nil {
 		return diag.Errorf(
-			"Unable to retrieve viettelidc_blockstorage_volume_attach_v3 volume %s: %s", volumeID, err)
+			"Unable to retrieve openstack_blockstorage_volume_attach_v3 volume %s: %s", volumeID, err)
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_volume_attach_v3 volume %s: %#v", volumeID, volume)
+	log.Printf("[DEBUG] Retrieved openstack_blockstorage_volume_attach_v3 volume %s: %#v", volumeID, volume)
 
 	var attachment volumes.Attachment
 	for _, v := range volume.Attachments {
@@ -296,7 +296,7 @@ func resourceBlockStorageVolumeAttachV3Read(_ context.Context, d *schema.Resourc
 	}
 
 	log.Printf(
-		"[DEBUG] Retrieved viettelidc_blockstorage_volume_attach_v3 attachment %s: %#v", d.Id(), attachment)
+		"[DEBUG] Retrieved openstack_blockstorage_volume_attach_v3 attachment %s: %#v", d.Id(), attachment)
 
 	return nil
 }
@@ -310,7 +310,7 @@ func resourceBlockStorageVolumeAttachV3Delete(ctx context.Context, d *schema.Res
 
 	volumeID, attachmentID, err := blockStorageVolumeAttachV3ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error parsing viettelidc_blockstorage_volume_attach_v3: %s", err)
+		return diag.Errorf("Error parsing openstack_blockstorage_volume_attach_v3: %s", err)
 	}
 
 	// Terminate the connection
@@ -353,7 +353,7 @@ func resourceBlockStorageVolumeAttachV3Delete(ctx context.Context, d *schema.Res
 	err = volumeactions.TerminateConnection(client, volumeID, termOpts).ExtractErr()
 	if err != nil {
 		return diag.Errorf(
-			"Error terminating viettelidc_blockstorage_volume_attach_v3 connection %s: %s", d.Id(), err)
+			"Error terminating openstack_blockstorage_volume_attach_v3 connection %s: %s", d.Id(), err)
 	}
 
 	// Detach the volume
@@ -362,7 +362,7 @@ func resourceBlockStorageVolumeAttachV3Delete(ctx context.Context, d *schema.Res
 	}
 
 	log.Printf(
-		"[DEBUG] viettelidc_blockstorage_volume_attach_v3 detachment options %s: %#v", d.Id(), detachOpts)
+		"[DEBUG] openstack_blockstorage_volume_attach_v3 detachment options %s: %#v", d.Id(), detachOpts)
 
 	if err := volumeactions.Detach(client, volumeID, detachOpts).ExtractErr(); err != nil {
 		return diag.FromErr(err)
@@ -380,7 +380,7 @@ func resourceBlockStorageVolumeAttachV3Delete(ctx context.Context, d *schema.Res
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for viettelidc_blockstorage_volume_attach_v3 volume %s to become available: %s", volumeID, err)
+			"Error waiting for openstack_blockstorage_volume_attach_v3 volume %s to become available: %s", volumeID, err)
 	}
 
 	return nil

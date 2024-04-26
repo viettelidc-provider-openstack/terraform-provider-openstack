@@ -72,10 +72,10 @@ func resourceBlockStorageVolumeTypeV3Create(ctx context.Context, d *schema.Resou
 		ExtraSpecs:  expandToMapStringString(extraSpecs),
 	}
 
-	log.Printf("[DEBUG] viettelidc_blockstorage_volume_type_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_blockstorage_volume_type_v3 create options: %#v", createOpts)
 	vt, err := volumetypes.Create(blockStorageClient, &createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_blockstorage_volume_type_v3 %s: %s", name, err)
+		return diag.Errorf("Error creating openstack_blockstorage_volume_type_v3 %s: %s", name, err)
 	}
 
 	d.SetId(vt.ID)
@@ -92,10 +92,10 @@ func resourceBlockStorageVolumeTypeV3Read(ctx context.Context, d *schema.Resourc
 
 	vt, err := volumetypes.Get(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_volume_type_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_volume_type_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_volume_type_v3 %s: %#v", d.Id(), vt)
+	log.Printf("[DEBUG] Retrieved openstack_blockstorage_volume_type_v3 %s: %#v", d.Id(), vt)
 
 	d.Set("name", vt.Name)
 	d.Set("description", vt.Description)
@@ -104,11 +104,11 @@ func resourceBlockStorageVolumeTypeV3Read(ctx context.Context, d *schema.Resourc
 
 	es, err := volumetypes.ListExtraSpecs(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.Errorf("Error reading extra_specs for viettelidc_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
+		return diag.Errorf("Error reading extra_specs for openstack_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
 	}
 
 	if err := d.Set("extra_specs", es); err != nil {
-		log.Printf("[WARN] Unable to set extra_specs for viettelidc_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
+		log.Printf("[WARN] Unable to set extra_specs for openstack_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
 	}
 
 	return nil
@@ -145,7 +145,7 @@ func resourceBlockStorageVolumeTypeV3Update(ctx context.Context, d *schema.Resou
 	if hasChange {
 		_, err = volumetypes.Update(blockStorageClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -155,7 +155,7 @@ func resourceBlockStorageVolumeTypeV3Update(ctx context.Context, d *schema.Resou
 		// Delete all old extra specs.
 		for oldKey := range oldES.(map[string]interface{}) {
 			if err := volumetypes.DeleteExtraSpec(blockStorageClient, d.Id(), oldKey).ExtractErr(); err != nil {
-				return diag.Errorf("Error deleting extra_spec %s from viettelidc_blockstorage_volume_type_v3 %s: %s", oldKey, d.Id(), err)
+				return diag.Errorf("Error deleting extra_spec %s from openstack_blockstorage_volume_type_v3 %s: %s", oldKey, d.Id(), err)
 			}
 		}
 
@@ -166,7 +166,7 @@ func resourceBlockStorageVolumeTypeV3Update(ctx context.Context, d *schema.Resou
 
 			_, err := volumetypes.CreateExtraSpecs(blockStorageClient, d.Id(), extraSpecs).Extract()
 			if err != nil {
-				return diag.Errorf("Error creating extra_specs for viettelidc_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
+				return diag.Errorf("Error creating extra_specs for openstack_blockstorage_volume_type_v3 %s: %s", d.Id(), err)
 			}
 		}
 	}
@@ -183,7 +183,7 @@ func resourceBlockStorageVolumeTypeV3Delete(ctx context.Context, d *schema.Resou
 
 	err = volumetypes.Delete(blockStorageClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_blockstorage_volume_type_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_blockstorage_volume_type_v3"))
 	}
 
 	return nil

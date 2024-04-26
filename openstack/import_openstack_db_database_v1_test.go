@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccDatabaseV1Database_importBasic(t *testing.T) {
-	resourceName := "viettelidc_db_database_v1.basic"
+	resourceName := "openstack_db_database_v1.basic"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

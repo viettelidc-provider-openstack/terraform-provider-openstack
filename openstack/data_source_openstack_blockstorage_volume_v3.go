@@ -97,21 +97,21 @@ func dataSourceBlockStorageVolumeV3Read(ctx context.Context, d *schema.ResourceD
 
 	allPages, err := volumes.List(client, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_blockstorage_volume_v3: %s", err)
+		return diag.Errorf("Unable to query openstack_blockstorage_volume_v3: %s", err)
 	}
 
 	var allVolumes []VolumeWithHost
 	err = volumes.ExtractVolumesInto(allPages, &allVolumes)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_blockstorage_volume_v3: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_blockstorage_volume_v3: %s", err)
 	}
 
 	if len(allVolumes) > 1 {
-		return diag.Errorf("Your viettelidc_blockstorage_volume_v3 query returned multiple results")
+		return diag.Errorf("Your openstack_blockstorage_volume_v3 query returned multiple results")
 	}
 
 	if len(allVolumes) < 1 {
-		return diag.Errorf("Your viettelidc_blockstorage_volume_v3 query returned no results")
+		return diag.Errorf("Your openstack_blockstorage_volume_v3 query returned no results")
 	}
 
 	dataSourceBlockStorageVolumeV3Attributes(d, allVolumes[0])
@@ -131,6 +131,6 @@ func dataSourceBlockStorageVolumeV3Attributes(d *schema.ResourceData, volume Vol
 	d.Set("host", volume.Host)
 
 	if err := d.Set("metadata", volume.Metadata); err != nil {
-		log.Printf("[DEBUG] Unable to set metadata for viettelidc_blockstorage_volume_v3 %s: %s", volume.ID, err)
+		log.Printf("[DEBUG] Unable to set metadata for openstack_blockstorage_volume_v3 %s: %s", volume.ID, err)
 	}
 }

@@ -26,22 +26,22 @@ func TestAccOpenStackObjectStorageTempurlV1_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackObjectstorageTempurlV1ResourceBasic(containerName, objectName, "get", ttl),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckObjectstorageTempurlV1ResourceID("viettelidc_objectstorage_tempurl_v1.tempurl_1"),
-					testAccCheckObjectstorageTempurlV1Get("viettelidc_objectstorage_tempurl_v1.tempurl_1"),
+					testAccCheckObjectstorageTempurlV1ResourceID("openstack_objectstorage_tempurl_v1.tempurl_1"),
+					testAccCheckObjectstorageTempurlV1Get("openstack_objectstorage_tempurl_v1.tempurl_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_tempurl_v1.tempurl_1", "method", "get"),
+						"openstack_objectstorage_tempurl_v1.tempurl_1", "method", "get"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_tempurl_v1.tempurl_1", "container", containerName),
+						"openstack_objectstorage_tempurl_v1.tempurl_1", "container", containerName),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_tempurl_v1.tempurl_1", "object", objectName),
+						"openstack_objectstorage_tempurl_v1.tempurl_1", "object", objectName),
 				),
 			},
 			{
 				Config: testAccOpenStackObjectstorageTempurlV1ResourceBasic(containerName, objectName, "post", ttl),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckObjectstorageTempurlV1ResourceID("viettelidc_objectstorage_tempurl_v1.tempurl_1"),
+					testAccCheckObjectstorageTempurlV1ResourceID("openstack_objectstorage_tempurl_v1.tempurl_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_tempurl_v1.tempurl_1", "method", "post"),
+						"openstack_objectstorage_tempurl_v1.tempurl_1", "method", "post"),
 				),
 			},
 			/* TODO(flaper87): Find a good way to test the ttl expiration
@@ -49,8 +49,8 @@ func TestAccOpenStackObjectStorageTempurlV1_basic(t *testing.T) {
 							Config: testAccOpenStackObjectstorageTempurlV1ResourceBasic(containerName, objectName, "get", ),
 							Check: resource.ComposeTestCheckFunc(
 								resource.TestCheckResourceAttr(
-									"viettelidc_objectstorage_tempurl_v1.tempurl_1", "method", "get"),
-								testAccCheckObjectstorageTempurlV1Expired("viettelidc_objectstorage_tempurl_v1.tempurl_1", 1),
+									"openstack_objectstorage_tempurl_v1.tempurl_1", "method", "get"),
+								testAccCheckObjectstorageTempurlV1Expired("openstack_objectstorage_tempurl_v1.tempurl_1", 1),
 							),
 						},*/
 		},
@@ -119,22 +119,22 @@ func testAccCheckObjectstorageTempurlV1Get(n string) resource.TestCheckFunc {
 
 func testAccOpenStackObjectstorageTempurlV1ResourceBasic(container, object string, method string, ttl int) string {
 	return fmt.Sprintf(`
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "%s"
   metadata = {
     Temp-URL-Key = "testkey"
   }
 }
 
-resource "viettelidc_objectstorage_object_v1" "object_1" {
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+resource "openstack_objectstorage_object_v1" "object_1" {
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   name           = "%s"
   content        = "Hello, world!"
 }
 
-resource "viettelidc_objectstorage_tempurl_v1" "tempurl_1" {
-  object = "${viettelidc_objectstorage_object_v1.object_1.name}"
-  container = "${viettelidc_objectstorage_container_v1.container_1.name}"
+resource "openstack_objectstorage_tempurl_v1" "tempurl_1" {
+  object = "${openstack_objectstorage_object_v1.object_1.name}"
+  container = "${openstack_objectstorage_container_v1.container_1.name}"
   method = "%s"
   ttl = %d
 }

@@ -298,16 +298,16 @@ func resourceContainerInfraClusterTemplateV1Create(ctx context.Context, d *schem
 		createOpts.DockerVolumeSize = &dockerVolumeSize
 	}
 
-	log.Printf("[DEBUG] viettelidc_containerinfra_clustertemplate_v1 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_containerinfra_clustertemplate_v1 create options: %#v", createOpts)
 
 	s, err := clustertemplates.Create(containerInfraClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_containerinfra_clustertemplate_v1: %s", err)
+		return diag.Errorf("Error creating openstack_containerinfra_clustertemplate_v1: %s", err)
 	}
 
 	d.SetId(s.UUID)
 
-	log.Printf("[DEBUG] Created viettelidc_containerinfra_clustertemplate_v1 %s: %#v", s.UUID, s)
+	log.Printf("[DEBUG] Created openstack_containerinfra_clustertemplate_v1 %s: %#v", s.UUID, s)
 	return resourceContainerInfraClusterTemplateV1Read(ctx, d, meta)
 }
 
@@ -320,10 +320,10 @@ func resourceContainerInfraClusterTemplateV1Read(_ context.Context, d *schema.Re
 
 	s, err := clustertemplates.Get(containerInfraClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_containerinfra_clustertemplate_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_containerinfra_clustertemplate_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_containerinfra_clustertemplate_v1 %s: %#v", d.Id(), s)
+	log.Printf("[DEBUG] Retrieved openstack_containerinfra_clustertemplate_v1 %s: %#v", d.Id(), s)
 
 	if err := d.Set("labels", s.Labels); err != nil {
 		return diag.Errorf("Unable to set labels: %s", err)
@@ -361,10 +361,10 @@ func resourceContainerInfraClusterTemplateV1Read(_ context.Context, d *schema.Re
 	d.Set("hidden", s.Hidden)
 
 	if err := d.Set("created_at", s.CreatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_containerinfra_clustertemplate_v1 created_at: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_containerinfra_clustertemplate_v1 created_at: %s", err)
 	}
 	if err := d.Set("updated_at", s.UpdatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_containerinfra_clustertemplate_v1 updated_at: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_containerinfra_clustertemplate_v1 updated_at: %s", err)
 	}
 
 	return nil
@@ -535,11 +535,11 @@ func resourceContainerInfraClusterTemplateV1Update(ctx context.Context, d *schem
 	}
 
 	log.Printf(
-		"[DEBUG] Updating viettelidc_containerinfra_clustertemplate_v1 %s with options: %#v", d.Id(), updateOpts)
+		"[DEBUG] Updating openstack_containerinfra_clustertemplate_v1 %s with options: %#v", d.Id(), updateOpts)
 
 	_, err = clustertemplates.Update(containerInfraClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating viettelidc_containerinfra_clustertemplate_v1 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating openstack_containerinfra_clustertemplate_v1 %s: %s", d.Id(), err)
 	}
 
 	return resourceContainerInfraClusterTemplateV1Read(ctx, d, meta)
@@ -553,7 +553,7 @@ func resourceContainerInfraClusterTemplateV1Delete(_ context.Context, d *schema.
 	}
 
 	if err := clustertemplates.Delete(containerInfraClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_containerinfra_clustertemplate_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_containerinfra_clustertemplate_v1"))
 	}
 
 	return nil

@@ -71,28 +71,28 @@ func dataSourceNetworkingQoSBandwidthLimitRuleV2Read(ctx context.Context, d *sch
 
 	pages, err := rules.ListBandwidthLimitRules(networkingClient, qosPolicyID, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_networking_qos_bandwidth_limit_rule_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_networking_qos_bandwidth_limit_rule_v2: %s", err)
 	}
 
 	allRules, err := rules.ExtractBandwidthLimitRules(pages)
 	if err != nil {
-		return diag.Errorf("Unable to extract viettelidc_networking_qos_bandwidth_limit_rule_v2: %s", err)
+		return diag.Errorf("Unable to extract openstack_networking_qos_bandwidth_limit_rule_v2: %s", err)
 	}
 
 	if len(allRules) < 1 {
-		return diag.Errorf("Your query returned no viettelidc_networking_qos_bandwidth_limit_rule_v2. " +
+		return diag.Errorf("Your query returned no openstack_networking_qos_bandwidth_limit_rule_v2. " +
 			"Please change your search criteria and try again.")
 	}
 
 	if len(allRules) > 1 {
-		return diag.Errorf("Your query returned more than one viettelidc_networking_qos_bandwidth_limit_rule_v2." +
+		return diag.Errorf("Your query returned more than one openstack_networking_qos_bandwidth_limit_rule_v2." +
 			" Please try a more specific search criteria")
 	}
 
 	rule := allRules[0]
 	id := resourceNetworkingQoSRuleV2BuildID(qosPolicyID, rule.ID)
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_qos_bandwidth_limit_rule_v2 %s: %+v", id, rule)
+	log.Printf("[DEBUG] Retrieved openstack_networking_qos_bandwidth_limit_rule_v2 %s: %+v", id, rule)
 	d.SetId(id)
 
 	d.Set("qos_policy_id", qosPolicyID)

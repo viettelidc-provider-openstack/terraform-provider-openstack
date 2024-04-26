@@ -136,7 +136,7 @@ func resourceNetworkFloatingIPV2Create(ctx context.Context, d *schema.ResourceDa
 	poolName := d.Get("pool").(string)
 	poolID, err := networkingNetworkV2ID(d, meta, poolName)
 	if err != nil {
-		return diag.Errorf("Error retrieving ID for viettelidc_networking_floatingip_v2 pool name %s: %s", poolName, err)
+		return diag.Errorf("Error retrieving ID for openstack_networking_floatingip_v2 pool name %s: %s", poolName, err)
 	}
 	if len(poolID) == 0 {
 		return diag.Errorf("No network found with name: %s", poolName)
@@ -183,37 +183,37 @@ func resourceNetworkFloatingIPV2Create(ctx context.Context, d *schema.ResourceDa
 
 	var fip floatingIPExtended
 
-	log.Printf("[DEBUG] viettelidc_networking_floatingip_v2 create options: %#v", finalCreateOpts)
+	log.Printf("[DEBUG] openstack_networking_floatingip_v2 create options: %#v", finalCreateOpts)
 
 	if len(subnetIDs) == 0 {
 		// floating IP allocation without a retry
 		err = floatingips.Create(networkingClient, finalCreateOpts).ExtractInto(&fip)
 		if err != nil {
-			return diag.Errorf("Error creating viettelidc_networking_floatingip_v2: %s", err)
+			return diag.Errorf("Error creating openstack_networking_floatingip_v2: %s", err)
 		}
 	} else {
 		// create a floatingip in a loop with the first available external subnet
 		for i, subnetID := range subnetIDs {
 			createOpts.SubnetID = subnetID
 
-			log.Printf("[DEBUG] viettelidc_networking_floatingip_v2 create options (try %d): %#v", i+1, finalCreateOpts)
+			log.Printf("[DEBUG] openstack_networking_floatingip_v2 create options (try %d): %#v", i+1, finalCreateOpts)
 
 			err = floatingips.Create(networkingClient, finalCreateOpts).ExtractInto(&fip)
 			if err != nil {
 				if retryOn409(err) {
 					continue
 				}
-				return diag.Errorf("Error creating viettelidc_networking_floatingip_v2: %s", err)
+				return diag.Errorf("Error creating openstack_networking_floatingip_v2: %s", err)
 			}
 			break
 		}
 		// handle the last error
 		if err != nil {
-			return diag.Errorf("Error creating viettelidc_networking_floatingip_v2: %d subnets exhausted: %s", len(subnetIDs), err)
+			return diag.Errorf("Error creating openstack_networking_floatingip_v2: %d subnets exhausted: %s", len(subnetIDs), err)
 		}
 	}
 
-	log.Printf("[DEBUG] Waiting for viettelidc_networking_floatingip_v2 %s to become available.", fip.ID)
+	log.Printf("[DEBUG] Waiting for openstack_networking_floatingip_v2 %s to become available.", fip.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE", "DOWN"},
@@ -225,7 +225,7 @@ func resourceNetworkFloatingIPV2Create(ctx context.Context, d *schema.ResourceDa
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_floatingip_v2 %s to become available: %s", fip.ID, err)
+		return diag.Errorf("Error waiting for openstack_networking_floatingip_v2 %s to become available: %s", fip.ID, err)
 	}
 
 	d.SetId(fip.ID)
@@ -240,12 +240,12 @@ func resourceNetworkFloatingIPV2Create(ctx context.Context, d *schema.ResourceDa
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "floatingips", fip.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on viettelidc_networking_floatingip_v2 %s: %s", fip.ID, err)
+			return diag.Errorf("Error setting tags on openstack_networking_floatingip_v2 %s: %s", fip.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_floatingip_v2 %s", tags, fip.ID)
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_floatingip_v2 %s", tags, fip.ID)
 	}
 
-	log.Printf("[DEBUG] Created viettelidc_networking_floatingip_v2 %s: %#v", fip.ID, fip)
+	log.Printf("[DEBUG] Created openstack_networking_floatingip_v2 %s: %#v", fip.ID, fip)
 	return resourceNetworkFloatingIPV2Read(ctx, d, meta)
 }
 
@@ -260,10 +260,10 @@ func resourceNetworkFloatingIPV2Read(ctx context.Context, d *schema.ResourceData
 
 	err = floatingips.Get(networkingClient, d.Id()).ExtractInto(&fip)
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_floatingip_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_floatingip_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_floatingip_v2 %s: %#v", d.Id(), fip)
+	log.Printf("[DEBUG] Retrieved openstack_networking_floatingip_v2 %s: %#v", d.Id(), fip)
 
 	d.Set("description", fip.Description)
 	d.Set("address", fip.FloatingIP.FloatingIP)
@@ -278,7 +278,7 @@ func resourceNetworkFloatingIPV2Read(ctx context.Context, d *schema.ResourceData
 
 	poolName, err := networkingNetworkV2Name(d, meta, fip.FloatingNetworkID)
 	if err != nil {
-		return diag.Errorf("Error retrieving pool name for viettelidc_networking_floatingip_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error retrieving pool name for openstack_networking_floatingip_v2 %s: %s", d.Id(), err)
 	}
 	d.Set("pool", poolName)
 
@@ -315,10 +315,10 @@ func resourceNetworkFloatingIPV2Update(ctx context.Context, d *schema.ResourceDa
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_networking_floatingip_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_networking_floatingip_v2 %s update options: %#v", d.Id(), updateOpts)
 		_, err = floatingips.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_networking_floatingip_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_networking_floatingip_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -327,9 +327,9 @@ func resourceNetworkFloatingIPV2Update(ctx context.Context, d *schema.ResourceDa
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "floatingips", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on viettelidc_networking_floatingip_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on openstack_networking_floatingip_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_floatingip_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_floatingip_v2 %s", tags, d.Id())
 	}
 
 	return resourceNetworkFloatingIPV2Read(ctx, d, meta)
@@ -343,7 +343,7 @@ func resourceNetworkFloatingIPV2Delete(ctx context.Context, d *schema.ResourceDa
 	}
 
 	if err := floatingips.Delete(networkingClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_floatingip_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_floatingip_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -357,7 +357,7 @@ func resourceNetworkFloatingIPV2Delete(ctx context.Context, d *schema.ResourceDa
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_floatingip_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_networking_floatingip_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	d.SetId("")

@@ -250,27 +250,27 @@ func dataSourceNetworkingSubnetV2Read(ctx context.Context, d *schema.ResourceDat
 
 	pages, err := subnets.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_networking_subnet_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_networking_subnet_v2: %s", err)
 	}
 
 	allSubnets, err := subnets.ExtractSubnets(pages)
 	if err != nil {
-		return diag.Errorf("Unable to extract viettelidc_networking_subnet_v2: %s", err)
+		return diag.Errorf("Unable to extract openstack_networking_subnet_v2: %s", err)
 	}
 
 	if len(allSubnets) < 1 {
-		return diag.Errorf("Your query returned no viettelidc_networking_subnet_v2. " +
+		return diag.Errorf("Your query returned no openstack_networking_subnet_v2. " +
 			"Please change your search criteria and try again.")
 	}
 
 	if len(allSubnets) > 1 {
-		return diag.Errorf("Your query returned more than one viettelidc_networking_subnet_v2." +
+		return diag.Errorf("Your query returned more than one openstack_networking_subnet_v2." +
 			" Please try a more specific search criteria")
 	}
 
 	subnet := allSubnets[0]
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_subnet_v2 %s: %+v", subnet.ID, subnet)
+	log.Printf("[DEBUG] Retrieved openstack_networking_subnet_v2 %s: %+v", subnet.ID, subnet)
 	d.SetId(subnet.ID)
 
 	d.Set("name", subnet.Name)
@@ -288,20 +288,20 @@ func dataSourceNetworkingSubnetV2Read(ctx context.Context, d *schema.ResourceDat
 	d.Set("region", GetRegion(d, config))
 
 	if err := d.Set("dns_nameservers", subnet.DNSNameservers); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnet_v2 dns_nameservers: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_subnet_v2 dns_nameservers: %s", err)
 	}
 
 	if err := d.Set("service_types", subnet.ServiceTypes); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnet_v2 service_types: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_subnet_v2 service_types: %s", err)
 	}
 
 	if err := d.Set("host_routes", subnet.HostRoutes); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnet_v2 host_routes: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_subnet_v2 host_routes: %s", err)
 	}
 
 	allocationPools := flattenNetworkingSubnetV2AllocationPools(subnet.AllocationPools)
 	if err := d.Set("allocation_pools", allocationPools); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnet_v2 allocation_pools: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_subnet_v2 allocation_pools: %s", err)
 	}
 
 	return nil

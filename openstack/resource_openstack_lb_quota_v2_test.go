@@ -23,61 +23,61 @@ func TestAccLBQuotaV2_basic(t *testing.T) {
 			{
 				Config: testAccLBQuotaV2Basic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "loadbalancer", "1"),
+						"openstack_lb_quota_v2.quota_1", "loadbalancer", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "listener", "2"),
+						"openstack_lb_quota_v2.quota_1", "listener", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "member", "3"),
+						"openstack_lb_quota_v2.quota_1", "member", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "pool", "4"),
+						"openstack_lb_quota_v2.quota_1", "pool", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "health_monitor", "5"),
+						"openstack_lb_quota_v2.quota_1", "health_monitor", "5"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "l7_rule", "40"),
+						"openstack_lb_quota_v2.quota_1", "l7_rule", "40"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "l7_policy", "41"),
+						"openstack_lb_quota_v2.quota_1", "l7_policy", "41"),
 				),
 			},
 			{
 				Config: testAccLBQuotaV2Update1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "loadbalancer", "6"),
+						"openstack_lb_quota_v2.quota_1", "loadbalancer", "6"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "listener", "7"),
+						"openstack_lb_quota_v2.quota_1", "listener", "7"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "member", "8"),
+						"openstack_lb_quota_v2.quota_1", "member", "8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "pool", "9"),
+						"openstack_lb_quota_v2.quota_1", "pool", "9"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "health_monitor", "10"),
+						"openstack_lb_quota_v2.quota_1", "health_monitor", "10"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "l7_rule", "42"),
+						"openstack_lb_quota_v2.quota_1", "l7_rule", "42"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "l7_policy", "43"),
+						"openstack_lb_quota_v2.quota_1", "l7_policy", "43"),
 				),
 			},
 			{
 				Config: testAccLBQuotaV2Update2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "loadbalancer", "11"),
+						"openstack_lb_quota_v2.quota_1", "loadbalancer", "11"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "listener", "12"),
+						"openstack_lb_quota_v2.quota_1", "listener", "12"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "member", "13"),
+						"openstack_lb_quota_v2.quota_1", "member", "13"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "pool", "14"),
+						"openstack_lb_quota_v2.quota_1", "pool", "14"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "health_monitor", "15"),
+						"openstack_lb_quota_v2.quota_1", "health_monitor", "15"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "l7_rule", "-1"),
+						"openstack_lb_quota_v2.quota_1", "l7_rule", "-1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_quota_v2.quota_1", "l7_policy", "-1"),
+						"openstack_lb_quota_v2.quota_1", "l7_policy", "-1"),
 				),
 			},
 		},
@@ -85,12 +85,12 @@ func TestAccLBQuotaV2_basic(t *testing.T) {
 }
 
 const testAccLBQuotaV2Basic = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_lb_quota_v2" "quota_1" {
-  project_id          = "${viettelidc_identity_project_v3.project_1.id}"
+resource "openstack_lb_quota_v2" "quota_1" {
+  project_id          = "${openstack_identity_project_v3.project_1.id}"
   loadbalancer        = 1
   listener            = 2
   member              = 3
@@ -102,12 +102,12 @@ resource "viettelidc_lb_quota_v2" "quota_1" {
 `
 
 const testAccLBQuotaV2Update1 = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_lb_quota_v2" "quota_1" {
-  project_id          = "${viettelidc_identity_project_v3.project_1.id}"
+resource "openstack_lb_quota_v2" "quota_1" {
+  project_id          = "${openstack_identity_project_v3.project_1.id}"
   loadbalancer        = 6
   listener            = 7
   member              = 8
@@ -119,12 +119,12 @@ resource "viettelidc_lb_quota_v2" "quota_1" {
 `
 
 const testAccLBQuotaV2Update2 = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_lb_quota_v2" "quota_1" {
-  project_id          = "${viettelidc_identity_project_v3.project_1.id}"
+resource "openstack_lb_quota_v2" "quota_1" {
+  project_id          = "${openstack_identity_project_v3.project_1.id}"
   loadbalancer        = 11
   listener            = 12
   member              = 13

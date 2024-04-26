@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV2LoadBalancer_importBasic(t *testing.T) {
-	resourceName := "viettelidc_lb_loadbalancer_v2.loadbalancer_1"
+	resourceName := "openstack_lb_loadbalancer_v2.loadbalancer_1"
 
 	lbProvider := "haproxy"
 	if osUseOctavia != "" {

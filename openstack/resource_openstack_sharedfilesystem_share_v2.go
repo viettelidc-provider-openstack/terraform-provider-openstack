@@ -410,12 +410,12 @@ func resourceSharedFilesystemShareV2Update(ctx context.Context, d *schema.Resour
 			}
 		}
 
-		log.Printf("[DEBUG] Deleting the following items from metadata for viettelidc_sharedfilesystem_share_v2 %s: %v", d.Id(), metadataToDelete)
+		log.Printf("[DEBUG] Deleting the following items from metadata for openstack_sharedfilesystem_share_v2 %s: %v", d.Id(), metadataToDelete)
 
 		for oldKey := range metadataToDelete {
 			err := shares.DeleteMetadatum(sfsClient, d.Id(), oldKey).ExtractErr()
 			if err != nil {
-				return diag.Errorf("Error deleting viettelidc_sharedfilesystem_share_v2 %s metadata %s: %s", d.Id(), oldKey, err)
+				return diag.Errorf("Error deleting openstack_sharedfilesystem_share_v2 %s metadata %s: %s", d.Id(), oldKey, err)
 			}
 		}
 
@@ -432,11 +432,11 @@ func resourceSharedFilesystemShareV2Update(ctx context.Context, d *schema.Resour
 			delete(metadataToUpdate, oldKey)
 		}
 
-		log.Printf("[DEBUG] Updating the following items in metadata for viettelidc_sharedfilesystem_share_v2 %s: %v", d.Id(), metadataToUpdate)
+		log.Printf("[DEBUG] Updating the following items in metadata for openstack_sharedfilesystem_share_v2 %s: %v", d.Id(), metadataToUpdate)
 
 		_, err := shares.UpdateMetadata(sfsClient, d.Id(), shares.UpdateMetadataOpts{Metadata: metadataToUpdate}).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_sharedfilesystem_share_v2 %s metadata: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_sharedfilesystem_share_v2 %s metadata: %s", d.Id(), err)
 		}
 	}
 

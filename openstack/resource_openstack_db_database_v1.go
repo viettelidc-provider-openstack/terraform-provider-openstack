@@ -67,16 +67,16 @@ func resourceDatabaseDatabaseV1Create(ctx context.Context, d *schema.ResourceDat
 
 	exists, err := databaseDatabaseV1Exists(DatabaseV1Client, instanceID, dbName)
 	if err != nil {
-		return diag.Errorf("Error checking viettelidc_db_database_v1 %s status on %s: %s", dbName, instanceID, err)
+		return diag.Errorf("Error checking openstack_db_database_v1 %s status on %s: %s", dbName, instanceID, err)
 	}
 
 	if exists {
-		return diag.Errorf("viettelidc_db_database_v1 %s already exists on instance %s", dbName, instanceID)
+		return diag.Errorf("openstack_db_database_v1 %s already exists on instance %s", dbName, instanceID)
 	}
 
 	err = databases.Create(DatabaseV1Client, instanceID, dbs).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_db_database_v1 %s on %s: %s", dbName, instanceID, err)
+		return diag.Errorf("Error creating openstack_db_database_v1 %s on %s: %s", dbName, instanceID, err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -90,7 +90,7 @@ func resourceDatabaseDatabaseV1Create(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_db_database_v1 %s on %s to become ready: %s", dbName, instanceID, err)
+		return diag.Errorf("Error waiting for openstack_db_database_v1 %s on %s to become ready: %s", dbName, instanceID, err)
 	}
 
 	// Store the ID now
@@ -108,7 +108,7 @@ func resourceDatabaseDatabaseV1Read(_ context.Context, d *schema.ResourceData, m
 
 	dbID := strings.SplitN(d.Id(), "/", 2)
 	if len(dbID) != 2 {
-		return diag.Errorf("Invalid viettelidc_db_database_v1 ID: %s", d.Id())
+		return diag.Errorf("Invalid openstack_db_database_v1 ID: %s", d.Id())
 	}
 
 	instanceID := dbID[0]
@@ -116,7 +116,7 @@ func resourceDatabaseDatabaseV1Read(_ context.Context, d *schema.ResourceData, m
 
 	exists, err := databaseDatabaseV1Exists(DatabaseV1Client, instanceID, dbName)
 	if err != nil {
-		return diag.Errorf("Error checking if viettelidc_db_database_v1 %s exists: %s", d.Id(), err)
+		return diag.Errorf("Error checking if openstack_db_database_v1 %s exists: %s", d.Id(), err)
 	}
 
 	if !exists {
@@ -139,7 +139,7 @@ func resourceDatabaseDatabaseV1Delete(_ context.Context, d *schema.ResourceData,
 
 	dbID := strings.SplitN(d.Id(), "/", 2)
 	if len(dbID) != 2 {
-		return diag.Errorf("Invalid viettelidc_db_database_v1 ID: %s", d.Id())
+		return diag.Errorf("Invalid openstack_db_database_v1 ID: %s", d.Id())
 	}
 
 	instanceID := dbID[0]
@@ -147,7 +147,7 @@ func resourceDatabaseDatabaseV1Delete(_ context.Context, d *schema.ResourceData,
 
 	exists, err := databaseDatabaseV1Exists(DatabaseV1Client, instanceID, dbName)
 	if err != nil {
-		return diag.Errorf("Error checking if viettelidc_db_database_v1 %s exists: %s", d.Id(), err)
+		return diag.Errorf("Error checking if openstack_db_database_v1 %s exists: %s", d.Id(), err)
 	}
 
 	if !exists {
@@ -156,7 +156,7 @@ func resourceDatabaseDatabaseV1Delete(_ context.Context, d *schema.ResourceData,
 
 	err = databases.Delete(DatabaseV1Client, instanceID, dbName).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting viettelidc_db_database_v1 %s: %s", dbName, err)
+		return diag.Errorf("Error deleting openstack_db_database_v1 %s: %s", dbName, err)
 	}
 
 	return nil

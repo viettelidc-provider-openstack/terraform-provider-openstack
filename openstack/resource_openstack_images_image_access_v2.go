@@ -121,7 +121,7 @@ func resourceImagesImageAccessV2Read(ctx context.Context, d *schema.ResourceData
 
 	member, err := members.Get(imageClient, imageID, memberID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving the viettelidc_images_image_access_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving the openstack_images_image_access_v2"))
 	}
 
 	log.Printf("[DEBUG] Retrieved Image member %s: %#v", d.Id(), member)
@@ -178,7 +178,7 @@ func resourceImagesImageAccessV2Delete(ctx context.Context, d *schema.ResourceDa
 	log.Printf("[DEBUG] Deleting Image member %s", d.Id())
 
 	if err := members.Delete(imageClient, imageID, memberID).Err; err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting the viettelidc_images_image_access_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting the openstack_images_image_access_v2"))
 	}
 
 	return nil

@@ -86,7 +86,7 @@ func resourceIdentityInheritRoleAssignmentV3Create(ctx context.Context, d *schem
 
 	err = osinherit.Assign(identityClient, roleID, opts).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_identity_inherit_role_assignment_v3: %s", err)
+		return diag.Errorf("Error creating openstack_identity_inherit_role_assignment_v3: %s", err)
 	}
 
 	id := identityRoleAssignmentV3ID(domainID, projectID, groupID, userID, roleID)
@@ -104,7 +104,7 @@ func resourceIdentityInheritRoleAssignmentV3Read(ctx context.Context, d *schema.
 
 	domainID, projectID, groupID, userID, roleID, err := identityRoleAssignmentV3ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error determining viettelidc_identity_inherit_role_assignment_v3 ID: %s", err)
+		return diag.Errorf("Error determining openstack_identity_inherit_role_assignment_v3 ID: %s", err)
 	}
 
 	validateOpts := osinherit.ValidateOpts{
@@ -116,10 +116,10 @@ func resourceIdentityInheritRoleAssignmentV3Read(ctx context.Context, d *schema.
 
 	err = osinherit.Validate(identityClient, roleID, validateOpts).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error vaalidatin viettelidc_identity_inherit_role_assignment_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error vaalidatin openstack_identity_inherit_role_assignment_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_identity_inherit_role_assignment_v3 %s", d.Id())
+	log.Printf("[DEBUG] Retrieved openstack_identity_inherit_role_assignment_v3 %s", d.Id())
 	d.Set("domain_id", domainID)
 	d.Set("project_id", projectID)
 	d.Set("group_id", groupID)
@@ -139,7 +139,7 @@ func resourceIdentityInheritRoleAssignmentV3Delete(ctx context.Context, d *schem
 
 	domainID, projectID, groupID, userID, roleID, err := identityRoleAssignmentV3ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error determining viettelidc_identity_inherit_role_assignment_v3 ID: %s", err)
+		return diag.Errorf("Error determining openstack_identity_inherit_role_assignment_v3 ID: %s", err)
 	}
 
 	opts := osinherit.UnassignOpts{
@@ -150,7 +150,7 @@ func resourceIdentityInheritRoleAssignmentV3Delete(ctx context.Context, d *schem
 	}
 
 	if err := osinherit.Unassign(identityClient, roleID, opts).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error unassigning viettelidc_identity_inherit_role_assignment_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error unassigning openstack_identity_inherit_role_assignment_v3"))
 	}
 
 	return nil

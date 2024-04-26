@@ -25,7 +25,7 @@ func TestAccBlockStorageVolumeAttachV3_basic(t *testing.T) {
 			{
 				Config: testAccBlockStorageVolumeAttachV3Basic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageVolumeAttachV3Exists("viettelidc_blockstorage_volume_attach_v3.va_1", &va),
+					testAccCheckBlockStorageVolumeAttachV3Exists("openstack_blockstorage_volume_attach_v3.va_1", &va),
 				),
 			},
 		},
@@ -46,7 +46,7 @@ func TestAccBlockStorageVolumeAttachV3_timeout(t *testing.T) {
 			{
 				Config: testAccBlockStorageVolumeAttachV3Timeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageVolumeAttachV3Exists("viettelidc_blockstorage_volume_attach_v3.va_1", &va),
+					testAccCheckBlockStorageVolumeAttachV3Exists("openstack_blockstorage_volume_attach_v3.va_1", &va),
 				),
 			},
 		},
@@ -61,7 +61,7 @@ func testAccCheckBlockStorageVolumeAttachV3Destroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_blockstorage_volume_attach_v3" {
+		if rs.Type != "openstack_blockstorage_volume_attach_v3" {
 			continue
 		}
 
@@ -132,13 +132,13 @@ func testAccCheckBlockStorageVolumeAttachV3Exists(n string, va *volumes.Attachme
 }
 
 const testAccBlockStorageVolumeAttachV3Basic = `
-resource "viettelidc_blockstorage_volume_v3" "volume_1" {
+resource "openstack_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 1
 }
 
-resource "viettelidc_blockstorage_volume_attach_v3" "va_1" {
-  volume_id = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
+resource "openstack_blockstorage_volume_attach_v3" "va_1" {
+  volume_id = "${openstack_blockstorage_volume_v3.volume_1.id}"
   device = "auto"
 
   host_name = "devstack"
@@ -150,13 +150,13 @@ resource "viettelidc_blockstorage_volume_attach_v3" "va_1" {
 `
 
 const testAccBlockStorageVolumeAttachV3Timeout = `
-resource "viettelidc_blockstorage_volume_v3" "volume_1" {
+resource "openstack_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 1
 }
 
-resource "viettelidc_blockstorage_volume_attach_v3" "va_1" {
-  volume_id = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
+resource "openstack_blockstorage_volume_attach_v3" "va_1" {
+  volume_id = "${openstack_blockstorage_volume_v3.volume_1.id}"
   device = "auto"
 
   host_name = "devstack"

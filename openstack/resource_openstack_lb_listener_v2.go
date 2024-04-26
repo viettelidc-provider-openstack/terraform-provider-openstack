@@ -170,10 +170,10 @@ func resourceListenerV2Create(ctx context.Context, d *schema.ResourceData, meta 
 	// Choose either the Octavia or Neutron create options.
 	createOpts, err := chooseLBV2ListenerCreateOpts(d, config)
 	if err != nil {
-		return diag.Errorf("Error building viettelidc_lb_listener_v2 create options: %s", err)
+		return diag.Errorf("Error building openstack_lb_listener_v2 create options: %s", err)
 	}
 
-	log.Printf("[DEBUG] viettelidc_lb_listener_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_lb_listener_v2 create options: %#v", createOpts)
 	var listener *neutronlisteners.Listener
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		listener, err = neutronlisteners.Create(lbClient, createOpts).Extract()
@@ -184,7 +184,7 @@ func resourceListenerV2Create(ctx context.Context, d *schema.ResourceData, meta 
 	})
 
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_lb_listener_v2: %s", err)
+		return diag.Errorf("Error creating openstack_lb_listener_v2: %s", err)
 	}
 
 	// Wait for the listener to become ACTIVE.
@@ -209,10 +209,10 @@ func resourceListenerV2Read(ctx context.Context, d *schema.ResourceData, meta in
 	if config.UseOctavia {
 		listener, err := octavialisteners.Get(lbClient, d.Id()).Extract()
 		if err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "viettelidc_lb_listener_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "openstack_lb_listener_v2"))
 		}
 
-		log.Printf("[DEBUG] Retrieved viettelidc_lb_listener_v2 %s: %#v", d.Id(), listener)
+		log.Printf("[DEBUG] Retrieved openstack_lb_listener_v2 %s: %#v", d.Id(), listener)
 
 		d.Set("name", listener.Name)
 		d.Set("protocol", listener.Protocol)
@@ -238,7 +238,7 @@ func resourceListenerV2Read(ctx context.Context, d *schema.ResourceData, meta in
 		}
 
 		if err := d.Set("insert_headers", listener.InsertHeaders); err != nil {
-			return diag.Errorf("Unable to set viettelidc_lb_listener_v2 insert_headers: %s", err)
+			return diag.Errorf("Unable to set openstack_lb_listener_v2 insert_headers: %s", err)
 		}
 
 		return nil
@@ -247,10 +247,10 @@ func resourceListenerV2Read(ctx context.Context, d *schema.ResourceData, meta in
 	// Use Neutron/Networking in other case.
 	listener, err := neutronlisteners.Get(lbClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "viettelidc_lb_listener_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "openstack_lb_listener_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_lb_listener_v2 %s: %#v", d.Id(), listener)
+	log.Printf("[DEBUG] Retrieved openstack_lb_listener_v2 %s: %#v", d.Id(), listener)
 
 	// Required by import.
 	if len(listener.Loadbalancers) > 0 {
@@ -282,7 +282,7 @@ func resourceListenerV2Update(ctx context.Context, d *schema.ResourceData, meta 
 	// Get a clean copy of the listener.
 	listener, err := neutronlisteners.Get(lbClient, d.Id()).Extract()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_lb_listener_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Unable to retrieve openstack_lb_listener_v2 %s: %s", d.Id(), err)
 	}
 
 	// Wait for the listener to become ACTIVE.
@@ -294,14 +294,14 @@ func resourceListenerV2Update(ctx context.Context, d *schema.ResourceData, meta 
 
 	updateOpts, err := chooseLBV2ListenerUpdateOpts(d, config)
 	if err != nil {
-		return diag.Errorf("Error building viettelidc_lb_listener_v2 update options: %s", err)
+		return diag.Errorf("Error building openstack_lb_listener_v2 update options: %s", err)
 	}
 	if updateOpts == nil {
-		log.Printf("[DEBUG] viettelidc_lb_listener_v2 %s: nothing to update", d.Id())
+		log.Printf("[DEBUG] openstack_lb_listener_v2 %s: nothing to update", d.Id())
 		return resourceListenerV2Read(ctx, d, meta)
 	}
 
-	log.Printf("[DEBUG] viettelidc_lb_listener_v2 %s update options: %#v", d.Id(), updateOpts)
+	log.Printf("[DEBUG] openstack_lb_listener_v2 %s update options: %#v", d.Id(), updateOpts)
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		_, err = neutronlisteners.Update(lbClient, d.Id(), updateOpts).Extract()
 		if err != nil {
@@ -311,7 +311,7 @@ func resourceListenerV2Update(ctx context.Context, d *schema.ResourceData, meta 
 	})
 
 	if err != nil {
-		return diag.Errorf("Error updating viettelidc_lb_listener_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating openstack_lb_listener_v2 %s: %s", d.Id(), err)
 	}
 
 	// Wait for the listener to become ACTIVE.
@@ -333,12 +333,12 @@ func resourceListenerV2Delete(ctx context.Context, d *schema.ResourceData, meta 
 	// Get a clean copy of the listener.
 	listener, err := neutronlisteners.Get(lbClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve viettelidc_lb_listener_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve openstack_lb_listener_v2"))
 	}
 
 	timeout := d.Timeout(schema.TimeoutDelete)
 
-	log.Printf("[DEBUG] Deleting viettelidc_lb_listener_v2 %s", d.Id())
+	log.Printf("[DEBUG] Deleting openstack_lb_listener_v2 %s", d.Id())
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		err = neutronlisteners.Delete(lbClient, d.Id()).ExtractErr()
 		if err != nil {
@@ -348,7 +348,7 @@ func resourceListenerV2Delete(ctx context.Context, d *schema.ResourceData, meta 
 	})
 
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_lb_listener_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_lb_listener_v2"))
 	}
 
 	// Wait for the listener to become DELETED.

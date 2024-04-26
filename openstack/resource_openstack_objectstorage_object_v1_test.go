@@ -55,45 +55,45 @@ func TestAccObjectStorageV1Object_basic(t *testing.T) {
 				Config: testAccObjectStorageV1ObjectBasic(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckObjectStorageV1ObjectExists(
-						"viettelidc_objectstorage_object_v1.myfile", &object),
+						"openstack_objectstorage_object_v1.myfile", &object),
 					testAccCheckObjectStorageV1ObjectDeleteAtMatches(deleteAt, &object),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
+						"openstack_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_type", "text/plain"),
+						"openstack_objectstorage_object_v1.myfile", "content_type", "text/plain"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_length", "3"),
+						"openstack_objectstorage_object_v1.myfile", "content_length", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_disposition", "foo"),
+						"openstack_objectstorage_object_v1.myfile", "content_disposition", "foo"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_encoding", "utf8"),
+						"openstack_objectstorage_object_v1.myfile", "content_encoding", "utf8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "etag", fooMD5()),
+						"openstack_objectstorage_object_v1.myfile", "etag", fooMD5()),
 				),
 			},
 			{
 				Config: testAccObjectStorageV1ObjectUpdateContentType(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_type", "application/octet-stream"),
+						"openstack_objectstorage_object_v1.myfile", "content_type", "application/octet-stream"),
 				),
 			},
 			{
 				Config: testAccObjectStorageV1ObjectUpdateContent,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_type", "application/octet-stream"),
+						"openstack_objectstorage_object_v1.myfile", "content_type", "application/octet-stream"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "etag", foobarMD5()),
+						"openstack_objectstorage_object_v1.myfile", "etag", foobarMD5()),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_length", "6"),
+						"openstack_objectstorage_object_v1.myfile", "content_length", "6"),
 				),
 			},
 			{
 				Config: testAccObjectStorageV1ObjectUpdateDeleteAfter,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "delete_after", "3600"),
+						"openstack_objectstorage_object_v1.myfile", "delete_after", "3600"),
 				),
 			},
 		},
@@ -115,9 +115,9 @@ func TestAccObjectStorageV1Object_basic_check_destroy(t *testing.T) {
 				Config: testAccObjectStorageV1ObjectBasic(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
+						"openstack_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_type", "text/plain"),
+						"openstack_objectstorage_object_v1.myfile", "content_type", "text/plain"),
 				),
 			},
 			{
@@ -163,13 +163,13 @@ func TestAccObjectStorageV1Object_fromSource(t *testing.T) {
 				Config: fmt.Sprintf(testAccObjectStorageV1ObjectFromSource, tmpfile.Name()),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
+						"openstack_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_type", "text/plain"),
+						"openstack_objectstorage_object_v1.myfile", "content_type", "text/plain"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_length", fmt.Sprintf("%v", len(content))),
+						"openstack_objectstorage_object_v1.myfile", "content_length", fmt.Sprintf("%v", len(content))),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "etag", fooMD5()),
+						"openstack_objectstorage_object_v1.myfile", "etag", fooMD5()),
 				),
 			},
 		},
@@ -192,11 +192,11 @@ func TestAccObjectStorageV1Object_detectContentType(t *testing.T) {
 				Config: testAccObjectStorageV1ObjectDetectContentType(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
+						"openstack_objectstorage_container_v1.container_1", "name", "tf_test_container_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "content_type", "text/csv"),
+						"openstack_objectstorage_object_v1.myfile", "content_type", "text/csv"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "etag", fooMD5()),
+						"openstack_objectstorage_object_v1.myfile", "etag", fooMD5()),
 				),
 			},
 		},
@@ -222,9 +222,9 @@ func TestAccObjectStorageV1Object_copyFrom(t *testing.T) {
 				Config: testAccObjectStorageV1ObjectCopyFrom,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfilesource", "etag", fooMD5()),
+						"openstack_objectstorage_object_v1.myfilesource", "etag", fooMD5()),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfilecopied", "etag", fooMD5()),
+						"openstack_objectstorage_object_v1.myfilecopied", "etag", fooMD5()),
 				),
 			},
 		},
@@ -256,11 +256,11 @@ func TestAccObjectStorageV1Object_objectManifest(t *testing.T) {
 				Config: testAccObjectStorageV1ObjectManifest,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile_part1", "etag", fooMD5()),
+						"openstack_objectstorage_object_v1.myfile_part1", "etag", fooMD5()),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile_part2", "etag", barMD5()),
+						"openstack_objectstorage_object_v1.myfile_part2", "etag", barMD5()),
 					resource.TestCheckResourceAttr(
-						"viettelidc_objectstorage_object_v1.myfile", "etag", manifestMD5()),
+						"openstack_objectstorage_object_v1.myfile", "etag", manifestMD5()),
 				),
 			},
 		},
@@ -275,7 +275,7 @@ func testAccCheckObjectStorageV1ObjectDestroy(s *terraform.State, objectname str
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_objectstorage_object_v1" {
+		if rs.Type != "openstack_objectstorage_object_v1" {
 			continue
 		}
 
@@ -360,14 +360,14 @@ func testAccCheckObjectStorageV1DestroyContainer(container, object string) resou
 
 func testAccObjectStorageV1ObjectBasic() string {
 	return fmt.Sprintf(`
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
   content_type = "text/plain"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test/myfile.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content = "foo"
 
   content_disposition = "foo"
@@ -379,14 +379,14 @@ resource "viettelidc_objectstorage_object_v1" "myfile" {
 
 func testAccObjectStorageV1ObjectDetectContentType() string {
 	return fmt.Sprintf(`
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
   content_type = "text/plain"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test/myfile.csv"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   detect_content_type = true
   content = "foo"
   content_disposition = "foo"
@@ -398,14 +398,14 @@ resource "viettelidc_objectstorage_object_v1" "myfile" {
 
 func testAccObjectStorageV1ObjectUpdateContentType() string {
 	return fmt.Sprintf(`
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
   content_type = "text/plain"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test/myfile.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content_type = "application/octet-stream"
   content = "foo"
   content_disposition = "foo"
@@ -416,14 +416,14 @@ resource "viettelidc_objectstorage_object_v1" "myfile" {
 }
 
 const testAccObjectStorageV1ObjectUpdateDeleteAfter = `
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
   content_type = "text/plain"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test/myfile.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content_type = "application/octet-stream"
   content = "foo"
   content_encoding = "utf8"
@@ -432,14 +432,14 @@ resource "viettelidc_objectstorage_object_v1" "myfile" {
 `
 
 const testAccObjectStorageV1ObjectUpdateContent = `
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
   content_type = "text/plain"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test/myfile.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content_type = "application/octet-stream"
   content = "foobar"
 
@@ -447,60 +447,60 @@ resource "viettelidc_objectstorage_object_v1" "myfile" {
 `
 
 const testAccObjectStorageV1ObjectFromSource = `
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test/myfile.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   detect_content_type = true
   source = "%s"
 }
 `
 
 const testAccObjectStorageV1ObjectCopyFrom = `
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfilesource" {
+resource "openstack_objectstorage_object_v1" "myfilesource" {
   name = "terraform/test/myfile.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content = "foo"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfilecopied" {
+resource "openstack_objectstorage_object_v1" "myfilecopied" {
   name = "terraform/test/myfilecopied.txt"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
-  copy_from = "${viettelidc_objectstorage_container_v1.container_1.name}/${viettelidc_objectstorage_object_v1.myfilesource.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
+  copy_from = "${openstack_objectstorage_container_v1.container_1.name}/${openstack_objectstorage_object_v1.myfilesource.name}"
 }
 `
 
 const testAccObjectStorageV1ObjectManifest = `
-resource "viettelidc_objectstorage_container_v1" "container_1" {
+resource "openstack_objectstorage_container_v1" "container_1" {
   name = "tf_test_container_1"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile_part1" {
+resource "openstack_objectstorage_object_v1" "myfile_part1" {
   name = "terraform/test.csv/part001"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content = "foo"
 }
-resource "viettelidc_objectstorage_object_v1" "myfile_part2" {
+resource "openstack_objectstorage_object_v1" "myfile_part2" {
   name = "terraform/test.csv/part002"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
   content = "bar"
 }
 
-resource "viettelidc_objectstorage_object_v1" "myfile" {
+resource "openstack_objectstorage_object_v1" "myfile" {
   name = "terraform/test.csv"
-  container_name = "${viettelidc_objectstorage_container_v1.container_1.name}"
-  object_manifest = "${format("%s/terraform/test.csv/part",viettelidc_objectstorage_container_v1.container_1.name)}"
+  container_name = "${openstack_objectstorage_container_v1.container_1.name}"
+  object_manifest = "${format("%s/terraform/test.csv/part",openstack_objectstorage_container_v1.container_1.name)}"
 
   metadata = {
-    race = "${viettelidc_objectstorage_object_v1.myfile_part1.id}"
-    condition = "${viettelidc_objectstorage_object_v1.myfile_part2.id}"
+    race = "${openstack_objectstorage_object_v1.myfile_part1.id}"
+    condition = "${openstack_objectstorage_object_v1.myfile_part2.id}"
   }
 }
 `

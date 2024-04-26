@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBQuotaV2_importBasic(t *testing.T) {
-	resourceName := "viettelidc_lb_quota_v2.quota_1"
+	resourceName := "openstack_lb_quota_v2.quota_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

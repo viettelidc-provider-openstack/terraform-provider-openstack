@@ -33,7 +33,7 @@ func resourceNetworkingSecGroupRuleV2Direction(direction string) (rules.RuleDire
 		return rules.DirEgress, nil
 	}
 
-	return "", fmt.Errorf("unknown direction for viettelidc_networking_secgroup_rule_v2: %s", direction)
+	return "", fmt.Errorf("unknown direction for openstack_networking_secgroup_rule_v2: %s", direction)
 }
 
 func resourceNetworkingSecGroupRuleV2EtherType(etherType string) (rules.RuleEtherType, error) {
@@ -44,7 +44,7 @@ func resourceNetworkingSecGroupRuleV2EtherType(etherType string) (rules.RuleEthe
 		return rules.EtherType6, nil
 	}
 
-	return "", fmt.Errorf("unknown ether type for viettelidc_networking_secgroup_rule_v2: %s", etherType)
+	return "", fmt.Errorf("unknown ether type for openstack_networking_secgroup_rule_v2: %s", etherType)
 }
 
 func resourceNetworkingSecGroupRuleV2Protocol(protocol string) (rules.RuleProtocol, error) {
@@ -99,5 +99,5 @@ func resourceNetworkingSecGroupRuleV2Protocol(protocol string) (rules.RuleProtoc
 		return rules.RuleProtocol(protocol), nil
 	}
 
-	return "", fmt.Errorf("unknown protocol for viettelidc_networking_secgroup_rule_v2: %s", protocol)
+	return "", fmt.Errorf("unknown protocol for openstack_networking_secgroup_rule_v2: %s", protocol)
 }

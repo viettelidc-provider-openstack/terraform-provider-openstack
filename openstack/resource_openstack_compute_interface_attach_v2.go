@@ -103,7 +103,7 @@ func resourceComputeInterfaceAttachV2Create(ctx context.Context, d *schema.Resou
 		FixedIPs:  fixedIPs,
 	}
 
-	log.Printf("[DEBUG] viettelidc_compute_interface_attach_v2 attach options: %#v", attachOpts)
+	log.Printf("[DEBUG] openstack_compute_interface_attach_v2 attach options: %#v", attachOpts)
 
 	attachment, err := attachinterfaces.Create(computeClient, instanceID, attachOpts).Extract()
 	if err != nil {
@@ -120,13 +120,13 @@ func resourceComputeInterfaceAttachV2Create(ctx context.Context, d *schema.Resou
 	}
 
 	if _, err = stateConf.WaitForStateContext(ctx); err != nil {
-		return diag.Errorf("Error creating viettelidc_compute_interface_attach_v2 %s: %s", instanceID, err)
+		return diag.Errorf("Error creating openstack_compute_interface_attach_v2 %s: %s", instanceID, err)
 	}
 
 	// Use the instance ID and attachment ID as the resource ID.
 	id := fmt.Sprintf("%s/%s", instanceID, attachment.PortID)
 
-	log.Printf("[DEBUG] Created viettelidc_compute_interface_attach_v2 %s: %#v", id, attachment)
+	log.Printf("[DEBUG] Created openstack_compute_interface_attach_v2 %s: %#v", id, attachment)
 
 	d.SetId(id)
 
@@ -147,10 +147,10 @@ func resourceComputeInterfaceAttachV2Read(_ context.Context, d *schema.ResourceD
 
 	attachment, err := attachinterfaces.Get(computeClient, instanceID, attachmentID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_interface_attach_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_interface_attach_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_compute_interface_attach_v2 %s: %#v", d.Id(), attachment)
+	log.Printf("[DEBUG] Retrieved openstack_compute_interface_attach_v2 %s: %#v", d.Id(), attachment)
 
 	if len(attachment.FixedIPs) > 0 {
 		d.Set("fixed_ip", attachment.FixedIPs[0].IPAddress)
@@ -186,7 +186,7 @@ func resourceComputeInterfaceAttachV2Delete(ctx context.Context, d *schema.Resou
 	}
 
 	if _, err = stateConf.WaitForStateContext(ctx); err != nil {
-		return diag.Errorf("Error detaching viettelidc_compute_interface_attach_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error detaching openstack_compute_interface_attach_v2 %s: %s", d.Id(), err)
 	}
 
 	return nil

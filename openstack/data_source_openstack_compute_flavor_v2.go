@@ -147,7 +147,7 @@ func dataSourceComputeFlavorV2Read(ctx context.Context, d *schema.ResourceData, 
 			AccessType: accessType,
 		}
 
-		log.Printf("[DEBUG] viettelidc_compute_flavor_v2 ListOpts: %#v", listOpts)
+		log.Printf("[DEBUG] openstack_compute_flavor_v2 ListOpts: %#v", listOpts)
 
 		var allPages pagination.Page
 		// try and read flavor using microversion that includes description
@@ -237,7 +237,7 @@ func dataSourceComputeFlavorV2Read(ctx context.Context, d *schema.ResourceData, 
 
 // dataSourceComputeFlavorV2Attributes populates the fields of a Flavor resource.
 func dataSourceComputeFlavorV2Attributes(d *schema.ResourceData, computeClient *gophercloud.ServiceClient, flavor *flavors.Flavor) error {
-	log.Printf("[DEBUG] Retrieved viettelidc_compute_flavor_v2 %s: %#v", flavor.ID, flavor)
+	log.Printf("[DEBUG] Retrieved openstack_compute_flavor_v2 %s: %#v", flavor.ID, flavor)
 
 	d.SetId(flavor.ID)
 	d.Set("name", flavor.Name)
@@ -256,7 +256,7 @@ func dataSourceComputeFlavorV2Attributes(d *schema.ResourceData, computeClient *
 	}
 
 	if err := d.Set("extra_specs", es); err != nil {
-		log.Printf("[WARN] Unable to set extra_specs for viettelidc_compute_flavor_v2 %s: %s", d.Id(), err)
+		log.Printf("[WARN] Unable to set extra_specs for openstack_compute_flavor_v2 %s: %s", d.Id(), err)
 	}
 
 	return nil

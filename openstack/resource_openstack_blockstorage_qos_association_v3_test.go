@@ -30,13 +30,13 @@ func TestAccBlockstorageV3QosAssociation_basic(t *testing.T) {
 			{
 				Config: testAccBlockstorageV3QosAssociationBasic(qosName, vtName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageQosV3Exists("viettelidc_blockstorage_qos_v3.qos", &qosTest),
-					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &vt),
-					testAccCheckBlockstorageV3QosAssociationExists("viettelidc_blockstorage_qos_association_v3.qos_association"),
+					testAccCheckBlockStorageQosV3Exists("openstack_blockstorage_qos_v3.qos", &qosTest),
+					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &vt),
+					testAccCheckBlockstorageV3QosAssociationExists("openstack_blockstorage_qos_association_v3.qos_association"),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_blockstorage_qos_association_v3.qos_association", "qos_id", &qosTest.ID),
+						"openstack_blockstorage_qos_association_v3.qos_association", "qos_id", &qosTest.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_blockstorage_qos_association_v3.qos_association", "volume_type_id", &vt.ID),
+						"openstack_blockstorage_qos_association_v3.qos_association", "volume_type_id", &vt.ID),
 				),
 			},
 		},
@@ -51,7 +51,7 @@ func testAccCheckBlockstorageV3QosAssociationDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_blockstorage_qos_association_v3" {
+		if rs.Type != "openstack_blockstorage_qos_association_v3" {
 			continue
 		}
 
@@ -126,7 +126,7 @@ func testAccCheckBlockstorageV3QosAssociationExists(n string) resource.TestCheck
 
 func testAccBlockstorageV3QosAssociationBasic(qosName, vtName string) string {
 	return fmt.Sprintf(`
-resource "viettelidc_blockstorage_qos_v3" "qos" {
+resource "openstack_blockstorage_qos_v3" "qos" {
   name = "%s"
   consumer = "front-end"
   specs = {
@@ -134,13 +134,13 @@ resource "viettelidc_blockstorage_qos_v3" "qos" {
   }
 }
 
-resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
+resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
   name = "%s"
 }
 
-resource "viettelidc_blockstorage_qos_association_v3" "qos_association" {
-  qos_id         = "${viettelidc_blockstorage_qos_v3.qos.id}"
-  volume_type_id = "${viettelidc_blockstorage_volume_type_v3.volume_type_1.id}"
+resource "openstack_blockstorage_qos_association_v3" "qos_association" {
+  qos_id         = "${openstack_blockstorage_qos_v3.qos.id}"
+  volume_type_id = "${openstack_blockstorage_volume_type_v3.volume_type_1.id}"
 }
 `, qosName, vtName)
 }

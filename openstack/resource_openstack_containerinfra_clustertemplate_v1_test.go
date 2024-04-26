@@ -14,7 +14,7 @@ import (
 func TestAccContainerInfraV1ClusterTemplate_basic(t *testing.T) {
 	var clusterTemplate clustertemplates.ClusterTemplate
 
-	resourceName := "viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1"
+	resourceName := "openstack_containerinfra_clustertemplate_v1.clustertemplate_1"
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
 
 	resource.Test(t, resource.TestCase{
@@ -153,7 +153,7 @@ func testAccCheckContainerInfraV1ClusterTemplateDestroy(s *terraform.State) erro
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_containerinfra_clustertemplate_v1" {
+		if rs.Type != "openstack_containerinfra_clustertemplate_v1" {
 			continue
 		}
 
@@ -168,7 +168,7 @@ func testAccCheckContainerInfraV1ClusterTemplateDestroy(s *terraform.State) erro
 
 func testAccContainerInfraV1ClusterTemplateBasic(clusterTemplateName string) string {
 	return fmt.Sprintf(`
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   region                = "%s"
   name                  = "%s"
   apiserver_port        = "8888"
@@ -207,7 +207,7 @@ resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
 
 func testAccContainerInfraV1ClusterTemplateUpdate(clusterTemplateName string) string {
 	return fmt.Sprintf(`
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   region                = "%s"
   name                  = "%s-updated"
   apiserver_port        = "8080"

@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccServiceV2_importBasic(t *testing.T) {
-	resourceName := "viettelidc_vpnaas_service_v2.service_1"
+	resourceName := "openstack_vpnaas_service_v2.service_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

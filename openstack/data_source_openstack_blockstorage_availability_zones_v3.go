@@ -49,11 +49,11 @@ func dataSourceBlockStorageAvailabilityZonesV3Read(ctx context.Context, d *schem
 
 	allPages, err := availabilityzones.List(client).AllPages()
 	if err != nil {
-		return diag.Errorf("Error retrieving viettelidc_blockstorage_availability_zones_v3: %s", err)
+		return diag.Errorf("Error retrieving openstack_blockstorage_availability_zones_v3: %s", err)
 	}
 	zoneInfo, err := availabilityzones.ExtractAvailabilityZones(allPages)
 	if err != nil {
-		return diag.Errorf("Error extracting viettelidc_blockstorage_availability_zones_v3 from response: %s", err)
+		return diag.Errorf("Error extracting openstack_blockstorage_availability_zones_v3 from response: %s", err)
 	}
 
 	stateBool := d.Get("state").(string) == "available"

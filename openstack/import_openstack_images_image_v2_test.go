@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccImagesImageV2_importBasic(t *testing.T) {
-	resourceName := "viettelidc_images_image_v2.image_1"
+	resourceName := "openstack_images_image_v2.image_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

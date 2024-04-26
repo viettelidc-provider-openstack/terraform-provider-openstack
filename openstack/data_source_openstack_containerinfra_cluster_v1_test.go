@@ -11,7 +11,7 @@ import (
 )
 
 func TestAccContainerInfraV1ClusterDataSource_basic(t *testing.T) {
-	resourceName := "data.viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "data.openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -82,8 +82,8 @@ func testAccContainerInfraV1ClusterDataSourceBasic(clusterResource string) strin
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_containerinfra_cluster_v1" "cluster_1" {
-  name = "${viettelidc_containerinfra_cluster_v1.cluster_1.name}"
+data "openstack_containerinfra_cluster_v1" "cluster_1" {
+  name = "${openstack_containerinfra_cluster_v1.cluster_1.name}"
 }
 `, clusterResource)
 }

@@ -98,7 +98,7 @@ func dataSourceIdentityProjectV3Read(ctx context.Context, d *schema.ResourceData
 	if v := d.Get("project_id").(string); v != "" {
 		project, err := projects.Get(identityClient, v).Extract()
 		if err != nil {
-			return diag.Errorf("Unable to query viettelidc_identity_project_v3: %s", err)
+			return diag.Errorf("Unable to query openstack_identity_project_v3: %s", err)
 		}
 		allProjects = append(allProjects, *project)
 	} else {
@@ -115,7 +115,7 @@ func dataSourceIdentityProjectV3Read(ctx context.Context, d *schema.ResourceData
 		allPages, err := projects.List(identityClient, listOpts).AllPages()
 		if err != nil {
 			userID := config.UserID
-			log.Printf("[DEBUG] Will try to find project with users.ListProjects as I am unable to query viettelidc_identity_project_v3: %s. Trying listing userprojects.", err)
+			log.Printf("[DEBUG] Will try to find project with users.ListProjects as I am unable to query openstack_identity_project_v3: %s. Trying listing userprojects.", err)
 			if userID == "" {
 				tokenInfo, tokenErr := getTokenInfo(identityClient)
 				if tokenErr != nil {
@@ -126,28 +126,28 @@ func dataSourceIdentityProjectV3Read(ctx context.Context, d *schema.ResourceData
 			// Search for all the projects using the users.ListProjects API call and filter them
 			allPages, err = users.ListProjects(identityClient, userID).AllPages()
 			if err != nil {
-				return diag.Errorf("Unable to query viettelidc_identity_project_v3: %s", err)
+				return diag.Errorf("Unable to query openstack_identity_project_v3: %s", err)
 			}
 			allProjects, err = projects.ExtractProjects(allPages)
 			if err != nil {
-				return diag.Errorf("Unable to retrieve viettelidc_identity_project_v3: %s", err)
+				return diag.Errorf("Unable to retrieve openstack_identity_project_v3: %s", err)
 			}
 			allProjects = filterProjects(allProjects, listOpts)
 		} else {
 			allProjects, err = projects.ExtractProjects(allPages)
 			if err != nil {
-				return diag.Errorf("Unable to retrieve viettelidc_identity_project_v3: %s", err)
+				return diag.Errorf("Unable to retrieve openstack_identity_project_v3: %s", err)
 			}
 		}
 	}
 
 	if len(allProjects) < 1 {
-		return diag.Errorf("Your viettelidc_identity_project_v3 query returned no results. " +
+		return diag.Errorf("Your openstack_identity_project_v3 query returned no results. " +
 			"Please change your search criteria and try again")
 	}
 
 	if len(allProjects) > 1 {
-		return diag.Errorf("Your viettelidc_identity_project_v3 query returned more than one result %#v", allProjects)
+		return diag.Errorf("Your openstack_identity_project_v3 query returned more than one result %#v", allProjects)
 	}
 
 	dataSourceIdentityProjectV3Attributes(d, &allProjects[0])
@@ -157,7 +157,7 @@ func dataSourceIdentityProjectV3Read(ctx context.Context, d *schema.ResourceData
 
 // dataSourceIdentityProjectV3Attributes populates the fields of an Project resource.
 func dataSourceIdentityProjectV3Attributes(d *schema.ResourceData, project *projects.Project) {
-	log.Printf("[DEBUG] viettelidc_identity_project_v3 details: %#v", project)
+	log.Printf("[DEBUG] openstack_identity_project_v3 details: %#v", project)
 
 	d.SetId(project.ID)
 	d.Set("project_id", project.ID)

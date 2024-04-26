@@ -199,13 +199,13 @@ func dataSourceIdentityAuthScopeV3Read(ctx context.Context, d *schema.ResourceDa
 
 	allRoles := flattenIdentityAuthScopeV3Roles(tokenDetails.roles)
 	if err := d.Set("roles", allRoles); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_identity_auth_scope_v3 roles: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_identity_auth_scope_v3 roles: %s", err)
 	}
 
 	if tokenDetails.catalog != nil {
 		flatCatalog := flattenIdentityAuthScopeV3ServiceCatalog(tokenDetails.catalog)
 		if err := d.Set("service_catalog", flatCatalog); err != nil {
-			log.Printf("[DEBUG] Unable to set viettelidc_identity_auth_scope_v3 service_catalog: %s", err)
+			log.Printf("[DEBUG] Unable to set openstack_identity_auth_scope_v3 service_catalog: %s", err)
 		}
 	}
 

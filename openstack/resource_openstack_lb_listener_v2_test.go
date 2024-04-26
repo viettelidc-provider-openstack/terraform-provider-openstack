@@ -25,18 +25,18 @@ func TestAccLBV2Listener_basic(t *testing.T) {
 			{
 				Config: testAccLbV2ListenerConfigBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2ListenerExists("viettelidc_lb_listener_v2.listener_1", &listener),
+					testAccCheckLBV2ListenerExists("openstack_lb_listener_v2.listener_1", &listener),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "connection_limit", "-1"),
+						"openstack_lb_listener_v2.listener_1", "connection_limit", "-1"),
 				),
 			},
 			{
 				Config: testAccLbV2ListenerConfigUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "name", "listener_1_updated"),
+						"openstack_lb_listener_v2.listener_1", "name", "listener_1_updated"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "connection_limit", "100"),
+						"openstack_lb_listener_v2.listener_1", "connection_limit", "100"),
 				),
 			},
 		},
@@ -59,38 +59,38 @@ func TestAccLBV2Listener_octavia(t *testing.T) {
 			{
 				Config: testAccLbV2ListenerConfigOctavia,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2ListenerExists("viettelidc_lb_listener_v2.listener_1", &listener),
+					testAccCheckLBV2ListenerExists("openstack_lb_listener_v2.listener_1", &listener),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "tags.#", "1"),
+						"openstack_lb_listener_v2.listener_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "connection_limit", "5"),
+						"openstack_lb_listener_v2.listener_1", "connection_limit", "5"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_client_data", "1000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_client_data", "1000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_member_connect", "2000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_member_connect", "2000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_member_data", "3000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_member_data", "3000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_tcp_inspect", "4000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_tcp_inspect", "4000"),
 				),
 			},
 			{
 				Config: testAccLbV2ListenerConfigOctaviaUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "name", "listener_1_updated"),
+						"openstack_lb_listener_v2.listener_1", "name", "listener_1_updated"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "tags.#", "2"),
+						"openstack_lb_listener_v2.listener_1", "tags.#", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "connection_limit", "100"),
+						"openstack_lb_listener_v2.listener_1", "connection_limit", "100"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_client_data", "4000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_client_data", "4000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_member_connect", "3000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_member_connect", "3000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_member_data", "2000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_member_data", "2000"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "timeout_tcp_inspect", "1000"),
+						"openstack_lb_listener_v2.listener_1", "timeout_tcp_inspect", "1000"),
 				),
 			},
 		},
@@ -113,9 +113,9 @@ func TestAccLBV2Listener_octavia_udp(t *testing.T) {
 			{
 				Config: testAccLbV2ListenerConfigOctaviaUDP,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2ListenerExists("viettelidc_lb_listener_v2.listener_1", &listener),
+					testAccCheckLBV2ListenerExists("openstack_lb_listener_v2.listener_1", &listener),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "protocol", "UDP"),
+						"openstack_lb_listener_v2.listener_1", "protocol", "UDP"),
 				),
 			},
 		},
@@ -138,31 +138,31 @@ func TestAccLBV2ListenerConfig_octavia_insert_headers(t *testing.T) {
 			{
 				Config: testAccLbV2ListenerConfigOctaviaInsertHeaders1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2ListenerExists("viettelidc_lb_listener_v2.listener_1", &listener),
+					testAccCheckLBV2ListenerExists("openstack_lb_listener_v2.listener_1", &listener),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-For", "true"),
+						"openstack_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-For", "true"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-Port", "false"),
+						"openstack_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-Port", "false"),
 				),
 			},
 			{
 				Config: testAccLbV2ListenerConfigOctaviaInsertHeaders2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2ListenerExists("viettelidc_lb_listener_v2.listener_1", &listener),
+					testAccCheckLBV2ListenerExists("openstack_lb_listener_v2.listener_1", &listener),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-For", "false"),
+						"openstack_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-For", "false"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-Port", "true"),
+						"openstack_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-Port", "true"),
 				),
 			},
 			{
 				Config: testAccLbV2ListenerConfigOctavia,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2ListenerExists("viettelidc_lb_listener_v2.listener_1", &listener),
+					testAccCheckLBV2ListenerExists("openstack_lb_listener_v2.listener_1", &listener),
 					resource.TestCheckNoResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-For"),
+						"openstack_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-For"),
 					resource.TestCheckNoResourceAttr(
-						"viettelidc_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-Port"),
+						"openstack_lb_listener_v2.listener_1", "insert_headers.X-Forwarded-Port"),
 				),
 			},
 		},
@@ -177,7 +177,7 @@ func testAccCheckLBV2ListenerDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_lb_listener_v2" {
+		if rs.Type != "openstack_lb_listener_v2" {
 			continue
 		}
 
@@ -223,21 +223,21 @@ func testAccCheckLBV2ListenerExists(n string, listener *listeners.Listener) reso
 }
 
 const testAccLbV2ListenerConfigBasic = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -246,19 +246,19 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name            = "pool_1"
   protocol        = "HTTP"
   lb_method       = "ROUND_ROBIN"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  default_pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  default_pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 
   timeouts {
     create = "5m"
@@ -269,21 +269,21 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
 `
 
 const testAccLbV2ListenerConfigUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -292,13 +292,13 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1_updated"
   protocol = "HTTP"
   protocol_port = 8080
   connection_limit = 100
   admin_state_up = "true"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 
   timeouts {
     create = "5m"
@@ -309,21 +309,21 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
 `
 
 const testAccLbV2ListenerConfigOctavia = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -332,14 +332,14 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name            = "pool_1"
   protocol        = "HTTP"
   lb_method       = "ROUND_ROBIN"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
@@ -348,8 +348,8 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
   timeout_member_connect = 2000
   timeout_member_data = 3000
   timeout_tcp_inspect = 4000
-  default_pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  default_pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
   tags = ["tag1"]
 
   timeouts {
@@ -361,21 +361,21 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
 `
 
 const testAccLbV2ListenerConfigOctaviaUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -384,14 +384,14 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name            = "pool_1"
   protocol        = "HTTP"
   lb_method       = "ROUND_ROBIN"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1_updated"
   protocol = "HTTP"
   protocol_port = 8080
@@ -401,8 +401,8 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
   timeout_member_data = 2000
   timeout_tcp_inspect = 1000
   admin_state_up = "true"
-  default_pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  default_pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
   tags = ["tag1", "tag2"]
 
   timeouts {
@@ -414,21 +414,21 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
 `
 
 const testAccLbV2ListenerConfigOctaviaUDP = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -437,19 +437,19 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name            = "pool_1"
   protocol        = "UDP"
   lb_method       = "ROUND_ROBIN"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "UDP"
   protocol_port = 53
-  default_pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  default_pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 
   timeouts {
     create = "5m"
@@ -460,21 +460,21 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
 `
 
 const testAccLbV2ListenerConfigOctaviaInsertHeaders1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -483,19 +483,19 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name            = "pool_1"
   protocol        = "HTTP"
   lb_method       = "ROUND_ROBIN"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  default_pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  default_pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 
   insert_headers = {
     X-Forwarded-For = "true"
@@ -511,21 +511,21 @@ resource "viettelidc_lb_listener_v2" "listener_1" {
 `
 
 const testAccLbV2ListenerConfigOctaviaInsertHeaders2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -534,19 +534,19 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name            = "pool_1"
   protocol        = "HTTP"
   lb_method       = "ROUND_ROBIN"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  default_pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  default_pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 
   insert_headers = {
     X-Forwarded-For = "false"

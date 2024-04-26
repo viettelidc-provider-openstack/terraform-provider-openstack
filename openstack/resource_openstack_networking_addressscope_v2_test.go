@@ -28,18 +28,18 @@ func TestAccNetworkingV2AddressScope_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2AddressScopeBasic(name),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2AddressScopeExists("viettelidc_networking_addressscope_v2.addressscope_1", &addressScope),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "name", name),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "shared", "false"),
+					testAccCheckNetworkingV2AddressScopeExists("openstack_networking_addressscope_v2.addressscope_1", &addressScope),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "name", name),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "shared", "false"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2AddressScopeBasic(newName),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "name", newName),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "shared", "false"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "name", newName),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "shared", "false"),
 				),
 			},
 		},
@@ -86,7 +86,7 @@ func testAccCheckNetworkingV2AddressScopeDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_addressscope_v2" {
+		if rs.Type != "openstack_networking_addressscope_v2" {
 			continue
 		}
 
@@ -101,7 +101,7 @@ func testAccCheckNetworkingV2AddressScopeDestroy(s *terraform.State) error {
 
 func testAccNetworkingV2AddressScopeBasic(name string) string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_addressscope_v2" "addressscope_1" {
+resource "openstack_networking_addressscope_v2" "addressscope_1" {
   name       = "%s"
   ip_version = 4
 }

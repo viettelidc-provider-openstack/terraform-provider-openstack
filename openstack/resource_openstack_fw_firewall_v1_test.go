@@ -27,14 +27,14 @@ func TestAccFWFirewallV1_basic(t *testing.T) {
 			{
 				Config: testAccFWFirewallV1Basic1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1("viettelidc_fw_firewall_v1.fw_1", "", "", policyID),
+					testAccCheckFWFirewallV1("openstack_fw_firewall_v1.fw_1", "", "", policyID),
 				),
 			},
 			{
 				Config: testAccFWFirewallV1Basic2,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWFirewallV1(
-						"viettelidc_fw_firewall_v1.fw_1", "fw_1", "terraform acceptance test", policyID),
+						"openstack_fw_firewall_v1.fw_1", "fw_1", "terraform acceptance test", policyID),
 				),
 			},
 		},
@@ -56,7 +56,7 @@ func TestAccFWFirewallV1_router(t *testing.T) {
 			{
 				Config: testAccFWFirewallV1Router,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1Exists("viettelidc_fw_firewall_v1.fw_1", &firewall),
+					testAccCheckFWFirewallV1Exists("openstack_fw_firewall_v1.fw_1", &firewall),
 					testAccCheckFWFirewallRouterCount(&firewall, 1),
 				),
 			},
@@ -79,8 +79,8 @@ func TestAccFWFirewallV1_no_router(t *testing.T) {
 			{
 				Config: testAccFWFirewallV1NoRouter,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1Exists("viettelidc_fw_firewall_v1.fw_1", &firewall),
-					resource.TestCheckResourceAttr("viettelidc_fw_firewall_v1.fw_1", "description", "firewall router test"),
+					testAccCheckFWFirewallV1Exists("openstack_fw_firewall_v1.fw_1", &firewall),
+					resource.TestCheckResourceAttr("openstack_fw_firewall_v1.fw_1", "description", "firewall router test"),
 					testAccCheckFWFirewallRouterCount(&firewall, 0),
 				),
 			},
@@ -103,14 +103,14 @@ func TestAccFWFirewallV1_router_update(t *testing.T) {
 			{
 				Config: testAccFWFirewallV1Router,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1Exists("viettelidc_fw_firewall_v1.fw_1", &firewall),
+					testAccCheckFWFirewallV1Exists("openstack_fw_firewall_v1.fw_1", &firewall),
 					testAccCheckFWFirewallRouterCount(&firewall, 1),
 				),
 			},
 			{
 				Config: testAccFWFirewallV1RouterAdd,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1Exists("viettelidc_fw_firewall_v1.fw_1", &firewall),
+					testAccCheckFWFirewallV1Exists("openstack_fw_firewall_v1.fw_1", &firewall),
 					testAccCheckFWFirewallRouterCount(&firewall, 2),
 				),
 			},
@@ -133,14 +133,14 @@ func TestAccFWFirewallV1_router_remove(t *testing.T) {
 			{
 				Config: testAccFWFirewallV1Router,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1Exists("viettelidc_fw_firewall_v1.fw_1", &firewall),
+					testAccCheckFWFirewallV1Exists("openstack_fw_firewall_v1.fw_1", &firewall),
 					testAccCheckFWFirewallRouterCount(&firewall, 1),
 				),
 			},
 			{
 				Config: testAccFWFirewallV1RouterRemove,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWFirewallV1Exists("viettelidc_fw_firewall_v1.fw_1", &firewall),
+					testAccCheckFWFirewallV1Exists("openstack_fw_firewall_v1.fw_1", &firewall),
 					testAccCheckFWFirewallRouterCount(&firewall, 0),
 				),
 			},
@@ -155,7 +155,7 @@ func testAccCheckFWFirewallV1Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_firewall" {
+		if rs.Type != "openstack_firewall" {
 			continue
 		}
 
@@ -269,8 +269,8 @@ func testAccCheckFWFirewallV1(n, expectedName, expectedDescription string, polic
 }
 
 const testAccFWFirewallV1Basic1 = `
-resource "viettelidc_fw_firewall_v1" "fw_1" {
-  policy_id = "${viettelidc_fw_policy_v1.policy_1.id}"
+resource "openstack_fw_firewall_v1" "fw_1" {
+  policy_id = "${openstack_fw_policy_v1.policy_1.id}"
 
   timeouts {
     create = "5m"
@@ -279,16 +279,16 @@ resource "viettelidc_fw_firewall_v1" "fw_1" {
   }
 }
 
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
 }
 `
 
 const testAccFWFirewallV1Basic2 = `
-resource "viettelidc_fw_firewall_v1" "fw_1" {
+resource "openstack_fw_firewall_v1" "fw_1" {
   name = "fw_1"
   description = "terraform acceptance test"
-  policy_id = "${viettelidc_fw_policy_v1.policy_2.id}"
+  policy_id = "${openstack_fw_policy_v1.policy_2.id}"
   admin_state_up = true
 
   timeouts {
@@ -298,77 +298,77 @@ resource "viettelidc_fw_firewall_v1" "fw_1" {
   }
 }
 
-resource "viettelidc_fw_policy_v1" "policy_2" {
+resource "openstack_fw_policy_v1" "policy_2" {
   name = "policy_2"
 }
 `
 
 const testAccFWFirewallV1Router = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
 }
 
-resource "viettelidc_fw_firewall_v1" "fw_1" {
+resource "openstack_fw_firewall_v1" "fw_1" {
   name = "firewall_1"
   description = "firewall router test"
-  policy_id = "${viettelidc_fw_policy_v1.policy_1.id}"
-  associated_routers = ["${viettelidc_networking_router_v2.router_1.id}"]
+  policy_id = "${openstack_fw_policy_v1.policy_1.id}"
+  associated_routers = ["${openstack_networking_router_v2.router_1.id}"]
 }
 `
 
 const testAccFWFirewallV1RouterAdd = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_router_v2" "router_2" {
+resource "openstack_networking_router_v2" "router_2" {
   name = "router_2"
   admin_state_up = "true"
 }
 
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
 }
 
-resource "viettelidc_fw_firewall_v1" "fw_1" {
+resource "openstack_fw_firewall_v1" "fw_1" {
   name = "firewall_1"
   description = "firewall router test"
-  policy_id = "${viettelidc_fw_policy_v1.policy_1.id}"
+  policy_id = "${openstack_fw_policy_v1.policy_1.id}"
   associated_routers = [
-    "${viettelidc_networking_router_v2.router_1.id}",
-    "${viettelidc_networking_router_v2.router_2.id}"
+    "${openstack_networking_router_v2.router_1.id}",
+    "${openstack_networking_router_v2.router_2.id}"
   ]
 }
 `
 
 const testAccFWFirewallV1RouterRemove = `
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
 }
 
-resource "viettelidc_fw_firewall_v1" "fw_1" {
+resource "openstack_fw_firewall_v1" "fw_1" {
   name = "firewall_1"
   description = "firewall router test"
-  policy_id = "${viettelidc_fw_policy_v1.policy_1.id}"
+  policy_id = "${openstack_fw_policy_v1.policy_1.id}"
   no_routers = true
 }
 `
 
 const testAccFWFirewallV1NoRouter = `
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
 }
 
-resource "viettelidc_fw_firewall_v1" "fw_1" {
+resource "openstack_fw_firewall_v1" "fw_1" {
   name = "firewall_1"
   description = "firewall router test"
-  policy_id = "${viettelidc_fw_policy_v1.policy_1.id}"
+  policy_id = "${openstack_fw_policy_v1.policy_1.id}"
   no_routers = true
 }
 `

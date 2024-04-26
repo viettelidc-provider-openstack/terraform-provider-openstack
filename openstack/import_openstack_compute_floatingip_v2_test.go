@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccComputeV2FloatingIP_importBasic(t *testing.T) {
-	resourceName := "viettelidc_compute_floatingip_v2.fip_1"
+	resourceName := "openstack_compute_floatingip_v2.fip_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

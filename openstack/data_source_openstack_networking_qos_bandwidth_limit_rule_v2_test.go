@@ -23,25 +23,25 @@ func TestAccNetworkingV2QoSBandwidthLimitRuleDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingQoSBandwidthLimitRuleV2DataSourceMaxKbps(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQoSBandwidthLimitRuleV2DataSourceID("data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1"),
+					testAccCheckNetworkingQoSBandwidthLimitRuleV2DataSourceID("data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "3000"),
+						"data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "3000"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "300"),
+						"data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "300"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "egress"),
+						"data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "egress"),
 				),
 			},
 			{
 				Config: testAccOpenStackNetworkingQoSBandwidthLimitRuleV2DataSourceMaxBurstKbps(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQoSBandwidthLimitRuleV2DataSourceID("data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1"),
+					testAccCheckNetworkingQoSBandwidthLimitRuleV2DataSourceID("data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "3000"),
+						"data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "3000"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "300"),
+						"data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "300"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "egress"),
+						"data.openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "egress"),
 				),
 			},
 		},
@@ -64,12 +64,12 @@ func testAccCheckNetworkingQoSBandwidthLimitRuleV2DataSourceID(n string) resourc
 }
 
 const testAccNetworkingV2QoSBandwidthLimitRuleDataSource = `
-resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "viettelidc_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
+resource "openstack_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
   max_kbps       = 3000
   max_burst_kbps = 300
   direction      = "egress"
@@ -80,9 +80,9 @@ func testAccOpenStackNetworkingQoSBandwidthLimitRuleV2DataSourceMaxKbps() string
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
-  qos_policy_id = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
-  max_kbps      = "${viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1.max_kbps}"
+data "openstack_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
+  qos_policy_id = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+  max_kbps      = "${openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1.max_kbps}"
 }
 `, testAccNetworkingV2QoSBandwidthLimitRuleDataSource)
 }
@@ -91,9 +91,9 @@ func testAccOpenStackNetworkingQoSBandwidthLimitRuleV2DataSourceMaxBurstKbps() s
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
-  max_burst_kbps = "${viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1.max_burst_kbps}"
+data "openstack_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+  max_burst_kbps = "${openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1.max_burst_kbps}"
 }
 `, testAccNetworkingV2QoSBandwidthLimitRuleDataSource)
 }

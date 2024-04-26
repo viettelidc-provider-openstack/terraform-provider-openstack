@@ -153,7 +153,7 @@ func resourceKeyManagerContainerV1Create(ctx context.Context, d *schema.Resource
 
 	container, err := containers.Create(kmClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_keymanager_container_v1: %s", err)
+		return diag.Errorf("Error creating openstack_keymanager_container_v1: %s", err)
 	}
 
 	uuid := keyManagerContainerV1GetUUIDfromContainerRef(container.ContainerRef)
@@ -169,7 +169,7 @@ func resourceKeyManagerContainerV1Create(ctx context.Context, d *schema.Resource
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_keymanager_container_v1: %s", err)
+		return diag.Errorf("Error waiting for openstack_keymanager_container_v1: %s", err)
 	}
 
 	d.SetId(uuid)
@@ -181,13 +181,13 @@ func resourceKeyManagerContainerV1Create(ctx context.Context, d *schema.Resource
 		setOpts := expandKeyManagerV1ACLs(d.Get("acl"))
 		_, err = acls.SetContainerACL(kmClient, uuid, setOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error settings ACLs for the viettelidc_keymanager_container_v1: %s", err)
+			return diag.Errorf("Error settings ACLs for the openstack_keymanager_container_v1: %s", err)
 		}
 	}
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_keymanager_container_v1: %s", err)
+		return diag.Errorf("Error waiting for openstack_keymanager_container_v1: %s", err)
 	}
 
 	d.Partial(false)
@@ -204,10 +204,10 @@ func resourceKeyManagerContainerV1Read(ctx context.Context, d *schema.ResourceDa
 
 	container, err := containers.Get(kmClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_keymanager_container_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_keymanager_container_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_keymanager_container_v1 %s: %#v", d.Id(), container)
+	log.Printf("[DEBUG] Retrieved openstack_keymanager_container_v1 %s: %#v", d.Id(), container)
 
 	d.Set("name", container.Name)
 
@@ -244,7 +244,7 @@ func resourceKeyManagerContainerV1Update(ctx context.Context, d *schema.Resource
 		updateOpts := expandKeyManagerV1ACLs(d.Get("acl"))
 		_, err := acls.UpdateContainerACL(kmClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_keymanager_container_v1 %s acl: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_keymanager_container_v1 %s acl: %s", d.Id(), err)
 		}
 	}
 

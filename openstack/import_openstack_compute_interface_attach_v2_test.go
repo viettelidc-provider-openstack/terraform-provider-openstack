@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccComputeV2InterfaceAttachImport_basic(t *testing.T) {
-	resourceName := "viettelidc_compute_interface_attach_v2.ai_1"
+	resourceName := "openstack_compute_interface_attach_v2.ai_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

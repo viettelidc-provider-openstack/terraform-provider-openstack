@@ -26,15 +26,15 @@ func TestAccOpenStackIdentityV3UserDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityUserV3DataSourceBasic(userName, userPassword),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityUserV3DataSourceID("data.viettelidc_identity_user_v3.user_1"),
+					testAccCheckIdentityUserV3DataSourceID("data.openstack_identity_user_v3.user_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_identity_user_v3.user_1", "name", userName),
+						"data.openstack_identity_user_v3.user_1", "name", userName),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_identity_user_v3.user_1", "domain_id", "default"),
+						"data.openstack_identity_user_v3.user_1", "domain_id", "default"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_identity_user_v3.user_1", "enabled", "true"),
+						"data.openstack_identity_user_v3.user_1", "enabled", "true"),
 					testAccCheckIdentityUserV3DataSourceDefaultProjectID(
-						"data.viettelidc_identity_user_v3.user_1", "viettelidc_identity_project_v3.project_1"),
+						"data.openstack_identity_user_v3.user_1", "openstack_identity_project_v3.project_1"),
 				),
 			},
 		},
@@ -88,10 +88,10 @@ func testAccOpenStackIdentityUserV3DataSourceUser(name, password string) string 
 	return fmt.Sprintf(`
 	%s
 
-	resource "viettelidc_identity_user_v3" "user_1" {
+	resource "openstack_identity_user_v3" "user_1" {
 	  name = "%s"
 	  password = "%s"
-	  default_project_id = "${viettelidc_identity_project_v3.project_1.id}"
+	  default_project_id = "${openstack_identity_project_v3.project_1.id}"
 	}
 `, testAccOpenStackIdentityProjectV3DataSourceProject(fmt.Sprintf("%s_project", name), acctest.RandString(20), "tag1", "tag2"), name, password)
 }
@@ -100,8 +100,8 @@ func testAccOpenStackIdentityUserV3DataSourceBasic(name, password string) string
 	return fmt.Sprintf(`
 	%s
 
-	data "viettelidc_identity_user_v3" "user_1" {
-      name = "${viettelidc_identity_user_v3.user_1.name}"
+	data "openstack_identity_user_v3" "user_1" {
+      name = "${openstack_identity_user_v3.user_1.name}"
 	}
 `, testAccOpenStackIdentityUserV3DataSourceUser(name, password))
 }

@@ -23,9 +23,9 @@ func TestAccNetworkingV2QoSDSCPMarkingRuleDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingQoSDSCPMarkingRuleV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQoSDSCPMarkingRuleV2DataSourceID("data.viettelidc_networking_qos_dscp_marking_rule_v2.dscp_mark_rule_1"),
+					testAccCheckNetworkingQoSDSCPMarkingRuleV2DataSourceID("data.openstack_networking_qos_dscp_marking_rule_v2.dscp_mark_rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_qos_dscp_marking_rule_v2.dscp_mark_rule_1", "dscp_mark", "26"),
+						"data.openstack_networking_qos_dscp_marking_rule_v2.dscp_mark_rule_1", "dscp_mark", "26"),
 				),
 			},
 		},
@@ -48,11 +48,11 @@ func testAccCheckNetworkingQoSDSCPMarkingRuleV2DataSourceID(n string) resource.T
 }
 
 const testAccNetworkingV2QoSDSCPMarkingRuleDataSource = `
-resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
-resource "viettelidc_networking_qos_dscp_marking_rule_v2" "dscp_mark_rule_1" {
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
+resource "openstack_networking_qos_dscp_marking_rule_v2" "dscp_mark_rule_1" {
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
   dscp_mark      = 26
 }
 `
@@ -60,9 +60,9 @@ resource "viettelidc_networking_qos_dscp_marking_rule_v2" "dscp_mark_rule_1" {
 func testAccOpenStackNetworkingQoSDSCPMarkingRuleV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
-data "viettelidc_networking_qos_dscp_marking_rule_v2" "dscp_mark_rule_1" {
-  qos_policy_id = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
-  dscp_mark     = "${viettelidc_networking_qos_dscp_marking_rule_v2.dscp_mark_rule_1.dscp_mark}"
+data "openstack_networking_qos_dscp_marking_rule_v2" "dscp_mark_rule_1" {
+  qos_policy_id = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+  dscp_mark     = "${openstack_networking_qos_dscp_marking_rule_v2.dscp_mark_rule_1.dscp_mark}"
 }
 `, testAccNetworkingV2QoSDSCPMarkingRuleDataSource)
 }

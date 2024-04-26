@@ -103,7 +103,7 @@ func dataSourceContainerInfraNodeGroupRead(ctx context.Context, d *schema.Resour
 	name := d.Get("name").(string)
 	nodeGroup, err := nodegroups.Get(containerInfraClient, clusterID, name).Extract()
 	if err != nil {
-		return diag.Errorf("Error getting viettelidc_containerinfra_nodegroup_v1 %s: %s", name, err)
+		return diag.Errorf("Error getting openstack_containerinfra_nodegroup_v1 %s: %s", name, err)
 	}
 
 	d.SetId(nodeGroup.UUID)
@@ -118,13 +118,13 @@ func dataSourceContainerInfraNodeGroupRead(ctx context.Context, d *schema.Resour
 	d.Set("flavor", nodeGroup.FlavorID)
 
 	if err := d.Set("labels", nodeGroup.Labels); err != nil {
-		log.Printf("[DEBUG] Unable to set labels for viettelidc_containerinfra_nodegroup_v1 %s: %s", nodeGroup.UUID, err)
+		log.Printf("[DEBUG] Unable to set labels for openstack_containerinfra_nodegroup_v1 %s: %s", nodeGroup.UUID, err)
 	}
 	if err := d.Set("created_at", nodeGroup.CreatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set created_at for viettelidc_containerinfra_nodegroup_v1 %s: %s", nodeGroup.UUID, err)
+		log.Printf("[DEBUG] Unable to set created_at for openstack_containerinfra_nodegroup_v1 %s: %s", nodeGroup.UUID, err)
 	}
 	if err := d.Set("updated_at", nodeGroup.UpdatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set updated_at for viettelidc_containerinfra_nodegroup_v1 %s: %s", nodeGroup.UUID, err)
+		log.Printf("[DEBUG] Unable to set updated_at for openstack_containerinfra_nodegroup_v1 %s: %s", nodeGroup.UUID, err)
 	}
 
 	d.Set("region", GetRegion(d, config))

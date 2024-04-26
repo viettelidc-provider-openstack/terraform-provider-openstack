@@ -78,11 +78,11 @@ func resourceComputeFloatingIPAssociateV2Create(ctx context.Context, d *schema.R
 		FloatingIP: floatingIP,
 		FixedIP:    fixedIP,
 	}
-	log.Printf("[DEBUG] viettelidc_compute_floatingip_associate_v2 create options: %#v", associateOpts)
+	log.Printf("[DEBUG] openstack_compute_floatingip_associate_v2 create options: %#v", associateOpts)
 
 	err = floatingips.AssociateInstance(computeClient, instanceID, associateOpts).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_compute_floatingip_associate_v2: %s", err)
+		return diag.Errorf("Error creating openstack_compute_floatingip_associate_v2: %s", err)
 	}
 
 	// This API call should be synchronous, but we've had reports where it isn't.
@@ -142,10 +142,10 @@ func resourceComputeFloatingIPAssociateV2Read(_ context.Context, d *schema.Resou
 
 	var exists bool
 	if networkEnabled {
-		log.Printf("[DEBUG] Checking for viettelidc_compute_floatingip_associate_v2 %s existence via Network API", d.Id())
+		log.Printf("[DEBUG] Checking for openstack_compute_floatingip_associate_v2 %s existence via Network API", d.Id())
 		exists, err = computeFloatingIPAssociateV2NetworkExists(networkClient, floatingIP)
 	} else {
-		log.Printf("[DEBUG] Checking for viettelidc_compute_floatingip_associate_v2 %s existence via Compute API", d.Id())
+		log.Printf("[DEBUG] Checking for openstack_compute_floatingip_associate_v2 %s existence via Compute API", d.Id())
 		exists, err = computeFloatingIPAssociateV2ComputeExists(computeClient, floatingIP)
 	}
 
@@ -202,15 +202,15 @@ func resourceComputeFloatingIPAssociateV2Delete(_ context.Context, d *schema.Res
 	disassociateOpts := floatingips.DisassociateOpts{
 		FloatingIP: floatingIP,
 	}
-	log.Printf("[DEBUG] viettelidc_compute_floatingip_associate_v2 %s delete options: %#v", d.Id(), disassociateOpts)
+	log.Printf("[DEBUG] openstack_compute_floatingip_associate_v2 %s delete options: %#v", d.Id(), disassociateOpts)
 
 	err = floatingips.DisassociateInstance(computeClient, instanceID, disassociateOpts).ExtractErr()
 	if err != nil {
 		if _, ok := err.(gophercloud.ErrDefault409); ok {
 			// 409 is returned when floating ip address is not associated with an instance.
-			log.Printf("[DEBUG] viettelidc_compute_floatingip_associate_v2 %s is not associated with instance %s", d.Id(), instanceID)
+			log.Printf("[DEBUG] openstack_compute_floatingip_associate_v2 %s is not associated with instance %s", d.Id(), instanceID)
 		} else {
-			return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_compute_floatingip_associate_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_compute_floatingip_associate_v2"))
 		}
 	}
 

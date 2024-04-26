@@ -12,7 +12,7 @@ import (
 )
 
 var testAccAggregateConfig = `
-resource "viettelidc_compute_aggregate_v2" "test" {
+resource "openstack_compute_aggregate_v2" "test" {
   name  = "test-aggregate"
   zone  = "nova"
 }
@@ -20,7 +20,7 @@ resource "viettelidc_compute_aggregate_v2" "test" {
 
 func testAccAggregateHypervisorConfig() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_aggregate_v2" "test" {
+resource "openstack_compute_aggregate_v2" "test" {
   name = "test-aggregate"
   zone = "nova"
   hosts = [ "%s" ]
@@ -32,7 +32,7 @@ resource "viettelidc_compute_aggregate_v2" "test" {
 }
 
 var testAccAggregateRegionConfig = `
-resource "viettelidc_compute_aggregate_v2" "test" {
+resource "openstack_compute_aggregate_v2" "test" {
   region = "RegionOne"
   name   = "test-aggregate"
   zone   = "nova"
@@ -48,10 +48,10 @@ func TestAccComputeV2Aggregate(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAggregateConfig,
-				Check:  testAccCheckAggregateExists("viettelidc_compute_aggregate_v2.test", &aggregate),
+				Check:  testAccCheckAggregateExists("openstack_compute_aggregate_v2.test", &aggregate),
 			},
 			{
-				ResourceName: "viettelidc_compute_aggregate_v2.test",
+				ResourceName: "openstack_compute_aggregate_v2.test",
 				ImportState:  true,
 			},
 		},
@@ -70,22 +70,22 @@ func TestAccComputeV2AggregateWithHypervisor(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAggregateConfig,
-				Check:  testAccCheckAggregateExists("viettelidc_compute_aggregate_v2.test", &aggregate),
+				Check:  testAccCheckAggregateExists("openstack_compute_aggregate_v2.test", &aggregate),
 			},
 			{
 				Config: testAccAggregateHypervisorConfig(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAggregateExists("viettelidc_compute_aggregate_v2.test", &aggregate),
-					resource.TestCheckResourceAttr("viettelidc_compute_aggregate_v2.test", "hosts.#", "1"),
-					resource.TestCheckResourceAttr("viettelidc_compute_aggregate_v2.test", "metadata.test", "123"),
+					testAccCheckAggregateExists("openstack_compute_aggregate_v2.test", &aggregate),
+					resource.TestCheckResourceAttr("openstack_compute_aggregate_v2.test", "hosts.#", "1"),
+					resource.TestCheckResourceAttr("openstack_compute_aggregate_v2.test", "metadata.test", "123"),
 				),
 			},
 			{
 				Config: testAccAggregateConfig,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAggregateExists("viettelidc_compute_aggregate_v2.test", &aggregate),
-					resource.TestCheckResourceAttr("viettelidc_compute_aggregate_v2.test", "hosts.#", "0"),
-					resource.TestCheckNoResourceAttr("viettelidc_compute_aggregate_v2.test", "metadata.test"),
+					testAccCheckAggregateExists("openstack_compute_aggregate_v2.test", &aggregate),
+					resource.TestCheckResourceAttr("openstack_compute_aggregate_v2.test", "hosts.#", "0"),
+					resource.TestCheckNoResourceAttr("openstack_compute_aggregate_v2.test", "metadata.test"),
 				),
 			},
 		},
@@ -102,8 +102,8 @@ func TestAccComputeV2AggregateWithRegion(t *testing.T) {
 			{
 				Config: testAccAggregateRegionConfig,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAggregateExists("viettelidc_compute_aggregate_v2.test", &aggregate),
-					resource.TestCheckResourceAttr("viettelidc_compute_aggregate_v2.test", "region", "RegionOne"),
+					testAccCheckAggregateExists("openstack_compute_aggregate_v2.test", &aggregate),
+					resource.TestCheckResourceAttr("openstack_compute_aggregate_v2.test", "region", "RegionOne"),
 				),
 			},
 		},

@@ -15,13 +15,13 @@ import (
 )
 
 const (
-	errEnableSNATWithoutExternalNet = "setting enable_snat for viettelidc_networking_router_v2 " +
+	errEnableSNATWithoutExternalNet = "setting enable_snat for openstack_networking_router_v2 " +
 		"requires external_network_id to be set"
 
-	errExternalFixedIPWithoutExternalNet = "setting an external_fixed_ip for viettelidc_networking_router_v2 " +
+	errExternalFixedIPWithoutExternalNet = "setting an external_fixed_ip for openstack_networking_router_v2 " +
 		"requires external_network_id to be set"
 
-	errExternalSubnetIDWithoutExternalNet = "setting external_subnet_ids for viettelidc_networking_router_v2 " +
+	errExternalSubnetIDWithoutExternalNet = "setting external_subnet_ids for openstack_networking_router_v2 " +
 		"requires external_network_id to be set"
 )
 
@@ -252,13 +252,13 @@ func resourceNetworkingRouterV2Create(ctx context.Context, d *schema.ResourceDat
 	}
 
 	var r *routers.Router
-	log.Printf("[DEBUG] viettelidc_networking_router_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_networking_router_v2 create options: %#v", createOpts)
 
 	if len(externalSubnetIDs) == 0 {
 		// router creation without a retry
 		r, err = routers.Create(networkingClient, createOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error creating viettelidc_networking_router_v2: %s", err)
+			return diag.Errorf("Error creating openstack_networking_router_v2: %s", err)
 		}
 	} else {
 		if externalNetworkID == "" {
@@ -269,24 +269,24 @@ func resourceNetworkingRouterV2Create(ctx context.Context, d *schema.ResourceDat
 		for i, externalSubnetID := range externalSubnetIDs {
 			gatewayInfo.ExternalFixedIPs = []routers.ExternalFixedIP{externalSubnetID}
 
-			log.Printf("[DEBUG] viettelidc_networking_router_v2 create options (try %d): %#v", i+1, createOpts)
+			log.Printf("[DEBUG] openstack_networking_router_v2 create options (try %d): %#v", i+1, createOpts)
 
 			r, err = routers.Create(networkingClient, createOpts).Extract()
 			if err != nil {
 				if retryOn409(err) {
 					continue
 				}
-				return diag.Errorf("Error creating viettelidc_networking_router_v2: %s", err)
+				return diag.Errorf("Error creating openstack_networking_router_v2: %s", err)
 			}
 			break
 		}
 		// handle the last error
 		if err != nil {
-			return diag.Errorf("Error creating viettelidc_networking_router_v2: %d subnets exhausted: %s", len(externalSubnetIDs), err)
+			return diag.Errorf("Error creating openstack_networking_router_v2: %d subnets exhausted: %s", len(externalSubnetIDs), err)
 		}
 	}
 
-	log.Printf("[DEBUG] Waiting for viettelidc_networking_router_v2 %s to become available.", r.ID)
+	log.Printf("[DEBUG] Waiting for openstack_networking_router_v2 %s to become available.", r.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"BUILD", "PENDING_CREATE", "PENDING_UPDATE"},
@@ -299,7 +299,7 @@ func resourceNetworkingRouterV2Create(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_router_v2 %s to become available: %s", r.ID, err)
+		return diag.Errorf("Error waiting for openstack_networking_router_v2 %s to become available: %s", r.ID, err)
 	}
 
 	d.SetId(r.ID)
@@ -307,15 +307,15 @@ func resourceNetworkingRouterV2Create(ctx context.Context, d *schema.ResourceDat
 	// If the vendorUpdateGateway flag was specified and if an external network
 	// was specified, then set the gateway information after router creation.
 	if vendorUpdateGateway && externalNetworkID != "" {
-		log.Printf("[DEBUG] Adding external_network %s to viettelidc_networking_router_v2 %s", externalNetworkID, r.ID)
+		log.Printf("[DEBUG] Adding external_network %s to openstack_networking_router_v2 %s", externalNetworkID, r.ID)
 
 		var updateOpts routers.UpdateOpts
 		updateOpts.GatewayInfo = &gatewayInfo
 
-		log.Printf("[DEBUG] Assigning external_gateway to viettelidc_networking_router_v2 %s with options: %#v", r.ID, updateOpts)
+		log.Printf("[DEBUG] Assigning external_gateway to openstack_networking_router_v2 %s with options: %#v", r.ID, updateOpts)
 		_, err = routers.Update(networkingClient, r.ID, updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_networking_router_v2: %s", err)
+			return diag.Errorf("Error updating openstack_networking_router_v2: %s", err)
 		}
 	}
 
@@ -324,12 +324,12 @@ func resourceNetworkingRouterV2Create(ctx context.Context, d *schema.ResourceDat
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "routers", r.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on viettelidc_networking_router_v2 %s: %s", r.ID, err)
+			return diag.Errorf("Error setting tags on openstack_networking_router_v2 %s: %s", r.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_router_v2 %s", tags, r.ID)
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_router_v2 %s", tags, r.ID)
 	}
 
-	log.Printf("[DEBUG] Created viettelidc_networking_router_v2 %s: %#v", r.ID, r)
+	log.Printf("[DEBUG] Created openstack_networking_router_v2 %s: %#v", r.ID, r)
 	return resourceNetworkingRouterV2Read(ctx, d, meta)
 }
 
@@ -347,10 +347,10 @@ func resourceNetworkingRouterV2Read(ctx context.Context, d *schema.ResourceData,
 			return nil
 		}
 
-		return diag.Errorf("Error retrieving viettelidc_networking_router_v2: %s", err)
+		return diag.Errorf("Error retrieving openstack_networking_router_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_router_v2 %s: %#v", d.Id(), r)
+	log.Printf("[DEBUG] Retrieved openstack_networking_router_v2 %s: %#v", d.Id(), r)
 
 	// Basic settings.
 	d.Set("name", r.Name)
@@ -363,7 +363,7 @@ func resourceNetworkingRouterV2Read(ctx context.Context, d *schema.ResourceData,
 	networkingV2ReadAttributesTags(d, r.Tags)
 
 	if err := d.Set("availability_zone_hints", r.AvailabilityZoneHints); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_router_v2 %s availability_zone_hints: %s", d.Id(), err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_router_v2 %s availability_zone_hints: %s", d.Id(), err)
 	}
 
 	// Gateway settings.
@@ -373,7 +373,7 @@ func resourceNetworkingRouterV2Read(ctx context.Context, d *schema.ResourceData,
 
 	externalFixedIPs := flattenNetworkingRouterExternalFixedIPsV2(r.GatewayInfo.ExternalFixedIPs)
 	if err = d.Set("external_fixed_ip", externalFixedIPs); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_router_v2 %s external_fixed_ip: %s", d.Id(), err)
+		log.Printf("[DEBUG] Unable to set openstack_networking_router_v2 %s external_fixed_ip: %s", d.Id(), err)
 	}
 
 	return nil
@@ -460,10 +460,10 @@ func resourceNetworkingRouterV2Update(ctx context.Context, d *schema.ResourceDat
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_networking_router_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_networking_router_v2 %s update options: %#v", d.Id(), updateOpts)
 		_, err = routers.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_networking_router_v2: %s", err)
+			return diag.Errorf("Error updating openstack_networking_router_v2: %s", err)
 		}
 	}
 
@@ -473,9 +473,9 @@ func resourceNetworkingRouterV2Update(ctx context.Context, d *schema.ResourceDat
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "routers", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on viettelidc_networking_router_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on openstack_networking_router_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_router_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_router_v2 %s", tags, d.Id())
 	}
 
 	return resourceNetworkingRouterV2Read(ctx, d, meta)
@@ -489,7 +489,7 @@ func resourceNetworkingRouterV2Delete(ctx context.Context, d *schema.ResourceDat
 	}
 
 	if err := routers.Delete(networkingClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_router_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_router_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -503,7 +503,7 @@ func resourceNetworkingRouterV2Delete(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error deleting viettelidc_networking_router_v2: %s", err)
+		return diag.Errorf("Error deleting openstack_networking_router_v2: %s", err)
 	}
 
 	d.SetId("")

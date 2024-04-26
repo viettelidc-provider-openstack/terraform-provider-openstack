@@ -26,7 +26,7 @@ func TestAccFWPolicyV1_basic(t *testing.T) {
 				Config: testAccFWPolicyV1Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV1Exists(
-						"viettelidc_fw_policy_v1.policy_1", "", "", 0),
+						"openstack_fw_policy_v1.policy_1", "", "", 0),
 				),
 			},
 		},
@@ -47,7 +47,7 @@ func TestAccFWPolicyV1_addRules(t *testing.T) {
 				Config: testAccFWPolicyV1AddRules,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV1Exists(
-						"viettelidc_fw_policy_v1.policy_1", "policy_1", "terraform acceptance test", 2),
+						"openstack_fw_policy_v1.policy_1", "policy_1", "terraform acceptance test", 2),
 				),
 			},
 		},
@@ -68,7 +68,7 @@ func TestAccFWPolicyV1_deleteRules(t *testing.T) {
 				Config: testAccFWPolicyV1DeleteRules,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV1Exists(
-						"viettelidc_fw_policy_v1.policy_1", "policy_1", "terraform acceptance test", 1),
+						"openstack_fw_policy_v1.policy_1", "policy_1", "terraform acceptance test", 1),
 				),
 			},
 		},
@@ -82,7 +82,7 @@ func testAccCheckFWPolicyV1Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_fw_policy_v1" {
+		if rs.Type != "openstack_fw_policy_v1" {
 			continue
 		}
 		_, err = policies.Get(networkingClient, rs.Primary.ID).Extract()
@@ -146,41 +146,41 @@ func testAccCheckFWPolicyV1Exists(n, name, description string, ruleCount int) re
 }
 
 const testAccFWPolicyV1Basic = `
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
 }
 `
 
 const testAccFWPolicyV1AddRules = `
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
   description =  "terraform acceptance test"
   rules = [
-    "${viettelidc_fw_rule_v1.udp_deny.id}",
-    "${viettelidc_fw_rule_v1.tcp_allow.id}"
+    "${openstack_fw_rule_v1.udp_deny.id}",
+    "${openstack_fw_rule_v1.tcp_allow.id}"
   ]
 }
 
-resource "viettelidc_fw_rule_v1" "tcp_allow" {
+resource "openstack_fw_rule_v1" "tcp_allow" {
   protocol = "tcp"
   action = "allow"
 }
 
-resource "viettelidc_fw_rule_v1" "udp_deny" {
+resource "openstack_fw_rule_v1" "udp_deny" {
   protocol = "udp"
   action = "deny"
 }
 `
 
 const testAccFWPolicyV1DeleteRules = `
-resource "viettelidc_fw_policy_v1" "policy_1" {
+resource "openstack_fw_policy_v1" "policy_1" {
   name = "policy_1"
   description =  "terraform acceptance test"
   rules = [
-    "${viettelidc_fw_rule_v1.udp_deny.id}"
+    "${openstack_fw_rule_v1.udp_deny.id}"
   ]
 }
 
-resource "viettelidc_fw_rule_v1" "udp_deny" {
+resource "openstack_fw_rule_v1" "udp_deny" {
   protocol = "udp"
   action = "deny"
 }

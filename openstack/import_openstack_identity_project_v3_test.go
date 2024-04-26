@@ -9,7 +9,7 @@ import (
 )
 
 func TestAccIdentityV3Project_importBasic(t *testing.T) {
-	resourceName := "viettelidc_identity_project_v3.project_1"
+	resourceName := "openstack_identity_project_v3.project_1"
 	var projectName = fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))
 
 	resource.Test(t, resource.TestCase{

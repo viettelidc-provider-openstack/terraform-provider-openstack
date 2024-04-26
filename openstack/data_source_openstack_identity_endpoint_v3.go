@@ -80,17 +80,17 @@ func dataSourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceDat
 		RegionID:     d.Get("endpoint_region").(string),
 	}
 
-	log.Printf("[DEBUG] viettelidc_identity_endpoint_v3 list options: %#v", listOpts)
+	log.Printf("[DEBUG] openstack_identity_endpoint_v3 list options: %#v", listOpts)
 
 	var endpoint endpoints.Endpoint
 	allPages, err := endpoints.List(identityClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_identity_endpoint_v3: %s", err)
+		return diag.Errorf("Unable to query openstack_identity_endpoint_v3: %s", err)
 	}
 
 	allEndpoints, err := endpoints.ExtractEndpoints(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_identity_endpoint_v3: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_identity_endpoint_v3: %s", err)
 	}
 
 	// filter by name, when the name is specified
@@ -105,7 +105,7 @@ func dataSourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceDat
 	}
 
 	if len(allEndpoints) < 1 {
-		return diag.Errorf("Your viettelidc_identity_endpoint_v3 query returned no results. " +
+		return diag.Errorf("Your openstack_identity_endpoint_v3 query returned no results. " +
 			"Please change your search criteria and try again.")
 	}
 
@@ -115,12 +115,12 @@ func dataSourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceDat
 	var filteredEndpoints []endpoints.Endpoint
 	allServicePages, err := services.List(identityClient, services.ListOpts{ServiceType: serviceType, Name: serviceName}).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_identity_endpoint_v3 services: %s", err)
+		return diag.Errorf("Unable to query openstack_identity_endpoint_v3 services: %s", err)
 	}
 
 	allServices, err := services.ExtractServices(allServicePages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_identity_endpoint_v3 services: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_identity_endpoint_v3 services: %s", err)
 	}
 
 	for _, endpoint := range allEndpoints {
@@ -140,16 +140,16 @@ func dataSourceIdentityEndpointV3Read(ctx context.Context, d *schema.ResourceDat
 	allEndpoints = filteredEndpoints
 
 	if len(allEndpoints) < 1 {
-		return diag.Errorf("Your viettelidc_identity_endpoint_v3 query returned no results. " +
+		return diag.Errorf("Your openstack_identity_endpoint_v3 query returned no results. " +
 			"Please change your search criteria and try again.")
 	}
 
 	if len(allEndpoints) > 1 {
-		return diag.Errorf("Your viettelidc_identity_endpoint_v3 query returned more than one result")
+		return diag.Errorf("Your openstack_identity_endpoint_v3 query returned more than one result")
 	}
 	endpoint = allEndpoints[0]
 
-	log.Printf("[DEBUG] viettelidc_identity_endpoint_v3 details: %#v", endpoint)
+	log.Printf("[DEBUG] openstack_identity_endpoint_v3 details: %#v", endpoint)
 
 	d.SetId(endpoint.ID)
 

@@ -26,17 +26,17 @@ func TestAccLBV2Member_basic(t *testing.T) {
 			{
 				Config: TestAccLbV2MemberConfigBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2MemberExists("viettelidc_lb_member_v2.member_1", &member1),
-					testAccCheckLBV2MemberExists("viettelidc_lb_member_v2.member_2", &member2),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "backup", "true"),
+					testAccCheckLBV2MemberExists("openstack_lb_member_v2.member_1", &member1),
+					testAccCheckLBV2MemberExists("openstack_lb_member_v2.member_2", &member2),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "backup", "true"),
 				),
 			},
 			{
 				Config: TestAccLbV2MemberConfigUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "weight", "10"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "backup", "false"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_2", "weight", "15"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "weight", "10"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "backup", "false"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_2", "weight", "15"),
 				),
 			},
 		},
@@ -60,21 +60,21 @@ func TestAccLBV2Member_monitor(t *testing.T) {
 			{
 				Config: TestAccLbV2MemberMonitor,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2MemberExists("viettelidc_lb_member_v2.member_1", &member1),
-					testAccCheckLBV2MemberExists("viettelidc_lb_member_v2.member_2", &member2),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "monitor_address", "192.168.199.110"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "monitor_port", "8080"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_2", "monitor_address", "192.168.199.111"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_2", "monitor_port", "8080"),
+					testAccCheckLBV2MemberExists("openstack_lb_member_v2.member_1", &member1),
+					testAccCheckLBV2MemberExists("openstack_lb_member_v2.member_2", &member2),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "monitor_address", "192.168.199.110"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "monitor_port", "8080"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_2", "monitor_address", "192.168.199.111"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_2", "monitor_port", "8080"),
 				),
 			},
 			{
 				Config: TestAccLbV2MemberMonitorUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "monitor_address", "192.168.199.110"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_1", "monitor_port", "8080"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_2", "monitor_address", "192.168.199.110"),
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v2.member_2", "monitor_port", "443"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "monitor_address", "192.168.199.110"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_1", "monitor_port", "8080"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_2", "monitor_address", "192.168.199.110"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v2.member_2", "monitor_port", "443"),
 				),
 			},
 		},
@@ -89,7 +89,7 @@ func testAccCheckLBV2MemberDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_lb_member_v2" {
+		if rs.Type != "openstack_lb_member_v2" {
 			continue
 		}
 
@@ -137,21 +137,21 @@ func testAccCheckLBV2MemberExists(n string, member *pools.Member) resource.TestC
 }
 
 const TestAccLbV2MemberConfigBasic = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   cidr = "192.168.199.0/24"
   ip_version = 4
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   vip_address = "192.168.199.10"
 
   timeouts {
@@ -161,25 +161,25 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  listener_id = "${viettelidc_lb_listener_v2.listener_1.id}"
+  listener_id = "${openstack_lb_listener_v2.listener_1.id}"
 }
 
-resource "viettelidc_lb_member_v2" "member_1" {
+resource "openstack_lb_member_v2" "member_1" {
   address = "192.168.199.110"
   protocol_port = 8080
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   weight = 0
   backup = true
 
@@ -190,11 +190,11 @@ resource "viettelidc_lb_member_v2" "member_1" {
   }
 }
 
-resource "viettelidc_lb_member_v2" "member_2" {
+resource "openstack_lb_member_v2" "member_2" {
   address = "192.168.199.111"
   protocol_port = 8080
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "5m"
@@ -205,21 +205,21 @@ resource "viettelidc_lb_member_v2" "member_2" {
 `
 
 const TestAccLbV2MemberConfigUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -228,27 +228,27 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  listener_id = "${viettelidc_lb_listener_v2.listener_1.id}"
+  listener_id = "${openstack_lb_listener_v2.listener_1.id}"
 }
 
-resource "viettelidc_lb_member_v2" "member_1" {
+resource "openstack_lb_member_v2" "member_1" {
   address = "192.168.199.110"
   protocol_port = 8080
   weight = 10
   admin_state_up = "true"
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   backup = false
 
   timeouts {
@@ -258,13 +258,13 @@ resource "viettelidc_lb_member_v2" "member_1" {
   }
 }
 
-resource "viettelidc_lb_member_v2" "member_2" {
+resource "openstack_lb_member_v2" "member_2" {
   address = "192.168.199.111"
   protocol_port = 8080
   weight = 15
   admin_state_up = "true"
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "5m"
@@ -275,21 +275,21 @@ resource "viettelidc_lb_member_v2" "member_2" {
 `
 
 const TestAccLbV2MemberMonitor = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   cidr = "192.168.199.0/24"
   ip_version = 4
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   vip_address = "192.168.199.10"
 
   timeouts {
@@ -299,25 +299,25 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  listener_id = "${viettelidc_lb_listener_v2.listener_1.id}"
+  listener_id = "${openstack_lb_listener_v2.listener_1.id}"
 }
 
-resource "viettelidc_lb_member_v2" "member_1" {
+resource "openstack_lb_member_v2" "member_1" {
   address = "192.168.199.110"
   protocol_port = 8080
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   weight = 0
   monitor_address = "192.168.199.110"
   monitor_port = 8080
@@ -329,11 +329,11 @@ resource "viettelidc_lb_member_v2" "member_1" {
   }
 }
 
-resource "viettelidc_lb_member_v2" "member_2" {
+resource "openstack_lb_member_v2" "member_2" {
   address = "192.168.199.111"
   protocol_port = 8080
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   monitor_address = "192.168.199.111"
   monitor_port = 8080
 
@@ -346,21 +346,21 @@ resource "viettelidc_lb_member_v2" "member_2" {
 `
 
 const TestAccLbV2MemberMonitorUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -369,27 +369,27 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_pool_v2" "pool_1" {
+resource "openstack_lb_pool_v2" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  listener_id = "${viettelidc_lb_listener_v2.listener_1.id}"
+  listener_id = "${openstack_lb_listener_v2.listener_1.id}"
 }
 
-resource "viettelidc_lb_member_v2" "member_1" {
+resource "openstack_lb_member_v2" "member_1" {
   address = "192.168.199.110"
   protocol_port = 8080
   weight = 10
   admin_state_up = "true"
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   monitor_address = "192.168.199.110"
   monitor_port = 8080
 
@@ -400,13 +400,13 @@ resource "viettelidc_lb_member_v2" "member_1" {
   }
 }
 
-resource "viettelidc_lb_member_v2" "member_2" {
+resource "openstack_lb_member_v2" "member_2" {
   address = "192.168.199.111"
   protocol_port = 8080
   weight = 15
   admin_state_up = "true"
-  pool_id = "${viettelidc_lb_pool_v2.pool_1.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${openstack_lb_pool_v2.pool_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   monitor_address = "192.168.199.110"
   monitor_port = 443
 

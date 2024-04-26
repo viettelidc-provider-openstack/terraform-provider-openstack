@@ -24,15 +24,15 @@ func TestAccNetworkingV2SecGroup_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SecGroupBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SecGroupExists("viettelidc_networking_secgroup_v2.secgroup_1", &securityGroup),
+					testAccCheckNetworkingV2SecGroupExists("openstack_networking_secgroup_v2.secgroup_1", &securityGroup),
 					testAccCheckNetworkingV2SecGroupRuleCount(&securityGroup, 2),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SecGroupUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPtr("viettelidc_networking_secgroup_v2.secgroup_1", "id", &securityGroup.ID),
-					resource.TestCheckResourceAttr("viettelidc_networking_secgroup_v2.secgroup_1", "name", "security_group_2"),
+					resource.TestCheckResourceAttrPtr("openstack_networking_secgroup_v2.secgroup_1", "id", &securityGroup.ID),
+					resource.TestCheckResourceAttr("openstack_networking_secgroup_v2.secgroup_1", "name", "security_group_2"),
 				),
 			},
 		},
@@ -54,7 +54,7 @@ func TestAccNetworkingV2SecGroup_noDefaultRules(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupNoDefaultRules,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &securityGroup),
+						"openstack_networking_secgroup_v2.secgroup_1", &securityGroup),
 					testAccCheckNetworkingV2SecGroupRuleCount(&securityGroup, 0),
 				),
 			},
@@ -77,7 +77,7 @@ func TestAccNetworkingV2SecGroup_timeout(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupTimeout,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &securityGroup),
+						"openstack_networking_secgroup_v2.secgroup_1", &securityGroup),
 				),
 			},
 		},
@@ -92,7 +92,7 @@ func testAccCheckNetworkingV2SecGroupDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_secgroup_v2" {
+		if rs.Type != "openstack_networking_secgroup_v2" {
 			continue
 		}
 
@@ -149,21 +149,21 @@ func testAccCheckNetworkingV2SecGroupRuleCount(sg *groups.SecGroup, count int) r
 }
 
 const testAccNetworkingV2SecGroupBasic = `
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "security_group"
   description = "terraform security group acceptance test"
 }
 `
 
 const testAccNetworkingV2SecGroupUpdate = `
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "security_group_2"
   description = "terraform security group acceptance test"
 }
 `
 
 const testAccNetworkingV2SecGroupNoDefaultRules = `
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
 	name = "security_group_1"
 	description = "terraform security group acceptance test"
 	delete_default_rules = true
@@ -171,7 +171,7 @@ resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
 `
 
 const testAccNetworkingV2SecGroupTimeout = `
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "security_group"
   description = "terraform security group acceptance test"
 

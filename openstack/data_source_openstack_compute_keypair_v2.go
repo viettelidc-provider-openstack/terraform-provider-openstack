@@ -66,12 +66,12 @@ func dataSourceComputeKeypairV2Read(ctx context.Context, d *schema.ResourceData,
 	name := d.Get("name").(string)
 	kp, err := keypairs.Get(computeClient, name, opts).Extract()
 	if err != nil {
-		return diag.Errorf("Error retrieving viettelidc_compute_keypair_v2 %s: %s", name, err)
+		return diag.Errorf("Error retrieving openstack_compute_keypair_v2 %s: %s", name, err)
 	}
 
 	d.SetId(name)
 
-	log.Printf("[DEBUG] Retrieved viettelidc_compute_keypair_v2 %s: %#v", d.Id(), kp)
+	log.Printf("[DEBUG] Retrieved openstack_compute_keypair_v2 %s: %#v", d.Id(), kp)
 
 	d.Set("fingerprint", kp.Fingerprint)
 	d.Set("public_key", kp.PublicKey)

@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccObjectStorageV1Container_importBasic(t *testing.T) {
-	resourceName := "viettelidc_objectstorage_container_v1.container_1"
+	resourceName := "openstack_objectstorage_container_v1.container_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

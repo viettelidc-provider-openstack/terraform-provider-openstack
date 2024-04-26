@@ -58,10 +58,10 @@ func resourceBlockStorageQosAssociationV3Create(ctx context.Context, d *schema.R
 	}
 
 	id := fmt.Sprintf("%s/%s", qosID, vtID)
-	log.Printf("[DEBUG] viettelidc_blockstorage_qos_association_v3 create options: %#v", associateOpts)
+	log.Printf("[DEBUG] openstack_blockstorage_qos_association_v3 create options: %#v", associateOpts)
 	err = qos.Associate(blockStorageClient, qosID, associateOpts).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_blockstorage_qos_association_v3 %s: %s", id, err)
+		return diag.Errorf("Error creating openstack_blockstorage_qos_association_v3 %s: %s", id, err)
 	}
 
 	d.SetId(id)
@@ -78,17 +78,17 @@ func resourceBlockStorageQosAssociationV3Read(ctx context.Context, d *schema.Res
 
 	qosID, vtID, err := parseQosAssociationID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error parsing ID of viettelidc_blockstorage_qos_association_v3 %s: %s", d.Id(), err)
+		return diag.Errorf("Error parsing ID of openstack_blockstorage_qos_association_v3 %s: %s", d.Id(), err)
 	}
 
 	allPages, err := qos.ListAssociations(blockStorageClient, qosID).AllPages()
 	if err != nil {
-		return diag.Errorf("Error retrieving associations viettelidc_blockstorage_qos_association_v3 for qos: %s", qosID)
+		return diag.Errorf("Error retrieving associations openstack_blockstorage_qos_association_v3 for qos: %s", qosID)
 	}
 
 	allAssociations, err := qos.ExtractAssociations(allPages)
 	if err != nil {
-		return diag.Errorf("Error extracting associations viettelidc_blockstorage_qos_association_v3 for qos: %s", qosID)
+		return diag.Errorf("Error extracting associations openstack_blockstorage_qos_association_v3 for qos: %s", qosID)
 	}
 
 	found := false
@@ -100,7 +100,7 @@ func resourceBlockStorageQosAssociationV3Read(ctx context.Context, d *schema.Res
 	}
 
 	if !found {
-		return diag.Errorf("Error getting qos association viettelidc_blockstorage_qos_association_v3 for qos: %s and vt: %s", qosID, vtID)
+		return diag.Errorf("Error getting qos association openstack_blockstorage_qos_association_v3 for qos: %s and vt: %s", qosID, vtID)
 	}
 
 	d.Set("region", GetRegion(d, config))
@@ -119,7 +119,7 @@ func resourceBlockStorageQosAssociationV3Delete(ctx context.Context, d *schema.R
 
 	qosID, vtID, err := parseQosAssociationID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error parsing ID of viettelidc_blockstorage_qos_association_v3 %s: %s", d.Id(), err)
+		return diag.Errorf("Error parsing ID of openstack_blockstorage_qos_association_v3 %s: %s", d.Id(), err)
 	}
 
 	disassociateOpts := qos.DisassociateOpts{
@@ -128,7 +128,7 @@ func resourceBlockStorageQosAssociationV3Delete(ctx context.Context, d *schema.R
 
 	err = qos.Disassociate(blockStorageClient, qosID, disassociateOpts).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_blockstorage_qos_association_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_blockstorage_qos_association_v3"))
 	}
 
 	return nil

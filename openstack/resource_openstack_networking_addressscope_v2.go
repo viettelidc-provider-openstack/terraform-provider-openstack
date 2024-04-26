@@ -79,13 +79,13 @@ func resourceNetworkingAddressScopeV2Create(ctx context.Context, d *schema.Resou
 		Shared:    d.Get("shared").(bool),
 	}
 
-	log.Printf("[DEBUG] viettelidc_networking_addressscope_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_networking_addressscope_v2 create options: %#v", createOpts)
 	a, err := addressscopes.Create(networkingClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_networking_addressscope_v2: %s", err)
+		return diag.Errorf("Error creating openstack_networking_addressscope_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for viettelidc_networking_addressscope_v2 %s to become available", a.ID)
+	log.Printf("[DEBUG] Waiting for openstack_networking_addressscope_v2 %s to become available", a.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE"},
@@ -97,12 +97,12 @@ func resourceNetworkingAddressScopeV2Create(ctx context.Context, d *schema.Resou
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_addressscope_v2 %s to become available: %s", a.ID, err)
+		return diag.Errorf("Error waiting for openstack_networking_addressscope_v2 %s to become available: %s", a.ID, err)
 	}
 
 	d.SetId(a.ID)
 
-	log.Printf("[DEBUG] Created viettelidc_networking_addressscope_v2 %s: %#v", a.ID, a)
+	log.Printf("[DEBUG] Created openstack_networking_addressscope_v2 %s: %#v", a.ID, a)
 	return resourceNetworkingAddressScopeV2Read(ctx, d, meta)
 }
 
@@ -115,10 +115,10 @@ func resourceNetworkingAddressScopeV2Read(ctx context.Context, d *schema.Resourc
 
 	a, err := addressscopes.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_addressscope_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_addressscope_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_addressscope_v2 %s: %#v", d.Id(), a)
+	log.Printf("[DEBUG] Retrieved openstack_networking_addressscope_v2 %s: %#v", d.Id(), a)
 
 	d.Set("region", GetRegion(d, config))
 	d.Set("name", a.Name)
@@ -154,10 +154,10 @@ func resourceNetworkingAddressScopeV2Update(ctx context.Context, d *schema.Resou
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_networking_addressscope_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_networking_addressscope_v2 %s update options: %#v", d.Id(), updateOpts)
 		_, err = addressscopes.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_networking_addressscope_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_networking_addressscope_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -172,7 +172,7 @@ func resourceNetworkingAddressScopeV2Delete(ctx context.Context, d *schema.Resou
 	}
 
 	if err := addressscopes.Delete(networkingClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_addressscope_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_addressscope_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -186,7 +186,7 @@ func resourceNetworkingAddressScopeV2Delete(ctx context.Context, d *schema.Resou
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_addressscope_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_networking_addressscope_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

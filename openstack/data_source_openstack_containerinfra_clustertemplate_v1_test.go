@@ -10,7 +10,7 @@ import (
 )
 
 func TestAccContainerInfraV1ClusterTemplateDataSource_basic(t *testing.T) {
-	resourceName := "data.viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1"
+	resourceName := "data.openstack_containerinfra_clustertemplate_v1.clustertemplate_1"
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
 
 	resource.Test(t, resource.TestCase{
@@ -91,8 +91,8 @@ func testAccContainerInfraV1ClusterTemplateDataSourceBasic(clusterTemplateResour
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
-  name = "${viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1.name}"
+data "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+  name = "${openstack_containerinfra_clustertemplate_v1.clustertemplate_1.name}"
 }
 `, clusterTemplateResource)
 }

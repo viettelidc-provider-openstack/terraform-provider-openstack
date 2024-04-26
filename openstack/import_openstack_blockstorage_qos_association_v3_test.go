@@ -9,7 +9,7 @@ import (
 )
 
 func TestAccBlockStorageV3QosAssociation_importBasic(t *testing.T) {
-	resourceName := "viettelidc_blockstorage_qos_association_v3.qos_association"
+	resourceName := "openstack_blockstorage_qos_association_v3.qos_association"
 
 	var qosName = fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))
 	var vtName = fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))

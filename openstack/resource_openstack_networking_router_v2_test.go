@@ -24,18 +24,18 @@ func TestAccNetworkingV2Router_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_1", "description", "router description"),
+						"openstack_networking_router_v2.router_1", "description", "router description"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2RouterUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_1", "name", "router_2"),
+						"openstack_networking_router_v2.router_1", "name", "router_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_1", "description", ""),
+						"openstack_networking_router_v2.router_1", "description", ""),
 				),
 			},
 		},
@@ -56,14 +56,14 @@ func TestAccNetworkingV2Router_updateExternalGateway(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterUpdateExternalGateway1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
 				),
 			},
 			{
 				Config: testAccNetworkingV2RouterUpdateExternalGateway2(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_1", "external_network_id", osExtGwID),
+						"openstack_networking_router_v2.router_1", "external_network_id", osExtGwID),
 				),
 			},
 		},
@@ -84,9 +84,9 @@ func TestAccNetworkingV2Router_vendor_opts(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterVendorOpts(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_1", "external_gateway", osExtGwID),
+						"openstack_networking_router_v2.router_1", "external_gateway", osExtGwID),
 				),
 			},
 		},
@@ -109,9 +109,9 @@ func TestAccNetworkingV2Router_vendor_opts_no_snat(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterVendorOptsNoSnat(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_1", "external_gateway", osExtGwID),
+						"openstack_networking_router_v2.router_1", "external_gateway", osExtGwID),
 				),
 			},
 		},
@@ -132,11 +132,11 @@ func TestAccNetworkingV2Router_extFixedIPs(t *testing.T) {
 				Config: testAccNetworkingV2RouterExtFixedIPs(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_2", "name", "router_2"),
+						"openstack_networking_router_v2.router_2", "name", "router_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_2", "external_fixed_ip.#", "2"),
+						"openstack_networking_router_v2.router_2", "external_fixed_ip.#", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_2", "enable_snat", "true"),
+						"openstack_networking_router_v2.router_2", "enable_snat", "true"),
 				),
 			},
 		},
@@ -157,11 +157,11 @@ func TestAccNetworkingV2Router_extSubnetIDs(t *testing.T) {
 				Config: testAccNetworkingV2RouterExtSubnetIDs(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_2", "name", "router_2"),
+						"openstack_networking_router_v2.router_2", "name", "router_2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_2", "external_fixed_ip.#", "1"),
+						"openstack_networking_router_v2.router_2", "external_fixed_ip.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_router_v2.router_2", "enable_snat", "true"),
+						"openstack_networking_router_v2.router_2", "enable_snat", "true"),
 				),
 			},
 		},
@@ -176,7 +176,7 @@ func testAccCheckNetworkingV2RouterDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_router_v2" {
+		if rs.Type != "openstack_networking_router_v2" {
 			continue
 		}
 
@@ -222,7 +222,7 @@ func testAccCheckNetworkingV2RouterExists(n string, router *routers.Router) reso
 }
 
 const testAccNetworkingV2RouterBasic = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   description = "router description"
   admin_state_up = "true"
@@ -235,7 +235,7 @@ resource "viettelidc_networking_router_v2" "router_1" {
 `
 
 const testAccNetworkingV2RouterUpdate = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_2"
   admin_state_up = "true"
 
@@ -248,7 +248,7 @@ resource "viettelidc_networking_router_v2" "router_1" {
 
 func testAccNetworkingV2RouterVendorOpts() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
   external_network_id = "%s"
@@ -261,7 +261,7 @@ resource "viettelidc_networking_router_v2" "router_1" {
 
 func testAccNetworkingV2RouterVendorOptsNoSnat() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
   distributed = "false"
@@ -275,7 +275,7 @@ resource "viettelidc_networking_router_v2" "router_1" {
 }
 
 const testAccNetworkingV2RouterUpdateExternalGateway1 = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router"
   admin_state_up = "true"
 }
@@ -283,7 +283,7 @@ resource "viettelidc_networking_router_v2" "router_1" {
 
 func testAccNetworkingV2RouterUpdateExternalGateway2() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router"
   admin_state_up = "true"
   external_network_id = "%s"
@@ -293,7 +293,7 @@ resource "viettelidc_networking_router_v2" "router_1" {
 
 func testAccNetworkingV2RouterExtFixedIPs() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
   external_network_id = "%s"
@@ -304,17 +304,17 @@ resource "viettelidc_networking_router_v2" "router_1" {
   }
 }
 
-resource "viettelidc_networking_router_v2" "router_2" {
+resource "openstack_networking_router_v2" "router_2" {
   name = "router_2"
   admin_state_up = "true"
   external_network_id = "%s"
 
   external_fixed_ip {
-    subnet_id = "${viettelidc_networking_router_v2.router_1.external_fixed_ip.0.subnet_id}"
+    subnet_id = "${openstack_networking_router_v2.router_1.external_fixed_ip.0.subnet_id}"
   }
 
   external_fixed_ip {
-    subnet_id = "${viettelidc_networking_router_v2.router_1.external_fixed_ip.0.subnet_id}"
+    subnet_id = "${openstack_networking_router_v2.router_1.external_fixed_ip.0.subnet_id}"
   }
 
   timeouts {
@@ -327,7 +327,7 @@ resource "viettelidc_networking_router_v2" "router_2" {
 
 func testAccNetworkingV2RouterExtSubnetIDs() string {
 	return fmt.Sprintf(`
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
   external_network_id = "%s"
@@ -338,14 +338,14 @@ resource "viettelidc_networking_router_v2" "router_1" {
   }
 }
 
-resource "viettelidc_networking_router_v2" "router_2" {
+resource "openstack_networking_router_v2" "router_2" {
   name = "router_2"
   admin_state_up = "true"
   external_network_id = "%s"
 
   external_subnet_ids = [
     "%s", # wrong UUID
-    "${viettelidc_networking_router_v2.router_1.external_fixed_ip.0.subnet_id}",
+    "${openstack_networking_router_v2.router_1.external_fixed_ip.0.subnet_id}",
     "%s", # wrong UUID again
   ]
 

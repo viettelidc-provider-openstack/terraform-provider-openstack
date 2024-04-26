@@ -29,7 +29,7 @@ func resourceBlockStorageQuotasetV2() *schema.Resource {
 			Delete: schema.DefaultTimeout(10 * time.Minute),
 		},
 
-		DeprecationMessage: "use viettelidc_blockstorage_quotaset_v3 resource instead",
+		DeprecationMessage: "use openstack_blockstorage_quotaset_v3 resource instead",
 		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,
@@ -113,7 +113,7 @@ func resourceBlockStorageQuotasetV2Create(ctx context.Context, d *schema.Resourc
 	volumeTypeQuotaRaw := d.Get("volume_type_quota").(map[string]interface{})
 	volumeTypeQuota, err := blockStorageQuotasetVolTypeQuotaToInt(volumeTypeQuotaRaw)
 	if err != nil {
-		return diag.Errorf("Error parsing volume_type_quota in viettelidc_blockstorage_quotaset_v2: %s", err)
+		return diag.Errorf("Error parsing volume_type_quota in openstack_blockstorage_quotaset_v2: %s", err)
 	}
 
 	updateOpts := quotasets.UpdateOpts{
@@ -129,13 +129,13 @@ func resourceBlockStorageQuotasetV2Create(ctx context.Context, d *schema.Resourc
 
 	q, err := quotasets.Update(blockStorageClient, projectID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_blockstorage_quotaset_v2: %s", err)
+		return diag.Errorf("Error creating openstack_blockstorage_quotaset_v2: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)
 
-	log.Printf("[DEBUG] Created viettelidc_blockstorage_quotaset_v2 %#v", q)
+	log.Printf("[DEBUG] Created openstack_blockstorage_quotaset_v2 %#v", q)
 
 	return resourceBlockStorageQuotasetV2Read(ctx, d, meta)
 }
@@ -155,10 +155,10 @@ func resourceBlockStorageQuotasetV2Read(_ context.Context, d *schema.ResourceDat
 
 	q, err := quotasets.Get(blockStorageClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_quotaset_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_quotaset_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_quotaset_v2 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved openstack_blockstorage_quotaset_v2 %s: %#v", d.Id(), q)
 
 	d.Set("project_id", projectID)
 	d.Set("region", region)
@@ -175,11 +175,11 @@ func resourceBlockStorageQuotasetV2Read(_ context.Context, d *schema.ResourceDat
 	if len(volumeTypeQuotaProvided) > 0 {
 		volumeTypeQuota, err := blockStorageQuotasetVolTypeQuotaToStr(q.Extra)
 		if err != nil {
-			log.Printf("[WARN] Unable to read viettelidc_blockstorage_quotaset_v2 %s volume_type_quotas: %s", d.Id(), err)
+			log.Printf("[WARN] Unable to read openstack_blockstorage_quotaset_v2 %s volume_type_quotas: %s", d.Id(), err)
 		}
 		if err := d.Set("volume_type_quota", volumeTypeQuota); err != nil {
 			log.Printf(
-				"[WARN] Unable to set viettelidc_blockstorage_quotaset_v2 %s volume_type_quotas: %s", d.Id(), err)
+				"[WARN] Unable to set openstack_blockstorage_quotaset_v2 %s volume_type_quotas: %s", d.Id(), err)
 		}
 	}
 
@@ -249,7 +249,7 @@ func resourceBlockStorageQuotasetV2Update(ctx context.Context, d *schema.Resourc
 		if len(volumeTypeQuotaRaw) > 0 {
 			volumeTypeQuota, err := blockStorageQuotasetVolTypeQuotaToInt(volumeTypeQuotaRaw)
 			if err != nil {
-				return diag.Errorf("Error parsing volume_type_quota in viettelidc_blockstorage_quotaset_v2: %s", err)
+				return diag.Errorf("Error parsing volume_type_quota in openstack_blockstorage_quotaset_v2: %s", err)
 			}
 			updateOpts.Extra = volumeTypeQuota
 			hasChange = true
@@ -257,11 +257,11 @@ func resourceBlockStorageQuotasetV2Update(ctx context.Context, d *schema.Resourc
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_blockstorage_quotaset_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_blockstorage_quotaset_v2 %s update options: %#v", d.Id(), updateOpts)
 		projectID := d.Get("project_id").(string)
 		_, err := quotasets.Update(blockStorageClient, projectID, updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_blockstorage_quotaset_v2: %s", err)
+			return diag.Errorf("Error updating openstack_blockstorage_quotaset_v2: %s", err)
 		}
 	}
 

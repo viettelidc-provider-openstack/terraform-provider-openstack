@@ -110,12 +110,12 @@ func resourceComputeServerGroupV2Create(ctx context.Context, d *schema.ResourceD
 		}
 	}
 
-	log.Printf("[DEBUG] viettelidc_compute_servergroup_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_compute_servergroup_v2 create options: %#v", createOpts)
 	newSG, err := servergroups.Create(computeClient, createOpts).Extract()
 	if err != nil {
 		// return an error right away
 		if createOpts.CreateOpts.Rules != nil {
-			return diag.Errorf("Error creating viettelidc_compute_servergroup_v2 %s: %s", name, err)
+			return diag.Errorf("Error creating openstack_compute_servergroup_v2 %s: %s", name, err)
 		}
 
 		log.Printf("[DEBUG] Falling back to legacy API call due to: %#v", err)
@@ -127,10 +127,10 @@ func resourceComputeServerGroupV2Create(ctx context.Context, d *schema.ResourceD
 			},
 			MapValueSpecs(d),
 		}
-		log.Printf("[DEBUG] viettelidc_compute_servergroup_v2 create options: %#v", createOpts)
+		log.Printf("[DEBUG] openstack_compute_servergroup_v2 create options: %#v", createOpts)
 		newSG, err = servergroups.Create(computeClient, createOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error creating viettelidc_compute_servergroup_v2 %s: %s", name, err)
+			return diag.Errorf("Error creating openstack_compute_servergroup_v2 %s: %s", name, err)
 		}
 	}
 
@@ -156,11 +156,11 @@ func resourceComputeServerGroupV2Read(_ context.Context, d *schema.ResourceData,
 
 		sg, err = servergroups.Get(computeClient, d.Id()).Extract()
 		if err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_servergroup_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_servergroup_v2"))
 		}
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_compute_servergroup_v2 %s: %#v", d.Id(), sg)
+	log.Printf("[DEBUG] Retrieved openstack_compute_servergroup_v2 %s: %#v", d.Id(), sg)
 
 	d.Set("name", sg.Name)
 	d.Set("members", sg.Members)
@@ -187,7 +187,7 @@ func resourceComputeServerGroupV2Delete(_ context.Context, d *schema.ResourceDat
 	}
 
 	if err := servergroups.Delete(computeClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_compute_servergroup_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_compute_servergroup_v2"))
 	}
 
 	return nil

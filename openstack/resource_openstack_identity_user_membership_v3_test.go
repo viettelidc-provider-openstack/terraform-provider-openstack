@@ -30,13 +30,13 @@ func TestAccIdentityV3UserMembership_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3UserMembershipBasic(groupName, userName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3UserExists("viettelidc_identity_user_v3.user_1", &user),
-					testAccCheckIdentityV3GroupExists("viettelidc_identity_group_v3.group_1", &group),
-					testAccCheckIdentityV3UserMembershipExists("viettelidc_identity_user_membership_v3.user_membership_1"),
+					testAccCheckIdentityV3UserExists("openstack_identity_user_v3.user_1", &user),
+					testAccCheckIdentityV3GroupExists("openstack_identity_group_v3.group_1", &group),
+					testAccCheckIdentityV3UserMembershipExists("openstack_identity_user_membership_v3.user_membership_1"),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_user_membership_v3.user_membership_1", "user_id", &user.ID),
+						"openstack_identity_user_membership_v3.user_membership_1", "user_id", &user.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_user_membership_v3.user_membership_1", "group_id", &group.ID),
+						"openstack_identity_user_membership_v3.user_membership_1", "group_id", &group.ID),
 				),
 			},
 		},
@@ -51,7 +51,7 @@ func testAccCheckIdentityV3UserMembershipDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_user_membership_v3" {
+		if rs.Type != "openstack_identity_user_membership_v3" {
 			continue
 		}
 
@@ -102,17 +102,17 @@ func testAccCheckIdentityV3UserMembershipExists(n string) resource.TestCheckFunc
 
 func testAccIdentityV3UserMembershipBasic(groupName, userName string) string {
 	return fmt.Sprintf(`
-	resource "viettelidc_identity_group_v3" "group_1" {
+	resource "openstack_identity_group_v3" "group_1" {
 	name = "%s"
 	}
 
-	resource "viettelidc_identity_user_v3" "user_1" {
+	resource "openstack_identity_user_v3" "user_1" {
 	name = "%s"
 	}
 
-	resource "viettelidc_identity_user_membership_v3" "user_membership_1" {
-	user_id = "${viettelidc_identity_user_v3.user_1.id}"
-	group_id = "${viettelidc_identity_group_v3.group_1.id}"
+	resource "openstack_identity_user_membership_v3" "user_membership_1" {
+	user_id = "${openstack_identity_user_v3.user_1.id}"
+	group_id = "${openstack_identity_group_v3.group_1.id}"
 	}
     `, groupName, userName)
 }

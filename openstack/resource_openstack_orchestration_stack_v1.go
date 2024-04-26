@@ -162,7 +162,7 @@ func resourceOrchestrationStackV1() *schema.Resource {
 }
 
 func resourceOrchestrationStackV1Create(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	log.Printf("[DEBUG] Prepare for create viettelidc_orchestration_stack_v1")
+	log.Printf("[DEBUG] Prepare for create openstack_orchestration_stack_v1")
 	config := meta.(*Config)
 	orchestrationClient, err := config.OrchestrationV1Client(GetRegion(d, config))
 	if err != nil {
@@ -170,7 +170,7 @@ func resourceOrchestrationStackV1Create(ctx context.Context, d *schema.ResourceD
 	}
 	templateOpts, err := buildTemplateOpts(d)
 	if err != nil {
-		return diag.Errorf("Error building viettelidc_orchestration_stack_v1 template options: %s", err)
+		return diag.Errorf("Error building openstack_orchestration_stack_v1 template options: %s", err)
 	}
 	createOpts := &stacks.CreateOpts{
 		Name:         d.Get("name").(string),
@@ -182,7 +182,7 @@ func resourceOrchestrationStackV1Create(ctx context.Context, d *schema.ResourceD
 	}
 	env, err := buildEnvironmentOpts(d)
 	if err != nil {
-		return diag.Errorf("Error building viettelidc_orchestration_stack_v1 environment options: %s", err)
+		return diag.Errorf("Error building openstack_orchestration_stack_v1 environment options: %s", err)
 	}
 	if env != nil {
 		createOpts.EnvironmentOpts = env
@@ -202,11 +202,11 @@ func resourceOrchestrationStackV1Create(ctx context.Context, d *schema.ResourceD
 		createOpts.Timeout = d.Get("timeout").(int)
 	}
 
-	log.Printf("[DEBUG] Creating viettelidc_orchestration_stack_v1")
+	log.Printf("[DEBUG] Creating openstack_orchestration_stack_v1")
 	stack, err := stacks.Create(orchestrationClient, createOpts).Extract()
 	if err != nil {
-		log.Printf("[DEBUG] viettelidc_orchestration_stack_v1 error occurred during Create: %s", err)
-		return diag.Errorf("Error creating viettelidc_orchestration_stack_v1: %s", err)
+		log.Printf("[DEBUG] openstack_orchestration_stack_v1 error occurred during Create: %s", err)
+		return diag.Errorf("Error creating openstack_orchestration_stack_v1: %s", err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -221,12 +221,12 @@ func resourceOrchestrationStackV1Create(ctx context.Context, d *schema.ResourceD
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for viettelidc_orchestration_stack_v1 %s to become ready: %s", stack.ID, err)
+			"Error waiting for openstack_orchestration_stack_v1 %s to become ready: %s", stack.ID, err)
 	}
 
 	// Store the ID now
 	d.SetId(stack.ID)
-	log.Printf("[INFO] viettelidc_orchestration_stack_v1 %s create complete", stack.ID)
+	log.Printf("[INFO] openstack_orchestration_stack_v1 %s create complete", stack.ID)
 
 	return resourceOrchestrationStackV1Read(ctx, d, meta)
 }
@@ -238,10 +238,10 @@ func resourceOrchestrationStackV1Read(ctx context.Context, d *schema.ResourceDat
 		return diag.Errorf("Error creating OpenStack Orchestration client: %s", err)
 	}
 
-	log.Printf("[DEBUG] Fetch viettelidc_orchestration_stack_v1 information: %s", d.Id())
+	log.Printf("[DEBUG] Fetch openstack_orchestration_stack_v1 information: %s", d.Id())
 	stack, err := stacks.Find(orchestrationClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_orchestration_stack_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_orchestration_stack_v1"))
 	}
 
 	d.Set("name", stack.Name)
@@ -289,18 +289,18 @@ func resourceOrchestrationStackV1Read(ctx context.Context, d *schema.ResourceDat
 	}
 
 	if err := d.Set("creation_time", stack.CreationTime.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_orchestration_stack_v1 creation_time: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_orchestration_stack_v1 creation_time: %s", err)
 	}
 	if err := d.Set("updated_time", stack.UpdatedTime.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set viettelidc_orchestration_stack_v1 updated_at: %s", err)
+		log.Printf("[DEBUG] Unable to set openstack_orchestration_stack_v1 updated_at: %s", err)
 	}
 
-	log.Printf("[DEBUG] viettelidc_orchestration_stack_v1 information fetched: %s", d.Id())
+	log.Printf("[DEBUG] openstack_orchestration_stack_v1 information fetched: %s", d.Id())
 	return nil
 }
 
 func resourceOrchestrationStackV1Update(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	log.Printf("[DEBUG] Prepare information for update viettelidc_orchestration_stack_v1")
+	log.Printf("[DEBUG] Prepare information for update openstack_orchestration_stack_v1")
 
 	config := meta.(*Config)
 	orchestrationClient, err := config.OrchestrationV1Client(GetRegion(d, config))
@@ -310,14 +310,14 @@ func resourceOrchestrationStackV1Update(ctx context.Context, d *schema.ResourceD
 
 	templateOpts, err := buildTemplateOpts(d)
 	if err != nil {
-		return diag.Errorf("Error building viettelidc_orchestration_stack_v1 template options: %s", err)
+		return diag.Errorf("Error building openstack_orchestration_stack_v1 template options: %s", err)
 	}
 	updateOpts := &stacks.UpdateOpts{
 		TemplateOpts: templateOpts,
 	}
 	env, err := buildEnvironmentOpts(d)
 	if err != nil {
-		return diag.Errorf("Error building viettelidc_orchestration_stack_v1 environment options: %s", err)
+		return diag.Errorf("Error building openstack_orchestration_stack_v1 environment options: %s", err)
 	}
 	if env != nil {
 		updateOpts.EnvironmentOpts = env
@@ -339,13 +339,13 @@ func resourceOrchestrationStackV1Update(ctx context.Context, d *schema.ResourceD
 
 	stack, err := stacks.Find(orchestrationClient, d.Id()).Extract()
 	if err != nil {
-		return diag.Errorf("Error retrieving viettelidc_orchestration_stack_v1 %s before Update:  %s", d.Id(), err)
+		return diag.Errorf("Error retrieving openstack_orchestration_stack_v1 %s before Update:  %s", d.Id(), err)
 	}
 
-	log.Printf("[DEBUG] Updating viettelidc_orchestration_stack_v1")
+	log.Printf("[DEBUG] Updating openstack_orchestration_stack_v1")
 	result := stacks.Update(orchestrationClient, stack.Name, d.Id(), updateOpts)
 	if result.Err != nil {
-		return diag.Errorf("Error updating viettelidc_orchestration_stack_v1 %s: %s", d.Id(), result.Err)
+		return diag.Errorf("Error updating openstack_orchestration_stack_v1 %s: %s", d.Id(), result.Err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -359,15 +359,15 @@ func resourceOrchestrationStackV1Update(ctx context.Context, d *schema.ResourceD
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_orchestration_stack_v1 %s to Update:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_orchestration_stack_v1 %s to Update:  %s", d.Id(), err)
 	}
 
-	log.Printf("[INFO] viettelidc_orchestration_stack_v1 %s update complete", d.Id())
+	log.Printf("[INFO] openstack_orchestration_stack_v1 %s update complete", d.Id())
 	return resourceOrchestrationStackV1Read(ctx, d, meta)
 }
 
 func resourceOrchestrationStackV1Delete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	log.Printf("[DEBUG] Prepare for delete viettelidc_orchestration_stack_v1")
+	log.Printf("[DEBUG] Prepare for delete openstack_orchestration_stack_v1")
 	config := meta.(*Config)
 	orchestrationClient, err := config.OrchestrationV1Client(GetRegion(d, config))
 	if err != nil {
@@ -376,13 +376,13 @@ func resourceOrchestrationStackV1Delete(ctx context.Context, d *schema.ResourceD
 
 	stack, err := stacks.Find(orchestrationClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_orchestration_stack_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_orchestration_stack_v1"))
 	}
 
 	if stack.Status != "DELETE_IN_PROGRESS" {
-		log.Printf("[DEBUG] Deleting viettelidc_orchestration_stack_v1: %s", d.Id())
+		log.Printf("[DEBUG] Deleting openstack_orchestration_stack_v1: %s", d.Id())
 		if err := stacks.Delete(orchestrationClient, stack.Name, d.Id()).ExtractErr(); err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_orchestration_stack_v1"))
+			return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_orchestration_stack_v1"))
 		}
 	}
 
@@ -397,9 +397,9 @@ func resourceOrchestrationStackV1Delete(ctx context.Context, d *schema.ResourceD
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_orchestration_stack_v1 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_orchestration_stack_v1 %s to Delete:  %s", d.Id(), err)
 	}
 
-	log.Printf("[INFO] viettelidc_orchestration_stack_v1 %s delete complete", d.Id())
+	log.Printf("[INFO] openstack_orchestration_stack_v1 %s delete complete", d.Id())
 	return nil
 }

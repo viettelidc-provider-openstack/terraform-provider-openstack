@@ -32,10 +32,10 @@ func networkingFloatingIPV2ID(client *gophercloud.ServiceClient, floatingIP stri
 	}
 
 	if len(allFloatingIPs) == 0 {
-		return "", fmt.Errorf("there are no viettelidc_networking_floatingip_v2 with %s IP", floatingIP)
+		return "", fmt.Errorf("there are no openstack_networking_floatingip_v2 with %s IP", floatingIP)
 	}
 	if len(allFloatingIPs) > 1 {
-		return "", fmt.Errorf("there are more than one viettelidc_networking_floatingip_v2 with %s IP", floatingIP)
+		return "", fmt.Errorf("there are more than one openstack_networking_floatingip_v2 with %s IP", floatingIP)
 	}
 
 	return allFloatingIPs[0].ID, nil

@@ -119,7 +119,7 @@ func resourceImagesImageAccessAcceptV2Read(ctx context.Context, d *schema.Resour
 
 	member, err := members.Get(imageClient, imageID, memberID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving the viettelidc_images_image_access_accept_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving the openstack_images_image_access_accept_v2"))
 	}
 
 	log.Printf("[DEBUG] Retrieved Image member %s: %#v", d.Id(), member)
@@ -179,7 +179,7 @@ func resourceImagesImageAccessAcceptV2Delete(ctx context.Context, d *schema.Reso
 		Status: "rejected",
 	}
 	if err := members.Update(imageClient, imageID, memberID, opts).Err; err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error rejecting the viettelidc_images_image_access_accept_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error rejecting the openstack_images_image_access_accept_v2"))
 	}
 
 	return nil

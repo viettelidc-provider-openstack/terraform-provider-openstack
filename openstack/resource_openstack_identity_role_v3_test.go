@@ -23,17 +23,17 @@ func TestAccIdentityV3Role_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3RoleBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3RoleExists("viettelidc_identity_role_v3.role_1", &role),
+					testAccCheckIdentityV3RoleExists("openstack_identity_role_v3.role_1", &role),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_role_v3.role_1", "name", &role.Name),
+						"openstack_identity_role_v3.role_1", "name", &role.Name),
 				),
 			},
 			{
 				Config: testAccIdentityV3RoleUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3RoleExists("viettelidc_identity_role_v3.role_1", &role),
+					testAccCheckIdentityV3RoleExists("openstack_identity_role_v3.role_1", &role),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_role_v3.role_1", "name", &role.Name),
+						"openstack_identity_role_v3.role_1", "name", &role.Name),
 				),
 			},
 		},
@@ -48,7 +48,7 @@ func testAccCheckIdentityV3RoleDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_role_v3" {
+		if rs.Type != "openstack_identity_role_v3" {
 			continue
 		}
 
@@ -94,13 +94,13 @@ func testAccCheckIdentityV3RoleExists(n string, role *roles.Role) resource.TestC
 }
 
 const testAccIdentityV3RoleBasic = `
-resource "viettelidc_identity_role_v3" "role_1" {
+resource "openstack_identity_role_v3" "role_1" {
   name = "role_1"
 }
 `
 
 const testAccIdentityV3RoleUpdate = `
-resource "viettelidc_identity_role_v3" "role_1" {
+resource "openstack_identity_role_v3" "role_1" {
   name = "role_2"
 }
 `

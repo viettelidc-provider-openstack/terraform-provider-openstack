@@ -201,13 +201,13 @@ func resourceComputeQuotasetV2Create(ctx context.Context, d *schema.ResourceData
 
 	q, err := quotasets.Update(computeClient, projectID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_compute_quotaset_v2: %s", err)
+		return diag.Errorf("Error creating openstack_compute_quotaset_v2: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)
 
-	log.Printf("[DEBUG] Created viettelidc_compute_quotaset_v2 %#v", q)
+	log.Printf("[DEBUG] Created openstack_compute_quotaset_v2 %#v", q)
 
 	return resourceComputeQuotasetV2Read(ctx, d, meta)
 }
@@ -227,10 +227,10 @@ func resourceComputeQuotasetV2Read(_ context.Context, d *schema.ResourceData, me
 
 	q, err := quotasets.Get(computeClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_quotaset_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_quotaset_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_compute_quotaset_v2 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved openstack_compute_quotaset_v2 %s: %#v", d.Id(), q)
 
 	d.Set("project_id", projectID)
 	d.Set("region", region)
@@ -349,11 +349,11 @@ func resourceComputeQuotasetV2Update(ctx context.Context, d *schema.ResourceData
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] viettelidc_compute_quotaset_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] openstack_compute_quotaset_v2 %s update options: %#v", d.Id(), updateOpts)
 		projectID := d.Get("project_id").(string)
 		_, err := quotasets.Update(computeClient, projectID, updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_compute_quotaset_v2: %s", err)
+			return diag.Errorf("Error updating openstack_compute_quotaset_v2: %s", err)
 		}
 	}
 

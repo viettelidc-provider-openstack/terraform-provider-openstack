@@ -24,10 +24,10 @@ func TestAccOrchestrationV1Stack_basic(t *testing.T) {
 			{
 				Config: testAccOrchestrationV1StackBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrchestrationV1StackExists("viettelidc_orchestration_stack_v1.stack_1", &stack),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_1", "name", "stack_1"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_1", "parameters.length", "4"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_1", "timeout", "30"),
+					testAccCheckOrchestrationV1StackExists("openstack_orchestration_stack_v1.stack_1", &stack),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_1", "name", "stack_1"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_1", "parameters.length", "4"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_1", "timeout", "30"),
 				),
 			},
 		},
@@ -48,10 +48,10 @@ func TestAccOrchestrationV1Stack_tags(t *testing.T) {
 			{
 				Config: testAccOrchestrationV1StackTags,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrchestrationV1StackExists("viettelidc_orchestration_stack_v1.stack_4", &stack),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_4", "name", "stack_4"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_4", "tags.#", "2"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_4", "tags.0", "foo"),
+					testAccCheckOrchestrationV1StackExists("openstack_orchestration_stack_v1.stack_4", &stack),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_4", "name", "stack_4"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_4", "tags.#", "2"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_4", "tags.0", "foo"),
 				),
 			},
 		},
@@ -72,18 +72,18 @@ func TestAccOrchestrationV1Stack_update(t *testing.T) {
 			{
 				Config: testAccOrchestrationV1StackPreUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrchestrationV1StackExists("viettelidc_orchestration_stack_v1.stack_3", &stack),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_3", "name", "stack_3"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_3", "parameters.length", "4"),
+					testAccCheckOrchestrationV1StackExists("openstack_orchestration_stack_v1.stack_3", &stack),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_3", "name", "stack_3"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_3", "parameters.length", "4"),
 				),
 			},
 			{
 				Config: testAccOrchestrationV1StackUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrchestrationV1StackExists("viettelidc_orchestration_stack_v1.stack_3", &stack),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_3", "name", "stack_3"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_3", "parameters.length", "5"),
-					resource.TestCheckResourceAttrSet("viettelidc_orchestration_stack_v1.stack_3", "updated_time"),
+					testAccCheckOrchestrationV1StackExists("openstack_orchestration_stack_v1.stack_3", &stack),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_3", "name", "stack_3"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_3", "parameters.length", "5"),
+					resource.TestCheckResourceAttrSet("openstack_orchestration_stack_v1.stack_3", "updated_time"),
 				),
 			},
 		},
@@ -104,7 +104,7 @@ func TestAccOrchestrationV1Stack_timeout(t *testing.T) {
 			{
 				Config: testAccOrchestrationV1StackTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrchestrationV1StackExists("viettelidc_orchestration_stack_v1.stack_2", &stack),
+					testAccCheckOrchestrationV1StackExists("openstack_orchestration_stack_v1.stack_2", &stack),
 				),
 			},
 		},
@@ -125,11 +125,11 @@ func TestAccOrchestrationV1Stack_outputs(t *testing.T) {
 			{
 				Config: testAccOrchestrationV1StackOutputs,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrchestrationV1StackExists("viettelidc_orchestration_stack_v1.stack_5", &stack),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_5", "name", "stack_5"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_5", "outputs.#", "1"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_5", "outputs.0.output_value", "foo"),
-					resource.TestCheckResourceAttr("viettelidc_orchestration_stack_v1.stack_5", "outputs.0.output_key", "value1"),
+					testAccCheckOrchestrationV1StackExists("openstack_orchestration_stack_v1.stack_5", &stack),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_5", "name", "stack_5"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_5", "outputs.#", "1"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_5", "outputs.0.output_value", "foo"),
+					resource.TestCheckResourceAttr("openstack_orchestration_stack_v1.stack_5", "outputs.0.output_key", "value1"),
 				),
 			},
 		},
@@ -144,7 +144,7 @@ func testAccCheckOrchestrationV1StackDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_orchestration_stack_v1" {
+		if rs.Type != "openstack_orchestration_stack_v1" {
 			continue
 		}
 
@@ -192,7 +192,7 @@ func testAccCheckOrchestrationV1StackExists(n string, stack *stacks.RetrievedSta
 }
 
 const testAccOrchestrationV1StackBasic = `
-resource "viettelidc_orchestration_stack_v1" "stack_1" {
+resource "openstack_orchestration_stack_v1" "stack_1" {
   name = "stack_1"
   parameters = {
 	length = 4
@@ -209,7 +209,7 @@ resource "viettelidc_orchestration_stack_v1" "stack_1" {
 `
 
 const testAccOrchestrationV1StackPreUpdate = `
-resource "viettelidc_orchestration_stack_v1" "stack_3" {
+resource "openstack_orchestration_stack_v1" "stack_3" {
   name = "stack_3"
   parameters = {
 	length = 4
@@ -225,7 +225,7 @@ resource "viettelidc_orchestration_stack_v1" "stack_3" {
 `
 
 const testAccOrchestrationV1StackUpdate = `
-resource "viettelidc_orchestration_stack_v1" "stack_3" {
+resource "openstack_orchestration_stack_v1" "stack_3" {
   name = "stack_3"
   parameters = {
 	length = 5
@@ -241,7 +241,7 @@ resource "viettelidc_orchestration_stack_v1" "stack_3" {
 `
 
 const testAccOrchestrationV1StackTimeout = `
-resource "viettelidc_orchestration_stack_v1" "stack_2" {
+resource "openstack_orchestration_stack_v1" "stack_2" {
   name = "stack_2"
   parameters = {
 	length = 4
@@ -262,7 +262,7 @@ resource "viettelidc_orchestration_stack_v1" "stack_2" {
 `
 
 const testAccOrchestrationV1StackTags = `
-resource "viettelidc_orchestration_stack_v1" "stack_4" {
+resource "openstack_orchestration_stack_v1" "stack_4" {
   name = "stack_4"
   parameters = {
 	length = 4
@@ -282,7 +282,7 @@ resource "viettelidc_orchestration_stack_v1" "stack_4" {
 `
 
 const testAccOrchestrationV1StackOutputs = `
-resource "viettelidc_orchestration_stack_v1" "stack_5" {
+resource "openstack_orchestration_stack_v1" "stack_5" {
   name = "stack_5"
   parameters = {
 	length = 4

@@ -21,13 +21,13 @@ func TestAccLBV1Member_basic(t *testing.T) {
 			{
 				Config: testAccLbV1MemberBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV1MemberExists("viettelidc_lb_member_v1.member_1", &member),
+					testAccCheckLBV1MemberExists("openstack_lb_member_v1.member_1", &member),
 				),
 			},
 			{
 				Config: testAccLbV1MemberUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("viettelidc_lb_member_v1.member_1", "admin_state_up", "false"),
+					resource.TestCheckResourceAttr("openstack_lb_member_v1.member_1", "admin_state_up", "false"),
 				),
 			},
 		},
@@ -45,7 +45,7 @@ func TestAccLBV1Member_timeout(t *testing.T) {
 			{
 				Config: testAccLbV1MemberTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV1MemberExists("viettelidc_lb_member_v1.member_1", &member),
+					testAccCheckLBV1MemberExists("openstack_lb_member_v1.member_1", &member),
 				),
 			},
 		},
@@ -60,7 +60,7 @@ func testAccCheckLBV1MemberDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_lb_member_v1" {
+		if rs.Type != "openstack_lb_member_v1" {
 			continue
 		}
 
@@ -106,83 +106,83 @@ func testAccCheckLBV1MemberExists(n string, member *members.Member) resource.Tes
 }
 
 const testAccLbV1MemberBasic = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_pool_v1" "pool_1" {
+resource "openstack_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "viettelidc_lb_member_v1" "member_1" {
+resource "openstack_lb_member_v1" "member_1" {
   address = "192.168.199.10"
   port = 80
   admin_state_up = true
-  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
 }
 `
 
 const testAccLbV1MemberUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_pool_v1" "pool_1" {
+resource "openstack_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "viettelidc_lb_member_v1" "member_1" {
+resource "openstack_lb_member_v1" "member_1" {
   address = "192.168.199.10"
   port = 80
   admin_state_up = false
-  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
 }
 `
 
 const testAccLbV1MemberTimeout = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_pool_v1" "pool_1" {
+resource "openstack_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "viettelidc_lb_member_v1" "member_1" {
+resource "openstack_lb_member_v1" "member_1" {
   address = "192.168.199.10"
   port = 80
   admin_state_up = true
-  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
 
   timeouts {
     create = "5m"

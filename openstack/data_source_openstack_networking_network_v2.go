@@ -212,7 +212,7 @@ func dataSourceNetworkingNetworkV2Read(ctx context.Context, d *schema.ResourceDa
 	var allNetworks []networkExtended
 	err = networks.ExtractNetworksInto(pages, &allNetworks)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_networking_networks_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_networking_networks_v2: %s", err)
 	}
 
 	var refinedNetworks []networkExtended
@@ -224,7 +224,7 @@ func dataSourceNetworkingNetworkV2Read(ctx context.Context, d *schema.ResourceDa
 					if _, ok := err.(gophercloud.ErrDefault404); ok {
 						continue
 					}
-					return diag.Errorf("Unable to retrieve viettelidc_networking_network_v2 subnet: %s", err)
+					return diag.Errorf("Unable to retrieve openstack_networking_network_v2 subnet: %s", err)
 				}
 				if cidr == subnet.CIDR {
 					refinedNetworks = append(refinedNetworks, n)
@@ -248,10 +248,10 @@ func dataSourceNetworkingNetworkV2Read(ctx context.Context, d *schema.ResourceDa
 	network := refinedNetworks[0]
 
 	if err = d.Set("availability_zone_hints", network.AvailabilityZoneHints); err != nil {
-		log.Printf("[DEBUG] Unable to set availability_zone_hints for viettelidc_networking_network_v2 %s: %s", network.ID, err)
+		log.Printf("[DEBUG] Unable to set availability_zone_hints for openstack_networking_network_v2 %s: %s", network.ID, err)
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_network_v2 %s: %+v", network.ID, network)
+	log.Printf("[DEBUG] Retrieved openstack_networking_network_v2 %s: %+v", network.ID, network)
 	d.SetId(network.ID)
 
 	d.Set("name", network.Name)

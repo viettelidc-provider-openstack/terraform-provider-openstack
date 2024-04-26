@@ -118,7 +118,7 @@ func resourceComputeVolumeAttachV2Create(ctx context.Context, d *schema.Resource
 		VolumeID: volumeID,
 	}
 
-	log.Printf("[DEBUG] viettelidc_compute_volume_attach_v2 attach options %s: %#v", instanceID, attachOpts)
+	log.Printf("[DEBUG] openstack_compute_volume_attach_v2 attach options %s: %#v", instanceID, attachOpts)
 
 	multiattach := d.Get("multiattach").(bool)
 	if multiattach {
@@ -141,7 +141,7 @@ func resourceComputeVolumeAttachV2Create(ctx context.Context, d *schema.Resource
 	})
 
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_compute_volume_attach_v2 %s: %s", instanceID, err)
+		return diag.Errorf("Error creating openstack_compute_volume_attach_v2 %s: %s", instanceID, err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -154,7 +154,7 @@ func resourceComputeVolumeAttachV2Create(ctx context.Context, d *schema.Resource
 	}
 
 	if _, err = stateConf.WaitForStateContext(ctx); err != nil {
-		return diag.Errorf("Error attaching viettelidc_compute_volume_attach_v2 %s: %s", instanceID, err)
+		return diag.Errorf("Error attaching openstack_compute_volume_attach_v2 %s: %s", instanceID, err)
 	}
 
 	// Use the instance ID and attachment ID as the resource ID.
@@ -180,10 +180,10 @@ func resourceComputeVolumeAttachV2Read(_ context.Context, d *schema.ResourceData
 
 	attachment, err := volumeattach.Get(computeClient, instanceID, attachmentID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_volume_attach_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_volume_attach_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_compute_volume_attach_v2 %s: %#v", d.Id(), attachment)
+	log.Printf("[DEBUG] Retrieved openstack_compute_volume_attach_v2 %s: %#v", d.Id(), attachment)
 
 	d.Set("instance_id", attachment.ServerID)
 	d.Set("volume_id", attachment.VolumeID)
@@ -215,7 +215,7 @@ func resourceComputeVolumeAttachV2Delete(ctx context.Context, d *schema.Resource
 	}
 
 	if _, err = stateConf.WaitForStateContext(ctx); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error detaching viettelidc_compute_volume_attach_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error detaching openstack_compute_volume_attach_v2"))
 	}
 
 	return nil

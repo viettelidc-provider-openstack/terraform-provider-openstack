@@ -31,32 +31,32 @@ func TestAccSFSV2ShareNetwork_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2ShareNetworkConfigBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareNetworkExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork1),
+					testAccCheckSFSV2ShareNetworkExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork1),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the love"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the love"),
 					resource.TestMatchResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id",
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					resource.TestMatchResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_subnet_id",
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_subnet_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 				),
 			},
 			{
 				Config: testAccSFSV2ShareNetworkConfigUpdate(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareNetworkExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork2),
+					testAccCheckSFSV2ShareNetworkExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork2),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_new_net"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_new_net"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", ""),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", ""),
 					resource.TestMatchResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id",
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					resource.TestMatchResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_subnet_id",
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_subnet_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					testAccCheckSFSV2ShareNetworkNetDiffers(&sharenetwork1, &sharenetwork2),
 				),
@@ -80,53 +80,53 @@ func TestAccSFSV2ShareNetwork_secservice(t *testing.T) {
 			{
 				Config: testAccSFSV2ShareNetworkConfigSecService1(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareNetworkExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
+					testAccCheckSFSV2ShareNetworkExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_secure"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_secure"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the secure love"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the secure love"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "1"),
-					testAccCheckSFSV2ShareNetworkSecSvcExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "1"),
+					testAccCheckSFSV2ShareNetworkSecSvcExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
 				),
 			},
 			{
 				Config: testAccSFSV2ShareNetworkConfigSecService2(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareNetworkExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
+					testAccCheckSFSV2ShareNetworkExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_secure"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_secure"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the secure love"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the secure love"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "2"),
-					testAccCheckSFSV2ShareNetworkSecSvcExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "2"),
+					testAccCheckSFSV2ShareNetworkSecSvcExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
 				),
 			},
 			{
 				Config: testAccSFSV2ShareNetworkConfigSecService3(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareNetworkExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
+					testAccCheckSFSV2ShareNetworkExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_secure"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork_secure"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the secure love"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the secure love"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "1"),
-					testAccCheckSFSV2ShareNetworkSecSvcExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "1"),
+					testAccCheckSFSV2ShareNetworkSecSvcExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
 				),
 			},
 			{
 				Config: testAccSFSV2ShareNetworkConfigSecService4(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareNetworkExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
+					testAccCheckSFSV2ShareNetworkExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", &sharenetwork),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "name", "test_sharenetwork"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the love"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "description", "share the love"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "0"),
-					testAccCheckSFSV2ShareNetworkSecSvcExists("viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
+						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "0"),
+					testAccCheckSFSV2ShareNetworkSecSvcExists("openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1"),
 				),
 			},
 		},
@@ -141,7 +141,7 @@ func testAccCheckSFSV2ShareNetworkDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_sharedfilesystem_securityservice_v2" {
+		if rs.Type != "openstack_sharedfilesystem_securityservice_v2" {
 			continue
 		}
 
@@ -246,16 +246,16 @@ func testAccCheckSFSV2ShareNetworkNetDiffers(sharenetwork1, sharenetwork2 *share
 }
 
 const testAccSFSV2ShareNetworkConfig = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
@@ -263,11 +263,11 @@ func testAccSFSV2ShareNetworkConfigBasic() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork"
   description         = "share the love"
-  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
 }
 `, testAccSFSV2ShareNetworkConfig)
 }
@@ -276,29 +276,29 @@ func testAccSFSV2ShareNetworkConfigUpdate() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_networking_network_v2" "network_2" {
+resource "openstack_networking_network_v2" "network_2" {
   name = "network_2"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   name = "subnet_2"
   cidr = "192.168.198.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 }
 
-resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork_new_net"
   description         = ""
-  neutron_net_id      = "${viettelidc_networking_network_v2.network_2.id}"
-  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_2.id}"
+  neutron_net_id      = "${openstack_networking_network_v2.network_2.id}"
+  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_2.id}"
 }
 `, testAccSFSV2ShareNetworkConfig)
 }
 
 const testAccSFSV2ShareNetworkConfigSecService = `
-resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_1" {
+resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_1" {
   name        = "security"
   description = "created by terraform"
   type        = "active_directory"
@@ -310,7 +310,7 @@ resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_1" {
   password    = "s8cret"
 }
 
-resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_2" {
+resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_2" {
   name        = "security_through_obscurity"
   description = ""
   type        = "kerberos"
@@ -325,13 +325,13 @@ func testAccSFSV2ShareNetworkConfigSecService1() string {
 
 %s
 
-resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork_secure"
   description         = "share the secure love"
-  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
   security_service_ids = [
-    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_1.id}",
+    "${openstack_sharedfilesystem_securityservice_v2.securityservice_1.id}",
   ]
 }
 `, testAccSFSV2ShareNetworkConfig, testAccSFSV2ShareNetworkConfigSecService)
@@ -343,14 +343,14 @@ func testAccSFSV2ShareNetworkConfigSecService2() string {
 
 %s
 
-resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork_secure"
   description         = "share the secure love"
-  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
   security_service_ids = [
-    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_1.id}",
-    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_2.id}",
+    "${openstack_sharedfilesystem_securityservice_v2.securityservice_1.id}",
+    "${openstack_sharedfilesystem_securityservice_v2.securityservice_2.id}",
   ]
 }
 `, testAccSFSV2ShareNetworkConfig, testAccSFSV2ShareNetworkConfigSecService)
@@ -362,13 +362,13 @@ func testAccSFSV2ShareNetworkConfigSecService3() string {
 
 %s
 
-resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork_secure"
   description         = "share the secure love"
-  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
   security_service_ids = [
-    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_2.id}",
+    "${openstack_sharedfilesystem_securityservice_v2.securityservice_2.id}",
   ]
 }
 `, testAccSFSV2ShareNetworkConfig, testAccSFSV2ShareNetworkConfigSecService)
@@ -380,11 +380,11 @@ func testAccSFSV2ShareNetworkConfigSecService4() string {
 
 %s
 
-resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork"
   description         = "share the love"
-  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
 }
 `, testAccSFSV2ShareNetworkConfig, testAccSFSV2ShareNetworkConfigSecService)
 }

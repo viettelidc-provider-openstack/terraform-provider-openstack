@@ -29,10 +29,10 @@ func TestAccNetworkingV2RouterInterface_basic_subnet(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterInterfaceBasicSubnet,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
 				),
 			},
 		},
@@ -55,12 +55,12 @@ func TestAccNetworkingV2RouterInterface_force_destroy(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterInterfaceForceDestroy,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_router_interface_v2.int_1", "force_destroy", "true"),
-					testAccCheckNetworkingV2RouterInterfaceAddExtraRoutes("viettelidc_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
+					resource.TestCheckResourceAttr("openstack_networking_router_interface_v2.int_1", "force_destroy", "true"),
+					testAccCheckNetworkingV2RouterInterfaceAddExtraRoutes("openstack_networking_router_interface_v2.int_1"),
 				),
 			},
 		},
@@ -86,18 +86,18 @@ func TestAccNetworkingV2RouterInterface_v6_subnet(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterInterfaceV6Subnet + testAccNetworkingV2RouterInterfaceV6SubnetSecondInterface,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet1),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_2", &subnet2),
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_2"),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet1),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_2", &subnet2),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_2"),
 				),
 			},
 			{ // Make sure deleting one of the router interfaces does not remove the other one.
 				Config: testAccNetworkingV2RouterInterfaceV6Subnet,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
 				),
 			},
 		},
@@ -121,11 +121,11 @@ func TestAccNetworkingV2RouterInterface_basic_port(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterInterfaceBasicPort,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
 				),
 			},
 		},
@@ -148,10 +148,10 @@ func TestAccNetworkingV2RouterInterface_timeout(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterInterfaceTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
 				),
 			},
 		},
@@ -166,7 +166,7 @@ func testAccCheckNetworkingV2RouterInterfaceDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_router_interface_v2" {
+		if rs.Type != "openstack_networking_router_interface_v2" {
 			continue
 		}
 
@@ -255,131 +255,131 @@ func testAccCheckNetworkingV2RouterInterfaceAddExtraRoutes(n string) resource.Te
 }
 
 const testAccNetworkingV2RouterInterfaceBasicSubnet = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2RouterInterfaceForceDestroy = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  subnet_id     = "${viettelidc_networking_subnet_v2.subnet_1.id}"
-  router_id     = "${viettelidc_networking_router_v2.router_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  subnet_id     = "${openstack_networking_subnet_v2.subnet_1.id}"
+  router_id     = "${openstack_networking_router_v2.router_1.id}"
   force_destroy = true
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2RouterInterfaceV6Subnet = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "fd00:0:0:1::/64"
   ip_version = 6
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   cidr = "fd00:0:0:2::/64"
   ip_version = 6
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2RouterInterfaceV6SubnetSecondInterface = `
-resource "viettelidc_networking_router_interface_v2" "int_2" {
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_2.id}"
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+resource "openstack_networking_router_interface_v2" "int_2" {
+  subnet_id = "${openstack_networking_subnet_v2.subnet_2.id}"
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 }
 `
 
 const testAccNetworkingV2RouterInterfaceBasicPort = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_1.id}"
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.1"
   }
 }
 `
 
 const testAccNetworkingV2RouterInterfaceTimeout = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 
   timeouts {
     create = "5m"
@@ -387,14 +387,14 @@ resource "viettelidc_networking_router_interface_v2" "int_1" {
   }
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `

@@ -22,12 +22,12 @@ func TestAccNetworkingV2SubnetDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
-					testAccCheckNetworkingSubnetV2DataSourceGoodNetwork("data.viettelidc_networking_subnet_v2.subnet_1", "viettelidc_networking_network_v2.network_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceGoodNetwork("data.openstack_networking_subnet_v2.subnet_1", "openstack_networking_network_v2.network_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "name", "subnet_1"),
+						"data.openstack_networking_subnet_v2.subnet_1", "name", "subnet_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -48,37 +48,37 @@ func TestAccNetworkingV2SubnetDataSource_testQueries(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceCidr(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "description", "my subnet description"),
+						"data.openstack_networking_subnet_v2.subnet_1", "description", "my subnet description"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
 				),
 			},
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceDhcpEnabled(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "tags.#", "1"),
+						"data.openstack_networking_subnet_v2.subnet_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
 				),
 			},
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceIPVersion(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
 				),
 			},
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceGatewayIP(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -96,13 +96,13 @@ func TestAccNetworkingV2SubnetDataSource_networkIdAttribute(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceNetworkIDAttribute(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
-					testAccCheckNetworkingSubnetV2DataSourceGoodNetwork("data.viettelidc_networking_subnet_v2.subnet_1", "viettelidc_networking_network_v2.network_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceGoodNetwork("data.openstack_networking_subnet_v2.subnet_1", "openstack_networking_network_v2.network_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "tags.#", "1"),
+						"data.openstack_networking_subnet_v2.subnet_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
-					testAccCheckNetworkingPortV2ID("viettelidc_networking_port_v2.port_1"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+					testAccCheckNetworkingPortV2ID("openstack_networking_port_v2.port_1"),
 				),
 			},
 		},
@@ -120,11 +120,11 @@ func TestAccNetworkingV2SubnetDataSource_subnetPoolIdAttribute(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSubnetV2DataSourceSubnetPoolIDAttribute(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetV2DataSourceID("data.viettelidc_networking_subnet_v2.subnet_1"),
+					testAccCheckNetworkingSubnetV2DataSourceID("data.openstack_networking_subnet_v2.subnet_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "tags.#", "2"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
+						"data.openstack_networking_subnet_v2.subnet_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -190,16 +190,16 @@ func testAccCheckNetworkingSubnetV2DataSourceGoodNetwork(n1, n2 string) resource
 }
 
 const testAccOpenStackNetworkingSubnetV2DataSourceSubnet = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   description = "my subnet description"
   cidr = "192.168.199.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   tags = [
     "foo",
     "bar",
@@ -208,21 +208,21 @@ resource "viettelidc_networking_subnet_v2" "subnet_1" {
 `
 
 const testAccOpenStackNetworkingSubnetV2DataSourceSubnetWithSubnetPool = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
   name = "my_ipv4_pool"
   prefixes = ["10.11.12.0/24"]
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "10.11.12.0/25"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
-  subnetpool_id = "${viettelidc_networking_subnetpool_v2.subnetpool_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
+  subnetpool_id = "${openstack_networking_subnetpool_v2.subnetpool_1.id}"
   tags = [
     "foo",
     "bar",
@@ -234,8 +234,8 @@ func testAccOpenStackNetworkingSubnetV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
-  name = "${viettelidc_networking_subnet_v2.subnet_1.name}"
+data "openstack_networking_subnet_v2" "subnet_1" {
+  name = "${openstack_networking_subnet_v2.subnet_1.name}"
 }
 `, testAccOpenStackNetworkingSubnetV2DataSourceSubnet)
 }
@@ -244,7 +244,7 @@ func testAccOpenStackNetworkingSubnetV2DataSourceCidr() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
+data "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   tags = []
 }
@@ -255,8 +255,8 @@ func testAccOpenStackNetworkingSubnetV2DataSourceDhcpEnabled() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+data "openstack_networking_subnet_v2" "subnet_1" {
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   dhcp_enabled = true
   tags = [
     "bar",
@@ -269,8 +269,8 @@ func testAccOpenStackNetworkingSubnetV2DataSourceIPVersion() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+data "openstack_networking_subnet_v2" "subnet_1" {
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   ip_version = 4
 }
 `, testAccOpenStackNetworkingSubnetV2DataSourceSubnet)
@@ -280,8 +280,8 @@ func testAccOpenStackNetworkingSubnetV2DataSourceGatewayIP() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
-  gateway_ip = "${viettelidc_networking_subnet_v2.subnet_1.gateway_ip}"
+data "openstack_networking_subnet_v2" "subnet_1" {
+  gateway_ip = "${openstack_networking_subnet_v2.subnet_1.gateway_ip}"
 }
 `, testAccOpenStackNetworkingSubnetV2DataSourceSubnet)
 }
@@ -290,16 +290,16 @@ func testAccOpenStackNetworkingSubnetV2DataSourceNetworkIDAttribute() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
-  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+data "openstack_networking_subnet_v2" "subnet_1" {
+  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   tags = [
     "foo",
   ]
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name            = "test_port"
-  network_id      = "${data.viettelidc_networking_subnet_v2.subnet_1.network_id}"
+  network_id      = "${data.openstack_networking_subnet_v2.subnet_1.network_id}"
   admin_state_up  = "true"
 }
 
@@ -310,8 +310,8 @@ func testAccOpenStackNetworkingSubnetV2DataSourceSubnetPoolIDAttribute() string 
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_subnet_v2" "subnet_1" {
-  subnetpool_id = "${viettelidc_networking_subnet_v2.subnet_1.subnetpool_id}"
+data "openstack_networking_subnet_v2" "subnet_1" {
+  subnetpool_id = "${openstack_networking_subnet_v2.subnet_1.subnetpool_id}"
   tags = [
     "foo",
     "bar",

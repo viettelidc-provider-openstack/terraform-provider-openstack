@@ -8,7 +8,7 @@ import (
 )
 
 func TestAccNetworkingV2AddressScopeImport_basic(t *testing.T) {
-	resourceName := "viettelidc_networking_addressscope_v2.addressscope_1"
+	resourceName := "openstack_networking_addressscope_v2.addressscope_1"
 	name := acctest.RandomWithPrefix("tf-acc-addrscope")
 
 	resource.Test(t, resource.TestCase{

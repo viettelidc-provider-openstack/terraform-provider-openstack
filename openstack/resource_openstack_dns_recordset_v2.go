@@ -127,12 +127,12 @@ func resourceDNSRecordSetV2Create(ctx context.Context, d *schema.ResourceData, m
 		MapValueSpecs(d),
 	}
 
-	log.Printf("[DEBUG] viettelidc_dns_recordset_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_dns_recordset_v2 create options: %#v", createOpts)
 
 	zoneID := d.Get("zone_id").(string)
 	n, err := recordsets.Create(dnsClient, zoneID, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_dns_recordset_v2: %s", err)
+		return diag.Errorf("Error creating openstack_dns_recordset_v2: %s", err)
 	}
 
 	if !d.Get("disable_status_check").(bool) {
@@ -148,13 +148,13 @@ func resourceDNSRecordSetV2Create(ctx context.Context, d *schema.ResourceData, m
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for viettelidc_dns_recordset_v2 %s to become active: %s", d.Id(), err)
+				"Error waiting for openstack_dns_recordset_v2 %s to become active: %s", d.Id(), err)
 		}
 	}
 	id := fmt.Sprintf("%s/%s", zoneID, n.ID)
 	d.SetId(id)
 
-	log.Printf("[DEBUG] Created viettelidc_dns_recordset_v2 %s: %#v", n.ID, n)
+	log.Printf("[DEBUG] Created openstack_dns_recordset_v2 %s: %#v", n.ID, n)
 	return resourceDNSRecordSetV2Read(ctx, d, meta)
 }
 
@@ -177,10 +177,10 @@ func resourceDNSRecordSetV2Read(_ context.Context, d *schema.ResourceData, meta 
 
 	n, err := recordsets.Get(dnsClient, zoneID, recordsetID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_dns_recordset_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_dns_recordset_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_dns_recordset_v2 %s: %#v", recordsetID, n)
+	log.Printf("[DEBUG] Retrieved openstack_dns_recordset_v2 %s: %#v", recordsetID, n)
 
 	d.Set("name", n.Name)
 	d.Set("description", n.Description)
@@ -245,11 +245,11 @@ func resourceDNSRecordSetV2Update(ctx context.Context, d *schema.ResourceData, m
 		return diag.FromErr(err)
 	}
 
-	log.Printf("[DEBUG] Updating viettelidc_dns_recordset_v2 %s with options: %#v", recordsetID, updateOpts)
+	log.Printf("[DEBUG] Updating openstack_dns_recordset_v2 %s with options: %#v", recordsetID, updateOpts)
 
 	_, err = recordsets.Update(dnsClient, zoneID, recordsetID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating viettelidc_dns_recordset_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating openstack_dns_recordset_v2 %s: %s", d.Id(), err)
 	}
 
 	if !d.Get("disable_status_check").(bool) {
@@ -265,7 +265,7 @@ func resourceDNSRecordSetV2Update(ctx context.Context, d *schema.ResourceData, m
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for viettelidc_dns_recordset_v2 %s to become active: %s", d.Id(), err)
+				"Error waiting for openstack_dns_recordset_v2 %s to become active: %s", d.Id(), err)
 		}
 	}
 
@@ -291,7 +291,7 @@ func resourceDNSRecordSetV2Delete(ctx context.Context, d *schema.ResourceData, m
 
 	err = recordsets.Delete(dnsClient, zoneID, recordsetID).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_dns_recordset_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_dns_recordset_v2"))
 	}
 
 	if !d.Get("disable_status_check").(bool) {
@@ -307,7 +307,7 @@ func resourceDNSRecordSetV2Delete(ctx context.Context, d *schema.ResourceData, m
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for viettelidc_dns_recordset_v2 %s to become deleted: %s", d.Id(), err)
+				"Error waiting for openstack_dns_recordset_v2 %s to become deleted: %s", d.Id(), err)
 		}
 	}
 

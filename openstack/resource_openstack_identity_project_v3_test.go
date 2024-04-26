@@ -26,36 +26,36 @@ func TestAccIdentityV3Project_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3ProjectBasic(projectName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_project_v3.project_1", "name", &project.Name),
+						"openstack_identity_project_v3.project_1", "name", &project.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_project_v3.project_1", "description", &project.Description),
+						"openstack_identity_project_v3.project_1", "description", &project.Description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_project_v3.project_1", "domain_id", "default"),
+						"openstack_identity_project_v3.project_1", "domain_id", "default"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_project_v3.project_1", "enabled", "true"),
+						"openstack_identity_project_v3.project_1", "enabled", "true"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_project_v3.project_1", "is_domain", "false"),
+						"openstack_identity_project_v3.project_1", "is_domain", "false"),
 				),
 			},
 			{
 				Config: testAccIdentityV3ProjectUpdate(projectName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_project_v3.project_1", "name", &project.Name),
+						"openstack_identity_project_v3.project_1", "name", &project.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_project_v3.project_1", "description", &project.Description),
+						"openstack_identity_project_v3.project_1", "description", &project.Description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_project_v3.project_1", "domain_id", "default"),
+						"openstack_identity_project_v3.project_1", "domain_id", "default"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_project_v3.project_1", "enabled", "false"),
+						"openstack_identity_project_v3.project_1", "enabled", "false"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_project_v3.project_1", "is_domain", "false"),
-					testAccCheckIdentityV3ProjectHasTag("viettelidc_identity_project_v3.project_1", "tag1"),
-					testAccCheckIdentityV3ProjectHasTag("viettelidc_identity_project_v3.project_1", "tag2"),
-					testAccCheckIdentityV3ProjectTagCount("viettelidc_identity_project_v3.project_1", 2),
+						"openstack_identity_project_v3.project_1", "is_domain", "false"),
+					testAccCheckIdentityV3ProjectHasTag("openstack_identity_project_v3.project_1", "tag1"),
+					testAccCheckIdentityV3ProjectHasTag("openstack_identity_project_v3.project_1", "tag2"),
+					testAccCheckIdentityV3ProjectTagCount("openstack_identity_project_v3.project_1", 2),
 				),
 			},
 		},
@@ -70,7 +70,7 @@ func testAccCheckIdentityV3ProjectDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_project_v3" {
+		if rs.Type != "openstack_identity_project_v3" {
 			continue
 		}
 
@@ -187,7 +187,7 @@ func testAccCheckIdentityV3ProjectTagCount(n string, expected int) resource.Test
 
 func testAccIdentityV3ProjectBasic(projectName string) string {
 	return fmt.Sprintf(`
-    resource "viettelidc_identity_project_v3" "project_1" {
+    resource "openstack_identity_project_v3" "project_1" {
       name = "%s"
       description = "A project"
     }
@@ -196,7 +196,7 @@ func testAccIdentityV3ProjectBasic(projectName string) string {
 
 func testAccIdentityV3ProjectUpdate(projectName string) string {
 	return fmt.Sprintf(`
-    resource "viettelidc_identity_project_v3" "project_1" {
+    resource "openstack_identity_project_v3" "project_1" {
       name = "%s"
       description = "Some project"
 	  enabled = false

@@ -28,7 +28,7 @@ func expandBlockStorageV3AttachMode(v string) (volumeactions.AttachMode, error) 
 func blockStorageVolumeAttachV3ParseID(id string) (string, string, error) {
 	parts := strings.Split(id, "/")
 	if len(parts) < 2 {
-		return "", "", fmt.Errorf("Unable to determine viettelidc_blockstorage_volume_attach_v3 ID")
+		return "", "", fmt.Errorf("Unable to determine openstack_blockstorage_volume_attach_v3 ID")
 	}
 
 	return parts[0], parts[1], nil

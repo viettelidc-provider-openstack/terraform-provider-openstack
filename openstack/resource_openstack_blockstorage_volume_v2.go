@@ -30,7 +30,7 @@ func resourceBlockStorageVolumeV2() *schema.Resource {
 			Delete: schema.DefaultTimeout(10 * time.Minute),
 		},
 
-		DeprecationMessage: "use viettelidc_blockstorage_volume_v3 resource instead",
+		DeprecationMessage: "use openstack_blockstorage_volume_v3 resource instead",
 		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,
@@ -197,7 +197,7 @@ func resourceBlockStorageVolumeV2Create(ctx context.Context, d *schema.ResourceD
 
 	schedulerHintsRaw := d.Get("scheduler_hints").(*schema.Set).List()
 	if len(schedulerHintsRaw) > 0 {
-		log.Printf("[DEBUG] viettelidc_blockstorage_volume_v2 scheduler hints: %+v", schedulerHintsRaw[0])
+		log.Printf("[DEBUG] openstack_blockstorage_volume_v2 scheduler hints: %+v", schedulerHintsRaw[0])
 		schedulerHints = resourceBlockStorageSchedulerHints(schedulerHintsRaw[0].(map[string]interface{}))
 	}
 	createOpts = schedulerhints.CreateOptsExt{
@@ -205,11 +205,11 @@ func resourceBlockStorageVolumeV2Create(ctx context.Context, d *schema.ResourceD
 		SchedulerHints:          schedulerHints,
 	}
 
-	log.Printf("[DEBUG] viettelidc_blockstorage_volume_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_blockstorage_volume_v2 create options: %#v", createOpts)
 
 	v, err := volumes.Create(blockStorageClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_blockstorage_volume_v2: %s", err)
+		return diag.Errorf("Error creating openstack_blockstorage_volume_v2: %s", err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -224,7 +224,7 @@ func resourceBlockStorageVolumeV2Create(ctx context.Context, d *schema.ResourceD
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for viettelidc_blockstorage_volume_v2 %s to become ready: %s", v.ID, err)
+			"Error waiting for openstack_blockstorage_volume_v2 %s to become ready: %s", v.ID, err)
 	}
 
 	d.SetId(v.ID)
@@ -241,10 +241,10 @@ func resourceBlockStorageVolumeV2Read(_ context.Context, d *schema.ResourceData,
 
 	v, err := volumes.Get(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_volume_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_volume_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_volume_v2 %s: %#v", d.Id(), v)
+	log.Printf("[DEBUG] Retrieved openstack_blockstorage_volume_v2 %s: %#v", d.Id(), v)
 
 	d.Set("size", v.Size)
 	d.Set("description", v.Description)
@@ -257,10 +257,10 @@ func resourceBlockStorageVolumeV2Read(_ context.Context, d *schema.ResourceData,
 	d.Set("region", GetRegion(d, config))
 
 	attachments := flattenBlockStorageVolumeV2Attachments(v.Attachments)
-	log.Printf("[DEBUG] viettelidc_blockstorage_volume_v2 %s attachments: %#v", d.Id(), attachments)
+	log.Printf("[DEBUG] openstack_blockstorage_volume_v2 %s attachments: %#v", d.Id(), attachments)
 	if err := d.Set("attachment", attachments); err != nil {
 		log.Printf(
-			"[DEBUG] unable to set viettelidc_blockstorage_volume_v2 %s attachments: %s", d.Id(), err)
+			"[DEBUG] unable to set openstack_blockstorage_volume_v2 %s attachments: %s", d.Id(), err)
 	}
 
 	return nil
@@ -287,7 +287,7 @@ func resourceBlockStorageVolumeV2Update(ctx context.Context, d *schema.ResourceD
 
 	_, err = volumes.Update(blockStorageClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating viettelidc_blockstorage_volume_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating openstack_blockstorage_volume_v2 %s: %s", d.Id(), err)
 	}
 
 	return resourceBlockStorageVolumeV2Read(ctx, d, meta)
@@ -302,7 +302,7 @@ func resourceBlockStorageVolumeV2Delete(ctx context.Context, d *schema.ResourceD
 
 	v, err := volumes.Get(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_volume_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_volume_v2"))
 	}
 
 	// Make sure this volume is detached from all instances before deleting.
@@ -313,13 +313,13 @@ func resourceBlockStorageVolumeV2Delete(ctx context.Context, d *schema.ResourceD
 		}
 
 		for _, volumeAttachment := range v.Attachments {
-			log.Printf("[DEBUG] viettelidc_blockstorage_volume_v2 %s attachment: %#v", d.Id(), volumeAttachment)
+			log.Printf("[DEBUG] openstack_blockstorage_volume_v2 %s attachment: %#v", d.Id(), volumeAttachment)
 
 			serverID := volumeAttachment.ServerID
 			attachmentID := volumeAttachment.ID
 			if err := volumeattach.Delete(computeClient, serverID, attachmentID).ExtractErr(); err != nil {
 				// It's possible the volume was already detached by
-				// viettelidc_compute_volume_attach_v2, so consider
+				// openstack_compute_volume_attach_v2, so consider
 				// a 404 acceptable and continue.
 				if _, ok := err.(gophercloud.ErrDefault404); ok {
 					continue
@@ -332,7 +332,7 @@ func resourceBlockStorageVolumeV2Delete(ctx context.Context, d *schema.ResourceD
 				}
 
 				return diag.Errorf(
-					"Error detaching viettelidc_blockstorage_volume_v2 %s from %s: %s", d.Id(), serverID, err)
+					"Error detaching openstack_blockstorage_volume_v2 %s from %s: %s", d.Id(), serverID, err)
 			}
 		}
 
@@ -348,7 +348,7 @@ func resourceBlockStorageVolumeV2Delete(ctx context.Context, d *schema.ResourceD
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for viettelidc_blockstorage_volume_v2 %s to become available: %s", d.Id(), err)
+				"Error waiting for openstack_blockstorage_volume_v2 %s to become available: %s", d.Id(), err)
 		}
 	}
 
@@ -357,7 +357,7 @@ func resourceBlockStorageVolumeV2Delete(ctx context.Context, d *schema.ResourceD
 	// If this is true, just move on. It'll eventually delete.
 	if v.Status != "deleting" {
 		if err := volumes.Delete(blockStorageClient, d.Id(), nil).ExtractErr(); err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_blockstorage_volume_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_blockstorage_volume_v2"))
 		}
 	}
 
@@ -372,7 +372,7 @@ func resourceBlockStorageVolumeV2Delete(ctx context.Context, d *schema.ResourceD
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_blockstorage_volume_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_blockstorage_volume_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

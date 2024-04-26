@@ -124,28 +124,28 @@ func dataSourceKeyManagerContainerV1Read(ctx context.Context, d *schema.Resource
 
 	allPages, err := containers.List(kmClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_keymanager_container_v1 containers: %s", err)
+		return diag.Errorf("Unable to query openstack_keymanager_container_v1 containers: %s", err)
 	}
 
 	allContainers, err := containers.ExtractContainers(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_keymanager_container_v1 containers: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_keymanager_container_v1 containers: %s", err)
 	}
 
 	if len(allContainers) < 1 {
-		return diag.Errorf("Your query returned no viettelidc_keymanager_container_v1 results. " +
+		return diag.Errorf("Your query returned no openstack_keymanager_container_v1 results. " +
 			"Please change your search criteria and try again.")
 	}
 
 	if len(allContainers) > 1 {
-		log.Printf("[DEBUG] Multiple viettelidc_keymanager_container_v1 results found: %#v", allContainers)
+		log.Printf("[DEBUG] Multiple openstack_keymanager_container_v1 results found: %#v", allContainers)
 		return diag.Errorf("Your query returned more than one result. Please try a more " +
 			"specific search criteria.")
 	}
 
 	container := allContainers[0]
 
-	log.Printf("[DEBUG] Retrieved viettelidc_keymanager_container_v1 %s: %#v", d.Id(), container)
+	log.Printf("[DEBUG] Retrieved openstack_keymanager_container_v1 %s: %#v", d.Id(), container)
 
 	uuid := keyManagerContainerV1GetUUIDfromContainerRef(container.ContainerRef)
 

@@ -28,7 +28,7 @@ func TestAccFWPolicyV2_basic(t *testing.T) {
 				Config: testAccFWPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 				),
 			},
 		},
@@ -51,9 +51,9 @@ func TestAccFWPolicyV2_shared(t *testing.T) {
 				Config: testAccFWPolicyV2Shared,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "shared", "true"),
+						"openstack_fw_policy_v2.policy_1", "shared", "true"),
 				),
 			},
 		},
@@ -76,18 +76,18 @@ func TestAccFWPolicyV2_addRules(t *testing.T) {
 				Config: testAccFWPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "rules.#", "0"),
+						"openstack_fw_policy_v2.policy_1", "rules.#", "0"),
 				),
 			},
 			{
 				Config: testAccFWPolicyV2AddRules,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "rules.#", "2"),
+						"openstack_fw_policy_v2.policy_1", "rules.#", "2"),
 				),
 			},
 		},
@@ -110,33 +110,33 @@ func TestAccFWPolicyV2_clearFields(t *testing.T) {
 				Config: testAccFWPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "name", ""),
+						"openstack_fw_policy_v2.policy_1", "name", ""),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "description", ""),
+						"openstack_fw_policy_v2.policy_1", "description", ""),
 				),
 			},
 			{
 				Config: testAccFWPolicyV2FillOutFields,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "name", "policy_1"),
+						"openstack_fw_policy_v2.policy_1", "name", "policy_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "description", "terraform acceptance test"),
+						"openstack_fw_policy_v2.policy_1", "description", "terraform acceptance test"),
 				),
 			},
 			{
 				Config: testAccFWPolicyV2ClearFields,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "name", ""),
+						"openstack_fw_policy_v2.policy_1", "name", ""),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "description", ""),
+						"openstack_fw_policy_v2.policy_1", "description", ""),
 				),
 			},
 		},
@@ -159,27 +159,27 @@ func TestAccFWPolicyV2_deleteRules(t *testing.T) {
 				Config: testAccFWPolicyV2AddRules,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "rules.#", "2"),
+						"openstack_fw_policy_v2.policy_1", "rules.#", "2"),
 				),
 			},
 			{
 				Config: testAccFWPolicyV2DeleteRules,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "rules.#", "1"),
+						"openstack_fw_policy_v2.policy_1", "rules.#", "1"),
 				),
 			},
 			{
 				Config: testAccFWPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckFWPolicyV2Exists(
-						"viettelidc_fw_policy_v2.policy_1", &policy),
+						"openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_policy_v2.policy_1", "rules.#", "0"),
+						"openstack_fw_policy_v2.policy_1", "rules.#", "0"),
 				),
 			},
 		},
@@ -201,141 +201,141 @@ func TestAccFWPolicyV2_rulesOrder(t *testing.T) {
 			{
 				Config: testAccFWPolicyV2RulesOrderBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_3", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_3", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.3",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.3",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "4"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "4"),
 				),
 			},
 
 			{
 				Config: testAccFWPolicyV2RulesOrderRemove,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "3"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "3"),
 				),
 			},
 
 			{
 				Config: testAccFWPolicyV2RulesOrderRevert,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_3", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_3", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.3",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.3",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "4"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "4"),
 				),
 			},
 
 			{
 				Config: testAccFWPolicyV2RulesOrderBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_3", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_3", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.3",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.3",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "4"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "4"),
 				),
 			},
 
 			{
 				Config: testAccFWPolicyV2RulesOrderShuffle,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.3",
-						"viettelidc_fw_rule_v2.rule_3", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.3",
+						"openstack_fw_rule_v2.rule_3", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "4"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "4"),
 				),
 			},
 
 			{
 				Config: testAccFWPolicyV2RulesOrderRemove,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "3"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "3"),
 				),
 			},
 
 			{
 				Config: testAccFWPolicyV2RulesOrderBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2Exists("viettelidc_fw_policy_v2.policy_1", &policy),
+					testAccCheckFWPolicyV2Exists("openstack_fw_policy_v2.policy_1", &policy),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.0",
-						"viettelidc_fw_rule_v2.rule_1", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.0",
+						"openstack_fw_rule_v2.rule_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.1",
-						"viettelidc_fw_rule_v2.rule_2", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.1",
+						"openstack_fw_rule_v2.rule_2", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.2",
-						"viettelidc_fw_rule_v2.rule_3", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.2",
+						"openstack_fw_rule_v2.rule_3", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.3",
-						"viettelidc_fw_rule_v2.rule_4", "id"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.3",
+						"openstack_fw_rule_v2.rule_4", "id"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_policy_v2.policy_1", "rules.#", "4"),
+						"data.openstack_fw_policy_v2.policy_1", "rules.#", "4"),
 				),
 			},
 		},
@@ -349,7 +349,7 @@ func testAccCheckFWPolicyV2Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_fw_policy_v2" {
+		if rs.Type != "openstack_fw_policy_v2" {
 			continue
 		}
 		_, err = policies.Get(networkingClient, rs.Primary.ID).Extract()
@@ -402,209 +402,209 @@ func testAccCheckFWPolicyV2Exists(n string, policy *policies.Policy) resource.Te
 }
 
 const testAccFWPolicyV2Basic = `
-resource "viettelidc_fw_policy_v2" "policy_1" {}
+resource "openstack_fw_policy_v2" "policy_1" {}
 `
 
 const testAccFWPolicyV2Shared = `
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   shared = true
 }
 `
 
 const testAccFWPolicyV2AddRules = `
-resource "viettelidc_fw_rule_v2" "tcp_allow" {
+resource "openstack_fw_rule_v2" "tcp_allow" {
   protocol = "tcp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "udp_deny" {
+resource "openstack_fw_rule_v2" "udp_deny" {
   protocol = "udp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
   audited     = true
   rules       = [
-    "${viettelidc_fw_rule_v2.udp_deny.id}",
-    "${viettelidc_fw_rule_v2.tcp_allow.id}"
+    "${openstack_fw_rule_v2.udp_deny.id}",
+    "${openstack_fw_rule_v2.tcp_allow.id}"
   ]
 }
 `
 
 const testAccFWPolicyV2FillOutFields = `
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
 }
 `
 
 const testAccFWPolicyV2ClearFields = `
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = ""
   description = ""
 }
 `
 
 const testAccFWPolicyV2DeleteRules = `
-resource "viettelidc_fw_rule_v2" "udp_deny" {
+resource "openstack_fw_rule_v2" "udp_deny" {
   protocol = "udp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
   rules       = [
-    "${viettelidc_fw_rule_v2.udp_deny.id}"
+    "${openstack_fw_rule_v2.udp_deny.id}"
   ]
 }
 `
 
 const testAccFWPolicyV2RulesOrderBasic = `
-resource "viettelidc_fw_rule_v2" "rule_1" {
+resource "openstack_fw_rule_v2" "rule_1" {
   protocol = "tcp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_2" {
+resource "openstack_fw_rule_v2" "rule_2" {
   protocol = "tcp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_3" {
+resource "openstack_fw_rule_v2" "rule_3" {
   protocol = "udp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_4" {
+resource "openstack_fw_rule_v2" "rule_4" {
   protocol = "udp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
   rules       = [
-    "${viettelidc_fw_rule_v2.rule_1.id}",
-	"${viettelidc_fw_rule_v2.rule_2.id}",
-	"${viettelidc_fw_rule_v2.rule_3.id}",
-	"${viettelidc_fw_rule_v2.rule_4.id}"
+    "${openstack_fw_rule_v2.rule_1.id}",
+	"${openstack_fw_rule_v2.rule_2.id}",
+	"${openstack_fw_rule_v2.rule_3.id}",
+	"${openstack_fw_rule_v2.rule_4.id}"
   ]
 }
 
-data "viettelidc_fw_policy_v2" "policy_1" {
-  policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+data "openstack_fw_policy_v2" "policy_1" {
+  policy_id = "${openstack_fw_policy_v2.policy_1.id}"
 }
 `
 
 const testAccFWPolicyV2RulesOrderRemove = `
-resource "viettelidc_fw_rule_v2" "rule_1" {
+resource "openstack_fw_rule_v2" "rule_1" {
   protocol = "tcp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_2" {
+resource "openstack_fw_rule_v2" "rule_2" {
   protocol = "tcp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_3" {
+resource "openstack_fw_rule_v2" "rule_3" {
   protocol = "udp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_4" {
+resource "openstack_fw_rule_v2" "rule_4" {
   protocol = "udp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
   rules       = [
-    "${viettelidc_fw_rule_v2.rule_4.id}",
-	"${viettelidc_fw_rule_v2.rule_2.id}",
-	"${viettelidc_fw_rule_v2.rule_1.id}"
+    "${openstack_fw_rule_v2.rule_4.id}",
+	"${openstack_fw_rule_v2.rule_2.id}",
+	"${openstack_fw_rule_v2.rule_1.id}"
   ]
 }
 
-data "viettelidc_fw_policy_v2" "policy_1" {
-  policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+data "openstack_fw_policy_v2" "policy_1" {
+  policy_id = "${openstack_fw_policy_v2.policy_1.id}"
 }
 `
 
 const testAccFWPolicyV2RulesOrderRevert = `
-resource "viettelidc_fw_rule_v2" "rule_1" {
+resource "openstack_fw_rule_v2" "rule_1" {
   protocol = "tcp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_2" {
+resource "openstack_fw_rule_v2" "rule_2" {
   protocol = "tcp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_3" {
+resource "openstack_fw_rule_v2" "rule_3" {
   protocol = "udp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_4" {
+resource "openstack_fw_rule_v2" "rule_4" {
   protocol = "udp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
   rules       = [
-    "${viettelidc_fw_rule_v2.rule_4.id}",
-	"${viettelidc_fw_rule_v2.rule_3.id}",
-	"${viettelidc_fw_rule_v2.rule_2.id}",
-	"${viettelidc_fw_rule_v2.rule_1.id}"
+    "${openstack_fw_rule_v2.rule_4.id}",
+	"${openstack_fw_rule_v2.rule_3.id}",
+	"${openstack_fw_rule_v2.rule_2.id}",
+	"${openstack_fw_rule_v2.rule_1.id}"
   ]
 }
 
-data "viettelidc_fw_policy_v2" "policy_1" {
-  policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+data "openstack_fw_policy_v2" "policy_1" {
+  policy_id = "${openstack_fw_policy_v2.policy_1.id}"
 }
 `
 
 const testAccFWPolicyV2RulesOrderShuffle = `
-resource "viettelidc_fw_rule_v2" "rule_1" {
+resource "openstack_fw_rule_v2" "rule_1" {
   protocol = "tcp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_2" {
+resource "openstack_fw_rule_v2" "rule_2" {
   protocol = "tcp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_3" {
+resource "openstack_fw_rule_v2" "rule_3" {
   protocol = "udp"
   action   = "allow"
 }
 
-resource "viettelidc_fw_rule_v2" "rule_4" {
+resource "openstack_fw_rule_v2" "rule_4" {
   protocol = "udp"
   action   = "deny"
 }
 
-resource "viettelidc_fw_policy_v2" "policy_1" {
+resource "openstack_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "terraform acceptance test"
   rules       = [
-    "${viettelidc_fw_rule_v2.rule_1.id}",
-	"${viettelidc_fw_rule_v2.rule_4.id}",
-	"${viettelidc_fw_rule_v2.rule_2.id}",
-	"${viettelidc_fw_rule_v2.rule_3.id}"
+    "${openstack_fw_rule_v2.rule_1.id}",
+	"${openstack_fw_rule_v2.rule_4.id}",
+	"${openstack_fw_rule_v2.rule_2.id}",
+	"${openstack_fw_rule_v2.rule_3.id}"
   ]
 }
 
-data "viettelidc_fw_policy_v2" "policy_1" {
-  policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+data "openstack_fw_policy_v2" "policy_1" {
+  policy_id = "${openstack_fw_policy_v2.policy_1.id}"
 }
 `

@@ -15,7 +15,7 @@ import (
 func TestAccContainerInfraV1Cluster_basic(t *testing.T) {
 	var cluster clusters.Cluster
 
-	resourceName := "viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -104,7 +104,7 @@ func TestAccContainerInfraV1Cluster_basic(t *testing.T) {
 func TestAccContainerInfraV1Cluster_mergeLabels(t *testing.T) {
 	var cluster clusters.Cluster
 
-	resourceName := "viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -195,7 +195,7 @@ func TestAccContainerInfraV1Cluster_mergeLabels(t *testing.T) {
 func TestAccContainerInfraV1Cluster_overrideLabels(t *testing.T) {
 	var cluster clusters.Cluster
 
-	resourceName := "viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -323,7 +323,7 @@ func testAccCheckContainerInfraV1ClusterDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_containerinfra_cluster_v1" {
+		if rs.Type != "openstack_containerinfra_cluster_v1" {
 			continue
 		}
 
@@ -338,11 +338,11 @@ func testAccCheckContainerInfraV1ClusterDestroy(s *terraform.State) error {
 
 func testAccContainerInfraV1ClusterBasic(keypairName, clusterTemplateName, clusterName string, nodeCount int) string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_keypair_v2" "keypair_1" {
+resource "openstack_compute_keypair_v2" "keypair_1" {
   name = "%s"
 }
 
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   name                  = "%s"
   image                 = "%s"
   coe                   = "kubernetes"
@@ -362,15 +362,15 @@ resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   }
 }
 
-resource "viettelidc_containerinfra_cluster_v1" "cluster_1" {
+resource "openstack_containerinfra_cluster_v1" "cluster_1" {
   region               = "%s"
   name                 = "%s"
-  cluster_template_id  = "${viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
+  cluster_template_id  = "${openstack_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
   create_timeout       = "40"
   docker_volume_size   = "10"
   flavor                = "%s"
   master_flavor         = "%s"
-  keypair              = "${viettelidc_compute_keypair_v2.keypair_1.name}"
+  keypair              = "${openstack_compute_keypair_v2.keypair_1.name}"
   master_count         = 1
   node_count           = %d
   floating_ip_enabled  = true
@@ -380,11 +380,11 @@ resource "viettelidc_containerinfra_cluster_v1" "cluster_1" {
 
 func testAccContainerInfraV1ClusterLabels(keypairName, clusterTemplateName, clusterName string, nodeCount int, mergeLabels bool) string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_keypair_v2" "keypair_1" {
+resource "openstack_compute_keypair_v2" "keypair_1" {
   name = "%s"
 }
 
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   name                  = "%s"
   image                 = "%s"
   coe                   = "kubernetes"
@@ -403,15 +403,15 @@ resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   }
 }
 
-resource "viettelidc_containerinfra_cluster_v1" "cluster_1" {
+resource "openstack_containerinfra_cluster_v1" "cluster_1" {
   region               = "%s"
   name                 = "%s"
-  cluster_template_id  = "${viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
+  cluster_template_id  = "${openstack_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
   create_timeout       = "40"
   docker_volume_size   = "10"
   flavor                = "%s"
   master_flavor         = "%s"
-  keypair              = "${viettelidc_compute_keypair_v2.keypair_1.name}"
+  keypair              = "${openstack_compute_keypair_v2.keypair_1.name}"
   master_count         = 1
   node_count           = %d
   floating_ip_enabled  = true

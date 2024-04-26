@@ -24,7 +24,7 @@ func TestAccComputeV2FloatingIP_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2FloatingIPBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2FloatingIPExists("viettelidc_compute_floatingip_v2.fip_1", &fip),
+					testAccCheckComputeV2FloatingIPExists("openstack_compute_floatingip_v2.fip_1", &fip),
 				),
 			},
 		},
@@ -39,7 +39,7 @@ func testAccCheckComputeV2FloatingIPDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_compute_floatingip_v2" {
+		if rs.Type != "openstack_compute_floatingip_v2" {
 			continue
 		}
 
@@ -85,6 +85,6 @@ func testAccCheckComputeV2FloatingIPExists(n string, kp *floatingips.FloatingIP)
 }
 
 const testAccComputeV2FloatingIPBasic = `
-resource "viettelidc_compute_floatingip_v2" "fip_1" {
+resource "openstack_compute_floatingip_v2" "fip_1" {
 }
 `

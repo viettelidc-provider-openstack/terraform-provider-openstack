@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccKeyManagerContainerV1_importBasic(t *testing.T) {
-	resourceName := "viettelidc_keymanager_container_v1.container_1"
+	resourceName := "openstack_keymanager_container_v1.container_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -31,7 +31,7 @@ func TestAccKeyManagerContainerV1_importBasic(t *testing.T) {
 }
 
 func TestAccKeyManagerContainerV1_importACLs(t *testing.T) {
-	resourceName := "viettelidc_keymanager_container_v1.container_1"
+	resourceName := "openstack_keymanager_container_v1.container_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

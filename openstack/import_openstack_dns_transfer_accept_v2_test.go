@@ -8,7 +8,7 @@ import (
 
 func TestAccDNSV2TransferAccept_importBasic(t *testing.T) {
 	zoneName := randomZoneName()
-	resourceName := "viettelidc_dns_transfer_request_v2.request_1"
+	resourceName := "openstack_dns_transfer_request_v2.request_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

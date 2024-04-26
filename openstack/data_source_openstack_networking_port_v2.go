@@ -270,18 +270,18 @@ func dataSourceNetworkingPortV2Read(ctx context.Context, d *schema.ResourceData,
 
 	allPages, err := ports.List(networkingClient, listOptsBuilder).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list viettelidc_networking_ports_v2: %s", err)
+		return diag.Errorf("Unable to list openstack_networking_ports_v2: %s", err)
 	}
 
 	var allPorts []portExtended
 
 	err = ports.ExtractPortsInto(allPages, &allPorts)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_networking_ports_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_networking_ports_v2: %s", err)
 	}
 
 	if len(allPorts) == 0 {
-		return diag.Errorf("No viettelidc_networking_port_v2 found")
+		return diag.Errorf("No openstack_networking_port_v2 found")
 	}
 
 	var portsList []portExtended
@@ -296,8 +296,8 @@ func dataSourceNetworkingPortV2Read(ctx context.Context, d *schema.ResourceData,
 			}
 		}
 		if len(portsList) == 0 {
-			log.Printf("No viettelidc_networking_port_v2 found after the 'fixed_ip' filter")
-			return diag.Errorf("No viettelidc_networking_port_v2 found")
+			log.Printf("No openstack_networking_port_v2 found after the 'fixed_ip' filter")
+			return diag.Errorf("No openstack_networking_port_v2 found")
 		}
 	} else {
 		portsList = allPorts
@@ -314,19 +314,19 @@ func dataSourceNetworkingPortV2Read(ctx context.Context, d *schema.ResourceData,
 			}
 		}
 		if len(sgPorts) == 0 {
-			log.Printf("[DEBUG] No viettelidc_networking_port_v2 found after the 'security_group_ids' filter")
-			return diag.Errorf("No viettelidc_networking_port_v2 found")
+			log.Printf("[DEBUG] No openstack_networking_port_v2 found after the 'security_group_ids' filter")
+			return diag.Errorf("No openstack_networking_port_v2 found")
 		}
 		portsList = sgPorts
 	}
 
 	if len(portsList) > 1 {
-		return diag.Errorf("More than one viettelidc_networking_port_v2 found (%d)", len(portsList))
+		return diag.Errorf("More than one openstack_networking_port_v2 found (%d)", len(portsList))
 	}
 
 	port := portsList[0]
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_port_v2 %s: %+v", port.ID, port)
+	log.Printf("[DEBUG] Retrieved openstack_networking_port_v2 %s: %+v", port.ID, port)
 	d.SetId(port.ID)
 
 	d.Set("port_id", port.ID)

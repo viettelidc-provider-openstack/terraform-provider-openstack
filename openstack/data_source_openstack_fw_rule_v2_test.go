@@ -23,29 +23,29 @@ func TestAccFWRuleV2DataSource_basic(t *testing.T) {
 			{
 				Config: testAccFWRuleV2DataSourceName(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV2DataSourceID("data.viettelidc_fw_rule_v2.rule_1"),
+					testAccCheckFWRuleV2DataSourceID("data.openstack_fw_rule_v2.rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "name", "rule_1"),
+						"data.openstack_fw_rule_v2.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "protocol", "tcp"),
+						"data.openstack_fw_rule_v2.rule_1", "protocol", "tcp"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "action", "deny"),
+						"data.openstack_fw_rule_v2.rule_1", "action", "deny"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "ip_version", "4"),
+						"data.openstack_fw_rule_v2.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "shared", "false"),
+						"data.openstack_fw_rule_v2.rule_1", "shared", "false"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "enabled", "true"),
+						"data.openstack_fw_rule_v2.rule_1", "enabled", "true"),
 					resource.TestCheckResourceAttrSet(
-						"data.viettelidc_fw_rule_v2.rule_1", "tenant_id"),
+						"data.openstack_fw_rule_v2.rule_1", "tenant_id"),
 					resource.TestCheckResourceAttrSet(
-						"data.viettelidc_fw_rule_v2.rule_1", "source_ip_address"),
+						"data.openstack_fw_rule_v2.rule_1", "source_ip_address"),
 					resource.TestCheckResourceAttrSet(
-						"data.viettelidc_fw_rule_v2.rule_1", "source_port"),
+						"data.openstack_fw_rule_v2.rule_1", "source_port"),
 					resource.TestCheckResourceAttrSet(
-						"data.viettelidc_fw_rule_v2.rule_1", "destination_ip_address"),
+						"data.openstack_fw_rule_v2.rule_1", "destination_ip_address"),
 					resource.TestCheckResourceAttrSet(
-						"data.viettelidc_fw_rule_v2.rule_1", "destination_port"),
+						"data.openstack_fw_rule_v2.rule_1", "destination_port"),
 				),
 			},
 		},
@@ -67,9 +67,9 @@ func TestAccFWRuleV2DataSource_FWRuleID(t *testing.T) {
 			{
 				Config: testAccFWRuleV2DataSourceRuleID(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV2DataSourceID("data.viettelidc_fw_rule_v2.rule_1"),
+					testAccCheckFWRuleV2DataSourceID("data.openstack_fw_rule_v2.rule_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_fw_rule_v2.rule_1", "name", "rule_1"),
+						"data.openstack_fw_rule_v2.rule_1", "name", "rule_1"),
 				),
 			},
 		},
@@ -92,7 +92,7 @@ func testAccCheckFWRuleV2DataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccFWRuleV2DataSourceBasic = `
-resource "viettelidc_fw_rule_v2" "rule_1" {
+resource "openstack_fw_rule_v2" "rule_1" {
   name                   = "rule_1"
   description            = "My firewall rule"
   protocol			     = "tcp"
@@ -107,10 +107,10 @@ func testAccFWRuleV2DataSourceName() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_fw_rule_v2" "rule_1" {
+data "openstack_fw_rule_v2" "rule_1" {
   name                   = "rule_1"
   description            = "My firewall rule"
-  tenant_id              = "${viettelidc_fw_rule_v2.rule_1.tenant_id}"
+  tenant_id              = "${openstack_fw_rule_v2.rule_1.tenant_id}"
   protocol               = "TCP"
   action                 = "deny"
   ip_version             = 4
@@ -128,8 +128,8 @@ func testAccFWRuleV2DataSourceRuleID() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_fw_rule_v2" "rule_1" {
-  rule_id = "${viettelidc_fw_rule_v2.rule_1.id}"
+data "openstack_fw_rule_v2" "rule_1" {
+  rule_id = "${openstack_fw_rule_v2.rule_1.id}"
 }
 `, testAccFWRuleV2DataSourceBasic)
 }

@@ -8,7 +8,7 @@ import (
 
 func TestAccDNSV2RecordSet_importBasic(t *testing.T) {
 	zoneName := randomZoneName()
-	resourceName := "viettelidc_dns_recordset_v2.recordset_1"
+	resourceName := "openstack_dns_recordset_v2.recordset_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

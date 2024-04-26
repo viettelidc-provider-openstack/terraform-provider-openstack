@@ -8,7 +8,7 @@ import (
 )
 
 func TestAccContainerInfraV1ClusterImport_basic(t *testing.T) {
-	resourceName := "viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -36,7 +36,7 @@ func TestAccContainerInfraV1ClusterImport_basic(t *testing.T) {
 }
 
 func TestAccContainerInfraV1ClusterImport_mergeLabels(t *testing.T) {
-	resourceName := "viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -64,7 +64,7 @@ func TestAccContainerInfraV1ClusterImport_mergeLabels(t *testing.T) {
 }
 
 func TestAccContainerInfraV1ClusterImport_overrideLabels(t *testing.T) {
-	resourceName := "viettelidc_containerinfra_cluster_v1.cluster_1"
+	resourceName := "openstack_containerinfra_cluster_v1.cluster_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")

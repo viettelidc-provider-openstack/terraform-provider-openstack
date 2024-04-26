@@ -37,9 +37,9 @@ func TestAccNetworkingV2Port_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 				),
 			},
 		},
@@ -62,18 +62,18 @@ func TestAccNetworkingV2Port_noIP(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortNoIP,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2PortCountFixedIPs(&port, 1),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoIPEmptyUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2PortCountFixedIPs(&port, 1),
 				),
 			},
@@ -97,9 +97,9 @@ func TestAccNetworkingV2Port_multipleNoIP(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortMultipleNoIP,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2PortCountFixedIPs(&port, 3),
 				),
 			},
@@ -123,57 +123,57 @@ func TestAccNetworkingV2Port_allowedAddressPairs(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortAllowedAddressPairs1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.vrrp_subnet", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.vrrp_network", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_1", &vrrpPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_2", &vrrpPort2),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.instance_port", &instancePort),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.vrrp_subnet", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.vrrp_network", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_1", &vrrpPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_2", &vrrpPort2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.instance_port", &instancePort),
 					testAccCheckNetworkingV2PortCountAllowedAddressPairs(&instancePort, 2),
-					resource.TestCheckResourceAttr("viettelidc_networking_port_v2.vrrp_port_1", "description", "test vrrp port"),
+					resource.TestCheckResourceAttr("openstack_networking_port_v2.vrrp_port_1", "description", "test vrrp port"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortAllowedAddressPairs2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.vrrp_subnet", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.vrrp_network", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_1", &vrrpPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_2", &vrrpPort2),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.instance_port", &instancePort),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.vrrp_subnet", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.vrrp_network", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_1", &vrrpPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_2", &vrrpPort2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.instance_port", &instancePort),
 					testAccCheckNetworkingV2PortCountAllowedAddressPairs(&instancePort, 2),
-					resource.TestCheckResourceAttr("viettelidc_networking_port_v2.vrrp_port_1", "description", ""),
+					resource.TestCheckResourceAttr("openstack_networking_port_v2.vrrp_port_1", "description", ""),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortAllowedAddressPairs3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.vrrp_subnet", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.vrrp_network", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_1", &vrrpPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_2", &vrrpPort2),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.instance_port", &instancePort),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.vrrp_subnet", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.vrrp_network", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_1", &vrrpPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_2", &vrrpPort2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.instance_port", &instancePort),
 					testAccCheckNetworkingV2PortCountAllowedAddressPairs(&instancePort, 2),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortAllowedAddressPairs4,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.vrrp_subnet", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.vrrp_network", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_1", &vrrpPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_2", &vrrpPort2),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.instance_port", &instancePort),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.vrrp_subnet", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.vrrp_network", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_1", &vrrpPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_2", &vrrpPort2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.instance_port", &instancePort),
 					testAccCheckNetworkingV2PortCountAllowedAddressPairs(&instancePort, 1),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortAllowedAddressPairs5,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.vrrp_subnet", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.vrrp_network", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_1", &vrrpPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_2", &vrrpPort2),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.instance_port", &instancePort),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.vrrp_subnet", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.vrrp_network", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_1", &vrrpPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_2", &vrrpPort2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.instance_port", &instancePort),
 					testAccCheckNetworkingV2PortCountAllowedAddressPairs(&instancePort, 0),
 				),
 			},
@@ -197,11 +197,11 @@ func TestAccNetworkingV2Port_allowedAddressPairsNoMAC(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortAllowedAddressPairsNoMAC,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.vrrp_subnet", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.vrrp_network", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_1", &vrrpPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.vrrp_port_2", &vrrpPort2),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.instance_port", &instancePort),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.vrrp_subnet", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.vrrp_network", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_1", &vrrpPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.vrrp_port_2", &vrrpPort2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.instance_port", &instancePort),
 					testAccCheckNetworkingV2PortCountAllowedAddressPairs(&instancePort, 2),
 				),
 			},
@@ -225,9 +225,9 @@ func TestAccNetworkingV2Port_multipleFixedIPs(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortMultipleFixedIPs,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2PortCountFixedIPs(&port, 3),
 				),
 			},
@@ -251,9 +251,9 @@ func TestAccNetworkingV2Port_timeout(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 				),
 			},
 		},
@@ -273,9 +273,9 @@ func TestAccNetworkingV2Port_fixedIPs(t *testing.T) {
 				Config: testAccNetworkingV2PortFixedIPs,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.0", "192.168.199.23"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.0", "192.168.199.23"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.1", "192.168.199.24"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.1", "192.168.199.24"),
 				),
 			},
 		},
@@ -299,65 +299,65 @@ func TestAccNetworkingV2Port_updateSecurityGroups(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortUpdateSecurityGroups1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 1),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateSecurityGroups2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 1),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateSecurityGroups3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 2),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateSecurityGroups4,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 1),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateSecurityGroups5,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 0),
 				),
 			},
@@ -382,52 +382,52 @@ func TestAccNetworkingV2Port_noSecurityGroups(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortNoSecurityGroups1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 0),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoSecurityGroups2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 1),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoSecurityGroups3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 2),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoSecurityGroups4,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2PortCountSecurityGroups(&port, 0),
 				),
 			},
@@ -449,41 +449,41 @@ func TestAccNetworkingV2Port_noFixedIP(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortNoFixedIP1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.#", "0"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.#", "0"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoFixedIP2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.#", "1"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.#", "1"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoFixedIP1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.#", "0"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.#", "0"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoFixedIP3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.#", "2"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortNoFixedIP1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "all_fixed_ips.#", "0"),
+						"openstack_networking_port_v2.port_1", "all_fixed_ips.#", "0"),
 				),
 			},
 		},
@@ -506,11 +506,11 @@ func TestAccNetworkingV2Port_createExtraDHCPOpts(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortCreateExtraDhcpOpts,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 				),
 			},
 		},
@@ -533,69 +533,69 @@ func TestAccNetworkingV2Port_updateExtraDHCPOpts(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateExtraDhcpOpts1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "1"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "1"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateExtraDhcpOpts2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateExtraDhcpOpts3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateExtraDhcpOpts4,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateExtraDhcpOpts5,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdateExtraDhcpOpts6,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "0"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "0"),
 				),
 			},
 		},
@@ -616,9 +616,9 @@ func TestAccNetworkingV2Port_adminStateUp_omit(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortAdminStateUpOmit,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "admin_state_up", "true"),
+						"openstack_networking_port_v2.port_1", "admin_state_up", "true"),
 					testAccCheckNetworkingV2PortAdminStateUp(&port, true),
 				),
 			},
@@ -640,9 +640,9 @@ func TestAccNetworkingV2Port_adminStateUp_true(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortAdminStateUpTrue,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "admin_state_up", "true"),
+						"openstack_networking_port_v2.port_1", "admin_state_up", "true"),
 					testAccCheckNetworkingV2PortAdminStateUp(&port, true),
 				),
 			},
@@ -664,9 +664,9 @@ func TestAccNetworkingV2Port_adminStateUp_false(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortAdminStateUpFalse,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "admin_state_up", "false"),
+						"openstack_networking_port_v2.port_1", "admin_state_up", "false"),
 					testAccCheckNetworkingV2PortAdminStateUp(&port, false),
 				),
 			},
@@ -688,18 +688,18 @@ func TestAccNetworkingV2Port_adminStateUp_update(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortAdminStateUpOmit,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "admin_state_up", "true"),
+						"openstack_networking_port_v2.port_1", "admin_state_up", "true"),
 					testAccCheckNetworkingV2PortAdminStateUp(&port, true),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortAdminStateUpFalse,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "admin_state_up", "false"),
+						"openstack_networking_port_v2.port_1", "admin_state_up", "false"),
 					testAccCheckNetworkingV2PortAdminStateUp(&port, false),
 				),
 			},
@@ -721,27 +721,27 @@ func TestAccNetworkingV2Port_portSecurity_omit(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortSecurityOmit,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "true"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "true"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, true),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortSecurityDisabled,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "false"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "false"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, false),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortSecurityEnabled,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "true"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "true"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, true),
 				),
 			},
@@ -763,18 +763,18 @@ func TestAccNetworkingV2Port_portSecurity_disabled(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortSecurityDisabled,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "false"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "false"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, false),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortSecurityEnabled,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "true"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "true"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, true),
 				),
 			},
@@ -796,18 +796,18 @@ func TestAccNetworkingV2Port_portSecurity_enabled(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortSecurityEnabled,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "true"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "true"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, true),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortSecurityDisabled,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "port_security_enabled", "false"),
+						"openstack_networking_port_v2.port_1", "port_security_enabled", "false"),
 					testAccCheckNetworkingV2PortPortSecurityEnabled(&port, false),
 				),
 			},
@@ -829,13 +829,13 @@ func TestAccNetworkingV2Port_portBinding_create(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortCreatePortBinding,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.#", "1"),
+						"openstack_networking_port_v2.port_1", "binding.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
+						"openstack_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
 				),
 			},
 		},
@@ -856,79 +856,79 @@ func TestAccNetworkingV2Port_portBinding_update(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "admin_state_up", "true"),
+						"openstack_networking_port_v2.port_1", "admin_state_up", "true"),
 					testAccCheckNetworkingV2PortAdminStateUp(&port, true),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortCreatePortBinding,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.#", "1"),
+						"openstack_networking_port_v2.port_1", "binding.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
+						"openstack_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdatePortBinding1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "1"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.#", "1"),
+						"openstack_networking_port_v2.port_1", "binding.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
+						"openstack_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.host_id", "localhost"),
+						"openstack_networking_port_v2.port_1", "binding.0.host_id", "localhost"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.profile", "{\"local_link_information\":[{\"port_id\":\"Ethernet3/4\",\"switch_id\":\"12:34:56:78:9A:BC\",\"switch_info\":\"info1\"},{\"port_id\":\"Ethernet3/4\",\"switch_id\":\"12:34:56:78:9A:BD\",\"switch_info\":\"info2\"}],\"vlan_type\":\"allowed\"}"),
+						"openstack_networking_port_v2.port_1", "binding.0.profile", "{\"local_link_information\":[{\"port_id\":\"Ethernet3/4\",\"switch_id\":\"12:34:56:78:9A:BC\",\"switch_info\":\"info1\"},{\"port_id\":\"Ethernet3/4\",\"switch_id\":\"12:34:56:78:9A:BD\",\"switch_info\":\"info2\"}],\"vlan_type\":\"allowed\"}"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdatePortBinding2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "0"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "0"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.#", "1"),
+						"openstack_networking_port_v2.port_1", "binding.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
+						"openstack_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.host_id", "localhost"),
+						"openstack_networking_port_v2.port_1", "binding.0.host_id", "localhost"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.profile", "{}"),
+						"openstack_networking_port_v2.port_1", "binding.0.profile", "{}"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdatePortBinding3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "0"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "0"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.#", "1"),
+						"openstack_networking_port_v2.port_1", "binding.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
+						"openstack_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortUpdatePortBinding4,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.port_1", &port),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "extra_dhcp_option.#", "1"),
+						"openstack_networking_port_v2.port_1", "extra_dhcp_option.#", "1"),
 					// default computed values are in place
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.#", "1"),
+						"openstack_networking_port_v2.port_1", "binding.#", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
+						"openstack_networking_port_v2.port_1", "binding.0.vnic_type", "normal"),
 				),
 			},
 		},
@@ -954,11 +954,11 @@ func TestAccNetworkingV2Port_qos_policy_create(t *testing.T) {
 				Config: testAccNetworkingV2PortQosPolicy,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2PortWithExtensionsExists(
-						"viettelidc_networking_port_v2.port_1", &port),
+						"openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"viettelidc_networking_qos_policy_v2.qos_policy_1", &qosPolicy),
+						"openstack_networking_qos_policy_v2.qos_policy_1", &qosPolicy),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_networking_port_v2.port_1", "qos_policy_id"),
+						"openstack_networking_port_v2.port_1", "qos_policy_id"),
 				),
 			},
 		},
@@ -983,18 +983,18 @@ func TestAccNetworkingV2Port_qos_policy_update(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortWithExtensionsExists("viettelidc_networking_port_v2.port_1", &port),
+					testAccCheckNetworkingV2PortWithExtensionsExists("openstack_networking_port_v2.port_1", &port),
 				),
 			},
 			{
 				Config: testAccNetworkingV2PortQosPolicy,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2PortWithExtensionsExists(
-						"viettelidc_networking_port_v2.port_1", &port),
+						"openstack_networking_port_v2.port_1", &port),
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"viettelidc_networking_qos_policy_v2.qos_policy_1", &qosPolicy),
+						"openstack_networking_qos_policy_v2.qos_policy_1", &qosPolicy),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_networking_port_v2.port_1", "qos_policy_id"),
+						"openstack_networking_port_v2.port_1", "qos_policy_id"),
 				),
 			},
 		},
@@ -1009,7 +1009,7 @@ func testAccCheckNetworkingV2PortDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_port_v2" {
+		if rs.Type != "openstack_networking_port_v2" {
 			continue
 		}
 
@@ -1141,117 +1141,117 @@ func testAccCheckNetworkingV2PortPortSecurityEnabled(
 }
 
 const testAccNetworkingV2PortBasic = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortNoIP = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
   }
 }
 `
 
 const testAccNetworkingV2PortNoIPEmptyUpdate = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 `
 
 const testAccNetworkingV2PortMultipleNoIP = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
   }
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
   }
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
   }
 }
 `
 
 const testAccNetworkingV2PortAllowedAddressPairs1 = `
-resource "viettelidc_networking_network_v2" "vrrp_network" {
+resource "openstack_networking_network_v2" "vrrp_network" {
   name = "vrrp_network"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
+resource "openstack_networking_subnet_v2" "vrrp_subnet" {
   name = "vrrp_subnet"
   cidr = "10.0.0.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allocation_pools {
     start = "10.0.0.2"
@@ -1259,71 +1259,71 @@ resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
   }
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_router_v2" "vrrp_router" {
+resource "openstack_networking_router_v2" "vrrp_router" {
   name = "vrrp_router"
 }
 
-resource "viettelidc_networking_router_interface_v2" "vrrp_interface" {
-  router_id = "${viettelidc_networking_router_v2.vrrp_router.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+resource "openstack_networking_router_interface_v2" "vrrp_interface" {
+  router_id = "${openstack_networking_router_v2.vrrp_router.id}"
+  subnet_id = "${openstack_networking_subnet_v2.vrrp_subnet.id}"
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_1" {
+resource "openstack_networking_port_v2" "vrrp_port_1" {
   name = "vrrp_port_1"
   description = "test vrrp port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.202"
   }
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_2" {
+resource "openstack_networking_port_v2" "vrrp_port_2" {
   name = "vrrp_port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.201"
   }
 }
 
-resource "viettelidc_networking_port_v2" "instance_port" {
+resource "openstack_networking_port_v2" "instance_port" {
   name = "instance_port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_1.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_1.mac_address}"
   }
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_2.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_2.mac_address}"
   }
 }
 `
 
 const testAccNetworkingV2PortAllowedAddressPairs2 = `
-resource "viettelidc_networking_network_v2" "vrrp_network" {
+resource "openstack_networking_network_v2" "vrrp_network" {
   name = "vrrp_network"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
+resource "openstack_networking_subnet_v2" "vrrp_subnet" {
   name = "vrrp_subnet"
   cidr = "10.0.0.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allocation_pools {
     start = "10.0.0.2"
@@ -1331,70 +1331,70 @@ resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
   }
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_router_v2" "vrrp_router" {
+resource "openstack_networking_router_v2" "vrrp_router" {
   name = "vrrp_router"
 }
 
-resource "viettelidc_networking_router_interface_v2" "vrrp_interface" {
-  router_id = "${viettelidc_networking_router_v2.vrrp_router.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+resource "openstack_networking_router_interface_v2" "vrrp_interface" {
+  router_id = "${openstack_networking_router_v2.vrrp_router.id}"
+  subnet_id = "${openstack_networking_subnet_v2.vrrp_subnet.id}"
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_1" {
+resource "openstack_networking_port_v2" "vrrp_port_1" {
   name = "vrrp_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.202"
   }
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_2" {
+resource "openstack_networking_port_v2" "vrrp_port_2" {
   name = "vrrp_port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.201"
   }
 }
 
-resource "viettelidc_networking_port_v2" "instance_port" {
+resource "openstack_networking_port_v2" "instance_port" {
   name = "instance_port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_1.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_1.mac_address}"
   }
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_2.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_2.mac_address}"
   }
 }
 `
 
 const testAccNetworkingV2PortAllowedAddressPairs3 = `
-resource "viettelidc_networking_network_v2" "vrrp_network" {
+resource "openstack_networking_network_v2" "vrrp_network" {
   name = "vrrp_network"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
+resource "openstack_networking_subnet_v2" "vrrp_subnet" {
   name = "vrrp_subnet"
   cidr = "10.0.0.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allocation_pools {
     start = "10.0.0.2"
@@ -1402,71 +1402,71 @@ resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
   }
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_router_v2" "vrrp_router" {
+resource "openstack_networking_router_v2" "vrrp_router" {
   name = "vrrp_router"
 }
 
-resource "viettelidc_networking_router_interface_v2" "vrrp_interface" {
-  router_id = "${viettelidc_networking_router_v2.vrrp_router.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+resource "openstack_networking_router_interface_v2" "vrrp_interface" {
+  router_id = "${openstack_networking_router_v2.vrrp_router.id}"
+  subnet_id = "${openstack_networking_subnet_v2.vrrp_subnet.id}"
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_1" {
+resource "openstack_networking_port_v2" "vrrp_port_1" {
   name = "vrrp_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.202"
   }
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_2" {
+resource "openstack_networking_port_v2" "vrrp_port_2" {
   name = "vrrp_port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.201"
   }
 }
 
-resource "viettelidc_networking_port_v2" "instance_port" {
+resource "openstack_networking_port_v2" "instance_port" {
   name = "instance_port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
-  security_group_ids = ["${viettelidc_networking_secgroup_v2.secgroup_1.id}"]
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
+  security_group_ids = ["${openstack_networking_secgroup_v2.secgroup_1.id}"]
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_1.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_1.mac_address}"
   }
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_2.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_2.mac_address}"
   }
 }
 `
 
 const testAccNetworkingV2PortAllowedAddressPairs4 = `
-resource "viettelidc_networking_network_v2" "vrrp_network" {
+resource "openstack_networking_network_v2" "vrrp_network" {
   name = "vrrp_network"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
+resource "openstack_networking_subnet_v2" "vrrp_subnet" {
   name = "vrrp_subnet"
   cidr = "10.0.0.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allocation_pools {
     start = "10.0.0.2"
@@ -1474,66 +1474,66 @@ resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
   }
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_router_v2" "vrrp_router" {
+resource "openstack_networking_router_v2" "vrrp_router" {
   name = "vrrp_router"
 }
 
-resource "viettelidc_networking_router_interface_v2" "vrrp_interface" {
-  router_id = "${viettelidc_networking_router_v2.vrrp_router.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+resource "openstack_networking_router_interface_v2" "vrrp_interface" {
+  router_id = "${openstack_networking_router_v2.vrrp_router.id}"
+  subnet_id = "${openstack_networking_subnet_v2.vrrp_subnet.id}"
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_1" {
+resource "openstack_networking_port_v2" "vrrp_port_1" {
   name = "vrrp_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.202"
   }
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_2" {
+resource "openstack_networking_port_v2" "vrrp_port_2" {
   name = "vrrp_port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.201"
   }
 }
 
-resource "viettelidc_networking_port_v2" "instance_port" {
+resource "openstack_networking_port_v2" "instance_port" {
   name = "instance_port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
-  security_group_ids = ["${viettelidc_networking_secgroup_v2.secgroup_1.id}"]
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
+  security_group_ids = ["${openstack_networking_secgroup_v2.secgroup_1.id}"]
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
-    mac_address = "${viettelidc_networking_port_v2.vrrp_port_1.mac_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
+    mac_address = "${openstack_networking_port_v2.vrrp_port_1.mac_address}"
   }
 }
 `
 
 const testAccNetworkingV2PortAllowedAddressPairs5 = `
-resource "viettelidc_networking_network_v2" "vrrp_network" {
+resource "openstack_networking_network_v2" "vrrp_network" {
   name = "vrrp_network"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
+resource "openstack_networking_subnet_v2" "vrrp_subnet" {
   name = "vrrp_subnet"
   cidr = "10.0.0.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allocation_pools {
     start = "10.0.0.2"
@@ -1541,104 +1541,104 @@ resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
   }
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_router_v2" "vrrp_router" {
+resource "openstack_networking_router_v2" "vrrp_router" {
   name = "vrrp_router"
 }
 
-resource "viettelidc_networking_router_interface_v2" "vrrp_interface" {
-  router_id = "${viettelidc_networking_router_v2.vrrp_router.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+resource "openstack_networking_router_interface_v2" "vrrp_interface" {
+  router_id = "${openstack_networking_router_v2.vrrp_router.id}"
+  subnet_id = "${openstack_networking_subnet_v2.vrrp_subnet.id}"
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_1" {
+resource "openstack_networking_port_v2" "vrrp_port_1" {
   name = "vrrp_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.202"
   }
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_2" {
+resource "openstack_networking_port_v2" "vrrp_port_2" {
   name = "vrrp_port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.201"
   }
 }
 
-resource "viettelidc_networking_port_v2" "instance_port" {
+resource "openstack_networking_port_v2" "instance_port" {
   name = "instance_port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 }
 `
 
 const testAccNetworkingV2PortMultipleFixedIPs = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.20"
   }
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.40"
   }
 }
 `
 
 const testAccNetworkingV2PortTimeout = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -1650,377 +1650,377 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortFixedIPs = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.24"
   }
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortUpdateSecurityGroups1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortUpdateSecurityGroups2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
-  security_group_ids = ["${viettelidc_networking_secgroup_v2.secgroup_1.id}"]
+  network_id = "${openstack_networking_network_v2.network_1.id}"
+  security_group_ids = ["${openstack_networking_secgroup_v2.secgroup_1.id}"]
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortUpdateSecurityGroups3 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "security_group_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   security_group_ids = [
-    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
-    "${viettelidc_networking_secgroup_v2.secgroup_2.id}"
+    "${openstack_networking_secgroup_v2.secgroup_1.id}",
+    "${openstack_networking_secgroup_v2.secgroup_2.id}"
   ]
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortUpdateSecurityGroups4 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "security_group"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
-  security_group_ids = ["${viettelidc_networking_secgroup_v2.secgroup_2.id}"]
+  network_id = "${openstack_networking_network_v2.network_1.id}"
+  security_group_ids = ["${openstack_networking_secgroup_v2.secgroup_2.id}"]
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortUpdateSecurityGroups5 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "security_group"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   security_group_ids = []
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortNoSecurityGroups1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_security_groups = true
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortNoSecurityGroups2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_security_groups = false
-  security_group_ids = ["${viettelidc_networking_secgroup_v2.secgroup_1.id}"]
+  security_group_ids = ["${openstack_networking_secgroup_v2.secgroup_1.id}"]
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortNoSecurityGroups3 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_security_groups = false
   security_group_ids = [
-    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
-    "${viettelidc_networking_secgroup_v2.secgroup_2.id}"
+    "${openstack_networking_secgroup_v2.secgroup_1.id}",
+    "${openstack_networking_secgroup_v2.secgroup_2.id}"
   ]
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortNoSecurityGroups4 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
+resource "openstack_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_security_groups = true
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortAllowedAddressPairsNoMAC = `
-resource "viettelidc_networking_network_v2" "vrrp_network" {
+resource "openstack_networking_network_v2" "vrrp_network" {
   name = "vrrp_network"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
+resource "openstack_networking_subnet_v2" "vrrp_subnet" {
   name = "vrrp_subnet"
   cidr = "10.0.0.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allocation_pools {
     start = "10.0.0.2"
@@ -2028,153 +2028,153 @@ resource "viettelidc_networking_subnet_v2" "vrrp_subnet" {
   }
 }
 
-resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
+resource "openstack_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "viettelidc_networking_router_v2" "vrrp_router" {
+resource "openstack_networking_router_v2" "vrrp_router" {
   name = "vrrp_router"
 }
 
-resource "viettelidc_networking_router_interface_v2" "vrrp_interface" {
-  router_id = "${viettelidc_networking_router_v2.vrrp_router.id}"
-  subnet_id = "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+resource "openstack_networking_router_interface_v2" "vrrp_interface" {
+  router_id = "${openstack_networking_router_v2.vrrp_router.id}"
+  subnet_id = "${openstack_networking_subnet_v2.vrrp_subnet.id}"
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_1" {
+resource "openstack_networking_port_v2" "vrrp_port_1" {
   name = "vrrp_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.202"
   }
 }
 
-resource "viettelidc_networking_port_v2" "vrrp_port_2" {
+resource "openstack_networking_port_v2" "vrrp_port_2" {
   name = "vrrp_port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.vrrp_subnet.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.vrrp_subnet.id}"
     ip_address = "10.0.0.201"
   }
 }
 
-resource "viettelidc_networking_port_v2" "instance_port" {
+resource "openstack_networking_port_v2" "instance_port" {
   name = "instance_port"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.vrrp_network.id}"
+  network_id = "${openstack_networking_network_v2.vrrp_network.id}"
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_1.fixed_ip.0.ip_address}"
   }
 
   allowed_address_pairs {
-    ip_address = "${viettelidc_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
+    ip_address = "${openstack_networking_port_v2.vrrp_port_2.fixed_ip.0.ip_address}"
   }
 }
 `
 
 const testAccNetworkingV2PortNoFixedIP1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_fixed_ip = true
 }
 `
 
 const testAccNetworkingV2PortNoFixedIP2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortNoFixedIP3 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.24"
   }
 }
 `
 
 const testAccNetworkingV2PortCreateExtraDhcpOpts = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2191,25 +2191,25 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdateExtraDhcpOpts1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2221,25 +2221,25 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdateExtraDhcpOpts2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2256,25 +2256,25 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdateExtraDhcpOpts3 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2291,25 +2291,25 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdateExtraDhcpOpts4 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2326,25 +2326,25 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdateExtraDhcpOpts5 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2361,194 +2361,194 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdateExtraDhcpOpts6 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortAdminStateUpOmit = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortAdminStateUpTrue = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortAdminStateUpFalse = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "false"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortSecurityOmit = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   no_security_groups = true
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortSecurityDisabled = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_security_groups = true
   port_security_enabled = false
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortSecurityEnabled = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   no_security_groups = true
   port_security_enabled = true
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 }
 `
 
 const testAccNetworkingV2PortCreatePortBinding = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "false"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2569,24 +2569,24 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdatePortBinding1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "false"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2619,24 +2619,24 @@ EOF
 `
 
 const testAccNetworkingV2PortUpdatePortBinding2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "false"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2648,24 +2648,24 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdatePortBinding3 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "false"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2676,24 +2676,24 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortUpdatePortBinding4 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "false"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
@@ -2705,32 +2705,32 @@ resource "viettelidc_networking_port_v2" "port_1" {
 `
 
 const testAccNetworkingV2PortQosPolicy = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id =  "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id =  "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.23"
   }
 
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
 }
 `

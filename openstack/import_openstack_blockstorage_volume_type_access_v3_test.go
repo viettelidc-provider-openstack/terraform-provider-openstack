@@ -9,7 +9,7 @@ import (
 )
 
 func TestAccBlockStorageV3VolumeTypeAccess_importBasic(t *testing.T) {
-	resourceName := "viettelidc_blockstorage_volume_type_access_v3.volume_type_access"
+	resourceName := "openstack_blockstorage_volume_type_access_v3.volume_type_access"
 
 	var projectName = fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))
 	var vtName = fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))

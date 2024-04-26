@@ -189,25 +189,25 @@ func dataSourceFWRuleV2Read(ctx context.Context, d *schema.ResourceData, meta in
 
 	pages, err := rules.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list viettelidc_fw_rule_v2 rules: %s", err)
+		return diag.Errorf("Unable to list openstack_fw_rule_v2 rules: %s", err)
 	}
 
 	allFWRules, err := rules.ExtractRules(pages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_fw_rule_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_fw_rule_v2: %s", err)
 	}
 
 	if len(allFWRules) < 1 {
-		return diag.Errorf("Your viettelidc_fw_rule_v2 query returned no results")
+		return diag.Errorf("Your openstack_fw_rule_v2 query returned no results")
 	}
 
 	if len(allFWRules) > 1 {
-		return diag.Errorf("Your viettelidc_fw_rule_v2 query returned more than one result")
+		return diag.Errorf("Your openstack_fw_rule_v2 query returned more than one result")
 	}
 
 	rule := allFWRules[0]
 
-	log.Printf("[DEBUG] Retrieved viettelidc_fw_rule_v2 %s: %#v", rule.ID, rule)
+	log.Printf("[DEBUG] Retrieved openstack_fw_rule_v2 %s: %#v", rule.ID, rule)
 
 	d.SetId(rule.ID)
 

@@ -89,10 +89,10 @@ func dataSourceNetworkingQuotaV2Read(ctx context.Context, d *schema.ResourceData
 
 	q, err := quotas.Get(networkingClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_networking_quota_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_networking_quota_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_quota_v2 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved openstack_networking_quota_v2 %s: %#v", d.Id(), q)
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)

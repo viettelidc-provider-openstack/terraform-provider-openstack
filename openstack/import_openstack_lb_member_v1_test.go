@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV1Member_importBasic(t *testing.T) {
-	resourceName := "viettelidc_lb_member_v1.member_1"
+	resourceName := "openstack_lb_member_v1.member_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:          func() { testAccPreCheckDeprecated(t) },

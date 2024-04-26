@@ -28,20 +28,20 @@ func TestAccDNSV2Zone_basic(t *testing.T) {
 			{
 				Config: testAccDNSV2ZoneBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2ZoneExists("viettelidc_dns_zone_v2.zone_1", &zone),
+					testAccCheckDNSV2ZoneExists("openstack_dns_zone_v2.zone_1", &zone),
 					resource.TestCheckResourceAttr(
-						"viettelidc_dns_zone_v2.zone_1", "description", "a zone"),
+						"openstack_dns_zone_v2.zone_1", "description", "a zone"),
 				),
 			},
 			{
 				Config: testAccDNSV2ZoneUpdate(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("viettelidc_dns_zone_v2.zone_1", "name", zoneName),
-					resource.TestCheckResourceAttr("viettelidc_dns_zone_v2.zone_1", "email", "email2@example.com"),
-					resource.TestCheckResourceAttr("viettelidc_dns_zone_v2.zone_1", "ttl", "6000"),
-					resource.TestCheckResourceAttr("viettelidc_dns_zone_v2.zone_1", "type", "PRIMARY"),
+					resource.TestCheckResourceAttr("openstack_dns_zone_v2.zone_1", "name", zoneName),
+					resource.TestCheckResourceAttr("openstack_dns_zone_v2.zone_1", "email", "email2@example.com"),
+					resource.TestCheckResourceAttr("openstack_dns_zone_v2.zone_1", "ttl", "6000"),
+					resource.TestCheckResourceAttr("openstack_dns_zone_v2.zone_1", "type", "PRIMARY"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_dns_zone_v2.zone_1", "description", "an updated zone"),
+						"openstack_dns_zone_v2.zone_1", "description", "an updated zone"),
 				),
 			},
 		},
@@ -64,17 +64,17 @@ func TestAccDNSV2Zone_ignoreStatusCheck(t *testing.T) {
 			{
 				Config: testAccDNSV2ZoneDisableCheck(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2ZoneExists("viettelidc_dns_zone_v2.zone_1", &zone),
+					testAccCheckDNSV2ZoneExists("openstack_dns_zone_v2.zone_1", &zone),
 					resource.TestCheckResourceAttr(
-						"viettelidc_dns_zone_v2.zone_1", "disable_status_check", "true"),
+						"openstack_dns_zone_v2.zone_1", "disable_status_check", "true"),
 				),
 			},
 			{
 				Config: testAccDNSV2ZoneBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2ZoneExists("viettelidc_dns_zone_v2.zone_1", &zone),
+					testAccCheckDNSV2ZoneExists("openstack_dns_zone_v2.zone_1", &zone),
 					resource.TestCheckResourceAttr(
-						"viettelidc_dns_zone_v2.zone_1", "disable_status_check", "false"),
+						"openstack_dns_zone_v2.zone_1", "disable_status_check", "false"),
 				),
 			},
 		},
@@ -97,10 +97,10 @@ func TestAccDNSV2Zone_readTTL(t *testing.T) {
 			{
 				Config: testAccDNSV2ZoneReadTTL(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2ZoneExists("viettelidc_dns_zone_v2.zone_1", &zone),
-					resource.TestCheckResourceAttr("viettelidc_dns_zone_v2.zone_1", "type", "PRIMARY"),
+					testAccCheckDNSV2ZoneExists("openstack_dns_zone_v2.zone_1", &zone),
+					resource.TestCheckResourceAttr("openstack_dns_zone_v2.zone_1", "type", "PRIMARY"),
 					resource.TestMatchResourceAttr(
-						"viettelidc_dns_zone_v2.zone_1", "ttl", regexp.MustCompile("^[0-9]+$")),
+						"openstack_dns_zone_v2.zone_1", "ttl", regexp.MustCompile("^[0-9]+$")),
 				),
 			},
 		},
@@ -115,7 +115,7 @@ func testAccCheckDNSV2ZoneDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_dns_zone_v2" {
+		if rs.Type != "openstack_dns_zone_v2" {
 			continue
 		}
 
@@ -162,7 +162,7 @@ func testAccCheckDNSV2ZoneExists(n string, zone *zones.Zone) resource.TestCheckF
 
 func testAccDNSV2ZoneBasic(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "viettelidc_dns_zone_v2" "zone_1" {
+		resource "openstack_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email1@example.com"
 			description = "a zone"
@@ -174,7 +174,7 @@ func testAccDNSV2ZoneBasic(zoneName string) string {
 
 func testAccDNSV2ZoneUpdate(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "viettelidc_dns_zone_v2" "zone_1" {
+		resource "openstack_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			description = "an updated zone"
@@ -186,7 +186,7 @@ func testAccDNSV2ZoneUpdate(zoneName string) string {
 
 func testAccDNSV2ZoneReadTTL(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "viettelidc_dns_zone_v2" "zone_1" {
+		resource "openstack_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email1@example.com"
 		}
@@ -195,7 +195,7 @@ func testAccDNSV2ZoneReadTTL(zoneName string) string {
 
 func testAccDNSV2ZoneDisableCheck(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "viettelidc_dns_zone_v2" "zone_1" {
+		resource "openstack_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email1@example.com"
 			description = "a zone"

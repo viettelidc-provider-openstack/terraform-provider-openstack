@@ -28,29 +28,29 @@ func TestAccDatabaseV1Instance_basic(t *testing.T) {
 				Config: testAccDatabaseV1InstanceBasic(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDatabaseV1InstanceExists(
-						"viettelidc_db_instance_v1.basic", &instance),
+						"openstack_db_instance_v1.basic", &instance),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_db_instance_v1.basic", "name", &instance.Name),
+						"openstack_db_instance_v1.basic", "name", &instance.Name),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "user.0.name", "testuser"),
+						"openstack_db_instance_v1.basic", "user.0.name", "testuser"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "user.0.password", "testpassword"),
+						"openstack_db_instance_v1.basic", "user.0.password", "testpassword"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "database.0.name", "testdb1"),
+						"openstack_db_instance_v1.basic", "database.0.name", "testdb1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "database.0.charset", "utf8"),
+						"openstack_db_instance_v1.basic", "database.0.charset", "utf8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "database.0.collate", "utf8_general_ci"),
+						"openstack_db_instance_v1.basic", "database.0.collate", "utf8_general_ci"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "database.1.name", "testdb2"),
+						"openstack_db_instance_v1.basic", "database.1.name", "testdb2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "database.1.charset", "utf8"),
+						"openstack_db_instance_v1.basic", "database.1.charset", "utf8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_db_instance_v1.basic", "database.1.collate", "utf8_general_ci"),
+						"openstack_db_instance_v1.basic", "database.1.collate", "utf8_general_ci"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_db_instance_v1.basic", "configuration_id"),
+						"openstack_db_instance_v1.basic", "configuration_id"),
 					testAccCheckDatabaseV1ConfigurationExists(
-						"viettelidc_db_configuration_v1.basic", &configuration),
+						"openstack_db_configuration_v1.basic", &configuration),
 				),
 			},
 		},
@@ -98,7 +98,7 @@ func testAccCheckDatabaseV1InstanceDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_db_instance_v1" {
+		if rs.Type != "openstack_db_instance_v1" {
 			continue
 		}
 
@@ -113,9 +113,9 @@ func testAccCheckDatabaseV1InstanceDestroy(s *terraform.State) error {
 
 func testAccDatabaseV1InstanceBasic() string {
 	return fmt.Sprintf(`
-resource "viettelidc_db_instance_v1" "basic" {
+resource "openstack_db_instance_v1" "basic" {
   name             = "basic"
-  configuration_id = "${viettelidc_db_configuration_v1.basic.id}"
+  configuration_id = "${openstack_db_configuration_v1.basic.id}"
 
   datastore {
     version = "%[1]s"
@@ -149,7 +149,7 @@ resource "viettelidc_db_instance_v1" "basic" {
 
 }
 
-resource "viettelidc_db_configuration_v1" "basic" {
+resource "openstack_db_configuration_v1" "basic" {
   name        = "basic"
   description = "test"
 

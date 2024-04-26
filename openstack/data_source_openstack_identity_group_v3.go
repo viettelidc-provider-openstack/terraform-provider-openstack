@@ -54,26 +54,26 @@ func dataSourceIdentityGroupV3Read(ctx context.Context, d *schema.ResourceData, 
 		Name:     d.Get("name").(string),
 	}
 
-	log.Printf("[DEBUG] viettelidc_identity_group_v3 list options: %#v", listOpts)
+	log.Printf("[DEBUG] openstack_identity_group_v3 list options: %#v", listOpts)
 
 	var group groups.Group
 	allPages, err := groups.List(identityClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_identity_group_v3: %s", err)
+		return diag.Errorf("Unable to query openstack_identity_group_v3: %s", err)
 	}
 
 	allGroups, err := groups.ExtractGroups(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_identity_group_v3: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_identity_group_v3: %s", err)
 	}
 
 	if len(allGroups) < 1 {
-		return diag.Errorf("Your viettelidc_identity_group_v3 query returned no results. " +
+		return diag.Errorf("Your openstack_identity_group_v3 query returned no results. " +
 			"Please change your search criteria and try again")
 	}
 
 	if len(allGroups) > 1 {
-		return diag.Errorf("Your viettelidc_identity_group_v3 query returned more than one result")
+		return diag.Errorf("Your openstack_identity_group_v3 query returned more than one result")
 	}
 
 	group = allGroups[0]
@@ -85,7 +85,7 @@ func dataSourceIdentityGroupV3Read(ctx context.Context, d *schema.ResourceData, 
 
 // dataSourceIdentityRoleV3Attributes populates the fields of an Role resource.
 func dataSourceIdentityGroupV3Attributes(d *schema.ResourceData, config *Config, group *groups.Group) {
-	log.Printf("[DEBUG] viettelidc_identity_group_v3 details: %#v", group)
+	log.Printf("[DEBUG] openstack_identity_group_v3 details: %#v", group)
 
 	d.SetId(group.ID)
 	d.Set("name", group.Name)

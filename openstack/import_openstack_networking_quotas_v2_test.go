@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingQuotaV2_importBasic(t *testing.T) {
-	resourceName := "viettelidc_networking_quota_v2.quota_1"
+	resourceName := "openstack_networking_quota_v2.quota_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

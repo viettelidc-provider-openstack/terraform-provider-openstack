@@ -19,14 +19,14 @@ func sharedFilesystemShareAccessV2StateRefreshFunc(client *gophercloud.ServiceCl
 	apiInfo, err := apiversions.Get(client, "v2").Extract()
 	if err != nil {
 		return func() (interface{}, string, error) {
-			return nil, "", fmt.Errorf("Unable to query API endpoint for viettelidc_sharedfilesystem_share_access_v2: %s", err)
+			return nil, "", fmt.Errorf("Unable to query API endpoint for openstack_sharedfilesystem_share_access_v2: %s", err)
 		}
 	}
 
 	// Check for newer microversion 2.45 API to get access rules using GET method.
 	if ok, err := compatibleMicroversion("min", sharedFilesystemV2ShareAccessRulesMicroversion, apiInfo.Version); err != nil {
 		return func() (interface{}, string, error) {
-			return nil, "", fmt.Errorf("Error comparing microversions for viettelidc_sharedfilesystem_share_access_v2 %s: %s", accessID, err)
+			return nil, "", fmt.Errorf("Error comparing microversions for openstack_sharedfilesystem_share_access_v2 %s: %s", accessID, err)
 		}
 	} else if ok {
 		client.Microversion = sharedFilesystemV2ShareAccessRulesMicroversion
@@ -37,7 +37,7 @@ func sharedFilesystemShareAccessV2StateRefreshFunc(client *gophercloud.ServiceCl
 	// If so, use that for the API request for access_key support.
 	if ok, err := compatibleMicroversion("min", sharedFilesystemV2SharedAccessMinMicroversion, apiInfo.Version); err != nil {
 		return func() (interface{}, string, error) {
-			return nil, "", fmt.Errorf("Error comparing microversions for viettelidc_sharedfilesystem_share_access_v2 %s: %s", accessID, err)
+			return nil, "", fmt.Errorf("Error comparing microversions for openstack_sharedfilesystem_share_access_v2 %s: %s", accessID, err)
 		}
 	} else if ok {
 		client.Microversion = sharedFilesystemV2SharedAccessMinMicroversion

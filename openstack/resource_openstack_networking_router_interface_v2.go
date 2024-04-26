@@ -78,13 +78,13 @@ func resourceNetworkingRouterInterfaceV2Create(ctx context.Context, d *schema.Re
 		PortID:   d.Get("port_id").(string),
 	}
 
-	log.Printf("[DEBUG] viettelidc_networking_router_interface_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_networking_router_interface_v2 create options: %#v", createOpts)
 	r, err := routers.AddInterface(networkingClient, d.Get("router_id").(string), createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_networking_router_interface_v2: %s", err)
+		return diag.Errorf("Error creating openstack_networking_router_interface_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for viettelidc_networking_router_interface_v2 %s to become available", r.PortID)
+	log.Printf("[DEBUG] Waiting for openstack_networking_router_interface_v2 %s to become available", r.PortID)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"BUILD", "PENDING_CREATE", "PENDING_UPDATE"},
@@ -97,12 +97,12 @@ func resourceNetworkingRouterInterfaceV2Create(ctx context.Context, d *schema.Re
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_router_interface_v2 %s to become available: %s", r.ID, err)
+		return diag.Errorf("Error waiting for openstack_networking_router_interface_v2 %s to become available: %s", r.ID, err)
 	}
 
 	d.SetId(r.PortID)
 
-	log.Printf("[DEBUG] Created viettelidc_networking_router_interface_v2 %s: %#v", r.ID, r)
+	log.Printf("[DEBUG] Created openstack_networking_router_interface_v2 %s: %#v", r.ID, r)
 	return resourceNetworkingRouterInterfaceV2Read(ctx, d, meta)
 }
 
@@ -120,10 +120,10 @@ func resourceNetworkingRouterInterfaceV2Read(ctx context.Context, d *schema.Reso
 			return nil
 		}
 
-		return diag.Errorf("Error retrieving viettelidc_networking_router_interface_v2: %s", err)
+		return diag.Errorf("Error retrieving openstack_networking_router_interface_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_router_interface_v2 %s: %#v", d.Id(), r)
+	log.Printf("[DEBUG] Retrieved openstack_networking_router_interface_v2 %s: %#v", d.Id(), r)
 
 	d.Set("router_id", r.DeviceID)
 	d.Set("port_id", r.ID)
@@ -135,7 +135,7 @@ func resourceNetworkingRouterInterfaceV2Read(ctx context.Context, d *schema.Reso
 	// belongs to this interface. However, that situation should
 	// not happen.
 	if len(r.FixedIPs) != 1 {
-		log.Printf("[DEBUG] Unable to set viettelidc_networking_router_interface_v2 %s subnet_id", d.Id())
+		log.Printf("[DEBUG] Unable to set openstack_networking_router_interface_v2 %s subnet_id", d.Id())
 	} else {
 		d.Set("subnet_id", r.FixedIPs[0].SubnetID)
 	}
@@ -165,7 +165,7 @@ func resourceNetworkingRouterInterfaceV2Delete(ctx context.Context, d *schema.Re
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_networking_router_interface_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_networking_router_interface_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	d.SetId("")

@@ -37,17 +37,17 @@ func TestAccSFSV2SnapshotDataSource_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2SnapshotDataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2SnapshotDataSourceID("data.viettelidc_sharedfilesystem_snapshot_v2.snapshot_1"),
+					testAccCheckSFSV2SnapshotDataSourceID("data.openstack_sharedfilesystem_snapshot_v2.snapshot_1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_sharedfilesystem_snapshot_v2.snapshot_1", "name", "test_snapshot"),
+						"data.openstack_sharedfilesystem_snapshot_v2.snapshot_1", "name", "test_snapshot"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_sharedfilesystem_snapshot_v2.snapshot_1", "share_id", shareID),
+						"data.openstack_sharedfilesystem_snapshot_v2.snapshot_1", "share_id", shareID),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_sharedfilesystem_snapshot_v2.snapshot_1", "share_proto", "NFS"),
+						"data.openstack_sharedfilesystem_snapshot_v2.snapshot_1", "share_proto", "NFS"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_sharedfilesystem_snapshot_v2.snapshot_1", "share_size", "1"),
+						"data.openstack_sharedfilesystem_snapshot_v2.snapshot_1", "share_size", "1"),
 					resource.TestCheckResourceAttr(
-						"data.viettelidc_sharedfilesystem_snapshot_v2.snapshot_1", "size", "1"),
+						"data.openstack_sharedfilesystem_snapshot_v2.snapshot_1", "size", "1"),
 				),
 			},
 		},
@@ -217,7 +217,7 @@ func testAccCheckSFSV2SnapshotDataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccSFSV2SnapshotDataSourceBasic = `
-data "viettelidc_sharedfilesystem_snapshot_v2" "snapshot_1" {
+data "openstack_sharedfilesystem_snapshot_v2" "snapshot_1" {
   name = "test_snapshot"
 }
 `

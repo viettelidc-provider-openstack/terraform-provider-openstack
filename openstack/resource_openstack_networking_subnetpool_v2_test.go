@@ -24,42 +24,42 @@ func TestAccNetworkingV2SubnetPool_Basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2SubnetPoolBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2SubnetPoolExists("viettelidc_networking_subnetpool_v2.subnetpool_1", &subnetPool),
-					testAccCheckNetworkingV2SubnetPoolPrefixesConsistency("viettelidc_networking_subnetpool_v2.subnetpool_1", &subnetPool),
+					testAccCheckNetworkingV2SubnetPoolExists("openstack_networking_subnetpool_v2.subnetpool_1", &subnetPool),
+					testAccCheckNetworkingV2SubnetPoolPrefixesConsistency("openstack_networking_subnetpool_v2.subnetpool_1", &subnetPool),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetPoolPrefixLengths,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "name", "subnetpool_1"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "name", "subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "description", "terraform subnetpool acceptance test"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "description", "terraform subnetpool acceptance test"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "default_quota", "4"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "default_quota", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "default_prefixlen", "25"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "default_prefixlen", "25"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "min_prefixlen", "24"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "min_prefixlen", "24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "max_prefixlen", "30"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "max_prefixlen", "30"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2SubnetPoolUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "name", "subnetpool_1"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "name", "subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "description", "terraform subnetpool acceptance test updated"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "description", "terraform subnetpool acceptance test updated"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "default_quota", "8"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "default_quota", "8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "default_prefixlen", "26"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "default_prefixlen", "26"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "min_prefixlen", "25"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "min_prefixlen", "25"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_subnetpool_v2.subnetpool_1", "max_prefixlen", "28"),
+						"openstack_networking_subnetpool_v2.subnetpool_1", "max_prefixlen", "28"),
 				),
 			},
 		},
@@ -106,7 +106,7 @@ func testAccCheckNetworkingV2SubnetPoolDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_subnetpool_v2" {
+		if rs.Type != "openstack_networking_subnetpool_v2" {
 			continue
 		}
 
@@ -141,7 +141,7 @@ func testAccCheckNetworkingV2SubnetPoolPrefixesConsistency(n string, subnetpool 
 }
 
 const testAccNetworkingV2SubnetPoolBasic = `
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
 	name = "subnetpool_1"
 	description = "terraform subnetpool acceptance test"
 
@@ -156,7 +156,7 @@ resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
 `
 
 const testAccNetworkingV2SubnetPoolPrefixLengths = `
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
 	name = "subnetpool_1"
 	description = "terraform subnetpool acceptance test"
 
@@ -171,7 +171,7 @@ resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
 `
 
 const testAccNetworkingV2SubnetPoolUpdate = `
-resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
 	name = "subnetpool_1"
 	description = "terraform subnetpool acceptance test updated"
 

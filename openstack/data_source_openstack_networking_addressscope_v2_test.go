@@ -21,10 +21,10 @@ func TestAccOpenStackNetworkingAddressScopeV2DataSource_name(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingAddressScopeV2DataSourceName(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingNetworkV2DataSourceID("data.viettelidc_networking_addressscope_v2.addressscope_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "name", "addressscope_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "shared", "false"),
+					testAccCheckNetworkingNetworkV2DataSourceID("data.openstack_networking_addressscope_v2.addressscope_1"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "name", "addressscope_1"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "shared", "false"),
 				),
 			},
 		},
@@ -45,10 +45,10 @@ func TestAccOpenStackNetworkingAddressScopeV2DataSource_ipversion(t *testing.T) 
 			{
 				Config: testAccOpenStackNetworkingAddressScopeV2DataSourceIPVersion(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingNetworkV2DataSourceID("data.viettelidc_networking_addressscope_v2.addressscope_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "name", "addressscope_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "shared", "false"),
+					testAccCheckNetworkingNetworkV2DataSourceID("data.openstack_networking_addressscope_v2.addressscope_1"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "name", "addressscope_1"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "shared", "false"),
 				),
 			},
 		},
@@ -69,10 +69,10 @@ func TestAccOpenStackNetworkingAddressScopeV2DataSource_shared(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingAddressScopeV2DataSourceShared(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingNetworkV2DataSourceID("data.viettelidc_networking_addressscope_v2.addressscope_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "name", "addressscope_1"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
-					resource.TestCheckResourceAttr("viettelidc_networking_addressscope_v2.addressscope_1", "shared", "false"),
+					testAccCheckNetworkingNetworkV2DataSourceID("data.openstack_networking_addressscope_v2.addressscope_1"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "name", "addressscope_1"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "ip_version", "4"),
+					resource.TestCheckResourceAttr("openstack_networking_addressscope_v2.addressscope_1", "shared", "false"),
 				),
 			},
 		},
@@ -80,7 +80,7 @@ func TestAccOpenStackNetworkingAddressScopeV2DataSource_shared(t *testing.T) {
 }
 
 const testAccOpenStackNetworkingAddressScopeV2DataSourceAddressscope = `
-resource "viettelidc_networking_addressscope_v2" "addressscope_1" {
+resource "openstack_networking_addressscope_v2" "addressscope_1" {
   name       = "addressscope_1"
   ip_version = 4
   shared     = false
@@ -90,8 +90,8 @@ func testAccOpenStackNetworkingAddressScopeV2DataSourceName() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_addressscope_v2" "addressscope_1" {
-  name = "${viettelidc_networking_addressscope_v2.addressscope_1.name}"
+data "openstack_networking_addressscope_v2" "addressscope_1" {
+  name = "${openstack_networking_addressscope_v2.addressscope_1.name}"
 }
 `, testAccOpenStackNetworkingAddressScopeV2DataSourceAddressscope)
 }
@@ -100,8 +100,8 @@ func testAccOpenStackNetworkingAddressScopeV2DataSourceIPVersion() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_addressscope_v2" "addressscope_1" {
-  ip_version = "${viettelidc_networking_addressscope_v2.addressscope_1.ip_version}"
+data "openstack_networking_addressscope_v2" "addressscope_1" {
+  ip_version = "${openstack_networking_addressscope_v2.addressscope_1.ip_version}"
 }
 `, testAccOpenStackNetworkingAddressScopeV2DataSourceAddressscope)
 }
@@ -110,8 +110,8 @@ func testAccOpenStackNetworkingAddressScopeV2DataSourceShared() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_networking_addressscope_v2" "addressscope_1" {
-  shared = "${viettelidc_networking_addressscope_v2.addressscope_1.shared}"
+data "openstack_networking_addressscope_v2" "addressscope_1" {
+  shared = "${openstack_networking_addressscope_v2.addressscope_1.shared}"
 }
 `, testAccOpenStackNetworkingAddressScopeV2DataSourceAddressscope)
 }

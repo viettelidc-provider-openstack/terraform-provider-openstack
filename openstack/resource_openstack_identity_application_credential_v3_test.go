@@ -27,42 +27,42 @@ func TestAccIdentityV3ApplicationCredential_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3ApplicationCredentialBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ApplicationCredentialExists("viettelidc_identity_application_credential_v3.app_cred_1", &applicationCredential),
+					testAccCheckIdentityV3ApplicationCredentialExists("openstack_identity_application_credential_v3.app_cred_1", &applicationCredential),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "name", &applicationCredential.Name),
+						"openstack_identity_application_credential_v3.app_cred_1", "name", &applicationCredential.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "description", &applicationCredential.Description),
+						"openstack_identity_application_credential_v3.app_cred_1", "description", &applicationCredential.Description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "unrestricted", "false"),
+						"openstack_identity_application_credential_v3.app_cred_1", "unrestricted", "false"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "secret"),
+						"openstack_identity_application_credential_v3.app_cred_1", "secret"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "project_id"),
+						"openstack_identity_application_credential_v3.app_cred_1", "project_id"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "expires_at", "2219-02-13T12:12:12Z"),
+						"openstack_identity_application_credential_v3.app_cred_1", "expires_at", "2219-02-13T12:12:12Z"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "roles.#", "1"),
+						"openstack_identity_application_credential_v3.app_cred_1", "roles.#", "1"),
 					testAccCheckIdentityV3ApplicationCredentialRoleNameExists("reader", &applicationCredential),
 				),
 			},
 			{
 				Config: testAccIdentityV3ApplicationCredentialCustomSecret,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ApplicationCredentialExists("viettelidc_identity_application_credential_v3.app_cred_1", &applicationCredential),
+					testAccCheckIdentityV3ApplicationCredentialExists("openstack_identity_application_credential_v3.app_cred_1", &applicationCredential),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "name", &applicationCredential.Name),
+						"openstack_identity_application_credential_v3.app_cred_1", "name", &applicationCredential.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "description", &applicationCredential.Description),
+						"openstack_identity_application_credential_v3.app_cred_1", "description", &applicationCredential.Description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "unrestricted", "true"),
+						"openstack_identity_application_credential_v3.app_cred_1", "unrestricted", "true"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "secret", "foo"),
+						"openstack_identity_application_credential_v3.app_cred_1", "secret", "foo"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "project_id"),
+						"openstack_identity_application_credential_v3.app_cred_1", "project_id"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "expires_at", ""),
+						"openstack_identity_application_credential_v3.app_cred_1", "expires_at", ""),
 					resource.TestMatchResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "roles.#", regexp.MustCompile(`^[2-9]\d*`)),
+						"openstack_identity_application_credential_v3.app_cred_1", "roles.#", regexp.MustCompile(`^[2-9]\d*`)),
 				),
 			},
 		},
@@ -83,24 +83,24 @@ func TestAccIdentityV3ApplicationCredential_access_rules(t *testing.T) {
 			{
 				Config: testAccIdentityV3ApplicationCredentialAccessRules,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ApplicationCredentialExists("viettelidc_identity_application_credential_v3.app_cred_1", &ac1),
-					testAccCheckIdentityV3ApplicationCredentialExists("viettelidc_identity_application_credential_v3.app_cred_1", &ac2),
+					testAccCheckIdentityV3ApplicationCredentialExists("openstack_identity_application_credential_v3.app_cred_1", &ac1),
+					testAccCheckIdentityV3ApplicationCredentialExists("openstack_identity_application_credential_v3.app_cred_1", &ac2),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "name", &ac1.Name),
+						"openstack_identity_application_credential_v3.app_cred_1", "name", &ac1.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "description", &ac2.Description),
+						"openstack_identity_application_credential_v3.app_cred_1", "description", &ac2.Description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "unrestricted", "false"),
+						"openstack_identity_application_credential_v3.app_cred_1", "unrestricted", "false"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "secret"),
+						"openstack_identity_application_credential_v3.app_cred_1", "secret"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "project_id"),
+						"openstack_identity_application_credential_v3.app_cred_1", "project_id"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "expires_at", "2219-02-13T12:12:12Z"),
+						"openstack_identity_application_credential_v3.app_cred_1", "expires_at", "2219-02-13T12:12:12Z"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_1", "access_rules.#", "3"),
+						"openstack_identity_application_credential_v3.app_cred_1", "access_rules.#", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_application_credential_v3.app_cred_2", "access_rules.#", "3"),
+						"openstack_identity_application_credential_v3.app_cred_2", "access_rules.#", "3"),
 					testAccCheckIdentityV3ApplicationCredentialAccessRulesEqual(&ac1, &ac2),
 				),
 			},
@@ -126,7 +126,7 @@ func testAccCheckIdentityV3ApplicationCredentialDestroy(s *terraform.State) erro
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_application_credential_v3" {
+		if rs.Type != "openstack_identity_application_credential_v3" {
 			continue
 		}
 
@@ -202,7 +202,7 @@ func testAccCheckIdentityV3ApplicationCredentialAccessRulesEqual(ac1, ac2 *appli
 }
 
 const testAccIdentityV3ApplicationCredentialBasic = `
-resource "viettelidc_identity_application_credential_v3" "app_cred_1" {
+resource "openstack_identity_application_credential_v3" "app_cred_1" {
   name        = "monitoring"
   description = "read-only technical user"
   roles       = ["reader"]
@@ -211,7 +211,7 @@ resource "viettelidc_identity_application_credential_v3" "app_cred_1" {
 `
 
 const testAccIdentityV3ApplicationCredentialCustomSecret = `
-resource "viettelidc_identity_application_credential_v3" "app_cred_1" {
+resource "openstack_identity_application_credential_v3" "app_cred_1" {
   name         = "super-admin"
   description  = "wheel technical user"
   secret       = "foo"
@@ -220,7 +220,7 @@ resource "viettelidc_identity_application_credential_v3" "app_cred_1" {
 `
 
 const testAccIdentityV3ApplicationCredentialAccessRules = `
-resource "viettelidc_identity_application_credential_v3" "app_cred_1" {
+resource "openstack_identity_application_credential_v3" "app_cred_1" {
   name        = "monitoring"
   roles       = ["reader"]
   expires_at  = "2219-02-13T12:12:12Z"
@@ -244,14 +244,14 @@ resource "viettelidc_identity_application_credential_v3" "app_cred_1" {
   }
 }
 
-resource "viettelidc_identity_application_credential_v3" "app_cred_2" {
-  depends_on  = [ viettelidc_identity_application_credential_v3.app_cred_1 ]
+resource "openstack_identity_application_credential_v3" "app_cred_2" {
+  depends_on  = [ openstack_identity_application_credential_v3.app_cred_1 ]
   name        = "monitoring2"
   roles       = ["reader"]
   expires_at  = "2219-02-13T12:12:12Z"
 
   dynamic "access_rules" {
-    for_each = [for rule in viettelidc_identity_application_credential_v3.app_cred_1.access_rules : {
+    for_each = [for rule in openstack_identity_application_credential_v3.app_cred_1.access_rules : {
       path = rule.path
       service = rule.service
       method = rule.method

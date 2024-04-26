@@ -31,82 +31,82 @@ func TestAccBlockStorageQuotasetV3_basic(t *testing.T) {
 			{
 				Config: testAccBlockStorageQuotasetV3Basic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
-					testAccCheckBlockStorageQuotasetV3Exists("viettelidc_blockstorage_quotaset_v3.quotaset_1", &quotaset),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
+					testAccCheckBlockStorageQuotasetV3Exists("openstack_blockstorage_quotaset_v3.quotaset_1", &quotaset),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volumes", "2"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volumes", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "snapshots", "2"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "snapshots", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "gigabytes", "2"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "gigabytes", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "per_volume_gigabytes", "1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "per_volume_gigabytes", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "backups", "2"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "backups", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "backup_gigabytes", "1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "backup_gigabytes", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "groups", "1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "groups", "1"),
 				),
 			},
 			{
 				Config: testAccBlockStorageQuotasetV3Update1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
-					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &volumeType),
-					testAccCheckBlockStorageQuotasetV3Exists("viettelidc_blockstorage_quotaset_v3.quotaset_1", &quotaset),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
+					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &volumeType),
+					testAccCheckBlockStorageQuotasetV3Exists("openstack_blockstorage_quotaset_v3.quotaset_1", &quotaset),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volumes", "3"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volumes", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "snapshots", "3"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "snapshots", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "gigabytes", "4"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "gigabytes", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "per_volume_gigabytes", "1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "per_volume_gigabytes", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "backups", "2"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "backups", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "backup_gigabytes", "1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "backup_gigabytes", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "groups", "1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "groups", "1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.%", "9"), // Extra:map[string]interface {}{"gigabytes___DEFAULT__":-1, "gigabytes_foo":100, "gigabytes_lvmdriver-1":-1, "snapshots___DEFAULT__":-1, "snapshots_foo":100, "snapshots_lvmdriver-1":-1, "volumes___DEFAULT__":-1, "volumes_foo":100, "volumes_lvmdriver-1":-1}}
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.%", "9"), // Extra:map[string]interface {}{"gigabytes___DEFAULT__":-1, "gigabytes_foo":100, "gigabytes_lvmdriver-1":-1, "snapshots___DEFAULT__":-1, "snapshots_foo":100, "snapshots_lvmdriver-1":-1, "volumes___DEFAULT__":-1, "volumes_foo":100, "volumes_lvmdriver-1":-1}}
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.volumes_foo", "100"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.volumes_foo", "100"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.snapshots_foo", "100"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.snapshots_foo", "100"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.gigabytes_foo", "100"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.gigabytes_foo", "100"),
 				),
 			},
 			{
 				Config: testAccBlockStorageQuotasetV3Update2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
-					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &volumeType),
-					testAccCheckBlockStorageQuotasetV3Exists("viettelidc_blockstorage_quotaset_v3.quotaset_1", &quotaset),
+					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
+					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &volumeType),
+					testAccCheckBlockStorageQuotasetV3Exists("openstack_blockstorage_quotaset_v3.quotaset_1", &quotaset),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volumes", "3"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volumes", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "snapshots", "3"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "snapshots", "3"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "gigabytes", "4"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "gigabytes", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "per_volume_gigabytes", "2"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "per_volume_gigabytes", "2"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "backups", "4"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "backups", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "backup_gigabytes", "4"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "backup_gigabytes", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "groups", "4"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "groups", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.%", "9"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.%", "9"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.volumes_foo", "10"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.volumes_foo", "10"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.snapshots_foo", "-1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.snapshots_foo", "-1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.gigabytes_foo", "-1"),
+						"openstack_blockstorage_quotaset_v3.quotaset_1", "volume_type_quota.gigabytes_foo", "-1"),
 				),
 			},
 		},
@@ -162,12 +162,12 @@ func testAccCheckBlockStorageQuotasetV3Destroy(s *terraform.State) error {
 }
 
 const testAccBlockStorageQuotasetV3Basic = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
-  project_id            = "${viettelidc_identity_project_v3.project_1.id}"
+resource "openstack_blockstorage_quotaset_v3" "quotaset_1" {
+  project_id            = "${openstack_identity_project_v3.project_1.id}"
   volumes               = 2
   snapshots             = 2
   gigabytes             = 2
@@ -180,7 +180,7 @@ resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
 
 // NOTE: __DEFAULT__ and lvmdriver-1 types were added while migrating to SDK V2 since we had errors like
 //
-//	TestAccBlockStorageQuotasetV3_basic: resource_viettelidc_blockstorage_quotaset_v3_test.go:23: Step 2/3 error: After applying this test step, the plan was not empty.
+//	TestAccBlockStorageQuotasetV3_basic: resource_openstack_blockstorage_quotaset_v3_test.go:23: Step 2/3 error: After applying this test step, the plan was not empty.
 //	    stdout:
 //
 //
@@ -190,8 +190,8 @@ resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
 //
 //	    Terraform will perform the following actions:
 //
-//	      # viettelidc_blockstorage_quotaset_v3.quotaset_1 will be updated in-place
-//	      ~ resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
+//	      # openstack_blockstorage_quotaset_v3.quotaset_1 will be updated in-place
+//	      ~ resource "openstack_blockstorage_quotaset_v3" "quotaset_1" {
 //	            id                   = "c16b6831bca24f3ea568639501806d80/RegionOne"
 //	          ~ volume_type_quota    = {
 //	              - "gigabytes___DEFAULT__" = "-1" -> null
@@ -207,18 +207,18 @@ resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
 //
 //	    Plan: 0 to add, 1 to change, 0 to destroy.
 const testAccBlockStorageQuotasetV3Update1 = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
+resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
   name = "foo"
   description = "foo"
   is_public = true
 }
 
-resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
-  project_id           = "${viettelidc_identity_project_v3.project_1.id}"
+resource "openstack_blockstorage_quotaset_v3" "quotaset_1" {
+  project_id           = "${openstack_identity_project_v3.project_1.id}"
   volumes              = 3
   snapshots            = 3
   gigabytes            = 4
@@ -238,23 +238,23 @@ resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
     snapshots_foo = 100
   }
 
-  depends_on = [viettelidc_blockstorage_volume_type_v3.volume_type_1]
+  depends_on = [openstack_blockstorage_volume_type_v3.volume_type_1]
 }
 `
 
 const testAccBlockStorageQuotasetV3Update2 = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
+resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
   name = "foo"
   description = "foo"
   is_public = true
 }
 
-resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
-  project_id           = "${viettelidc_identity_project_v3.project_1.id}"
+resource "openstack_blockstorage_quotaset_v3" "quotaset_1" {
+  project_id           = "${openstack_identity_project_v3.project_1.id}"
   volumes              = 3
   snapshots            = 3
   gigabytes            = 4
@@ -274,6 +274,6 @@ resource "viettelidc_blockstorage_quotaset_v3" "quotaset_1" {
     snapshots_foo = -1
   }
 
-  depends_on = [viettelidc_blockstorage_volume_type_v3.volume_type_1]
+  depends_on = [openstack_blockstorage_volume_type_v3.volume_type_1]
 }
 `

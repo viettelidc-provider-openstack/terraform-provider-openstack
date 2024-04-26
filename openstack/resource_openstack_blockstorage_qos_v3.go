@@ -67,10 +67,10 @@ func resourceBlockStorageQosV3Create(ctx context.Context, d *schema.ResourceData
 		Specs:    expandToMapStringString(specs),
 	}
 
-	log.Printf("[DEBUG] viettelidc_blockstorage_qos_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_blockstorage_qos_v3 create options: %#v", createOpts)
 	qosRes, err := qos.Create(blockStorageClient, &createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_blockstorage_qos_v3 %s: %s", name, err)
+		return diag.Errorf("Error creating openstack_blockstorage_qos_v3 %s: %s", name, err)
 	}
 
 	d.SetId(qosRes.ID)
@@ -87,17 +87,17 @@ func resourceBlockStorageQosV3Read(ctx context.Context, d *schema.ResourceData, 
 
 	qosRes, err := qos.Get(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_qos_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_qos_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_qos_v3 %s: %#v", d.Id(), qosRes)
+	log.Printf("[DEBUG] Retrieved openstack_blockstorage_qos_v3 %s: %#v", d.Id(), qosRes)
 
 	d.Set("region", GetRegion(d, config))
 	d.Set("name", qosRes.Name)
 	d.Set("consumer", qosRes.Consumer)
 
 	if err := d.Set("specs", qosRes.Specs); err != nil {
-		log.Printf("[WARN] Unable to set specs for viettelidc_blockstorage_qos_v3 %s: %s", d.Id(), err)
+		log.Printf("[WARN] Unable to set specs for openstack_blockstorage_qos_v3 %s: %s", d.Id(), err)
 	}
 
 	return nil
@@ -129,7 +129,7 @@ func resourceBlockStorageQosV3Update(ctx context.Context, d *schema.ResourceData
 		}
 		err = qos.DeleteKeys(blockStorageClient, d.Id(), deleteKeys).ExtractErr()
 		if err != nil {
-			return diag.Errorf("Error deleting specs for viettelidc_blockstorage_qos_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error deleting specs for openstack_blockstorage_qos_v3 %s: %s", d.Id(), err)
 		}
 
 		// Add new specs to UpdateOpts
@@ -143,7 +143,7 @@ func resourceBlockStorageQosV3Update(ctx context.Context, d *schema.ResourceData
 	if hasChange {
 		_, err = qos.Update(blockStorageClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating viettelidc_blockstorage_qos_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating openstack_blockstorage_qos_v3 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -160,13 +160,13 @@ func resourceBlockStorageQosV3Delete(ctx context.Context, d *schema.ResourceData
 	// remove all associations first
 	err = qos.DisassociateAll(blockStorageClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_blockstorage_qos_v3 associations"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_blockstorage_qos_v3 associations"))
 	}
 
 	// Delete the QoS itself
 	err = qos.Delete(blockStorageClient, d.Id(), qos.DeleteOpts{}).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_blockstorage_qos_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_blockstorage_qos_v3"))
 	}
 
 	return nil

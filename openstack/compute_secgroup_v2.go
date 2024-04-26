@@ -148,7 +148,7 @@ func computeSecGroupV2RuleHash(v interface{}) int {
 
 func computeSecGroupV2StateRefreshFunc(computeClient *gophercloud.ServiceClient, d *schema.ResourceData) resource.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		log.Printf("[DEBUG] Attempting to delete viettelidc_compute_secgroup_v2 %s", d.Id())
+		log.Printf("[DEBUG] Attempting to delete openstack_compute_secgroup_v2 %s", d.Id())
 
 		err := secgroups.Delete(computeClient, d.Id()).ExtractErr()
 		if err != nil {
@@ -157,16 +157,16 @@ func computeSecGroupV2StateRefreshFunc(computeClient *gophercloud.ServiceClient,
 
 		s, err := secgroups.Get(computeClient, d.Id()).Extract()
 		if err != nil {
-			err = CheckDeleted(d, err, "Error retrieving viettelidc_compute_secgroup_v2")
+			err = CheckDeleted(d, err, "Error retrieving openstack_compute_secgroup_v2")
 			if err != nil {
 				return s, "", err
 			}
 
-			log.Printf("[DEBUG] Successfully deleted viettelidc_compute_secgroup_v2 %s", d.Id())
+			log.Printf("[DEBUG] Successfully deleted openstack_compute_secgroup_v2 %s", d.Id())
 			return s, "DELETED", nil
 		}
 
-		log.Printf("[DEBUG] viettelidc_compute_secgroup_v2 %s still active", d.Id())
+		log.Printf("[DEBUG] openstack_compute_secgroup_v2 %s still active", d.Id())
 		return s, "ACTIVE", nil
 	}
 }

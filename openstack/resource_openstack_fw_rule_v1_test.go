@@ -27,123 +27,123 @@ func TestAccFWRuleV1_basic(t *testing.T) {
 			{
 				Config: testAccFWRuleV1Basic1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "udp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "udp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "deny"),
+						"openstack_fw_rule_v1.rule_1", "action", "deny"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "true"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "true"),
 				),
 			},
 
 			{
 				Config: testAccFWRuleV1Basic2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "udp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "udp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "deny"),
+						"openstack_fw_rule_v1.rule_1", "action", "deny"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Terraform accept test"),
+						"openstack_fw_rule_v1.rule_1", "description", "Terraform accept test"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.4"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.0/24"),
+						"openstack_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_port", "444"),
+						"openstack_fw_rule_v1.rule_1", "source_port", "444"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_port", "555"),
+						"openstack_fw_rule_v1.rule_1", "destination_port", "555"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "true"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "true"),
 				),
 			},
 
 			{
 				Config: testAccFWRuleV1Basic3,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "tcp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "tcp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "allow"),
+						"openstack_fw_rule_v1.rule_1", "action", "allow"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Terraform accept test updated"),
+						"openstack_fw_rule_v1.rule_1", "description", "Terraform accept test updated"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.0/24"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.8"),
+						"openstack_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_port", "666"),
+						"openstack_fw_rule_v1.rule_1", "source_port", "666"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_port", "777"),
+						"openstack_fw_rule_v1.rule_1", "destination_port", "777"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "false"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "false"),
 				),
 			},
 
 			{
 				Config: testAccFWRuleV1Basic4,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "udp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "udp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "allow"),
+						"openstack_fw_rule_v1.rule_1", "action", "allow"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Terraform accept test updated"),
+						"openstack_fw_rule_v1.rule_1", "description", "Terraform accept test updated"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.0/24"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.8"),
+						"openstack_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_port", "666"),
+						"openstack_fw_rule_v1.rule_1", "source_port", "666"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_port", "777"),
+						"openstack_fw_rule_v1.rule_1", "destination_port", "777"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "false"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "false"),
 				),
 			},
 
 			{
 				Config: testAccFWRuleV1Basic5,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "udp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "udp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "allow"),
+						"openstack_fw_rule_v1.rule_1", "action", "allow"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Terraform accept test updated"),
+						"openstack_fw_rule_v1.rule_1", "description", "Terraform accept test updated"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.0/24"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.8"),
+						"openstack_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.8"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_port", "666"),
+						"openstack_fw_rule_v1.rule_1", "source_port", "666"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "false"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "false"),
 				),
 			},
 		},
@@ -165,21 +165,21 @@ func TestAccFWRuleV1_anyProtocol(t *testing.T) {
 			{
 				Config: testAccFWRuleV1AnyProtocol,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "allow"),
+						"openstack_fw_rule_v1.rule_1", "action", "allow"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "any"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "any"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Allow any protocol"),
+						"openstack_fw_rule_v1.rule_1", "description", "Allow any protocol"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "192.168.199.0/24"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "192.168.199.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "true"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "true"),
 				),
 			},
 		},
@@ -201,54 +201,54 @@ func TestAccFWRuleV1_updateName(t *testing.T) {
 			{
 				Config: testAccFWRuleV1UpdateName1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "deny"),
+						"openstack_fw_rule_v1.rule_1", "action", "deny"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "udp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "udp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Terraform accept test"),
+						"openstack_fw_rule_v1.rule_1", "description", "Terraform accept test"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.4"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.0/24"),
+						"openstack_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_port", "444"),
+						"openstack_fw_rule_v1.rule_1", "source_port", "444"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_port", "555"),
+						"openstack_fw_rule_v1.rule_1", "destination_port", "555"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "true"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "true"),
 				),
 			},
 
 			{
 				Config: testAccFWRuleV1UpdateName2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWRuleV1Exists("viettelidc_fw_rule_v1.rule_1", &rule),
+					testAccCheckFWRuleV1Exists("openstack_fw_rule_v1.rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "name", "updated_rule_1"),
+						"openstack_fw_rule_v1.rule_1", "name", "updated_rule_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "action", "deny"),
+						"openstack_fw_rule_v1.rule_1", "action", "deny"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "protocol", "udp"),
+						"openstack_fw_rule_v1.rule_1", "protocol", "udp"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "description", "Terraform accept test"),
+						"openstack_fw_rule_v1.rule_1", "description", "Terraform accept test"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "ip_version", "4"),
+						"openstack_fw_rule_v1.rule_1", "ip_version", "4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.4"),
+						"openstack_fw_rule_v1.rule_1", "source_ip_address", "1.2.3.4"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.0/24"),
+						"openstack_fw_rule_v1.rule_1", "destination_ip_address", "4.3.2.0/24"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "source_port", "444"),
+						"openstack_fw_rule_v1.rule_1", "source_port", "444"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "destination_port", "555"),
+						"openstack_fw_rule_v1.rule_1", "destination_port", "555"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_fw_rule_v1.rule_1", "enabled", "true"),
+						"openstack_fw_rule_v1.rule_1", "enabled", "true"),
 				),
 			},
 		},
@@ -263,7 +263,7 @@ func testAccCheckFWRuleV1Destroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_firewall_rule" {
+		if rs.Type != "openstack_firewall_rule" {
 			continue
 		}
 		_, err = rules.Get(networkingClient, rs.Primary.ID).Extract()
@@ -316,7 +316,7 @@ func testAccCheckFWRuleV1Exists(n string, rule *rules.Rule) resource.TestCheckFu
 }
 
 const testAccFWRuleV1Basic1 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	protocol = "udp"
 	action = "deny"
@@ -324,7 +324,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1Basic2 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	description = "Terraform accept test"
 	protocol = "udp"
@@ -339,7 +339,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1Basic3 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	description = "Terraform accept test updated"
 	protocol = "tcp"
@@ -354,7 +354,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1Basic4 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	description = "Terraform accept test updated"
 	protocol = "udp"
@@ -369,7 +369,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1Basic5 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	description = "Terraform accept test updated"
 	protocol = "udp"
@@ -383,7 +383,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1AnyProtocol = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	description = "Allow any protocol"
 	protocol = "any"
@@ -395,7 +395,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1UpdateName1 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "rule_1"
 	description = "Terraform accept test"
 	protocol = "udp"
@@ -410,7 +410,7 @@ resource "viettelidc_fw_rule_v1" "rule_1" {
 `
 
 const testAccFWRuleV1UpdateName2 = `
-resource "viettelidc_fw_rule_v1" "rule_1" {
+resource "openstack_fw_rule_v1" "rule_1" {
 	name = "updated_rule_1"
 	description = "Terraform accept test"
 	protocol = "udp"

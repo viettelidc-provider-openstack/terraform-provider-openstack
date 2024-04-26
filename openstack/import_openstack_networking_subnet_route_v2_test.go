@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2SubnetRoute_importBasic(t *testing.T) {
-	resourceName := "viettelidc_networking_subnet_route_v2.subnet_route_1"
+	resourceName := "openstack_networking_subnet_route_v2.subnet_route_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

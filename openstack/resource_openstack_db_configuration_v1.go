@@ -116,11 +116,11 @@ func resourceDatabaseConfigurationV1Create(ctx context.Context, d *schema.Resour
 	}
 	createOpts.Values = values
 
-	log.Printf("[DEBUG] viettelidc_db_configuration_v1 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_db_configuration_v1 create options: %#v", createOpts)
 	cgroup, err := configurations.Create(DatabaseV1Client, createOpts).Extract()
 
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_db_configuration_v1: %s", err)
+		return diag.Errorf("Error creating openstack_db_configuration_v1: %s", err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -134,7 +134,7 @@ func resourceDatabaseConfigurationV1Create(ctx context.Context, d *schema.Resour
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_db_configuration_v1 %s to become ready: %s", cgroup.ID, err)
+		return diag.Errorf("Error waiting for openstack_db_configuration_v1 %s to become ready: %s", cgroup.ID, err)
 	}
 
 	// Store the ID now
@@ -152,10 +152,10 @@ func resourceDatabaseConfigurationV1Read(_ context.Context, d *schema.ResourceDa
 
 	cgroup, err := configurations.Get(DatabaseV1Client, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_db_configuration_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_db_configuration_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_db_configuration_v1 %s: %#v", d.Id(), cgroup)
+	log.Printf("[DEBUG] Retrieved openstack_db_configuration_v1 %s: %#v", d.Id(), cgroup)
 
 	d.Set("name", cgroup.Name)
 	d.Set("description", cgroup.Description)
@@ -173,7 +173,7 @@ func resourceDatabaseConfigurationV1Delete(ctx context.Context, d *schema.Resour
 
 	err = configurations.Delete(DatabaseV1Client, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting viettelidc_db_configuration_v1 %s: %s", d.Id(), err)
+		return diag.Errorf("Error deleting openstack_db_configuration_v1 %s: %s", d.Id(), err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -187,7 +187,7 @@ func resourceDatabaseConfigurationV1Delete(ctx context.Context, d *schema.Resour
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_db_configuration_v1 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for openstack_db_configuration_v1 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

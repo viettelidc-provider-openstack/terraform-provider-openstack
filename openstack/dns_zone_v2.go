@@ -87,7 +87,7 @@ func dnsZoneV2RefreshFunc(dnsClient *gophercloud.ServiceClient, zoneID string) r
 			return nil, "", err
 		}
 
-		log.Printf("[DEBUG] viettelidc_dns_zone_v2 %s current status: %s", zone.ID, zone.Status)
+		log.Printf("[DEBUG] openstack_dns_zone_v2 %s current status: %s", zone.ID, zone.Status)
 		return zone, zone.Status, nil
 	}
 }

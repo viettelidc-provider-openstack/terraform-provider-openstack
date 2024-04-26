@@ -28,13 +28,13 @@ func TestAccIdentityV3RoleAssignment_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3RoleAssignmentBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3RoleAssignmentExists("viettelidc_identity_role_assignment_v3.role_assignment_1", &role, &user, &project),
+					testAccCheckIdentityV3RoleAssignmentExists("openstack_identity_role_assignment_v3.role_assignment_1", &role, &user, &project),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_role_assignment_v3.role_assignment_1", "project_id", &project.ID),
+						"openstack_identity_role_assignment_v3.role_assignment_1", "project_id", &project.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_role_assignment_v3.role_assignment_1", "user_id", &user.ID),
+						"openstack_identity_role_assignment_v3.role_assignment_1", "user_id", &user.ID),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_role_assignment_v3.role_assignment_1", "role_id", &role.ID),
+						"openstack_identity_role_assignment_v3.role_assignment_1", "role_id", &role.ID),
 				),
 			},
 		},
@@ -49,7 +49,7 @@ func testAccCheckIdentityV3RoleAssignmentDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_role_assignment_v3" {
+		if rs.Type != "openstack_identity_role_assignment_v3" {
 			continue
 		}
 
@@ -81,7 +81,7 @@ func testAccCheckIdentityV3RoleAssignmentExists(n string, role *roles.Role, user
 
 		domainID, projectID, groupID, userID, roleID, err := identityRoleAssignmentV3ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error determining viettelidc_identity_role_assignment_v3 ID: %s", err)
+			return fmt.Errorf("Error determining openstack_identity_role_assignment_v3 ID: %s", err)
 		}
 
 		var opts = roles.ListAssignmentsOpts{
@@ -134,22 +134,22 @@ func testAccCheckIdentityV3RoleAssignmentExists(n string, role *roles.Role, user
 }
 
 const testAccIdentityV3RoleAssignmentBasic = `
-resource "viettelidc_identity_project_v3" "project_1" {
+resource "openstack_identity_project_v3" "project_1" {
   name = "project_1"
 }
 
-resource "viettelidc_identity_user_v3" "user_1" {
+resource "openstack_identity_user_v3" "user_1" {
   name = "user_1"
-  default_project_id = "${viettelidc_identity_project_v3.project_1.id}"
+  default_project_id = "${openstack_identity_project_v3.project_1.id}"
 }
 
-resource "viettelidc_identity_role_v3" "role_1" {
+resource "openstack_identity_role_v3" "role_1" {
   name = "role_1"
 }
 
-resource "viettelidc_identity_role_assignment_v3" "role_assignment_1" {
-  user_id = "${viettelidc_identity_user_v3.user_1.id}"
-  project_id = "${viettelidc_identity_project_v3.project_1.id}"
-  role_id = "${viettelidc_identity_role_v3.role_1.id}"
+resource "openstack_identity_role_assignment_v3" "role_assignment_1" {
+  user_id = "${openstack_identity_user_v3.user_1.id}"
+  project_id = "${openstack_identity_project_v3.project_1.id}"
+  role_id = "${openstack_identity_role_v3.role_1.id}"
 }
 `

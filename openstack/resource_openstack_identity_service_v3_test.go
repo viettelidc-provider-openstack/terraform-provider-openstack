@@ -27,29 +27,29 @@ func TestAccIdentityV3Service_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3ServiceBasic(serviceName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ServiceExists("viettelidc_identity_service_v3.service_1", &service, &name, &description),
+					testAccCheckIdentityV3ServiceExists("openstack_identity_service_v3.service_1", &service, &name, &description),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_service_v3.service_1", "name", &name),
+						"openstack_identity_service_v3.service_1", "name", &name),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_service_v3.service_1", "type", "foo"),
+						"openstack_identity_service_v3.service_1", "type", "foo"),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_service_v3.service_1", "description", &description),
+						"openstack_identity_service_v3.service_1", "description", &description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_service_v3.service_1", "enabled", "true"),
+						"openstack_identity_service_v3.service_1", "enabled", "true"),
 				),
 			},
 			{
 				Config: testAccIdentityV3ServiceUpdate(serviceName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ServiceExists("viettelidc_identity_service_v3.service_1", &service, &name, &description),
+					testAccCheckIdentityV3ServiceExists("openstack_identity_service_v3.service_1", &service, &name, &description),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_service_v3.service_1", "name", &name),
+						"openstack_identity_service_v3.service_1", "name", &name),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_service_v3.service_1", "type", "bar"),
+						"openstack_identity_service_v3.service_1", "type", "bar"),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_service_v3.service_1", "description", &description),
+						"openstack_identity_service_v3.service_1", "description", &description),
 					resource.TestCheckResourceAttr(
-						"viettelidc_identity_service_v3.service_1", "enabled", "false"),
+						"openstack_identity_service_v3.service_1", "enabled", "false"),
 				),
 			},
 		},
@@ -64,7 +64,7 @@ func testAccCheckIdentityV3ServiceDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_service_v3" {
+		if rs.Type != "openstack_identity_service_v3" {
 			continue
 		}
 
@@ -119,7 +119,7 @@ func testAccCheckIdentityV3ServiceExists(n string, service *services.Service, na
 
 func testAccIdentityV3ServiceBasic(serviceName string) string {
 	return fmt.Sprintf(`
-resource "viettelidc_identity_service_v3" "service_1" {
+resource "openstack_identity_service_v3" "service_1" {
   name = "%s"
   type = "foo"
   description = "A service"
@@ -129,7 +129,7 @@ resource "viettelidc_identity_service_v3" "service_1" {
 
 func testAccIdentityV3ServiceUpdate(serviceName string) string {
 	return fmt.Sprintf(`
-resource "viettelidc_identity_service_v3" "service_1" {
+resource "openstack_identity_service_v3" "service_1" {
   name = "%s"
   type = "bar"
   description = "A service"

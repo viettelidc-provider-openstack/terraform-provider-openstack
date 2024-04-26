@@ -27,27 +27,27 @@ func TestAccNetworkingV2RouterRoute_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2RouterRouteCreate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterExists("viettelidc_networking_router_v2.router_1", &router),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network[0]),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet[0]),
-					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network[1]),
-					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet[1]),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_1"),
-					testAccCheckNetworkingV2RouterInterfaceExists("viettelidc_networking_router_interface_v2.int_2"),
-					testAccCheckNetworkingV2RouterRouteExists("viettelidc_networking_router_route_v2.router_route_1"),
+					testAccCheckNetworkingV2RouterExists("openstack_networking_router_v2.router_1", &router),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network[0]),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet[0]),
+					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network[1]),
+					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet[1]),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_1"),
+					testAccCheckNetworkingV2RouterInterfaceExists("openstack_networking_router_interface_v2.int_2"),
+					testAccCheckNetworkingV2RouterRouteExists("openstack_networking_router_route_v2.router_route_1"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2RouterRouteUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterRouteExists("viettelidc_networking_router_route_v2.router_route_1"),
-					testAccCheckNetworkingV2RouterRouteExists("viettelidc_networking_router_route_v2.router_route_2"),
+					testAccCheckNetworkingV2RouterRouteExists("openstack_networking_router_route_v2.router_route_1"),
+					testAccCheckNetworkingV2RouterRouteExists("openstack_networking_router_route_v2.router_route_2"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2RouterRouteDestroy,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2RouterRouteEmpty("viettelidc_networking_router_v2.router_1"),
+					testAccCheckNetworkingV2RouterRouteEmpty("openstack_networking_router_v2.router_1"),
 				),
 			},
 		},
@@ -136,7 +136,7 @@ func testAccCheckNetworkingV2RouterRouteDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_router_route_v2" {
+		if rs.Type != "openstack_networking_router_route_v2" {
 			continue
 		}
 
@@ -162,208 +162,208 @@ func testAccCheckNetworkingV2RouterRouteDestroy(s *terraform.State) error {
 }
 
 const testAccNetworkingV2RouterRouteCreate = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.1"
   }
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_1.id}"
 }
 
-resource "viettelidc_networking_network_v2" "network_2" {
+resource "openstack_networking_network_v2" "network_2" {
   name = "network_2"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   cidr = "192.168.200.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_2" {
+resource "openstack_networking_port_v2" "port_2" {
   name = "port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_2.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_2.id}"
     ip_address = "192.168.200.1"
   }
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_2" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_2.id}"
+resource "openstack_networking_router_interface_v2" "int_2" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_2.id}"
 }
 
-resource "viettelidc_networking_router_route_v2" "router_route_1" {
+resource "openstack_networking_router_route_v2" "router_route_1" {
   destination_cidr = "10.0.1.0/24"
   next_hop = "192.168.199.254"
 
-  depends_on = ["viettelidc_networking_router_interface_v2.int_1"]
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+  depends_on = ["openstack_networking_router_interface_v2.int_1"]
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 }
 `
 
 const testAccNetworkingV2RouterRouteUpdate = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.1"
   }
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_1.id}"
 }
 
-resource "viettelidc_networking_network_v2" "network_2" {
+resource "openstack_networking_network_v2" "network_2" {
   name = "network_2"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   cidr = "192.168.200.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_2" {
+resource "openstack_networking_port_v2" "port_2" {
   name = "port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_2.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_2.id}"
     ip_address = "192.168.200.1"
   }
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_2" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_2.id}"
+resource "openstack_networking_router_interface_v2" "int_2" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_2.id}"
 }
 
-resource "viettelidc_networking_router_route_v2" "router_route_1" {
+resource "openstack_networking_router_route_v2" "router_route_1" {
   destination_cidr = "10.0.1.0/24"
   next_hop = "192.168.199.254"
 
-  depends_on = ["viettelidc_networking_router_interface_v2.int_1"]
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+  depends_on = ["openstack_networking_router_interface_v2.int_1"]
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 }
 
-resource "viettelidc_networking_router_route_v2" "router_route_2" {
+resource "openstack_networking_router_route_v2" "router_route_2" {
   destination_cidr = "10.0.2.0/24"
   next_hop = "192.168.200.254"
 
-  depends_on = ["viettelidc_networking_router_interface_v2.int_2"]
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
+  depends_on = ["openstack_networking_router_interface_v2.int_2"]
+  router_id = "${openstack_networking_router_v2.router_1.id}"
 }
 `
 
 const testAccNetworkingV2RouterRouteDestroy = `
-resource "viettelidc_networking_router_v2" "router_1" {
+resource "openstack_networking_router_v2" "router_1" {
   name = "router_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_1" {
+resource "openstack_networking_port_v2" "port_1" {
   name = "port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
     ip_address = "192.168.199.1"
   }
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_1" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_1.id}"
+resource "openstack_networking_router_interface_v2" "int_1" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_1.id}"
 }
 
-resource "viettelidc_networking_network_v2" "network_2" {
+resource "openstack_networking_network_v2" "network_2" {
   name = "network_2"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_2" {
+resource "openstack_networking_subnet_v2" "subnet_2" {
   ip_version = 4
   cidr = "192.168.200.0/24"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 }
 
-resource "viettelidc_networking_port_v2" "port_2" {
+resource "openstack_networking_port_v2" "port_2" {
   name = "port_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_2.id}"
+  network_id = "${openstack_networking_network_v2.network_2.id}"
 
   fixed_ip {
-    subnet_id = "${viettelidc_networking_subnet_v2.subnet_2.id}"
+    subnet_id = "${openstack_networking_subnet_v2.subnet_2.id}"
     ip_address = "192.168.200.1"
   }
 }
 
-resource "viettelidc_networking_router_interface_v2" "int_2" {
-  router_id = "${viettelidc_networking_router_v2.router_1.id}"
-  port_id = "${viettelidc_networking_port_v2.port_2.id}"
+resource "openstack_networking_router_interface_v2" "int_2" {
+  router_id = "${openstack_networking_router_v2.router_1.id}"
+  port_id = "${openstack_networking_port_v2.port_2.id}"
 }
 `

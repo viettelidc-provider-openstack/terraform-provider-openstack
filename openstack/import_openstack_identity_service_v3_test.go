@@ -9,7 +9,7 @@ import (
 )
 
 func TestAccIdentityV3Service_importBasic(t *testing.T) {
-	resourceName := "viettelidc_identity_service_v3.service_1"
+	resourceName := "openstack_identity_service_v3.service_1"
 	var serviceName = fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))
 
 	resource.Test(t, resource.TestCase{

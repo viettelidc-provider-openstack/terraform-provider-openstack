@@ -22,10 +22,10 @@ func TestAccComputeV2InstanceDataSource(t *testing.T) {
 			{
 				Config: testAccComputeV2InstanceDataSourceSource(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeInstanceV2DataSourceID("data.viettelidc_compute_instance_v2.source_1"),
-					resource.TestCheckResourceAttr("data.viettelidc_compute_instance_v2.source_1", "name", "instance_1"),
-					resource.TestCheckResourceAttrPair("data.viettelidc_compute_instance_v2.source_1", "metadata", "viettelidc_compute_instance_v2.instance_1", "metadata"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_compute_instance_v2.source_1", "network.0.name"),
+					testAccCheckComputeInstanceV2DataSourceID("data.openstack_compute_instance_v2.source_1"),
+					resource.TestCheckResourceAttr("data.openstack_compute_instance_v2.source_1", "name", "instance_1"),
+					resource.TestCheckResourceAttrPair("data.openstack_compute_instance_v2.source_1", "metadata", "openstack_compute_instance_v2.instance_1", "metadata"),
+					resource.TestCheckResourceAttrSet("data.openstack_compute_instance_v2.source_1", "network.0.name"),
 				),
 			},
 		},
@@ -49,7 +49,7 @@ func testAccCheckComputeInstanceV2DataSourceID(n string) resource.TestCheckFunc 
 
 func testAccComputeV2InstanceDataSourceBasic() string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   metadata = {
@@ -66,8 +66,8 @@ func testAccComputeV2InstanceDataSourceSource() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_compute_instance_v2" "source_1" {
-  id = "${viettelidc_compute_instance_v2.instance_1.id}"
+data "openstack_compute_instance_v2" "source_1" {
+  id = "${openstack_compute_instance_v2.instance_1.id}"
 }
 `, testAccComputeV2InstanceDataSourceBasic())
 }

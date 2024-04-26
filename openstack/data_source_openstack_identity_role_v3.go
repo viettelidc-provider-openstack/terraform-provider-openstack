@@ -49,25 +49,25 @@ func dataSourceIdentityRoleV3Read(ctx context.Context, d *schema.ResourceData, m
 		Name:     d.Get("name").(string),
 	}
 
-	log.Printf("[DEBUG] viettelidc_identity_role_v3 list options: %#v", listOpts)
+	log.Printf("[DEBUG] openstack_identity_role_v3 list options: %#v", listOpts)
 
 	var role roles.Role
 	allPages, err := roles.List(identityClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query viettelidc_identity_role_v3: %s", err)
+		return diag.Errorf("Unable to query openstack_identity_role_v3: %s", err)
 	}
 
 	allRoles, err := roles.ExtractRoles(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_identity_role_v3: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_identity_role_v3: %s", err)
 	}
 
 	if len(allRoles) < 1 {
-		return diag.Errorf("Your viettelidc_identity_role_v3 query returned no results")
+		return diag.Errorf("Your openstack_identity_role_v3 query returned no results")
 	}
 
 	if len(allRoles) > 1 {
-		return diag.Errorf("Your viettelidc_identity_role_v3 query returned more than one result")
+		return diag.Errorf("Your openstack_identity_role_v3 query returned more than one result")
 	}
 
 	role = allRoles[0]
@@ -79,7 +79,7 @@ func dataSourceIdentityRoleV3Read(ctx context.Context, d *schema.ResourceData, m
 
 // dataSourceIdentityRoleV3Attributes populates the fields of an Role resource.
 func dataSourceIdentityRoleV3Attributes(d *schema.ResourceData, config *Config, role *roles.Role) {
-	log.Printf("[DEBUG] viettelidc_identity_role_v3 details: %#v", role)
+	log.Printf("[DEBUG] openstack_identity_role_v3 details: %#v", role)
 
 	d.SetId(role.ID)
 	d.Set("name", role.Name)

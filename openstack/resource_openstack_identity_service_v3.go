@@ -69,10 +69,10 @@ func resourceIdentityServiceV3Create(ctx context.Context, d *schema.ResourceData
 		Enabled: &enabled,
 	}
 
-	log.Printf("[DEBUG] viettelidc_identity_service_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] openstack_identity_service_v3 create options: %#v", createOpts)
 	service, err := services.Create(identityClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_identity_service_v3: %s", err)
+		return diag.Errorf("Error creating openstack_identity_service_v3: %s", err)
 	}
 
 	d.SetId(service.ID)
@@ -89,10 +89,10 @@ func resourceIdentityServiceV3Read(ctx context.Context, d *schema.ResourceData, 
 
 	service, err := services.Get(identityClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_service_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_service_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_identity_service_v3: %#v", service)
+	log.Printf("[DEBUG] Retrieved openstack_identity_service_v3: %#v", service)
 
 	name := ""
 	description := ""
@@ -136,7 +136,7 @@ func resourceIdentityServiceV3Update(ctx context.Context, d *schema.ResourceData
 
 	_, err = services.Update(identityClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating viettelidc_identity_service_v3: %s", err)
+		return diag.Errorf("Error updating openstack_identity_service_v3: %s", err)
 	}
 
 	return resourceIdentityServiceV3Read(ctx, d, meta)
@@ -151,7 +151,7 @@ func resourceIdentityServiceV3Delete(ctx context.Context, d *schema.ResourceData
 
 	err = services.Delete(identityClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting viettelidc_identity_service_v3: %s", err)
+		return diag.Errorf("Error deleting openstack_identity_service_v3: %s", err)
 	}
 
 	return nil

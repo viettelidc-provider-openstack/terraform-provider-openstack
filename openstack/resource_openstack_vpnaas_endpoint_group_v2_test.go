@@ -28,10 +28,10 @@ func TestAccGroupVPNaaSV2_basic(t *testing.T) {
 				Config: testAccEndpointGroupV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEndpointGroupV2Exists(
-						"viettelidc_vpnaas_endpoint_group_v2.group_1", &group),
-					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_endpoint_group_v2.group_1", "name", &group.Name),
-					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_endpoint_group_v2.group_1", "type", &group.Type),
-					testAccCheckEndpoints("viettelidc_vpnaas_endpoint_group_v2.group_1", &group.Endpoints),
+						"openstack_vpnaas_endpoint_group_v2.group_1", &group),
+					resource.TestCheckResourceAttrPtr("openstack_vpnaas_endpoint_group_v2.group_1", "name", &group.Name),
+					resource.TestCheckResourceAttrPtr("openstack_vpnaas_endpoint_group_v2.group_1", "type", &group.Type),
+					testAccCheckEndpoints("openstack_vpnaas_endpoint_group_v2.group_1", &group.Endpoints),
 				),
 			},
 		},
@@ -53,20 +53,20 @@ func TestAccGroupVPNaaSV2_update(t *testing.T) {
 				Config: testAccEndpointGroupV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEndpointGroupV2Exists(
-						"viettelidc_vpnaas_endpoint_group_v2.group_1", &group),
-					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_endpoint_group_v2.group_1", "name", &group.Name),
-					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_endpoint_group_v2.group_1", "type", &group.Type),
-					testAccCheckEndpoints("viettelidc_vpnaas_endpoint_group_v2.group_1", &group.Endpoints),
+						"openstack_vpnaas_endpoint_group_v2.group_1", &group),
+					resource.TestCheckResourceAttrPtr("openstack_vpnaas_endpoint_group_v2.group_1", "name", &group.Name),
+					resource.TestCheckResourceAttrPtr("openstack_vpnaas_endpoint_group_v2.group_1", "type", &group.Type),
+					testAccCheckEndpoints("openstack_vpnaas_endpoint_group_v2.group_1", &group.Endpoints),
 				),
 			},
 			{
 				Config: testAccEndpointGroupV2Update,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEndpointGroupV2Exists(
-						"viettelidc_vpnaas_endpoint_group_v2.group_1", &group),
-					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_endpoint_group_v2.group_1", "name", &group.Name),
-					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_endpoint_group_v2.group_1", "type", &group.Type),
-					testAccCheckEndpoints("viettelidc_vpnaas_endpoint_group_v2.group_1", &group.Endpoints),
+						"openstack_vpnaas_endpoint_group_v2.group_1", &group),
+					resource.TestCheckResourceAttrPtr("openstack_vpnaas_endpoint_group_v2.group_1", "name", &group.Name),
+					resource.TestCheckResourceAttrPtr("openstack_vpnaas_endpoint_group_v2.group_1", "type", &group.Type),
+					testAccCheckEndpoints("openstack_vpnaas_endpoint_group_v2.group_1", &group.Endpoints),
 				),
 			},
 		},
@@ -80,7 +80,7 @@ func testAccCheckEndpointGroupV2Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_vpnaas_group" {
+		if rs.Type != "openstack_vpnaas_group" {
 			continue
 		}
 		_, err = endpointgroups.Get(networkingClient, rs.Primary.ID).Extract()
@@ -160,7 +160,7 @@ func testAccCheckEndpoints(n string, actual *[]string) resource.TestCheckFunc {
 }
 
 const testAccEndpointGroupV2Basic = `
-	resource "viettelidc_vpnaas_endpoint_group_v2" "group_1" {
+	resource "openstack_vpnaas_endpoint_group_v2" "group_1" {
 		name = "Group 1"
 		type = "cidr"
 		endpoints = ["10.3.0.0/24",
@@ -169,7 +169,7 @@ const testAccEndpointGroupV2Basic = `
 `
 
 const testAccEndpointGroupV2Update = `
-	resource "viettelidc_vpnaas_endpoint_group_v2" "group_1" {
+	resource "openstack_vpnaas_endpoint_group_v2" "group_1" {
 		name = "Updated Group 1"
 		type = "cidr"
 		endpoints = ["10.2.0.0/24",

@@ -149,7 +149,7 @@ func resourceKeyManagerOrderV1Create(ctx context.Context, d *schema.ResourceData
 	var order *orders.Order
 	order, err = orders.Create(kmClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating viettelidc_keymanager_order_v1: %s", err)
+		return diag.Errorf("Error creating openstack_keymanager_order_v1: %s", err)
 	}
 
 	uuid := keyManagerOrderV1GetUUIDfromOrderRef(order.OrderRef)
@@ -165,7 +165,7 @@ func resourceKeyManagerOrderV1Create(ctx context.Context, d *schema.ResourceData
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for viettelidc_keymanager_order_v1: %s", err)
+		return diag.Errorf("Error waiting for openstack_keymanager_order_v1: %s", err)
 	}
 
 	d.SetId(uuid)
@@ -182,10 +182,10 @@ func resourceKeyManagerOrderV1Read(ctx context.Context, d *schema.ResourceData, 
 
 	order, err := orders.Get(kmClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_keymanager_order_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_keymanager_order_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved viettelidc_keymanager_order_v1 %s: %#v", d.Id(), order)
+	log.Printf("[DEBUG] Retrieved openstack_keymanager_order_v1 %s: %#v", d.Id(), order)
 
 	d.Set("container_ref", order.ContainerRef)
 	d.Set("created", order.Created.Format(time.RFC3339))

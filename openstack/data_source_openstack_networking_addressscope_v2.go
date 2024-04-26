@@ -71,25 +71,25 @@ func dataSourceNetworkingAddressScopeV2Read(ctx context.Context, d *schema.Resou
 
 	pages, err := addressscopes.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list viettelidc_networking_addressscope_v2: %s", err)
+		return diag.Errorf("Unable to list openstack_networking_addressscope_v2: %s", err)
 	}
 
 	allAddressScopes, err := addressscopes.ExtractAddressScopes(pages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve viettelidc_networking_addressscope_v2: %s", err)
+		return diag.Errorf("Unable to retrieve openstack_networking_addressscope_v2: %s", err)
 	}
 
 	if len(allAddressScopes) < 1 {
-		return diag.Errorf("No viettelidc_networking_addressscope_v2 found")
+		return diag.Errorf("No openstack_networking_addressscope_v2 found")
 	}
 
 	if len(allAddressScopes) > 1 {
-		return diag.Errorf("More than one viettelidc_networking_addressscope_v2 found")
+		return diag.Errorf("More than one openstack_networking_addressscope_v2 found")
 	}
 
 	a := allAddressScopes[0]
 
-	log.Printf("[DEBUG] Retrieved viettelidc_networking_addressscope_v2 %s: %+v", a.ID, a)
+	log.Printf("[DEBUG] Retrieved openstack_networking_addressscope_v2 %s: %+v", a.ID, a)
 	d.SetId(a.ID)
 
 	d.Set("region", GetRegion(d, config))

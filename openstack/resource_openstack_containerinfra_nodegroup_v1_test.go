@@ -15,7 +15,7 @@ import (
 func TestAccContainerInfraV1NodeGroup_basic(t *testing.T) {
 	var nodeGroup nodegroups.NodeGroup
 
-	resourceName := "viettelidc_containerinfra_nodegroup_v1.nodegroup_1"
+	resourceName := "openstack_containerinfra_nodegroup_v1.nodegroup_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -79,7 +79,7 @@ func TestAccContainerInfraV1NodeGroup_basic(t *testing.T) {
 func TestAccContainerInfraV1NodeGroup_mergeLabels(t *testing.T) {
 	var nodeGroup nodegroups.NodeGroup
 
-	resourceName := "viettelidc_containerinfra_nodegroup_v1.nodegroup_1"
+	resourceName := "openstack_containerinfra_nodegroup_v1.nodegroup_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -145,7 +145,7 @@ func TestAccContainerInfraV1NodeGroup_mergeLabels(t *testing.T) {
 func TestAccContainerInfraV1NodeGroup_overrideLabels(t *testing.T) {
 	var nodeGroup nodegroups.NodeGroup
 
-	resourceName := "viettelidc_containerinfra_nodegroup_v1.nodegroup_1"
+	resourceName := "openstack_containerinfra_nodegroup_v1.nodegroup_1"
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
 	clusterTemplateName := acctest.RandomWithPrefix("tf-acc-clustertemplate")
@@ -255,7 +255,7 @@ func testAccCheckContainerInfraV1NodeGroupDestroy(s *terraform.State) error {
 	containerInfraClient.Microversion = containerInfraV1NodeGroupMinMicroversion
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_containerinfra_nodegroup_v1" {
+		if rs.Type != "openstack_containerinfra_nodegroup_v1" {
 			continue
 		}
 		clusterID, nodeGroupID, err := parseVolumeTypeAccessID(rs.Primary.ID)
@@ -274,11 +274,11 @@ func testAccCheckContainerInfraV1NodeGroupDestroy(s *terraform.State) error {
 
 func testAccContainerInfraV1NodeGroupBasic(keypairName, clusterTemplateName, clusterName string, nodeGroupName string, nodeCount int) string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_keypair_v2" "keypair_1" {
+resource "openstack_compute_keypair_v2" "keypair_1" {
   name = "%s"
 }
 
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   name                  = "%s"
   image                 = "%s"
   coe                   = "kubernetes"
@@ -299,17 +299,17 @@ resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   }
 }
 
-resource "viettelidc_containerinfra_cluster_v1" "cluster_1" {
+resource "openstack_containerinfra_cluster_v1" "cluster_1" {
   name                 = "%s"
-  cluster_template_id  = "${viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
+  cluster_template_id  = "${openstack_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
   master_count         = 1
   node_count           = 1
-  keypair              = "${viettelidc_compute_keypair_v2.keypair_1.name}"
+  keypair              = "${openstack_compute_keypair_v2.keypair_1.name}"
 }
 
-resource "viettelidc_containerinfra_nodegroup_v1" "nodegroup_1" {
+resource "openstack_containerinfra_nodegroup_v1" "nodegroup_1" {
   name                 = "%s"
-  cluster_id           = "${viettelidc_containerinfra_cluster_v1.cluster_1.id}"
+  cluster_id           = "${openstack_containerinfra_cluster_v1.cluster_1.id}"
   node_count           = %d
   docker_volume_size   = 10
   role				   = "myRole"
@@ -323,11 +323,11 @@ resource "viettelidc_containerinfra_nodegroup_v1" "nodegroup_1" {
 
 func testAccContainerInfraV1NodeGroupMergeLabels(keypairName, clusterTemplateName, clusterName string, nodeGroupName string, nodeCount int) string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_keypair_v2" "keypair_1" {
+resource "openstack_compute_keypair_v2" "keypair_1" {
   name = "%s"
 }
 
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   name                  = "%s"
   image                 = "%s"
   coe                   = "kubernetes"
@@ -348,17 +348,17 @@ resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   }
 }
 
-resource "viettelidc_containerinfra_cluster_v1" "cluster_1" {
+resource "openstack_containerinfra_cluster_v1" "cluster_1" {
   name                 = "%s"
-  cluster_template_id  = "${viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
+  cluster_template_id  = "${openstack_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
   master_count         = 1
   node_count           = 1
-  keypair              = "${viettelidc_compute_keypair_v2.keypair_1.name}"
+  keypair              = "${openstack_compute_keypair_v2.keypair_1.name}"
 }
 
-resource "viettelidc_containerinfra_nodegroup_v1" "nodegroup_1" {
+resource "openstack_containerinfra_nodegroup_v1" "nodegroup_1" {
   name                 = "%s"
-  cluster_id           = "${viettelidc_containerinfra_cluster_v1.cluster_1.id}"
+  cluster_id           = "${openstack_containerinfra_cluster_v1.cluster_1.id}"
   node_count           = %d
   docker_volume_size   = 10
   role				   = "myRole"
@@ -376,11 +376,11 @@ resource "viettelidc_containerinfra_nodegroup_v1" "nodegroup_1" {
 
 func testAccContainerInfraV1NodeGroupOverrideLabels(keypairName, clusterTemplateName, clusterName string, nodeGroupName string, nodeCount int) string {
 	return fmt.Sprintf(`
-resource "viettelidc_compute_keypair_v2" "keypair_1" {
+resource "openstack_compute_keypair_v2" "keypair_1" {
   name = "%s"
 }
 
-resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
+resource "openstack_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   name                  = "%s"
   image                 = "%s"
   coe                   = "kubernetes"
@@ -401,17 +401,17 @@ resource "viettelidc_containerinfra_clustertemplate_v1" "clustertemplate_1" {
   }
 }
 
-resource "viettelidc_containerinfra_cluster_v1" "cluster_1" {
+resource "openstack_containerinfra_cluster_v1" "cluster_1" {
   name                 = "%s"
-  cluster_template_id  = "${viettelidc_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
+  cluster_template_id  = "${openstack_containerinfra_clustertemplate_v1.clustertemplate_1.id}"
   master_count         = 1
   node_count           = 1
-  keypair              = "${viettelidc_compute_keypair_v2.keypair_1.name}"
+  keypair              = "${openstack_compute_keypair_v2.keypair_1.name}"
 }
 
-resource "viettelidc_containerinfra_nodegroup_v1" "nodegroup_1" {
+resource "openstack_containerinfra_nodegroup_v1" "nodegroup_1" {
   name                 = "%s"
-  cluster_id           = "${viettelidc_containerinfra_cluster_v1.cluster_1.id}"
+  cluster_id           = "${openstack_containerinfra_cluster_v1.cluster_1.id}"
   node_count           = %d
   docker_volume_size   = 10
   role				   = "myRole"

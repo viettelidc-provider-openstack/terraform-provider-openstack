@@ -22,15 +22,15 @@ func TestAccBlockStorageV3QuotasetDataSource(t *testing.T) {
 			{
 				Config: testAccBlockStorageV3QuotasetDataSourceSource(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageQuotasetV3DataSourceID("data.viettelidc_blockstorage_quotaset_v3.source"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "volumes"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "snapshots"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "gigabytes"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "per_volume_gigabytes"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "backups"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "backup_gigabytes"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "groups"),
-					resource.TestCheckResourceAttrSet("data.viettelidc_blockstorage_quotaset_v3.source", "volume_type_quota.gigabytes___DEFAULT__"),
+					testAccCheckBlockStorageQuotasetV3DataSourceID("data.openstack_blockstorage_quotaset_v3.source"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "volumes"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "snapshots"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "gigabytes"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "per_volume_gigabytes"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "backups"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "backup_gigabytes"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "groups"),
+					resource.TestCheckResourceAttrSet("data.openstack_blockstorage_quotaset_v3.source", "volume_type_quota.gigabytes___DEFAULT__"),
 				),
 			},
 		},
@@ -53,7 +53,7 @@ func testAccCheckBlockStorageQuotasetV3DataSourceID(n string) resource.TestCheck
 }
 
 const testAccBlockStorageV3QuotasetDataSourceBasic = `
-resource "viettelidc_identity_project_v3" "project" {
+resource "openstack_identity_project_v3" "project" {
   name = "test-quotaset-datasource"
 }
 `
@@ -62,8 +62,8 @@ func testAccBlockStorageV3QuotasetDataSourceSource() string {
 	return fmt.Sprintf(`
 %s
 
-data "viettelidc_blockstorage_quotaset_v3" "source" {
-  project_id = "${viettelidc_identity_project_v3.project.id}"
+data "openstack_blockstorage_quotaset_v3" "source" {
+  project_id = "${openstack_identity_project_v3.project.id}"
 }
 `, testAccBlockStorageV3QuotasetDataSourceBasic)
 }

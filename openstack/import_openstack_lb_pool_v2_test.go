@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV2Pool_importBasic(t *testing.T) {
-	resourceName := "viettelidc_lb_pool_v2.pool_1"
+	resourceName := "openstack_lb_pool_v2.pool_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

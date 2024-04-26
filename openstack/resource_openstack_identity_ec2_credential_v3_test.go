@@ -25,15 +25,15 @@ func TestAccIdentityV3Ec2Credential_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3Ec2CredentialBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3Ec2CredentialExists("viettelidc_identity_ec2_credential_v3.ec2_cred_1", &Ec2Credential),
+					testAccCheckIdentityV3Ec2CredentialExists("openstack_identity_ec2_credential_v3.ec2_cred_1", &Ec2Credential),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_ec2_credential_v3.ec2_cred_1", "secret"),
+						"openstack_identity_ec2_credential_v3.ec2_cred_1", "secret"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_ec2_credential_v3.ec2_cred_1", "project_id"),
+						"openstack_identity_ec2_credential_v3.ec2_cred_1", "project_id"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_ec2_credential_v3.ec2_cred_1", "access"),
+						"openstack_identity_ec2_credential_v3.ec2_cred_1", "access"),
 					resource.TestCheckResourceAttrSet(
-						"viettelidc_identity_ec2_credential_v3.ec2_cred_1", "user_id"),
+						"openstack_identity_ec2_credential_v3.ec2_cred_1", "user_id"),
 				),
 			},
 		},
@@ -58,7 +58,7 @@ func testAccCheckIdentityV3Ec2CredentialDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_ec2_credential_v3" {
+		if rs.Type != "openstack_identity_ec2_credential_v3" {
 			continue
 		}
 
@@ -114,5 +114,5 @@ func testAccCheckIdentityV3Ec2CredentialExists(n string, Ec2Credential *ec2crede
 }
 
 const testAccIdentityV3Ec2CredentialBasic = `
-resource "viettelidc_identity_ec2_credential_v3" "ec2_cred_1" {}
+resource "openstack_identity_ec2_credential_v3" "ec2_cred_1" {}
 `

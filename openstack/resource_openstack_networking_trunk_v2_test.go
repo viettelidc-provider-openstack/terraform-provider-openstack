@@ -28,12 +28,12 @@ func TestAccNetworkingV2Trunk_nosubports(t *testing.T) {
 			{
 				Config: testAccNetworkingV2TrunkNoSubports,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &port1),
-					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{}, &trunk1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &port1),
+					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{}, &trunk1),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_trunk_v2.trunk_1", "name", "trunk_1"),
+						"openstack_networking_trunk_v2.trunk_1", "name", "trunk_1"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_trunk_v2.trunk_1", "description", "trunk_1 description"),
+						"openstack_networking_trunk_v2.trunk_1", "description", "trunk_1 description"),
 				),
 			},
 		},
@@ -56,10 +56,10 @@ func TestAccNetworkingV2Trunk_subports(t *testing.T) {
 			{
 				Config: testAccNetworkingV2TrunkSubports,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_1", &subport1),
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_2", &subport2),
-					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{"viettelidc_networking_port_v2.subport_1", "viettelidc_networking_port_v2.subport_2"}, &trunk1, &subport1, &subport2),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_1", &subport1),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_2", &subport2),
+					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{"openstack_networking_port_v2.subport_1", "openstack_networking_port_v2.subport_2"}, &trunk1, &subport1, &subport2),
 				),
 			},
 		},
@@ -82,17 +82,17 @@ func TestAccNetworkingV2Trunk_tags(t *testing.T) {
 			{
 				Config: testAccNetworkingV2TrunkTags1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{}, &trunk1),
-					testAccCheckNetworkingV2Tags("viettelidc_networking_trunk_v2.trunk_1", []string{"a", "b", "c"}),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{}, &trunk1),
+					testAccCheckNetworkingV2Tags("openstack_networking_trunk_v2.trunk_1", []string{"a", "b", "c"}),
 				),
 			},
 			{
 				Config: testAccNetworkingV2TrunkTags2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{}, &trunk1),
-					testAccCheckNetworkingV2Tags("viettelidc_networking_trunk_v2.trunk_1", []string{"c", "d", "e"}),
+					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{}, &trunk1),
+					testAccCheckNetworkingV2Tags("openstack_networking_trunk_v2.trunk_1", []string{"c", "d", "e"}),
 				),
 			},
 		},
@@ -111,25 +111,25 @@ func TestAccNetworkingV2Trunk_tags(t *testing.T) {
 // }
 // 2021/09/18 11:24:01 [WARN] Got error running Terraform: exit status 1
 //
-// Error: Error updating viettelidc_networking_trunk_v2 4e227e3c-3231-4d63-b58f-eb7731b4480a subports: Expected HTTP response code [200] when accessing [PUT http://192.168.0.118:9696/v2.0/trunks/4e2
+// Error: Error updating openstack_networking_trunk_v2 4e227e3c-3231-4d63-b58f-eb7731b4480a subports: Expected HTTP response code [200] when accessing [PUT http://192.168.0.118:9696/v2.0/trunks/4e2
 // 27e3c-3231-4d63-b58f-eb7731b4480a/add_subports], but got 409 instead
 // {"NeutronError": {"type": "PortInUse", "message": "Unable to complete operation on port f81d3dcd-6069-4c60-8837-19d6f4abf52e for network 30dddb37-e5dd-4b71-91c3-bc1e9c3066cb. Port already has an
 // attached device 4e227e3c-3231-4d63-b58f-eb7731b4480a.", "detail": ""}}
 //
-//   with viettelidc_networking_trunk_v2.trunk_1,
-//   on terraform_plugin_test.tf line 44, in resource "viettelidc_networking_trunk_v2" "trunk_1":
-//   44: resource "viettelidc_networking_trunk_v2" "trunk_1" {
+//   with openstack_networking_trunk_v2.trunk_1,
+//   on terraform_plugin_test.tf line 44, in resource "openstack_networking_trunk_v2" "trunk_1":
+//   44: resource "openstack_networking_trunk_v2" "trunk_1" {
 //
-//     TestAccNetworkingV2Trunk_trunkUpdateSubports: resource_viettelidc_networking_trunk_v2_test.go:103: Step 2/4 error: Error running apply: exit status 1
+//     TestAccNetworkingV2Trunk_trunkUpdateSubports: resource_openstack_networking_trunk_v2_test.go:103: Step 2/4 error: Error running apply: exit status 1
 //
-//         Error: Error updating viettelidc_networking_trunk_v2 4e227e3c-3231-4d63-b58f-eb7731b4480a subports: Expected HTTP response code [200] when accessing [PUT http://192.168.0.118:9696/v2.0/tr
+//         Error: Error updating openstack_networking_trunk_v2 4e227e3c-3231-4d63-b58f-eb7731b4480a subports: Expected HTTP response code [200] when accessing [PUT http://192.168.0.118:9696/v2.0/tr
 // unks/4e227e3c-3231-4d63-b58f-eb7731b4480a/add_subports], but got 409 instead
 //         {"NeutronError": {"type": "PortInUse", "message": "Unable to complete operation on port f81d3dcd-6069-4c60-8837-19d6f4abf52e for network 30dddb37-e5dd-4b71-91c3-bc1e9c3066cb. Port alread
 // y has an attached device 4e227e3c-3231-4d63-b58f-eb7731b4480a.", "detail": ""}}
 //
-//           with viettelidc_networking_trunk_v2.trunk_1,
-//           on terraform_plugin_test.tf line 44, in resource "viettelidc_networking_trunk_v2" "trunk_1":
-//           44: resource "viettelidc_networking_trunk_v2" "trunk_1" {
+//           with openstack_networking_trunk_v2.trunk_1,
+//           on terraform_plugin_test.tf line 44, in resource "openstack_networking_trunk_v2" "trunk_1":
+//           44: resource "openstack_networking_trunk_v2" "trunk_1" {
 //func TestAccNetworkingV2Trunk_trunkUpdateSubports(t *testing.T) {
 //	var parentPort1, subport1, subport2, subport3, subport4 ports.Port
 //	var trunk1 trunks.Trunk
@@ -145,53 +145,53 @@ func TestAccNetworkingV2Trunk_tags(t *testing.T) {
 //			{
 //				Config: testAccNetworkingV2TrunkUpdateSubports1,
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_1", &subport1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_2", &subport2),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_3", &subport3),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_4", &subport4),
-//					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{"viettelidc_networking_port_v2.subport_1", "viettelidc_networking_port_v2.subport_2"}, &trunk1, &subport1, &subport2),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_1", &subport1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_2", &subport2),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_3", &subport3),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_4", &subport4),
+//					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{"openstack_networking_port_v2.subport_1", "openstack_networking_port_v2.subport_2"}, &trunk1, &subport1, &subport2),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_trunk_v2.trunk_1", "description", "trunk_1 description"),
+//						"openstack_networking_trunk_v2.trunk_1", "description", "trunk_1 description"),
 //				),
 //			},
 //			{
 //				Config: testAccNetworkingV2TrunkUpdateSubports2,
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_1", &subport1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_2", &subport2),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_3", &subport3),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_4", &subport4),
-//					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{"viettelidc_networking_port_v2.subport_1", "viettelidc_networking_port_v2.subport_3", "viettelidc_networking_port_v2.subport_4"}, &trunk1, &subport1, &subport3, &subport4),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_1", &subport1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_2", &subport2),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_3", &subport3),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_4", &subport4),
+//					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{"openstack_networking_port_v2.subport_1", "openstack_networking_port_v2.subport_3", "openstack_networking_port_v2.subport_4"}, &trunk1, &subport1, &subport3, &subport4),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_trunk_v2.trunk_1", "description", ""),
+//						"openstack_networking_trunk_v2.trunk_1", "description", ""),
 //				),
 //			},
 //			{
 //				Config: testAccNetworkingV2TrunkUpdateSubports3,
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_1", &subport1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_2", &subport2),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_3", &subport3),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_4", &subport4),
-//					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{"viettelidc_networking_port_v2.subport_1", "viettelidc_networking_port_v2.subport_3", "viettelidc_networking_port_v2.subport_4"}, &trunk1, &subport1, &subport3, &subport4),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_1", &subport1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_2", &subport2),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_3", &subport3),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_4", &subport4),
+//					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{"openstack_networking_port_v2.subport_1", "openstack_networking_port_v2.subport_3", "openstack_networking_port_v2.subport_4"}, &trunk1, &subport1, &subport3, &subport4),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_trunk_v2.trunk_1", "description", ""),
+//						"openstack_networking_trunk_v2.trunk_1", "description", ""),
 //				),
 //			},
 //			{
 //				Config: testAccNetworkingV2TrunkUpdateSubports4,
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.parent_port_1", &parentPort1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_1", &subport1),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_2", &subport2),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_3", &subport3),
-//					testAccCheckNetworkingV2PortExists("viettelidc_networking_port_v2.subport_4", &subport4),
-//					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{}, &trunk1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.parent_port_1", &parentPort1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_1", &subport1),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_2", &subport2),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_3", &subport3),
+//					testAccCheckNetworkingV2PortExists("openstack_networking_port_v2.subport_4", &subport4),
+//					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{}, &trunk1),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_networking_trunk_v2.trunk_1", "description", "trunk_1 updated description"),
+//						"openstack_networking_trunk_v2.trunk_1", "description", "trunk_1 updated description"),
 //				),
 //			},
 //		},
@@ -215,14 +215,14 @@ func TestAccNetworkingV2Trunk_Instance(t *testing.T) {
 			{
 				Config: testAccNetworkingV2TrunkComputeInstance,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance1),
+					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance1),
 					testAccCheckNetworkingV2PortExists(
-						"viettelidc_networking_port_v2.parent_port_1", &parentPort1),
+						"openstack_networking_port_v2.parent_port_1", &parentPort1),
 					testAccCheckNetworkingV2PortExists(
-						"viettelidc_networking_port_v2.subport_1", &subport1),
-					testAccCheckNetworkingV2TrunkExists("viettelidc_networking_trunk_v2.trunk_1", []string{"viettelidc_networking_port_v2.subport_1"}, &trunk1, &subport1),
+						"openstack_networking_port_v2.subport_1", &subport1),
+					testAccCheckNetworkingV2TrunkExists("openstack_networking_trunk_v2.trunk_1", []string{"openstack_networking_port_v2.subport_1"}, &trunk1, &subport1),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_compute_instance_v2.instance_1", "network.0.port", &trunk1.PortID),
+						"openstack_compute_instance_v2.instance_1", "network.0.port", &trunk1.PortID),
 				),
 			},
 		},
@@ -237,7 +237,7 @@ func testAccCheckNetworkingV2TrunkDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_trunk_v2" {
+		if rs.Type != "openstack_networking_trunk_v2" {
 			continue
 		}
 
@@ -315,77 +315,77 @@ func testAccCheckNetworkingV2TrunkExists(n string, subportResourceNames []string
 }
 
 const testAccNetworkingV2TrunkNoSubports = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "parent_port_1" {
+resource "openstack_networking_port_v2" "parent_port_1" {
   name = "parent_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_trunk_v2" "trunk_1" {
+resource "openstack_networking_trunk_v2" "trunk_1" {
   name = "trunk_1"
   description = "trunk_1 description"
-  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
   admin_state_up = "true"
 }
 `
 
 const testAccNetworkingV2TrunkSubports = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "parent_port_1" {
+resource "openstack_networking_port_v2" "parent_port_1" {
   name = "parent_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "subport_1" {
+resource "openstack_networking_port_v2" "subport_1" {
   name = "subport_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "subport_2" {
+resource "openstack_networking_port_v2" "subport_2" {
   name = "subport_2"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_trunk_v2" "trunk_1" {
+resource "openstack_networking_trunk_v2" "trunk_1" {
   name = "trunk_1"
   description = "trunk_1 description"
-  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
   admin_state_up = "true"
 
   sub_port {
-	  port_id = "${viettelidc_networking_port_v2.subport_1.id}"
+	  port_id = "${openstack_networking_port_v2.subport_1.id}"
 	  segmentation_id = 1
 	  segmentation_type = "vlan"
   }
 
   sub_port {
-	  port_id = "${viettelidc_networking_port_v2.subport_2.id}"
+	  port_id = "${openstack_networking_port_v2.subport_2.id}"
 	  segmentation_id = 2
 	  segmentation_type = "vlan"
   }
@@ -393,62 +393,62 @@ resource "viettelidc_networking_trunk_v2" "trunk_1" {
 `
 
 //const testAccNetworkingV2TrunkUpdateSubports1 = `
-//resource "viettelidc_networking_network_v2" "network_1" {
+//resource "openstack_networking_network_v2" "network_1" {
 //  name = "network_1"
 //  admin_state_up = "true"
 //}
 //
-//resource "viettelidc_networking_subnet_v2" "subnet_1" {
+//resource "openstack_networking_subnet_v2" "subnet_1" {
 //  name = "subnet_1"
 //  cidr = "192.168.199.0/24"
 //  ip_version = 4
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "parent_port_1" {
+//resource "openstack_networking_port_v2" "parent_port_1" {
 //  name = "port_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_1" {
+//resource "openstack_networking_port_v2" "subport_1" {
 //  name = "subport_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_2" {
+//resource "openstack_networking_port_v2" "subport_2" {
 //  name = "subport_2"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_3" {
+//resource "openstack_networking_port_v2" "subport_3" {
 //  name = "subport_3"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_4" {
+//resource "openstack_networking_port_v2" "subport_4" {
 //  name = "subport_4"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_trunk_v2" "trunk_1" {
+//resource "openstack_networking_trunk_v2" "trunk_1" {
 //  name = "trunk_1"
 //  description = "trunk_1 description"
 //  admin_state_up = "true"
-//  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+//  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_1.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_1.id}"
 //	  segmentation_id = 1
 //	  segmentation_type = "vlan"
 //  }
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_2.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_2.id}"
 //	  segmentation_id = 2
 //	  segmentation_type = "vlan"
 //  }
@@ -456,67 +456,67 @@ resource "viettelidc_networking_trunk_v2" "trunk_1" {
 //`
 //
 //const testAccNetworkingV2TrunkUpdateSubports2 = `
-//resource "viettelidc_networking_network_v2" "network_1" {
+//resource "openstack_networking_network_v2" "network_1" {
 //  name = "network_1"
 //  admin_state_up = "true"
 //}
 //
-//resource "viettelidc_networking_subnet_v2" "subnet_1" {
+//resource "openstack_networking_subnet_v2" "subnet_1" {
 //  name = "subnet_1"
 //  cidr = "192.168.199.0/24"
 //  ip_version = 4
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "parent_port_1" {
+//resource "openstack_networking_port_v2" "parent_port_1" {
 //  name = "port_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_1" {
+//resource "openstack_networking_port_v2" "subport_1" {
 //  name = "subport_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_2" {
+//resource "openstack_networking_port_v2" "subport_2" {
 //  name = "subport_2"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_3" {
+//resource "openstack_networking_port_v2" "subport_3" {
 //  name = "subport_3"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_4" {
+//resource "openstack_networking_port_v2" "subport_4" {
 //  name = "subport_4"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_trunk_v2" "trunk_1" {
+//resource "openstack_networking_trunk_v2" "trunk_1" {
 //  name = "update_trunk_1"
 //  admin_state_up = "true"
-//  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+//  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_1.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_1.id}"
 //	  segmentation_id = 1
 //	  segmentation_type = "vlan"
 //  }
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_3.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_3.id}"
 //	  segmentation_id = 3
 //	  segmentation_type = "vlan"
 //  }
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_4.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_4.id}"
 //	  segmentation_id = 4
 //	  segmentation_type = "vlan"
 //  }
@@ -524,68 +524,68 @@ resource "viettelidc_networking_trunk_v2" "trunk_1" {
 //`
 //
 //const testAccNetworkingV2TrunkUpdateSubports3 = `
-//resource "viettelidc_networking_network_v2" "network_1" {
+//resource "openstack_networking_network_v2" "network_1" {
 //  name = "network_1"
 //  admin_state_up = "true"
 //}
 //
-//resource "viettelidc_networking_subnet_v2" "subnet_1" {
+//resource "openstack_networking_subnet_v2" "subnet_1" {
 //  name = "subnet_1"
 //  cidr = "192.168.199.0/24"
 //  ip_version = 4
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "parent_port_1" {
+//resource "openstack_networking_port_v2" "parent_port_1" {
 //  name = "port_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_1" {
+//resource "openstack_networking_port_v2" "subport_1" {
 //  name = "subport_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_2" {
+//resource "openstack_networking_port_v2" "subport_2" {
 //  name = "subport_2"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_3" {
+//resource "openstack_networking_port_v2" "subport_3" {
 //  name = "subport_3"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_4" {
+//resource "openstack_networking_port_v2" "subport_4" {
 //  name = "subport_4"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_trunk_v2" "trunk_1" {
+//resource "openstack_networking_trunk_v2" "trunk_1" {
 //  name = "trunk_1"
 //  description = ""
 //  admin_state_up = "true"
-//  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+//  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_1.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_1.id}"
 //	  segmentation_id = 1
 //	  segmentation_type = "vlan"
 //  }
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_3.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_3.id}"
 //	  segmentation_id = 3
 //	  segmentation_type = "vlan"
 //  }
 //
 //  sub_port {
-//	  port_id = "${viettelidc_networking_port_v2.subport_4.id}"
+//	  port_id = "${openstack_networking_port_v2.subport_4.id}"
 //	  segmentation_id = 4
 //	  segmentation_type = "vlan"
 //  }
@@ -593,135 +593,135 @@ resource "viettelidc_networking_trunk_v2" "trunk_1" {
 //`
 //
 //const testAccNetworkingV2TrunkUpdateSubports4 = `
-//resource "viettelidc_networking_network_v2" "network_1" {
+//resource "openstack_networking_network_v2" "network_1" {
 //  name = "network_1"
 //  admin_state_up = "true"
 //}
 //
-//resource "viettelidc_networking_subnet_v2" "subnet_1" {
+//resource "openstack_networking_subnet_v2" "subnet_1" {
 //  name = "subnet_1"
 //  cidr = "192.168.199.0/24"
 //  ip_version = 4
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "parent_port_1" {
+//resource "openstack_networking_port_v2" "parent_port_1" {
 //  name = "port_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_1" {
+//resource "openstack_networking_port_v2" "subport_1" {
 //  name = "subport_1"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_2" {
+//resource "openstack_networking_port_v2" "subport_2" {
 //  name = "subport_2"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_3" {
+//resource "openstack_networking_port_v2" "subport_3" {
 //  name = "subport_3"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_port_v2" "subport_4" {
+//resource "openstack_networking_port_v2" "subport_4" {
 //  name = "subport_4"
 //  admin_state_up = "true"
-//  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+//  network_id = "${openstack_networking_network_v2.network_1.id}"
 //}
 //
-//resource "viettelidc_networking_trunk_v2" "trunk_1" {
+//resource "openstack_networking_trunk_v2" "trunk_1" {
 //  name = "trunk_1"
 //  description = "trunk_1 updated description"
-//  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+//  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
 //  admin_state_up = "true"
 //}
 //`
 
 const testAccNetworkingV2TrunkComputeInstance = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   cidr = "192.168.1.0/24"
   ip_version = 4
   enable_dhcp = true
   no_gateway = true
 }
 
-resource "viettelidc_networking_port_v2" "parent_port_1" {
+resource "openstack_networking_port_v2" "parent_port_1" {
   depends_on = [
-    "viettelidc_networking_subnet_v2.subnet_1",
+    "openstack_networking_subnet_v2.subnet_1",
   ]
 
   name = "parent_port_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_port_v2" "subport_1" {
+resource "openstack_networking_port_v2" "subport_1" {
   depends_on = [
-    "viettelidc_networking_subnet_v2.subnet_1",
+    "openstack_networking_subnet_v2.subnet_1",
   ]
 
   name = "subport_1"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_trunk_v2" "trunk_1" {
+resource "openstack_networking_trunk_v2" "trunk_1" {
   name = "trunk_1"
   admin_state_up = "true"
-  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
 
   sub_port {
-	  port_id = "${viettelidc_networking_port_v2.subport_1.id}"
+	  port_id = "${openstack_networking_port_v2.subport_1.id}"
 	  segmentation_id = 1
 	  segmentation_type = "vlan"
   }
 }
 
-resource "viettelidc_compute_instance_v2" "instance_1" {
+resource "openstack_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
 
   network {
-    port = "${viettelidc_networking_trunk_v2.trunk_1.port_id}"
+    port = "${openstack_networking_trunk_v2.trunk_1.port_id}"
   }
 }
 `
 
 const testAccNetworkingV2TrunkTags1 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "parent_port_1" {
+resource "openstack_networking_port_v2" "parent_port_1" {
   name = "parent_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_trunk_v2" "trunk_1" {
+resource "openstack_networking_trunk_v2" "trunk_1" {
   name = "trunk_1"
-  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
   admin_state_up = "true"
 
   tags = ["a", "b", "c"]
@@ -729,27 +729,27 @@ resource "viettelidc_networking_trunk_v2" "trunk_1" {
 `
 
 const testAccNetworkingV2TrunkTags2 = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_port_v2" "parent_port_1" {
+resource "openstack_networking_port_v2" "parent_port_1" {
   name = "parent_port_1"
   admin_state_up = "true"
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_networking_trunk_v2" "trunk_1" {
+resource "openstack_networking_trunk_v2" "trunk_1" {
   name = "trunk_1"
-  port_id = "${viettelidc_networking_port_v2.parent_port_1.id}"
+  port_id = "${openstack_networking_port_v2.parent_port_1.id}"
   admin_state_up = "true"
 
   tags = ["c", "d", "e"]

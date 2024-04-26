@@ -30,26 +30,26 @@ func TestAccNetworkingV2QoSDSCPMarkingRule_basic(t *testing.T) {
 				Config: testAccNetworkingV2QoSDSCPMarkingRuleBasic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
+						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					testAccCheckNetworkingV2QoSDSCPMarkingRuleExists(
-						"viettelidc_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", &rule),
+						"openstack_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", "dscp_mark", "26"),
+						"openstack_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", "dscp_mark", "26"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2QoSDSCPMarkingRuleUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
+						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					testAccCheckNetworkingV2QoSDSCPMarkingRuleExists(
-						"viettelidc_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", &rule),
+						"openstack_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", "dscp_mark", "20"),
+						"openstack_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1", "dscp_mark", "20"),
 				),
 			},
 		},
@@ -75,7 +75,7 @@ func testAccCheckNetworkingV2QoSDSCPMarkingRuleExists(n string, rule *rules.DSCP
 
 		qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error reading viettelidc_networking_qos_dscp_marking_rule_v2 ID %s: %s", rs.Primary.ID, err)
+			return fmt.Errorf("Error reading openstack_networking_qos_dscp_marking_rule_v2 ID %s: %s", rs.Primary.ID, err)
 		}
 
 		found, err := rules.GetDSCPMarkingRule(networkingClient, qosPolicyID, qosRuleID).ExtractDSCPMarkingRule()
@@ -103,13 +103,13 @@ func testAccCheckNetworkingV2QoSDSCPMarkingRuleDestroy(s *terraform.State) error
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_networking_qos_dscp_marking_rule_v2" {
+		if rs.Type != "openstack_networking_qos_dscp_marking_rule_v2" {
 			continue
 		}
 
 		qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error reading viettelidc_networking_qos_dscp_marking_rule_v2 ID %s: %s", rs.Primary.ID, err)
+			return fmt.Errorf("Error reading openstack_networking_qos_dscp_marking_rule_v2 ID %s: %s", rs.Primary.ID, err)
 		}
 
 		_, err = rules.GetDSCPMarkingRule(networkingClient, qosPolicyID, qosRuleID).ExtractDSCPMarkingRule()
@@ -122,23 +122,23 @@ func testAccCheckNetworkingV2QoSDSCPMarkingRuleDestroy(s *terraform.State) error
 }
 
 const testAccNetworkingV2QoSDSCPMarkingRuleBasic = `
-resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "viettelidc_networking_qos_dscp_marking_rule_v2" "dscp_marking_rule_1" {
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
+resource "openstack_networking_qos_dscp_marking_rule_v2" "dscp_marking_rule_1" {
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
   dscp_mark      = 26
 }
 `
 
 const testAccNetworkingV2QoSDSCPMarkingRuleUpdate = `
-resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "viettelidc_networking_qos_dscp_marking_rule_v2" "dscp_marking_rule_1" {
-  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
+resource "openstack_networking_qos_dscp_marking_rule_v2" "dscp_marking_rule_1" {
+  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
   dscp_mark      = 20
 }
 `

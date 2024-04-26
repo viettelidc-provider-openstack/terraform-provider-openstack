@@ -8,7 +8,7 @@ import (
 )
 
 func TestAccNetworkingV2PortSecgroupAssociate_import(t *testing.T) {
-	resourceName := "viettelidc_networking_port_secgroup_associate_v2.port_1"
+	resourceName := "openstack_networking_port_secgroup_associate_v2.port_1"
 
 	if os.Getenv("TF_ACC") != "" {
 		hiddenPort, err := testAccCheckNetworkingV2PortSecGroupCreatePort(t, "hidden_port", true)

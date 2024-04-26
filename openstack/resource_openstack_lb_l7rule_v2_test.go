@@ -26,115 +26,115 @@ func TestAccLBV2L7Rule_basic(t *testing.T) {
 			{
 				Config: testAccCheckLbV2L7RuleConfigBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "PATH"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "PATH"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "/api"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "/api"),
 					resource.TestMatchResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "listener_id",
+						"openstack_lb_l7rule_v2.l7rule_1", "listener_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					resource.TestMatchResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "l7policy_id",
+						"openstack_lb_l7rule_v2.l7rule_1", "l7policy_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 				),
 			},
 			{
 				Config: testAccCheckLbV2L7RuleConfigUpdate1(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "HOST_NAME"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "HOST_NAME"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "invert", "true"),
+						"openstack_lb_l7rule_v2.l7rule_1", "invert", "true"),
 					resource.TestMatchResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "listener_id",
+						"openstack_lb_l7rule_v2.l7rule_1", "listener_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					resource.TestMatchResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "l7policy_id",
+						"openstack_lb_l7rule_v2.l7rule_1", "l7policy_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 				),
 			},
 			{
 				Config: testAccCheckLbV2L7RuleConfigUpdate2(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "HOST_NAME"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "HOST_NAME"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "invert", "true"),
+						"openstack_lb_l7rule_v2.l7rule_1", "invert", "true"),
 				),
 			},
 			{
 				Config: testAccCheckLbV2L7RuleConfigUpdate3(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "HEADER"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "HEADER"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "key", "Host"),
+						"openstack_lb_l7rule_v2.l7rule_1", "key", "Host"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "invert", "false"),
+						"openstack_lb_l7rule_v2.l7rule_1", "invert", "false"),
 				),
 			},
 			{
 				Config: testAccCheckLbV2L7RuleConfigUpdate4(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "HOST_NAME"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "HOST_NAME"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "key", ""),
+						"openstack_lb_l7rule_v2.l7rule_1", "key", ""),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "www.example.com"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "invert", "false"),
+						"openstack_lb_l7rule_v2.l7rule_1", "invert", "false"),
 				),
 			},
 			{
 				Config: testAccCheckLbV2L7RuleConfigUpdate5(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "COOKIE"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "COOKIE"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "EQUAL_TO"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "key", "X-Ref"),
+						"openstack_lb_l7rule_v2.l7rule_1", "key", "X-Ref"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "foo"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "foo"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "invert", "false"),
+						"openstack_lb_l7rule_v2.l7rule_1", "invert", "false"),
 				),
 			},
 			{
 				Config: testAccCheckLbV2L7RuleConfigUpdate6(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV2L7RuleExists("viettelidc_lb_l7rule_v2.l7rule_1", &l7rule),
+					testAccCheckLBV2L7RuleExists("openstack_lb_l7rule_v2.l7rule_1", &l7rule),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "type", "PATH"),
+						"openstack_lb_l7rule_v2.l7rule_1", "type", "PATH"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "compare_type", "STARTS_WITH"),
+						"openstack_lb_l7rule_v2.l7rule_1", "compare_type", "STARTS_WITH"),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "key", ""),
+						"openstack_lb_l7rule_v2.l7rule_1", "key", ""),
 					resource.TestCheckResourceAttr(
-						"viettelidc_lb_l7rule_v2.l7rule_1", "value", "/images"),
+						"openstack_lb_l7rule_v2.l7rule_1", "value", "/images"),
 				),
 			},
 		},
@@ -149,7 +149,7 @@ func testAccCheckLBV2L7RuleDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_lb_l7rule_v2" {
+		if rs.Type != "openstack_lb_l7rule_v2" {
 			continue
 		}
 
@@ -219,21 +219,21 @@ func testAccCheckLBV2L7RuleExists(n string, l7rule *l7policies.Rule) resource.Te
 }
 
 const testAccCheckLbV2L7RuleConfig = `
-resource "viettelidc_networking_network_v2" "network_1" {
+resource "openstack_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "viettelidc_networking_subnet_v2" "subnet_1" {
+resource "openstack_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${viettelidc_networking_network_v2.network_1.id}"
+  network_id = "${openstack_networking_network_v2.network_1.id}"
 }
 
-resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
+resource "openstack_lb_loadbalancer_v2" "loadbalancer_1" {
   name = "loadbalancer_1"
-  vip_subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  vip_subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "15m"
@@ -242,19 +242,19 @@ resource "viettelidc_lb_loadbalancer_v2" "loadbalancer_1" {
   }
 }
 
-resource "viettelidc_lb_listener_v2" "listener_1" {
+resource "openstack_lb_listener_v2" "listener_1" {
   name = "listener_1"
   protocol = "HTTP"
   protocol_port = 8080
-  loadbalancer_id = "${viettelidc_lb_loadbalancer_v2.loadbalancer_1.id}"
+  loadbalancer_id = "${openstack_lb_loadbalancer_v2.loadbalancer_1.id}"
 }
 
-resource "viettelidc_lb_l7policy_v2" "l7policy_1" {
+resource "openstack_lb_l7policy_v2" "l7policy_1" {
   name         = "test"
   action       = "REDIRECT_TO_URL"
   description  = "test description"
   position     = 1
-  listener_id  = "${viettelidc_lb_listener_v2.listener_1.id}"
+  listener_id  = "${openstack_lb_listener_v2.listener_1.id}"
   redirect_url = "http://www.example.com"
 }
 `
@@ -263,8 +263,8 @@ func testAccCheckLbV2L7RuleConfigBasic() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "PATH"
   compare_type = "EQUAL_TO"
   value        = "/api"
@@ -276,8 +276,8 @@ func testAccCheckLbV2L7RuleConfigUpdate1() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "HOST_NAME"
   compare_type = "EQUAL_TO"
   value        = "www.example.com"
@@ -290,8 +290,8 @@ func testAccCheckLbV2L7RuleConfigUpdate2() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "HOST_NAME"
   compare_type = "EQUAL_TO"
   value        = "www.example.com"
@@ -304,8 +304,8 @@ func testAccCheckLbV2L7RuleConfigUpdate3() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "HEADER"
   compare_type = "EQUAL_TO"
   key          = "Host"
@@ -318,8 +318,8 @@ func testAccCheckLbV2L7RuleConfigUpdate4() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "HOST_NAME"
   compare_type = "EQUAL_TO"
   value        = "www.example.com"
@@ -331,8 +331,8 @@ func testAccCheckLbV2L7RuleConfigUpdate5() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "COOKIE"
   compare_type = "EQUAL_TO"
   key          = "X-Ref"
@@ -345,8 +345,8 @@ func testAccCheckLbV2L7RuleConfigUpdate6() string {
 	return fmt.Sprintf(`
 %s
 
-resource "viettelidc_lb_l7rule_v2" "l7rule_1" {
-  l7policy_id  = "${viettelidc_lb_l7policy_v2.l7policy_1.id}"
+resource "openstack_lb_l7rule_v2" "l7rule_1" {
+  l7policy_id  = "${openstack_lb_l7policy_v2.l7policy_1.id}"
   type         = "PATH"
   compare_type = "STARTS_WITH"
   value        = "/images"

@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccIdentityV3Ec2Credential_importBasic(t *testing.T) {
-	resourceName := "viettelidc_identity_ec2_credential_v3.ec2_cred_1"
+	resourceName := "openstack_identity_ec2_credential_v3.ec2_cred_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

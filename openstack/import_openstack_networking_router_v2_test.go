@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2Router_importBasic(t *testing.T) {
-	resourceName := "viettelidc_networking_router_v2.router_1"
+	resourceName := "openstack_networking_router_v2.router_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

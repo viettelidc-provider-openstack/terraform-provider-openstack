@@ -23,21 +23,21 @@ func TestAccIdentityV3Group_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3GroupBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3GroupExists("viettelidc_identity_group_v3.group_1", &group),
+					testAccCheckIdentityV3GroupExists("openstack_identity_group_v3.group_1", &group),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_group_v3.group_1", "name", &group.Name),
+						"openstack_identity_group_v3.group_1", "name", &group.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_group_v3.group_1", "description", &group.Description),
+						"openstack_identity_group_v3.group_1", "description", &group.Description),
 				),
 			},
 			{
 				Config: testAccIdentityV3GroupUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3GroupExists("viettelidc_identity_group_v3.group_1", &group),
+					testAccCheckIdentityV3GroupExists("openstack_identity_group_v3.group_1", &group),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_group_v3.group_1", "name", &group.Name),
+						"openstack_identity_group_v3.group_1", "name", &group.Name),
 					resource.TestCheckResourceAttrPtr(
-						"viettelidc_identity_group_v3.group_1", "description", &group.Description),
+						"openstack_identity_group_v3.group_1", "description", &group.Description),
 				),
 			},
 		},
@@ -52,7 +52,7 @@ func testAccCheckIdentityV3GroupDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_identity_group_v3" {
+		if rs.Type != "openstack_identity_group_v3" {
 			continue
 		}
 
@@ -98,14 +98,14 @@ func testAccCheckIdentityV3GroupExists(n string, group *groups.Group) resource.T
 }
 
 const testAccIdentityV3GroupBasic = `
-resource "viettelidc_identity_group_v3" "group_1" {
+resource "openstack_identity_group_v3" "group_1" {
 	name = "group_1"
 	description = "Terraform accept test 1"
 }
 `
 
 const testAccIdentityV3GroupUpdate = `
-resource "viettelidc_identity_group_v3" "group_1" {
+resource "openstack_identity_group_v3" "group_1" {
 	name = "group_2"
 	description = "Terraform accept test 2"
 }

@@ -24,7 +24,7 @@ func TestAccComputeV2SecGroup_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2SecGroupBasicOrig,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup),
 				),
 			},
 		},
@@ -45,13 +45,13 @@ func TestAccComputeV2SecGroup_update(t *testing.T) {
 			{
 				Config: testAccComputeV2SecGroupBasicOrig,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup),
 				),
 			},
 			{
 				Config: testAccComputeV2SecGroupBasicUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup),
 					testAccCheckComputeV2SecGroupRuleCount(&secgroup, 2),
 				),
 			},
@@ -70,18 +70,18 @@ func TestAccComputeV2SecGroup_groupID(t *testing.T) {
 			{
 				Config: testAccComputeV2SecGroupIDOrig,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup1),
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_2", &secgroup2),
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_3", &secgroup3),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup1),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_2", &secgroup2),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_3", &secgroup3),
 					testAccCheckComputeV2SecGroupGroupIDMatch(&secgroup1, &secgroup3),
 				),
 			},
 			{
 				Config: testAccComputeV2SecGroupIDUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup1),
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_2", &secgroup2),
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_3", &secgroup3),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup1),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_2", &secgroup2),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_3", &secgroup3),
 					testAccCheckComputeV2SecGroupGroupIDMatch(&secgroup2, &secgroup3),
 				),
 			},
@@ -101,12 +101,12 @@ func TestAccComputeV2SecGroup_groupID(t *testing.T) {
 //			{
 //				Config: testAccComputeV2SecGroupSelf,
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup),
+//					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup),
 //					testAccCheckComputeV2SecGroupGroupIDMatch(&secgroup, &secgroup),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_compute_secgroup_v2.sg_1", "rule.3170486100.self", "true"),
+//						"openstack_compute_secgroup_v2.sg_1", "rule.3170486100.self", "true"),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_compute_secgroup_v2.sg_1", "rule.3170486100.from_group_id", ""),
+//						"openstack_compute_secgroup_v2.sg_1", "rule.3170486100.from_group_id", ""),
 //				),
 //			},
 //		},
@@ -124,7 +124,7 @@ func TestAccComputeV2SecGroup_icmpZero(t *testing.T) {
 			{
 				Config: testAccComputeV2SecGroupIcmpZero,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup),
+					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup),
 				),
 			},
 		},
@@ -143,9 +143,9 @@ func TestAccComputeV2SecGroup_icmpZero(t *testing.T) {
 //			{
 //				Config: testAccComputeV2SecGroupLowerCaseCIDR,
 //				Check: resource.ComposeTestCheckFunc(
-//					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.sg_1", &secgroup),
+//					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.sg_1", &secgroup),
 //					resource.TestCheckResourceAttr(
-//						"viettelidc_compute_secgroup_v2.sg_1", "rule.768649014.cidr", "2001:558:fc00::/39"),
+//						"openstack_compute_secgroup_v2.sg_1", "rule.768649014.cidr", "2001:558:fc00::/39"),
 //				),
 //			},
 //		},
@@ -160,7 +160,7 @@ func testAccCheckComputeV2SecGroupDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "viettelidc_compute_secgroup_v2" {
+		if rs.Type != "openstack_compute_secgroup_v2" {
 			continue
 		}
 
@@ -230,7 +230,7 @@ func testAccCheckComputeV2SecGroupGroupIDMatch(sg1, sg2 *secgroups.SecurityGroup
 }
 
 const testAccComputeV2SecGroupBasicOrig = `
-resource "viettelidc_compute_secgroup_v2" "sg_1" {
+resource "openstack_compute_secgroup_v2" "sg_1" {
   name = "sg_1"
   description = "first test security group"
   rule {
@@ -255,7 +255,7 @@ resource "viettelidc_compute_secgroup_v2" "sg_1" {
 `
 
 const testAccComputeV2SecGroupBasicUpdate = `
-resource "viettelidc_compute_secgroup_v2" "sg_1" {
+resource "openstack_compute_secgroup_v2" "sg_1" {
   name = "sg_1"
   description = "first test security group"
   rule {
@@ -274,7 +274,7 @@ resource "viettelidc_compute_secgroup_v2" "sg_1" {
 `
 
 const testAccComputeV2SecGroupIDOrig = `
-resource "viettelidc_compute_secgroup_v2" "sg_1" {
+resource "openstack_compute_secgroup_v2" "sg_1" {
   name = "sg_1"
   description = "first test security group"
   rule {
@@ -285,7 +285,7 @@ resource "viettelidc_compute_secgroup_v2" "sg_1" {
   }
 }
 
-resource "viettelidc_compute_secgroup_v2" "sg_2" {
+resource "openstack_compute_secgroup_v2" "sg_2" {
   name = "sg_2"
   description = "second test security group"
   rule {
@@ -296,20 +296,20 @@ resource "viettelidc_compute_secgroup_v2" "sg_2" {
   }
 }
 
-resource "viettelidc_compute_secgroup_v2" "sg_3" {
+resource "openstack_compute_secgroup_v2" "sg_3" {
   name = "sg_3"
   description = "third test security group"
   rule {
     from_port = 80
     to_port = 80
     ip_protocol = "tcp"
-    from_group_id = "${viettelidc_compute_secgroup_v2.sg_1.id}"
+    from_group_id = "${openstack_compute_secgroup_v2.sg_1.id}"
   }
 }
 `
 
 const testAccComputeV2SecGroupIDUpdate = `
-resource "viettelidc_compute_secgroup_v2" "sg_1" {
+resource "openstack_compute_secgroup_v2" "sg_1" {
   name = "sg_1"
   description = "first test security group"
   rule {
@@ -320,7 +320,7 @@ resource "viettelidc_compute_secgroup_v2" "sg_1" {
   }
 }
 
-resource "viettelidc_compute_secgroup_v2" "sg_2" {
+resource "openstack_compute_secgroup_v2" "sg_2" {
   name = "sg_2"
   description = "second test security group"
   rule {
@@ -331,20 +331,20 @@ resource "viettelidc_compute_secgroup_v2" "sg_2" {
   }
 }
 
-resource "viettelidc_compute_secgroup_v2" "sg_3" {
+resource "openstack_compute_secgroup_v2" "sg_3" {
   name = "sg_3"
   description = "third test security group"
   rule {
     from_port = 80
     to_port = 80
     ip_protocol = "tcp"
-    from_group_id = "${viettelidc_compute_secgroup_v2.sg_2.id}"
+    from_group_id = "${openstack_compute_secgroup_v2.sg_2.id}"
   }
 }
 `
 
 //const testAccComputeV2SecGroupSelf = `
-//resource "viettelidc_compute_secgroup_v2" "sg_1" {
+//resource "openstack_compute_secgroup_v2" "sg_1" {
 //  name = "sg_1"
 //  description = "first test security group"
 //  rule {
@@ -357,7 +357,7 @@ resource "viettelidc_compute_secgroup_v2" "sg_3" {
 //`
 
 const testAccComputeV2SecGroupIcmpZero = `
-resource "viettelidc_compute_secgroup_v2" "sg_1" {
+resource "openstack_compute_secgroup_v2" "sg_1" {
   name = "sg_1"
   description = "first test security group"
   rule {
@@ -370,7 +370,7 @@ resource "viettelidc_compute_secgroup_v2" "sg_1" {
 `
 
 //const testAccComputeV2SecGroupLowerCaseCIDR = `
-//resource "viettelidc_compute_secgroup_v2" "sg_1" {
+//resource "openstack_compute_secgroup_v2" "sg_1" {
 //  name = "sg_1"
 //  description = "first test security group"
 //  rule {

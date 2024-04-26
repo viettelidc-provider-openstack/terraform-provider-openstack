@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccIdentityV3Group_importBasic(t *testing.T) {
-	resourceName := "viettelidc_identity_group_v3.group_1"
+	resourceName := "openstack_identity_group_v3.group_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

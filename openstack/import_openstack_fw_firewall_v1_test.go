@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccFWFirewallV1_importBasic(t *testing.T) {
-	resourceName := "viettelidc_fw_firewall_v1.fw_1"
+	resourceName := "openstack_fw_firewall_v1.fw_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

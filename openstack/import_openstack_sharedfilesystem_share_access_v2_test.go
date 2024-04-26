@@ -9,8 +9,8 @@ import (
 )
 
 func TestAccSFSV2ShareAccess_importBasic(t *testing.T) {
-	shareName := "viettelidc_sharedfilesystem_share_v2.share_1"
-	shareAccessName := "viettelidc_sharedfilesystem_share_access_v2.share_access_1"
+	shareName := "openstack_sharedfilesystem_share_v2.share_1"
+	shareAccessName := "openstack_sharedfilesystem_share_access_v2.share_access_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

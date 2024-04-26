@@ -134,7 +134,7 @@ func containerInfraClusterV1StateRefreshFunc(client *gophercloud.ServiceClient, 
 		}
 		for _, errorStatus := range errorStatuses {
 			if c.Status == errorStatus {
-				err = fmt.Errorf("viettelidc_containerinfra_cluster_v1 is in an error state: %s", c.StatusReason)
+				err = fmt.Errorf("openstack_containerinfra_cluster_v1 is in an error state: %s", c.StatusReason)
 				return c, c.Status, err
 			}
 		}
@@ -164,7 +164,7 @@ func containerInfraNodeGroupV1StateRefreshFunc(client *gophercloud.ServiceClient
 		}
 		for _, errorStatus := range errorStatuses {
 			if nodeGroup.Status == errorStatus {
-				err = fmt.Errorf("viettelidc_containerinfra_nodegroup_v1 is in an error state: %s", nodeGroup.StatusReason)
+				err = fmt.Errorf("openstack_containerinfra_nodegroup_v1 is in an error state: %s", nodeGroup.StatusReason)
 				return nodeGroup, nodeGroup.Status, err
 			}
 		}
