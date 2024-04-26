@@ -22,9 +22,9 @@ func TestAccFirewallPolicyV1DataSource_basic(t *testing.T) {
 			{
 				Config: testAccFirewallPolicyV1DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFirewallPolicyV1DataSourceID("data.openstack_fw_policy_v1.policy_1"),
+					testAccCheckFirewallPolicyV1DataSourceID("data.viettelidc_fw_policy_v1.policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v1.policy_1", "name", "policy_1"),
+						"data.viettelidc_fw_policy_v1.policy_1", "name", "policy_1"),
 				),
 			},
 		},
@@ -44,9 +44,9 @@ func TestAccFirewallPolicyV1DataSource_FWPolicyID(t *testing.T) {
 			{
 				Config: testAccFirewallPolicyV1DataSourcePolicyID(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFirewallPolicyV1DataSourceID("data.openstack_fw_policy_v1.policy_1"),
+					testAccCheckFirewallPolicyV1DataSourceID("data.viettelidc_fw_policy_v1.policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v1.policy_1", "name", "policy_1"),
+						"data.viettelidc_fw_policy_v1.policy_1", "name", "policy_1"),
 				),
 			},
 		},
@@ -69,7 +69,7 @@ func testAccCheckFirewallPolicyV1DataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccFirewallPolicyV1DataSourceGroup = `
-resource "openstack_fw_policy_v1" "policy_1" {
+resource "viettelidc_fw_policy_v1" "policy_1" {
     name        = "policy_1"
 	description = "My firewall policy"
 }
@@ -79,8 +79,8 @@ func testAccFirewallPolicyV1DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_policy_v1" "policy_1" {
-	name = "${openstack_fw_policy_v1.policy_1.name}"
+data "viettelidc_fw_policy_v1" "policy_1" {
+	name = "${viettelidc_fw_policy_v1.policy_1.name}"
 }
 `, testAccFirewallPolicyV1DataSourceGroup)
 }
@@ -89,8 +89,8 @@ func testAccFirewallPolicyV1DataSourcePolicyID() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_policy_v1" "policy_1" {
-	policy_id = "${openstack_fw_policy_v1.policy_1.id}"
+data "viettelidc_fw_policy_v1" "policy_1" {
+	policy_id = "${viettelidc_fw_policy_v1.policy_1.id}"
 }
 `, testAccFirewallPolicyV1DataSourceGroup)
 }

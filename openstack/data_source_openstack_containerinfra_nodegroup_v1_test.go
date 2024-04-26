@@ -10,7 +10,7 @@ import (
 )
 
 func TestAccContainerInfraV1NodeGroupDataSource_basic(t *testing.T) {
-	resourceName := "data.openstack_containerinfra_nodegroup_v1.nodegroup_1"
+	resourceName := "data.viettelidc_containerinfra_nodegroup_v1.nodegroup_1"
 	nodeGroupName := acctest.RandomWithPrefix("tf-acc-nodegroup")
 	clusterName := acctest.RandomWithPrefix("tf-acc-cluster")
 	keypairName := acctest.RandomWithPrefix("tf-acc-keypair")
@@ -72,9 +72,9 @@ func testAccContainerInfraV1NodeGroupDataSourceBasic(nodeGroupResource string) s
 	return fmt.Sprintf(`
 %s
 
-data "openstack_containerinfra_nodegroup_v1" "nodegroup_1" {
-  cluster_id = "${openstack_containerinfra_cluster_v1.cluster_1.name}"
-  name = "${openstack_containerinfra_nodegroup_v1.nodegroup_1.name}"
+data "viettelidc_containerinfra_nodegroup_v1" "nodegroup_1" {
+  cluster_id = "${viettelidc_containerinfra_cluster_v1.cluster_1.name}"
+  name = "${viettelidc_containerinfra_nodegroup_v1.nodegroup_1.name}"
 }
 `, nodeGroupResource)
 }

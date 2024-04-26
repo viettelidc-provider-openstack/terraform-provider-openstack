@@ -88,10 +88,10 @@ func resourceNetworkingSecGroupV2Create(ctx context.Context, d *schema.ResourceD
 		TenantID:    d.Get("tenant_id").(string),
 	}
 
-	log.Printf("[DEBUG] openstack_networking_secgroup_v2 create options: %#v", opts)
+	log.Printf("[DEBUG] viettelidc_networking_secgroup_v2 create options: %#v", opts)
 	sg, err := groups.Create(networkingClient, opts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_secgroup_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_secgroup_v2: %s", err)
 	}
 
 	// Delete the default security group rules if it has been requested.
@@ -100,12 +100,12 @@ func resourceNetworkingSecGroupV2Create(ctx context.Context, d *schema.ResourceD
 		sgID := sg.ID
 		sg, err := groups.Get(networkingClient, sgID).Extract()
 		if err != nil {
-			return diag.Errorf("Error retrieving the created openstack_networking_secgroup_v2 %s: %s", sgID, err)
+			return diag.Errorf("Error retrieving the created viettelidc_networking_secgroup_v2 %s: %s", sgID, err)
 		}
 
 		for _, rule := range sg.Rules {
 			if err := rules.Delete(networkingClient, rule.ID).ExtractErr(); err != nil {
-				return diag.Errorf("Error deleting a default rule for openstack_networking_secgroup_v2 %s: %s", sgID, err)
+				return diag.Errorf("Error deleting a default rule for viettelidc_networking_secgroup_v2 %s: %s", sgID, err)
 			}
 		}
 	}
@@ -117,12 +117,12 @@ func resourceNetworkingSecGroupV2Create(ctx context.Context, d *schema.ResourceD
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "security-groups", sg.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_networking_secgroup_v2 %s: %s", sg.ID, err)
+			return diag.Errorf("Error setting tags on viettelidc_networking_secgroup_v2 %s: %s", sg.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_secgroup_v2 %s", tags, sg.ID)
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_secgroup_v2 %s", tags, sg.ID)
 	}
 
-	log.Printf("[DEBUG] Created openstack_networking_secgroup_v2: %#v", sg)
+	log.Printf("[DEBUG] Created viettelidc_networking_secgroup_v2: %#v", sg)
 
 	return resourceNetworkingSecGroupV2Read(ctx, d, meta)
 }
@@ -136,7 +136,7 @@ func resourceNetworkingSecGroupV2Read(ctx context.Context, d *schema.ResourceDat
 
 	sg, err := groups.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_networking_secgroup_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_networking_secgroup_v2"))
 	}
 
 	d.Set("description", sg.Description)
@@ -173,10 +173,10 @@ func resourceNetworkingSecGroupV2Update(ctx context.Context, d *schema.ResourceD
 	}
 
 	if updated {
-		log.Printf("[DEBUG] Updating openstack_networking_secgroup_v2 %s with options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] Updating viettelidc_networking_secgroup_v2 %s with options: %#v", d.Id(), updateOpts)
 		_, err = groups.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_networking_secgroup_v2: %s", err)
+			return diag.Errorf("Error updating viettelidc_networking_secgroup_v2: %s", err)
 		}
 	}
 
@@ -185,9 +185,9 @@ func resourceNetworkingSecGroupV2Update(ctx context.Context, d *schema.ResourceD
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "security-groups", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_networking_secgroup_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on viettelidc_networking_secgroup_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_secgroup_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_secgroup_v2 %s", tags, d.Id())
 	}
 
 	return resourceNetworkingSecGroupV2Read(ctx, d, meta)
@@ -211,7 +211,7 @@ func resourceNetworkingSecGroupV2Delete(ctx context.Context, d *schema.ResourceD
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error deleting openstack_networking_secgroup_v2: %s", err)
+		return diag.Errorf("Error deleting viettelidc_networking_secgroup_v2: %s", err)
 	}
 
 	return diag.FromErr(err)

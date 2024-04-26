@@ -124,7 +124,7 @@ func resourceNetworkingSecGroupRuleV2Create(ctx context.Context, d *schema.Resou
 
 	if protocol == "" {
 		if portRangeMin != 0 || portRangeMax != 0 {
-			return diag.Errorf("A protocol must be specified when using port_range_min and port_range_max for openstack_networking_secgroup_rule_v2")
+			return diag.Errorf("A protocol must be specified when using port_range_min and port_range_max for viettelidc_networking_secgroup_rule_v2")
 		}
 	}
 
@@ -162,16 +162,16 @@ func resourceNetworkingSecGroupRuleV2Create(ctx context.Context, d *schema.Resou
 		opts.Protocol = protocol
 	}
 
-	log.Printf("[DEBUG] openstack_networking_secgroup_rule_v2 create options: %#v", opts)
+	log.Printf("[DEBUG] viettelidc_networking_secgroup_rule_v2 create options: %#v", opts)
 
 	sgRule, err := rules.Create(networkingClient, opts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_secgroup_rule_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_secgroup_rule_v2: %s", err)
 	}
 
 	d.SetId(sgRule.ID)
 
-	log.Printf("[DEBUG] Created openstack_networking_secgroup_rule_v2 %s: %#v", sgRule.ID, sgRule)
+	log.Printf("[DEBUG] Created viettelidc_networking_secgroup_rule_v2 %s: %#v", sgRule.ID, sgRule)
 	return resourceNetworkingSecGroupRuleV2Read(ctx, d, meta)
 }
 
@@ -184,10 +184,10 @@ func resourceNetworkingSecGroupRuleV2Read(ctx context.Context, d *schema.Resourc
 
 	sgRule, err := rules.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_secgroup_rule_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_secgroup_rule_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_secgroup_rule_v2 %s: %#v", d.Id(), sgRule)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_secgroup_rule_v2 %s: %#v", d.Id(), sgRule)
 
 	d.Set("description", sgRule.Description)
 	d.Set("direction", sgRule.Direction)
@@ -216,7 +216,7 @@ func resourceNetworkingSecGroupRuleV2Delete(ctx context.Context, d *schema.Resou
 	defer config.MutexKV.Unlock(securityGroupID)
 
 	if err := rules.Delete(networkingClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_secgroup_rule_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_secgroup_rule_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -230,7 +230,7 @@ func resourceNetworkingSecGroupRuleV2Delete(ctx context.Context, d *schema.Resou
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_secgroup_rule_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_networking_secgroup_rule_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	d.SetId("")

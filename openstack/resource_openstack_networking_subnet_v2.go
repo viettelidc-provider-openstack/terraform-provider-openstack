@@ -165,7 +165,7 @@ func resourceNetworkingSubnetV2() *schema.Resource {
 				Type:       schema.TypeList,
 				Optional:   true,
 				ForceNew:   false,
-				Deprecated: "Use openstack_networking_subnet_route_v2 instead",
+				Deprecated: "Use viettelidc_networking_subnet_route_v2 instead",
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination_cidr": {
@@ -251,7 +251,7 @@ func resourceNetworkingSubnetV2Create(ctx context.Context, d *schema.ResourceDat
 
 	// Check nameservers.
 	if err := networkingSubnetV2DNSNameserverAreUnique(d.Get("dns_nameservers").([]interface{})); err != nil {
-		return diag.Errorf("openstack_networking_subnet_v2 dns_nameservers argument is invalid: %s", err)
+		return diag.Errorf("viettelidc_networking_subnet_v2 dns_nameservers argument is invalid: %s", err)
 	}
 
 	// Get raw allocation pool value.
@@ -284,7 +284,7 @@ func resourceNetworkingSubnetV2Create(ctx context.Context, d *schema.ResourceDat
 			return diag.Errorf("Invalid CIDR %s: %s", cidr, err)
 		}
 		if netAddr.String() != cidr {
-			return diag.Errorf("cidr %s doesn't match subnet address %s for openstack_networking_subnet_v2", cidr, netAddr.String())
+			return diag.Errorf("cidr %s doesn't match subnet address %s for viettelidc_networking_subnet_v2", cidr, netAddr.String())
 		}
 		createOpts.CIDR = cidr
 	}
@@ -304,7 +304,7 @@ func resourceNetworkingSubnetV2Create(ctx context.Context, d *schema.ResourceDat
 	// Validate and set prefix options.
 	if v, ok := d.GetOk("prefix_length"); ok {
 		if d.Get("subnetpool_id").(string) == "" {
-			return diag.Errorf("'prefix_length' is only valid if 'subnetpool_id' is set for openstack_networking_subnet_v2")
+			return diag.Errorf("'prefix_length' is only valid if 'subnetpool_id' is set for viettelidc_networking_subnet_v2")
 		}
 		prefixLength := v.(int)
 		createOpts.Prefixlen = prefixLength
@@ -314,13 +314,13 @@ func resourceNetworkingSubnetV2Create(ctx context.Context, d *schema.ResourceDat
 	enableDHCP := d.Get("enable_dhcp").(bool)
 	createOpts.EnableDHCP = &enableDHCP
 
-	log.Printf("[DEBUG] openstack_networking_subnet_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_networking_subnet_v2 create options: %#v", createOpts)
 	s, err := subnets.Create(networkingClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_subnet_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_subnet_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_networking_subnet_v2 %s to become available", s.ID)
+	log.Printf("[DEBUG] Waiting for viettelidc_networking_subnet_v2 %s to become available", s.ID)
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE"},
 		Refresh:    networkingSubnetV2StateRefreshFunc(networkingClient, s.ID),
@@ -331,7 +331,7 @@ func resourceNetworkingSubnetV2Create(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_subnet_v2 %s to become available: %s", s.ID, err)
+		return diag.Errorf("Error waiting for viettelidc_networking_subnet_v2 %s to become available: %s", s.ID, err)
 	}
 
 	d.SetId(s.ID)
@@ -341,12 +341,12 @@ func resourceNetworkingSubnetV2Create(ctx context.Context, d *schema.ResourceDat
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "subnets", s.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error creating tags on openstack_networking_subnet_v2 %s: %s", s.ID, err)
+			return diag.Errorf("Error creating tags on viettelidc_networking_subnet_v2 %s: %s", s.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_subnet_v2 %s", tags, s.ID)
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_subnet_v2 %s", tags, s.ID)
 	}
 
-	log.Printf("[DEBUG] Created openstack_networking_subnet_v2 %s: %#v", s.ID, s)
+	log.Printf("[DEBUG] Created viettelidc_networking_subnet_v2 %s: %#v", s.ID, s)
 	return resourceNetworkingSubnetV2Read(ctx, d, meta)
 }
 
@@ -359,10 +359,10 @@ func resourceNetworkingSubnetV2Read(ctx context.Context, d *schema.ResourceData,
 
 	s, err := subnets.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_subnet_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_subnet_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_subnet_v2 %s: %#v", d.Id(), s)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_subnet_v2 %s: %#v", d.Id(), s)
 
 	d.Set("network_id", s.NetworkID)
 	d.Set("cidr", s.CIDR)
@@ -383,10 +383,10 @@ func resourceNetworkingSubnetV2Read(ctx context.Context, d *schema.ResourceData,
 	// Set the allocation_pools, allocation_pool attributes.
 	allocationPools := flattenNetworkingSubnetV2AllocationPools(s.AllocationPools)
 	if err := d.Set("allocation_pools", allocationPools); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_networking_subnet_v2 allocation_pools: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnet_v2 allocation_pools: %s", err)
 	}
 	if err := d.Set("allocation_pool", allocationPools); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_networking_subnet_v2 allocation_pool: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnet_v2 allocation_pool: %s", err)
 	}
 
 	// Set the subnet's "gateway_ip" and "no_gateway" attributes.
@@ -444,7 +444,7 @@ func resourceNetworkingSubnetV2Update(ctx context.Context, d *schema.ResourceDat
 
 	if d.HasChange("dns_nameservers") {
 		if err := networkingSubnetV2DNSNameserverAreUnique(d.Get("dns_nameservers").([]interface{})); err != nil {
-			return diag.Errorf("openstack_networking_subnet_v2 dns_nameservers argument is invalid: %s", err)
+			return diag.Errorf("viettelidc_networking_subnet_v2 dns_nameservers argument is invalid: %s", err)
 		}
 		hasChange = true
 		nameservers := expandToStringSlice(d.Get("dns_nameservers").([]interface{}))
@@ -478,10 +478,10 @@ func resourceNetworkingSubnetV2Update(ctx context.Context, d *schema.ResourceDat
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] Updating openstack_networking_subnet_v2 %s with options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] Updating viettelidc_networking_subnet_v2 %s with options: %#v", d.Id(), updateOpts)
 		_, err = subnets.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating OpenStack Neutron openstack_networking_subnet_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating OpenStack Neutron viettelidc_networking_subnet_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -490,9 +490,9 @@ func resourceNetworkingSubnetV2Update(ctx context.Context, d *schema.ResourceDat
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "subnets", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating tags on openstack_networking_subnet_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating tags on viettelidc_networking_subnet_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Updated tags %s on openstack_networking_subnet_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Updated tags %s on viettelidc_networking_subnet_v2 %s", tags, d.Id())
 	}
 
 	return resourceNetworkingSubnetV2Read(ctx, d, meta)
@@ -516,7 +516,7 @@ func resourceNetworkingSubnetV2Delete(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_subnet_v2 %s to become deleted: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_networking_subnet_v2 %s to become deleted: %s", d.Id(), err)
 	}
 
 	return nil

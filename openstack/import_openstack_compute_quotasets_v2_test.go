@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccComputeQuotasetV2_importBasic(t *testing.T) {
-	resourceName := "openstack_compute_quotaset_v2.quotaset_1"
+	resourceName := "viettelidc_compute_quotaset_v2.quotaset_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

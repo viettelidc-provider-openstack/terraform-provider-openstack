@@ -26,20 +26,20 @@ func TestAccNetworkingV2QoSPolicyBasic(t *testing.T) {
 				Config: testAccNetworkingV2QoSPolicyBasic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2QoSPolicyUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test updated"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test updated"),
 				),
 			},
 		},
@@ -86,7 +86,7 @@ func testAccCheckNetworkingV2QoSPolicyDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_networking_qos_policy_v2" {
+		if rs.Type != "viettelidc_networking_qos_policy_v2" {
 			continue
 		}
 
@@ -100,14 +100,14 @@ func testAccCheckNetworkingV2QoSPolicyDestroy(s *terraform.State) error {
 }
 
 const testAccNetworkingV2QoSPolicyBasic = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
 	name        = "qos_policy_1"
 	description = "terraform qos policy acceptance test"
 }
 `
 
 const testAccNetworkingV2QoSPolicyUpdate = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
 	name        = "qos_policy_1"
 	description = "terraform qos policy acceptance test updated"
 }

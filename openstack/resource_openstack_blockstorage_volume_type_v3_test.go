@@ -24,49 +24,49 @@ func TestAccBlockStorageVolumeTypeV3_basic(t *testing.T) {
 			{
 				Config: testAccBlockStorageVolumeTypeV3Basic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &volumetype),
+					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &volumetype),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "name", "foo"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "name", "foo"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "description", "foo"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "description", "foo"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "is_public", "true"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "is_public", "true"),
 				),
 			},
 			{
 				Config: testAccBlockStorageVolumeTypeV3Update1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &volumetype),
+					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &volumetype),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "name", "bar-baz"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "name", "bar-baz"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "description", "bar-baz"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "description", "bar-baz"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "is_public", "false"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "is_public", "false"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "extra_specs.%", "2"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "extra_specs.%", "2"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "extra_specs.bar", "bar"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "extra_specs.bar", "bar"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "extra_specs.baz", "baz"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "extra_specs.baz", "baz"),
 				),
 			},
 			{
 				Config: testAccBlockStorageVolumeTypeV3Update2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &volumetype),
+					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &volumetype),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "name", "foo-foo"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "name", "foo-foo"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "description", "bar-bar"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "description", "bar-bar"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "is_public", "false"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "is_public", "false"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "extra_specs.%", "2"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "extra_specs.%", "2"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "extra_specs.bar", "baz"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "extra_specs.bar", "baz"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_type_v3.volume_type_1", "extra_specs.foo", "foo"),
+						"viettelidc_blockstorage_volume_type_v3.volume_type_1", "extra_specs.foo", "foo"),
 				),
 			},
 		},
@@ -81,7 +81,7 @@ func testAccCheckBlockStorageVolumeTypeV3Destroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_blockstorage_volume_type_v3" {
+		if rs.Type != "viettelidc_blockstorage_volume_type_v3" {
 			continue
 		}
 
@@ -127,7 +127,7 @@ func testAccCheckBlockStorageVolumeTypeV3Exists(n string, volumetype *volumetype
 }
 
 const testAccBlockStorageVolumeTypeV3Basic = `
-resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
+resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
 	name = "foo"
 	description = "foo"
 	is_public = true
@@ -136,7 +136,7 @@ resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
 `
 
 const testAccBlockStorageVolumeTypeV3Update1 = `
-resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
+resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
 	name = "bar-baz"
 	description = "bar-baz"
 	is_public = false
@@ -149,7 +149,7 @@ resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
 `
 
 const testAccBlockStorageVolumeTypeV3Update2 = `
-resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
+resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
 	name = "foo-foo"
 	description = "bar-bar"
 	is_public = false

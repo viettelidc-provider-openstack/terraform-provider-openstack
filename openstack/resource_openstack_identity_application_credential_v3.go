@@ -142,16 +142,16 @@ func resourceIdentityApplicationCredentialV3Create(ctx context.Context, d *schem
 		ExpiresAt:    expiresAt,
 	}
 
-	log.Printf("[DEBUG] openstack_identity_application_credential_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_identity_application_credential_v3 create options: %#v", createOpts)
 
 	createOpts.Secret = d.Get("secret").(string)
 
 	applicationCredential, err := applicationcredentials.Create(identityClient, tokenInfo.userID, createOpts).Extract()
 	if err != nil {
 		if v, ok := err.(gophercloud.ErrDefault404); ok {
-			return diag.Errorf("Error creating openstack_identity_application_credential_v3: %s", v.ErrUnexpectedResponseCode.Body)
+			return diag.Errorf("Error creating viettelidc_identity_application_credential_v3: %s", v.ErrUnexpectedResponseCode.Body)
 		}
-		return diag.Errorf("Error creating openstack_identity_application_credential_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_identity_application_credential_v3: %s", err)
 	}
 
 	d.SetId(applicationCredential.ID)
@@ -176,10 +176,10 @@ func resourceIdentityApplicationCredentialV3Read(ctx context.Context, d *schema.
 
 	applicationCredential, err := applicationcredentials.Get(identityClient, tokenInfo.userID, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_application_credential_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_application_credential_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_identity_application_credential_v3 %s: %#v", d.Id(), applicationCredential)
+	log.Printf("[DEBUG] Retrieved viettelidc_identity_application_credential_v3 %s: %#v", d.Id(), applicationCredential)
 
 	d.Set("name", applicationCredential.Name)
 	d.Set("description", applicationCredential.Description)
@@ -212,7 +212,7 @@ func resourceIdentityApplicationCredentialV3Delete(ctx context.Context, d *schem
 
 	err = applicationcredentials.Delete(identityClient, tokenInfo.userID, d.Id()).ExtractErr()
 	if err != nil {
-		err = CheckDeleted(d, err, "Error deleting openstack_identity_application_credential_v3")
+		err = CheckDeleted(d, err, "Error deleting viettelidc_identity_application_credential_v3")
 		if err != nil {
 			return diag.FromErr(err)
 		}

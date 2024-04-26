@@ -26,40 +26,40 @@ func TestAccKeyManagerContainerV1_basic(t *testing.T) {
 				Config: testAccKeyManagerContainerV1Basic(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "3"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "3"),
 				),
 			},
 			{
 				Config: testAccKeyManagerContainerV1Update(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "2"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "2"),
 				),
 			},
 			{
 				Config: testAccKeyManagerContainerV1Update1(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "3"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "3"),
 				),
 			},
 			{
 				Config: testAccKeyManagerContainerV1Update2(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "0"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "0"),
 				),
 			},
 		},
@@ -81,12 +81,12 @@ func TestAccKeyManagerContainerV1_acls(t *testing.T) {
 				Config: testAccKeyManagerContainerV1Acls(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "3"),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "acl.0.read.0.project_access", "false"),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "acl.0.read.0.users.#", "2"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "3"),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "acl.0.read.0.project_access", "false"),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "acl.0.read.0.users.#", "2"),
 				),
 			},
 		},
@@ -108,10 +108,10 @@ func TestAccKeyManagerContainerV1_certificate_type(t *testing.T) {
 				Config: testAccKeyManagerContainerV1CertificateType(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "3"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "3"),
 				),
 			},
 		},
@@ -133,24 +133,24 @@ func TestAccKeyManagerContainerV1_acls_update(t *testing.T) {
 				Config: testAccKeyManagerContainerV1Acls(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "3"),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "acl.0.read.0.project_access", "false"),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "acl.0.read.0.users.#", "2"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "3"),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "acl.0.read.0.project_access", "false"),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "acl.0.read.0.users.#", "2"),
 				),
 			},
 			{
 				Config: testAccKeyManagerContainerV1AclsUpdate(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckContainerV1Exists(
-						"openstack_keymanager_container_v1.container_1", &container),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "name", &container.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_container_v1.container_1", "type", &container.Type),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "secret_refs.#", "3"),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "acl.0.read.0.project_access", "true"),
-					resource.TestCheckResourceAttr("openstack_keymanager_container_v1.container_1", "acl.0.read.0.users.#", "0"),
+						"viettelidc_keymanager_container_v1.container_1", &container),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "name", &container.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_container_v1.container_1", "type", &container.Type),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "secret_refs.#", "3"),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "acl.0.read.0.project_access", "true"),
+					resource.TestCheckResourceAttr("viettelidc_keymanager_container_v1.container_1", "acl.0.read.0.users.#", "0"),
 				),
 			},
 		},
@@ -164,7 +164,7 @@ func testAccCheckContainerV1Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack KeyManager client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_keymanager_container" {
+		if rs.Type != "viettelidc_keymanager_container" {
 			continue
 		}
 		_, err = containers.Get(kmClient, rs.Primary.ID).Extract()
@@ -208,21 +208,21 @@ func testAccCheckContainerV1Exists(n string, container *containers.Container) re
 }
 
 const testAccKeyManagerContainerV1 = `
-resource "openstack_keymanager_secret_v1" "certificate_1" {
+resource "viettelidc_keymanager_secret_v1" "certificate_1" {
   name                 = "certificate"
   payload              = "certificate"
   secret_type          = "certificate"
   payload_content_type = "text/plain"
 }
 
-resource "openstack_keymanager_secret_v1" "private_key_1" {
+resource "viettelidc_keymanager_secret_v1" "private_key_1" {
   name                 = "private_key"
   payload              = "private_key"
   secret_type          = "private"
   payload_content_type = "text/plain"
 }
 
-resource "openstack_keymanager_secret_v1" "intermediate_1" {
+resource "viettelidc_keymanager_secret_v1" "intermediate_1" {
   name                 = "intermediate"
   payload              = "intermediate"
   secret_type          = "certificate"
@@ -234,23 +234,23 @@ func testAccKeyManagerContainerV1Basic() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "generic"
 
   secret_refs {
     name       = "certificate"
-    secret_ref = "${openstack_keymanager_secret_v1.certificate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.certificate_1.secret_ref}"
   }
 
   secret_refs {
     name       = "private_key"
-    secret_ref = "${openstack_keymanager_secret_v1.private_key_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.private_key_1.secret_ref}"
   }
 
   secret_refs {
     name       = "intermediates"
-    secret_ref = "${openstack_keymanager_secret_v1.intermediate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.intermediate_1.secret_ref}"
   }
 }
 `, testAccKeyManagerContainerV1)
@@ -260,18 +260,18 @@ func testAccKeyManagerContainerV1Update() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "generic"
 
   secret_refs {
     name       = "certificate"
-    secret_ref = "${openstack_keymanager_secret_v1.certificate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.certificate_1.secret_ref}"
   }
 
   secret_refs {
     name       = "private_key"
-    secret_ref = "${openstack_keymanager_secret_v1.private_key_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.private_key_1.secret_ref}"
   }
 }
 `, testAccKeyManagerContainerV1)
@@ -281,23 +281,23 @@ func testAccKeyManagerContainerV1Update1() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "generic"
 
   secret_refs {
     name       = "certificate"
-    secret_ref = "${openstack_keymanager_secret_v1.certificate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.certificate_1.secret_ref}"
   }
 
   secret_refs {
     name       = "private_key"
-    secret_ref = "${openstack_keymanager_secret_v1.private_key_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.private_key_1.secret_ref}"
   }
 
   secret_refs {
     name       = "intermediate_new"
-    secret_ref = "${openstack_keymanager_secret_v1.intermediate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.intermediate_1.secret_ref}"
   }
 }
 `, testAccKeyManagerContainerV1)
@@ -307,7 +307,7 @@ func testAccKeyManagerContainerV1Update2() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "certificate"
 }
@@ -318,23 +318,23 @@ func testAccKeyManagerContainerV1Acls() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "generic"
 
   secret_refs {
     name       = "certificate"
-    secret_ref = "${openstack_keymanager_secret_v1.certificate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.certificate_1.secret_ref}"
   }
 
   secret_refs {
     name       = "private_key"
-    secret_ref = "${openstack_keymanager_secret_v1.private_key_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.private_key_1.secret_ref}"
   }
 
   secret_refs {
     name       = "intermediates"
-    secret_ref = "${openstack_keymanager_secret_v1.intermediate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.intermediate_1.secret_ref}"
   }
 
   acl {
@@ -354,23 +354,23 @@ func testAccKeyManagerContainerV1AclsUpdate() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "generic"
 
   secret_refs {
     name       = "certificate"
-    secret_ref = "${openstack_keymanager_secret_v1.certificate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.certificate_1.secret_ref}"
   }
 
   secret_refs {
     name       = "private_key"
-    secret_ref = "${openstack_keymanager_secret_v1.private_key_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.private_key_1.secret_ref}"
   }
 
   secret_refs {
     name       = "intermediates"
-    secret_ref = "${openstack_keymanager_secret_v1.intermediate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.intermediate_1.secret_ref}"
   }
 
   acl {
@@ -384,23 +384,23 @@ func testAccKeyManagerContainerV1CertificateType() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_keymanager_container_v1" "container_1" {
+resource "viettelidc_keymanager_container_v1" "container_1" {
   name = "generic"
   type = "certificate"
 
   secret_refs {
     name       = "certificate"
-    secret_ref = "${openstack_keymanager_secret_v1.certificate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.certificate_1.secret_ref}"
   }
 
   secret_refs {
     name       = "private_key"
-    secret_ref = "${openstack_keymanager_secret_v1.private_key_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.private_key_1.secret_ref}"
   }
 
   secret_refs {
     name       = "intermediates"
-    secret_ref = "${openstack_keymanager_secret_v1.intermediate_1.secret_ref}"
+    secret_ref = "${viettelidc_keymanager_secret_v1.intermediate_1.secret_ref}"
   }
 }
 `, testAccKeyManagerContainerV1)

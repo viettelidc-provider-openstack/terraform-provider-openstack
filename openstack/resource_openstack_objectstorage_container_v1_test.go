@@ -24,20 +24,20 @@ func TestAccObjectStorageV1Container_basic(t *testing.T) {
 				Config: testAccObjectStorageV1ContainerBasic,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "name", "container_1"),
+						"viettelidc_objectstorage_container_v1.container_1", "name", "container_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "metadata.test", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "metadata.test", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "metadata.upperTest", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "metadata.upperTest", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "content_type", "application/json"),
+						"viettelidc_objectstorage_container_v1.container_1", "content_type", "application/json"),
 				),
 			},
 			{
 				Config: testAccObjectStorageV1ContainerUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "content_type", "text/plain"),
+						"viettelidc_objectstorage_container_v1.container_1", "content_type", "text/plain"),
 				),
 			},
 		},
@@ -58,15 +58,15 @@ func TestAccObjectStorageV1Container_versioning(t *testing.T) {
 				Config: testAccObjectStorageV1ContainerVersioning,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "name", "container_1"),
+						"viettelidc_objectstorage_container_v1.container_1", "name", "container_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "versioning", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "versioning", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "metadata.test", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "metadata.test", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "metadata.upperTest", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "metadata.upperTest", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "content_type", "application/json"),
+						"viettelidc_objectstorage_container_v1.container_1", "content_type", "application/json"),
 				),
 			},
 		},
@@ -87,15 +87,15 @@ func TestAccObjectStorageV1Container_storagePolicy(t *testing.T) {
 				Config: testAccObjectStorageV1ContainerStoragePolicy,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "name", "container_1"),
+						"viettelidc_objectstorage_container_v1.container_1", "name", "container_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "metadata.test", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "metadata.test", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "metadata.upperTest", "true"),
+						"viettelidc_objectstorage_container_v1.container_1", "metadata.upperTest", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "content_type", "application/json"),
+						"viettelidc_objectstorage_container_v1.container_1", "content_type", "application/json"),
 					resource.TestCheckResourceAttr(
-						"openstack_objectstorage_container_v1.container_1", "storage_policy", "Policy-0"),
+						"viettelidc_objectstorage_container_v1.container_1", "storage_policy", "Policy-0"),
 				),
 			},
 		},
@@ -110,7 +110,7 @@ func testAccCheckObjectStorageV1ContainerDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_objectstorage_container_v1" {
+		if rs.Type != "viettelidc_objectstorage_container_v1" {
 			continue
 		}
 
@@ -124,7 +124,7 @@ func testAccCheckObjectStorageV1ContainerDestroy(s *terraform.State) error {
 }
 
 const testAccObjectStorageV1ContainerBasic = `
-resource "openstack_objectstorage_container_v1" "container_1" {
+resource "viettelidc_objectstorage_container_v1" "container_1" {
   name = "container_1"
   metadata = {
     test = "true"
@@ -135,7 +135,7 @@ resource "openstack_objectstorage_container_v1" "container_1" {
 `
 
 const testAccObjectStorageV1ContainerComplete = `
-resource "openstack_objectstorage_container_v1" "container_1" {
+resource "viettelidc_objectstorage_container_v1" "container_1" {
   name = "container_1"
   metadata = {
     test = "true"
@@ -152,7 +152,7 @@ resource "openstack_objectstorage_container_v1" "container_1" {
 `
 
 const testAccObjectStorageV1ContainerVersioning = `
-resource "openstack_objectstorage_container_v1" "container_1" {
+resource "viettelidc_objectstorage_container_v1" "container_1" {
   name = "container_1"
   metadata = {
     test = "true"
@@ -166,7 +166,7 @@ resource "openstack_objectstorage_container_v1" "container_1" {
 `
 
 const testAccObjectStorageV1ContainerUpdate = `
-resource "openstack_objectstorage_container_v1" "container_1" {
+resource "viettelidc_objectstorage_container_v1" "container_1" {
   name = "container_1"
   metadata = {
     test = "true"
@@ -176,7 +176,7 @@ resource "openstack_objectstorage_container_v1" "container_1" {
 `
 
 const testAccObjectStorageV1ContainerStoragePolicy = `
-resource "openstack_objectstorage_container_v1" "container_1" {
+resource "viettelidc_objectstorage_container_v1" "container_1" {
   name = "container_1"
   metadata = {
     test = "true"

@@ -201,7 +201,7 @@ func resourceKeyManagerSecretV1Create(ctx context.Context, d *schema.ResourceDat
 	var secret *secrets.Secret
 	secret, err = secrets.Create(kmClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_keymanager_secret_v1: %s", err)
+		return diag.Errorf("Error creating viettelidc_keymanager_secret_v1: %s", err)
 	}
 
 	uuid := keyManagerSecretV1GetUUIDfromSecretRef(secret.SecretRef)
@@ -217,7 +217,7 @@ func resourceKeyManagerSecretV1Create(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_keymanager_secret_v1: %s", err)
+		return diag.Errorf("Error waiting for viettelidc_keymanager_secret_v1: %s", err)
 	}
 
 	d.SetId(uuid)
@@ -229,7 +229,7 @@ func resourceKeyManagerSecretV1Create(ctx context.Context, d *schema.ResourceDat
 		setOpts := expandKeyManagerV1ACLs(acl)
 		_, err = acls.SetSecretACL(kmClient, uuid, setOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error settings ACLs for the openstack_keymanager_secret_v1: %s", err)
+			return diag.Errorf("Error settings ACLs for the viettelidc_keymanager_secret_v1: %s", err)
 		}
 	}
 
@@ -241,12 +241,12 @@ func resourceKeyManagerSecretV1Create(ctx context.Context, d *schema.ResourceDat
 	}
 	err = secrets.Update(kmClient, uuid, updateOpts).Err
 	if err != nil {
-		return diag.Errorf("Error setting openstack_keymanager_secret_v1 payload: %s", err)
+		return diag.Errorf("Error setting viettelidc_keymanager_secret_v1 payload: %s", err)
 	}
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_keymanager_secret_v1: %s", err)
+		return diag.Errorf("Error waiting for viettelidc_keymanager_secret_v1: %s", err)
 	}
 
 	// set the metadata
@@ -257,7 +257,7 @@ func resourceKeyManagerSecretV1Create(ctx context.Context, d *schema.ResourceDat
 	if len(metadataCreateOpts) > 0 {
 		_, err = secrets.CreateMetadata(kmClient, uuid, metadataCreateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error creating metadata for openstack_keymanager_secret_v1 with ID %s: %s", uuid, err)
+			return diag.Errorf("Error creating metadata for viettelidc_keymanager_secret_v1 with ID %s: %s", uuid, err)
 		}
 
 		stateConf = &resource.StateChangeConf{
@@ -271,7 +271,7 @@ func resourceKeyManagerSecretV1Create(ctx context.Context, d *schema.ResourceDat
 
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
-			return diag.Errorf("Error creating metadata for openstack_keymanager_secret_v1 %s: %s", uuid, err)
+			return diag.Errorf("Error creating metadata for viettelidc_keymanager_secret_v1 %s: %s", uuid, err)
 		}
 	}
 
@@ -289,10 +289,10 @@ func resourceKeyManagerSecretV1Read(ctx context.Context, d *schema.ResourceData,
 
 	secret, err := secrets.Get(kmClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_keymanager_secret_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_keymanager_secret_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_keymanager_secret_v1 %s: %#v", d.Id(), secret)
+	log.Printf("[DEBUG] Retrieved viettelidc_keymanager_secret_v1 %s: %#v", d.Id(), secret)
 
 	d.Set("name", secret.Name)
 
@@ -347,7 +347,7 @@ func resourceKeyManagerSecretV1Update(ctx context.Context, d *schema.ResourceDat
 		updateOpts := expandKeyManagerV1ACLs(d.Get("acl"))
 		_, err := acls.UpdateSecretACL(kmClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_keymanager_secret_v1 %s acl: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_keymanager_secret_v1 %s acl: %s", d.Id(), err)
 		}
 	}
 
@@ -369,12 +369,12 @@ func resourceKeyManagerSecretV1Update(ctx context.Context, d *schema.ResourceDat
 			}
 		}
 
-		log.Printf("[DEBUG] Deleting the following items from metadata for openstack_keymanager_secret_v1 %s: %v", d.Id(), metadataToDelete)
+		log.Printf("[DEBUG] Deleting the following items from metadata for viettelidc_keymanager_secret_v1 %s: %v", d.Id(), metadataToDelete)
 
 		for _, key := range metadataToDelete {
 			err := secrets.DeleteMetadatum(kmClient, d.Id(), key).ExtractErr()
 			if err != nil {
-				return diag.Errorf("Error deleting openstack_keymanager_secret_v1 %s metadata %s: %s", d.Id(), key, err)
+				return diag.Errorf("Error deleting viettelidc_keymanager_secret_v1 %s metadata %s: %s", d.Id(), key, err)
 			}
 		}
 
@@ -394,7 +394,7 @@ func resourceKeyManagerSecretV1Update(ctx context.Context, d *schema.ResourceDat
 			}
 		}
 
-		log.Printf("[DEBUG] Updating the following items in metadata for openstack_keymanager_secret_v1 %s: %v", d.Id(), metadataToUpdate)
+		log.Printf("[DEBUG] Updating the following items in metadata for viettelidc_keymanager_secret_v1 %s: %v", d.Id(), metadataToUpdate)
 
 		for _, key := range metadataToUpdate {
 			var metadatumOpts secrets.MetadatumOpts
@@ -402,11 +402,11 @@ func resourceKeyManagerSecretV1Update(ctx context.Context, d *schema.ResourceDat
 			metadatumOpts.Value = newMetadata[key].(string)
 			_, err := secrets.UpdateMetadatum(kmClient, d.Id(), metadatumOpts).Extract()
 			if err != nil {
-				return diag.Errorf("Error updating openstack_keymanager_secret_v1 %s metadata %s: %s", d.Id(), key, err)
+				return diag.Errorf("Error updating viettelidc_keymanager_secret_v1 %s metadata %s: %s", d.Id(), key, err)
 			}
 		}
 
-		log.Printf("[DEBUG] Adding the following items to metadata for openstack_keymanager_secret_v1 %s: %v", d.Id(), metadataToAdd)
+		log.Printf("[DEBUG] Adding the following items to metadata for viettelidc_keymanager_secret_v1 %s: %v", d.Id(), metadataToAdd)
 
 		for _, key := range metadataToAdd {
 			var metadatumOpts secrets.MetadatumOpts
@@ -414,7 +414,7 @@ func resourceKeyManagerSecretV1Update(ctx context.Context, d *schema.ResourceDat
 			metadatumOpts.Value = newMetadata[key].(string)
 			err := secrets.CreateMetadatum(kmClient, d.Id(), metadatumOpts).Err
 			if err != nil {
-				return diag.Errorf("Error adding openstack_keymanager_secret_v1 %s metadata %s: %s", d.Id(), key, err)
+				return diag.Errorf("Error adding viettelidc_keymanager_secret_v1 %s metadata %s: %s", d.Id(), key, err)
 			}
 		}
 	}

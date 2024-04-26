@@ -264,13 +264,13 @@ func resourceNetworkingNetworkV2Create(ctx context.Context, d *schema.ResourceDa
 		}
 	}
 
-	log.Printf("[DEBUG] openstack_networking_network_v2 create options: %#v", finalCreateOpts)
+	log.Printf("[DEBUG] viettelidc_networking_network_v2 create options: %#v", finalCreateOpts)
 	n, err := networks.Create(networkingClient, finalCreateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_network_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_network_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_networking_network_v2 %s to become available.", n.ID)
+	log.Printf("[DEBUG] Waiting for viettelidc_networking_network_v2 %s to become available.", n.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"BUILD"},
@@ -283,7 +283,7 @@ func resourceNetworkingNetworkV2Create(ctx context.Context, d *schema.ResourceDa
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_network_v2 %s to become available: %s", n.ID, err)
+		return diag.Errorf("Error waiting for viettelidc_networking_network_v2 %s to become available: %s", n.ID, err)
 	}
 
 	d.SetId(n.ID)
@@ -293,12 +293,12 @@ func resourceNetworkingNetworkV2Create(ctx context.Context, d *schema.ResourceDa
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "networks", n.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_networking_network_v2 %s: %s", n.ID, err)
+			return diag.Errorf("Error setting tags on viettelidc_networking_network_v2 %s: %s", n.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_network_v2 %s", tags, n.ID)
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_network_v2 %s", tags, n.ID)
 	}
 
-	log.Printf("[DEBUG] Created openstack_networking_network_v2 %s: %#v", n.ID, n)
+	log.Printf("[DEBUG] Created viettelidc_networking_network_v2 %s: %#v", n.ID, n)
 	return resourceNetworkingNetworkV2Read(ctx, d, meta)
 }
 
@@ -313,10 +313,10 @@ func resourceNetworkingNetworkV2Read(ctx context.Context, d *schema.ResourceData
 
 	err = networks.Get(networkingClient, d.Id()).ExtractInto(&network)
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_network_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_network_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_network_v2 %s: %#v", d.Id(), network)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_network_v2 %s: %#v", d.Id(), network)
 
 	d.Set("name", network.Name)
 	d.Set("description", network.Description)
@@ -335,7 +335,7 @@ func resourceNetworkingNetworkV2Read(ctx context.Context, d *schema.ResourceData
 	networkingV2ReadAttributesTags(d, network.Tags)
 
 	if err := d.Set("availability_zone_hints", network.AvailabilityZoneHints); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_networking_network_v2 %s availability_zone_hints: %s", d.Id(), err)
+		log.Printf("[DEBUG] Unable to set viettelidc_networking_network_v2 %s availability_zone_hints: %s", d.Id(), err)
 	}
 
 	return nil
@@ -378,9 +378,9 @@ func resourceNetworkingNetworkV2Update(ctx context.Context, d *schema.ResourceDa
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(networkingClient, "networks", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_networking_network_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on viettelidc_networking_network_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_network_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_network_v2 %s", tags, d.Id())
 	}
 
 	// Save basic updateOpts into finalUpdateOpts.
@@ -436,10 +436,10 @@ func resourceNetworkingNetworkV2Update(ctx context.Context, d *schema.ResourceDa
 		}
 	}
 
-	log.Printf("[DEBUG] openstack_networking_network_v2 %s update options: %#v", d.Id(), finalUpdateOpts)
+	log.Printf("[DEBUG] viettelidc_networking_network_v2 %s update options: %#v", d.Id(), finalUpdateOpts)
 	_, err = networks.Update(networkingClient, d.Id(), finalUpdateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_networking_network_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating viettelidc_networking_network_v2 %s: %s", d.Id(), err)
 	}
 
 	return resourceNetworkingNetworkV2Read(ctx, d, meta)
@@ -453,7 +453,7 @@ func resourceNetworkingNetworkV2Delete(ctx context.Context, d *schema.ResourceDa
 	}
 
 	if err := networks.Delete(networkingClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_network_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_network_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -467,7 +467,7 @@ func resourceNetworkingNetworkV2Delete(ctx context.Context, d *schema.ResourceDa
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_network_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_networking_network_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	d.SetId("")

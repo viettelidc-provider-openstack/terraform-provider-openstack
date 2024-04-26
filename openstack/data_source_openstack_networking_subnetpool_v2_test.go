@@ -22,11 +22,11 @@ func TestAccNetworkingV2SubnetPoolDataSourceBasic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSubnetPoolV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.openstack_networking_subnetpool_v2.subnetpool_1"),
+					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.viettelidc_networking_subnetpool_v2.subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "name", "subnetpool_1"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "name", "subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -47,29 +47,29 @@ func TestAccNetworkingV2SubnetPoolDataSourceTestQueries(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSubnetPoolV2DataSourceDefaultQuota(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.openstack_networking_subnetpool_v2.subnetpool_1"),
+					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.viettelidc_networking_subnetpool_v2.subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
 				),
 			},
 			{
 				Config: testAccOpenStackNetworkingSubnetPoolV2DataSourcePrefixLengths(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.openstack_networking_subnetpool_v2.subnetpool_1"),
+					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.viettelidc_networking_subnetpool_v2.subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "tags.#", "1"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
 				),
 			},
 			{
 				Config: testAccOpenStackNetworkingSubnetPoolV2DataSourceDescription(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.openstack_networking_subnetpool_v2.subnetpool_1"),
+					testAccCheckNetworkingSubnetPoolV2DataSourceID("data.viettelidc_networking_subnetpool_v2.subnetpool_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "tags.#", "1"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_subnetpool_v2.subnetpool_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -92,7 +92,7 @@ func testAccCheckNetworkingSubnetPoolV2DataSourceID(n string) resource.TestCheck
 }
 
 const testAccOpenStackNetworkingSubnetPoolV2DataSourceSubnetPool = `
-resource "openstack_networking_subnetpool_v2" "subnetpool_1" {
+resource "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
   name = "subnetpool_1"
   description = "terraform subnetpool acceptance test"
 
@@ -115,8 +115,8 @@ func testAccOpenStackNetworkingSubnetPoolV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_subnetpool_v2" "subnetpool_1" {
-  name = "${openstack_networking_subnetpool_v2.subnetpool_1.name}"
+data "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+  name = "${viettelidc_networking_subnetpool_v2.subnetpool_1.name}"
 }
 `, testAccOpenStackNetworkingSubnetPoolV2DataSourceSubnetPool)
 }
@@ -125,7 +125,7 @@ func testAccOpenStackNetworkingSubnetPoolV2DataSourceDefaultQuota() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_subnetpool_v2" "subnetpool_1" {
+data "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
   default_quota = 4
 }
 `, testAccOpenStackNetworkingSubnetPoolV2DataSourceSubnetPool)
@@ -135,7 +135,7 @@ func testAccOpenStackNetworkingSubnetPoolV2DataSourcePrefixLengths() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_subnetpool_v2" "subnetpool_1" {
+data "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
   default_prefixlen = 25
   min_prefixlen = 24
   max_prefixlen = 30
@@ -150,8 +150,8 @@ func testAccOpenStackNetworkingSubnetPoolV2DataSourceDescription() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_subnetpool_v2" "subnetpool_1" {
-  description = "${openstack_networking_subnetpool_v2.subnetpool_1.description}"
+data "viettelidc_networking_subnetpool_v2" "subnetpool_1" {
+  description = "${viettelidc_networking_subnetpool_v2.subnetpool_1.description}"
   tags = [
     "bar",
   ]

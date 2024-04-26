@@ -140,25 +140,25 @@ func dataSourceFWGroupV2Read(ctx context.Context, d *schema.ResourceData, meta i
 
 	pages, err := groups.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list openstack_fw_group_v2 groups: %s", err)
+		return diag.Errorf("Unable to list viettelidc_fw_group_v2 groups: %s", err)
 	}
 
 	allGroups, err := groups.ExtractGroups(pages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_fw_group_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_fw_group_v2: %s", err)
 	}
 
 	if len(allGroups) < 1 {
-		return diag.Errorf("Your openstack_fw_group_v2 query returned no results")
+		return diag.Errorf("Your viettelidc_fw_group_v2 query returned no results")
 	}
 
 	if len(allGroups) > 1 {
-		return diag.Errorf("Your openstack_fw_group_v2 query returned more than one result")
+		return diag.Errorf("Your viettelidc_fw_group_v2 query returned more than one result")
 	}
 
 	group := allGroups[0]
 
-	log.Printf("[DEBUG] Retrieved openstack_fw_policy_v2 %s: %+v", group.ID, group)
+	log.Printf("[DEBUG] Retrieved viettelidc_fw_policy_v2 %s: %+v", group.ID, group)
 
 	d.SetId(group.ID)
 

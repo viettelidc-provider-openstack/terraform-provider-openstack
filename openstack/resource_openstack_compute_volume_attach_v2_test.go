@@ -24,7 +24,7 @@ func TestAccComputeV2VolumeAttach_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2VolumeAttachBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2VolumeAttachExists("openstack_compute_volume_attach_v2.va_1", &va),
+					testAccCheckComputeV2VolumeAttachExists("viettelidc_compute_volume_attach_v2.va_1", &va),
 				),
 			},
 		},
@@ -45,7 +45,7 @@ func TestAccComputeV2VolumeAttach_device(t *testing.T) {
 			{
 				Config: testAccComputeV2VolumeAttachDevice(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2VolumeAttachExists("openstack_compute_volume_attach_v2.va_1", &va),
+					testAccCheckComputeV2VolumeAttachExists("viettelidc_compute_volume_attach_v2.va_1", &va),
 					testAccCheckComputeV2VolumeAttachDevice(&va, "/dev/vdc"),
 				),
 			},
@@ -67,7 +67,7 @@ func TestAccComputeV2VolumeAttach_ignore_volume_confirmation(t *testing.T) {
 			{
 				Config: testAccComputeV2VolumeAttachIgnoreVolumeConfirmation(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2VolumeAttachExists("openstack_compute_volume_attach_v2.va_1", &va),
+					testAccCheckComputeV2VolumeAttachExists("viettelidc_compute_volume_attach_v2.va_1", &va),
 				),
 			},
 		},
@@ -82,7 +82,7 @@ func testAccCheckComputeV2VolumeAttachDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_compute_volume_attach_v2" {
+		if rs.Type != "viettelidc_compute_volume_attach_v2" {
 			continue
 		}
 
@@ -151,12 +151,12 @@ func testAccCheckComputeV2VolumeAttachDevice(
 
 func testAccComputeV2VolumeAttachBasic() string {
 	return fmt.Sprintf(`
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 1
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -164,21 +164,21 @@ resource "openstack_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "openstack_compute_volume_attach_v2" "va_1" {
-  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
-  volume_id = "${openstack_blockstorage_volume_v3.volume_1.id}"
+resource "viettelidc_compute_volume_attach_v2" "va_1" {
+  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+  volume_id = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
 }
 `, osNetworkID)
 }
 
 func testAccComputeV2VolumeAttachDevice() string {
 	return fmt.Sprintf(`
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 1
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -186,9 +186,9 @@ resource "openstack_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "openstack_compute_volume_attach_v2" "va_1" {
-  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
-  volume_id = "${openstack_blockstorage_volume_v3.volume_1.id}"
+resource "viettelidc_compute_volume_attach_v2" "va_1" {
+  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+  volume_id = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
   device = "/dev/vdc"
 }
 `, osNetworkID)
@@ -196,12 +196,12 @@ resource "openstack_compute_volume_attach_v2" "va_1" {
 
 func testAccComputeV2VolumeAttachIgnoreVolumeConfirmation() string {
 	return fmt.Sprintf(`
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 1
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   network {
@@ -209,9 +209,9 @@ resource "openstack_compute_instance_v2" "instance_1" {
   }
 }
 
-resource "openstack_compute_volume_attach_v2" "va_1" {
-  instance_id = "${openstack_compute_instance_v2.instance_1.id}"
-  volume_id = "${openstack_blockstorage_volume_v3.volume_1.id}"
+resource "viettelidc_compute_volume_attach_v2" "va_1" {
+  instance_id = "${viettelidc_compute_instance_v2.instance_1.id}"
+  volume_id = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
   vendor_options {
     ignore_volume_confirmation = true
   }

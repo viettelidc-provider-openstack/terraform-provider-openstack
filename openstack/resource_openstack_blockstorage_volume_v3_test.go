@@ -24,23 +24,23 @@ func TestAccBlockStorageV3Volume_basic(t *testing.T) {
 			{
 				Config: testAccBlockStorageV3VolumeBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageV3VolumeExists("openstack_blockstorage_volume_v3.volume_1", &volume),
+					testAccCheckBlockStorageV3VolumeExists("viettelidc_blockstorage_volume_v3.volume_1", &volume),
 					testAccCheckBlockStorageV3VolumeMetadata(&volume, "foo", "bar"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "name", "volume_1"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "name", "volume_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "size", "1"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "size", "1"),
 				),
 			},
 			{
 				Config: testAccBlockStorageV3VolumeUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageV3VolumeExists("openstack_blockstorage_volume_v3.volume_1", &volume),
+					testAccCheckBlockStorageV3VolumeExists("viettelidc_blockstorage_volume_v3.volume_1", &volume),
 					testAccCheckBlockStorageV3VolumeMetadata(&volume, "foo", "bar"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "name", "volume_1-updated"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "name", "volume_1-updated"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "size", "2"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "size", "2"),
 				),
 			},
 		},
@@ -61,14 +61,14 @@ func TestAccBlockStorageV3Volume_online_resize(t *testing.T) {
 				Config: testAccBlockStorageV3VolumeOnlineResize(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "size", "1"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "size", "1"),
 				),
 			},
 			{
 				Config: testAccBlockStorageV3VolumeOnlineResizeUpdate(),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "size", "2"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "size", "2"),
 				),
 			},
 		},
@@ -89,9 +89,9 @@ func TestAccBlockStorageV3Volume_image(t *testing.T) {
 			{
 				Config: testAccBlockStorageV3VolumeImage(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageV3VolumeExists("openstack_blockstorage_volume_v3.volume_1", &volume),
+					testAccCheckBlockStorageV3VolumeExists("viettelidc_blockstorage_volume_v3.volume_1", &volume),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "name", "volume_1"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "name", "volume_1"),
 				),
 			},
 		},
@@ -114,11 +114,11 @@ func TestAccBlockStorageV3Volume_image_multiattach(t *testing.T) {
 			{
 				Config: testAccBlockStorageV3VolumeImageMultiattach(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageV3VolumeExists("openstack_blockstorage_volume_v3.volume_1", &volume),
+					testAccCheckBlockStorageV3VolumeExists("viettelidc_blockstorage_volume_v3.volume_1", &volume),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "name", "volume_1"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "name", "volume_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_blockstorage_volume_v3.volume_1", "multiattach", "true"),
+						"viettelidc_blockstorage_volume_v3.volume_1", "multiattach", "true"),
 				),
 			},
 		},
@@ -139,7 +139,7 @@ func TestAccBlockStorageV3Volume_timeout(t *testing.T) {
 			{
 				Config: testAccBlockStorageV3VolumeTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBlockStorageV3VolumeExists("openstack_blockstorage_volume_v3.volume_1", &volume),
+					testAccCheckBlockStorageV3VolumeExists("viettelidc_blockstorage_volume_v3.volume_1", &volume),
 				),
 			},
 		},
@@ -154,7 +154,7 @@ func testAccCheckBlockStorageV3VolumeDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_blockstorage_volume_v3" {
+		if rs.Type != "viettelidc_blockstorage_volume_v3" {
 			continue
 		}
 
@@ -223,7 +223,7 @@ func testAccCheckBlockStorageV3VolumeMetadata(
 }
 
 const testAccBlockStorageV3VolumeBasic = `
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   description = "first test volume"
   metadata = {
@@ -235,50 +235,50 @@ resource "openstack_blockstorage_volume_v3" "volume_1" {
 
 func testAccBlockStorageV3VolumeOnlineResize() string {
 	return fmt.Sprintf(`
-resource "openstack_compute_instance_v2" "basic" {
+resource "viettelidc_compute_instance_v2" "basic" {
   name            = "instance_1"
   flavor_name     = "%s"
   image_name      = "%s"
 }
 
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   description = "test volume"
   size = 1
   enable_online_resize = true
 }
 
-resource "openstack_compute_volume_attach_v2" "va_1" {
-  instance_id = "${openstack_compute_instance_v2.basic.id}"
-  volume_id   = "${openstack_blockstorage_volume_v3.volume_1.id}"
+resource "viettelidc_compute_volume_attach_v2" "va_1" {
+  instance_id = "${viettelidc_compute_instance_v2.basic.id}"
+  volume_id   = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
 }
 `, osFlavorName, osImageID)
 }
 
 func testAccBlockStorageV3VolumeOnlineResizeUpdate() string {
 	return fmt.Sprintf(`
-resource "openstack_compute_instance_v2" "basic" {
+resource "viettelidc_compute_instance_v2" "basic" {
   name            = "instance_1"
   flavor_name     = "%s"
   image_name      = "%s"
 }
 
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   description = "test volume"
   size = 2
   enable_online_resize = true
 }
 
-resource "openstack_compute_volume_attach_v2" "va_1" {
-  instance_id = "${openstack_compute_instance_v2.basic.id}"
-  volume_id   = "${openstack_blockstorage_volume_v3.volume_1.id}"
+resource "viettelidc_compute_volume_attach_v2" "va_1" {
+  instance_id = "${viettelidc_compute_instance_v2.basic.id}"
+  volume_id   = "${viettelidc_blockstorage_volume_v3.volume_1.id}"
 }
 `, osFlavorName, osImageID)
 }
 
 const testAccBlockStorageV3VolumeUpdate = `
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1-updated"
   description = "first test volume"
   metadata = {
@@ -290,7 +290,7 @@ resource "openstack_blockstorage_volume_v3" "volume_1" {
 
 func testAccBlockStorageV3VolumeImage() string {
 	return fmt.Sprintf(`
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 5
   image_id = "%s"
@@ -300,7 +300,7 @@ resource "openstack_blockstorage_volume_v3" "volume_1" {
 
 func testAccBlockStorageV3VolumeImageMultiattach() string {
 	return fmt.Sprintf(`
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   size = 5
   image_id = "%s"
@@ -310,7 +310,7 @@ resource "openstack_blockstorage_volume_v3" "volume_1" {
 }
 
 const testAccBlockStorageV3VolumeTimeout = `
-resource "openstack_blockstorage_volume_v3" "volume_1" {
+resource "viettelidc_blockstorage_volume_v3" "volume_1" {
   name = "volume_1"
   description = "first test volume"
   size = 1

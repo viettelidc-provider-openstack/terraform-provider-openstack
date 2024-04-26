@@ -125,27 +125,27 @@ func dataSourceNetworkingFloatingIPV2Read(ctx context.Context, d *schema.Resourc
 
 	pages, err := floatingips.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list openstack_networking_floatingips_v2: %s", err)
+		return diag.Errorf("Unable to list viettelidc_networking_floatingips_v2: %s", err)
 	}
 
 	var allFloatingIPs []floatingIPExtended
 
 	err = floatingips.ExtractFloatingIPsInto(pages, &allFloatingIPs)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_networking_floatingips_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_networking_floatingips_v2: %s", err)
 	}
 
 	if len(allFloatingIPs) < 1 {
-		return diag.Errorf("No openstack_networking_floatingip_v2 found")
+		return diag.Errorf("No viettelidc_networking_floatingip_v2 found")
 	}
 
 	if len(allFloatingIPs) > 1 {
-		return diag.Errorf("More than one openstack_networking_floatingip_v2 found")
+		return diag.Errorf("More than one viettelidc_networking_floatingip_v2 found")
 	}
 
 	fip := allFloatingIPs[0]
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_floatingip_v2 %s: %+v", fip.ID, fip)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_floatingip_v2 %s: %+v", fip.ID, fip)
 	d.SetId(fip.ID)
 
 	d.Set("description", fip.Description)

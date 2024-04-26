@@ -27,17 +27,17 @@ func TestAccSFSV2ShareAccess_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2ShareAccessConfigBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareAccessExists("openstack_sharedfilesystem_share_access_v2.share_access_1", &shareAccess1),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "access_type", "ip"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "access_to", "192.168.199.10"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "access_level", "rw"),
-					resource.TestMatchResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "share_id",
+					testAccCheckSFSV2ShareAccessExists("viettelidc_sharedfilesystem_share_access_v2.share_access_1", &shareAccess1),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "access_type", "ip"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "access_to", "192.168.199.10"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "access_level", "rw"),
+					resource.TestMatchResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "share_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
-					testAccCheckSFSV2ShareAccessExists("openstack_sharedfilesystem_share_access_v2.share_access_2", &shareAccess2),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "access_type", "ip"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "access_to", "192.168.199.11"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "access_level", "rw"),
-					resource.TestMatchResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "share_id",
+					testAccCheckSFSV2ShareAccessExists("viettelidc_sharedfilesystem_share_access_v2.share_access_2", &shareAccess2),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "access_type", "ip"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "access_to", "192.168.199.11"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "access_level", "rw"),
+					resource.TestMatchResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "share_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					testAccCheckSFSV2ShareAccessDiffers(&shareAccess1, &shareAccess2),
 				),
@@ -45,17 +45,17 @@ func TestAccSFSV2ShareAccess_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2ShareAccessConfigUpdate(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareAccessExists("openstack_sharedfilesystem_share_access_v2.share_access_1", &shareAccess1),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "access_type", "ip"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "access_to", "192.168.199.10"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "access_level", "ro"),
-					resource.TestMatchResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_1", "share_id",
+					testAccCheckSFSV2ShareAccessExists("viettelidc_sharedfilesystem_share_access_v2.share_access_1", &shareAccess1),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "access_type", "ip"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "access_to", "192.168.199.10"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "access_level", "ro"),
+					resource.TestMatchResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_1", "share_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
-					testAccCheckSFSV2ShareAccessExists("openstack_sharedfilesystem_share_access_v2.share_access_2", &shareAccess2),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "access_type", "ip"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "access_to", "192.168.199.11"),
-					resource.TestCheckResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "access_level", "ro"),
-					resource.TestMatchResourceAttr("openstack_sharedfilesystem_share_access_v2.share_access_2", "share_id",
+					testAccCheckSFSV2ShareAccessExists("viettelidc_sharedfilesystem_share_access_v2.share_access_2", &shareAccess2),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "access_type", "ip"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "access_to", "192.168.199.11"),
+					resource.TestCheckResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "access_level", "ro"),
+					resource.TestMatchResourceAttr("viettelidc_sharedfilesystem_share_access_v2.share_access_2", "share_id",
 						regexp.MustCompile("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$")),
 					testAccCheckSFSV2ShareAccessDiffers(&shareAccess1, &shareAccess2),
 				),
@@ -72,7 +72,7 @@ func testAccCheckSFSV2ShareAccessDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_sharedfilesystem_share_access_v2" {
+		if rs.Type != "viettelidc_sharedfilesystem_share_access_v2" {
 			continue
 		}
 
@@ -158,7 +158,7 @@ func testAccCheckSFSV2ShareAccessDiffers(shareAccess1, shareAccess2 *shares.Acce
 }
 
 const testAccSFSV2ShareAccessConfig = `
-resource "openstack_sharedfilesystem_share_v2" "share_1" {
+resource "viettelidc_sharedfilesystem_share_v2" "share_1" {
   name             = "nfs_share"
   description      = "test share description"
   share_proto      = "NFS"
@@ -171,15 +171,15 @@ func testAccSFSV2ShareAccessConfigBasic() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_sharedfilesystem_share_access_v2" "share_access_1" {
-  share_id     = "${openstack_sharedfilesystem_share_v2.share_1.id}"
+resource "viettelidc_sharedfilesystem_share_access_v2" "share_access_1" {
+  share_id     = "${viettelidc_sharedfilesystem_share_v2.share_1.id}"
   access_type  = "ip"
   access_to    = "192.168.199.10"
   access_level = "rw"
 }
 
-resource "openstack_sharedfilesystem_share_access_v2" "share_access_2" {
-  share_id     = "${openstack_sharedfilesystem_share_v2.share_1.id}"
+resource "viettelidc_sharedfilesystem_share_access_v2" "share_access_2" {
+  share_id     = "${viettelidc_sharedfilesystem_share_v2.share_1.id}"
   access_type  = "ip"
   access_to    = "192.168.199.11"
   access_level = "rw"
@@ -191,15 +191,15 @@ func testAccSFSV2ShareAccessConfigUpdate() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_sharedfilesystem_share_access_v2" "share_access_1" {
-  share_id     = "${openstack_sharedfilesystem_share_v2.share_1.id}"
+resource "viettelidc_sharedfilesystem_share_access_v2" "share_access_1" {
+  share_id     = "${viettelidc_sharedfilesystem_share_v2.share_1.id}"
   access_type  = "ip"
   access_to    = "192.168.199.10"
   access_level = "ro"
 }
 
-resource "openstack_sharedfilesystem_share_access_v2" "share_access_2" {
-  share_id     = "${openstack_sharedfilesystem_share_v2.share_1.id}"
+resource "viettelidc_sharedfilesystem_share_access_v2" "share_access_2" {
+  share_id     = "${viettelidc_sharedfilesystem_share_v2.share_1.id}"
   access_type  = "ip"
   access_to    = "192.168.199.11"
   access_level = "ro"

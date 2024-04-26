@@ -28,13 +28,13 @@ func TestAccOpenStackDNSZoneV2DataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackDNSZoneV2DataSourceBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSZoneV2DataSourceID("data.openstack_dns_zone_v2.z1"),
+					testAccCheckDNSZoneV2DataSourceID("data.viettelidc_dns_zone_v2.z1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_dns_zone_v2.z1", "name", zoneName),
+						"data.viettelidc_dns_zone_v2.z1", "name", zoneName),
 					resource.TestCheckResourceAttr(
-						"data.openstack_dns_zone_v2.z1", "type", "PRIMARY"),
+						"data.viettelidc_dns_zone_v2.z1", "type", "PRIMARY"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_dns_zone_v2.z1", "ttl", "7200"),
+						"data.viettelidc_dns_zone_v2.z1", "ttl", "7200"),
 				),
 			},
 		},
@@ -58,7 +58,7 @@ func testAccCheckDNSZoneV2DataSourceID(n string) resource.TestCheckFunc {
 
 func testAccOpenStackDNSZoneV2DataSourceZone(zoneName string) string {
 	return fmt.Sprintf(`
-resource "openstack_dns_zone_v2" "z1" {
+resource "viettelidc_dns_zone_v2" "z1" {
   name = "%s"
   email = "terraform-dns-zone-v2-test-name@example.com"
   type = "PRIMARY"
@@ -69,8 +69,8 @@ resource "openstack_dns_zone_v2" "z1" {
 func testAccOpenStackDNSZoneV2DataSourceBasic(zoneName string) string {
 	return fmt.Sprintf(`
 %s
-data "openstack_dns_zone_v2" "z1" {
-	name = "${openstack_dns_zone_v2.z1.name}"
+data "viettelidc_dns_zone_v2" "z1" {
+	name = "${viettelidc_dns_zone_v2.z1.name}"
 }
 `, testAccOpenStackDNSZoneV2DataSourceZone(zoneName))
 }

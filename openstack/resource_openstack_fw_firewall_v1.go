@@ -29,7 +29,7 @@ func resourceFWFirewallV1() *schema.Resource {
 			Delete: schema.DefaultTimeout(10 * time.Minute),
 		},
 
-		DeprecationMessage: "openstack_fw_fireall_v1 is deprecated. Consider using FWaaS v2",
+		DeprecationMessage: "viettelidc_fw_fireall_v1 is deprecated. Consider using FWaaS v2",
 		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,
@@ -132,14 +132,14 @@ func resourceFWFirewallV1Create(ctx context.Context, d *schema.ResourceData, met
 		}
 	}
 
-	log.Printf("[DEBUG] openstack_fw_firewall_v1 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_fw_firewall_v1 create options: %#v", createOpts)
 
 	firewall, err := firewalls.Create(networkingClient, createOpts).Extract()
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	log.Printf("[DEBUG] openstack_fw_firewall_v1 created: %#v", firewall)
+	log.Printf("[DEBUG] viettelidc_fw_firewall_v1 created: %#v", firewall)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"PENDING_CREATE"},
@@ -152,7 +152,7 @@ func resourceFWFirewallV1Create(ctx context.Context, d *schema.ResourceData, met
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_firewall_v1 to become active: %s", err)
+		return diag.Errorf("Error waiting for viettelidc_fw_firewall_v1 to become active: %s", err)
 	}
 
 	d.SetId(firewall.ID)
@@ -170,10 +170,10 @@ func resourceFWFirewallV1Read(_ context.Context, d *schema.ResourceData, meta in
 	var firewall Firewall
 	err = firewalls.Get(networkingClient, d.Id()).ExtractInto(&firewall)
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_firewall_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_firewall_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_fw_firewall_v1 %s: %#v", d.Id(), firewall)
+	log.Printf("[DEBUG] Retrieved viettelidc_fw_firewall_v1 %s: %#v", d.Id(), firewall)
 
 	d.Set("name", firewall.Name)
 	d.Set("description", firewall.Description)
@@ -234,7 +234,7 @@ func resourceFWFirewallV1Update(ctx context.Context, d *schema.ResourceData, met
 		updateOpts = opts
 	}
 
-	log.Printf("[DEBUG] openstack_fw_firewall_v1 %s update options: %#v", d.Id(), updateOpts)
+	log.Printf("[DEBUG] viettelidc_fw_firewall_v1 %s update options: %#v", d.Id(), updateOpts)
 
 	err = firewalls.Update(networkingClient, d.Id(), updateOpts).Err
 	if err != nil {
@@ -252,7 +252,7 @@ func resourceFWFirewallV1Update(ctx context.Context, d *schema.ResourceData, met
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_firewall_v1 %s to become active: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_fw_firewall_v1 %s to become active: %s", d.Id(), err)
 	}
 
 	return resourceFWFirewallV1Read(ctx, d, meta)
@@ -267,7 +267,7 @@ func resourceFWFirewallV1Delete(ctx context.Context, d *schema.ResourceData, met
 
 	_, err = firewalls.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_firewall_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_firewall_v1"))
 	}
 
 	// Ensure the firewall was fully created/updated before being deleted.
@@ -282,12 +282,12 @@ func resourceFWFirewallV1Delete(ctx context.Context, d *schema.ResourceData, met
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_firewall_v1 %s to become active: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_fw_firewall_v1 %s to become active: %s", d.Id(), err)
 	}
 
 	err = firewalls.Delete(networkingClient, d.Id()).Err
 	if err != nil {
-		return diag.Errorf("Error deleting openstack_fw_firewall_v1 %s: %s", d.Id(), err)
+		return diag.Errorf("Error deleting viettelidc_fw_firewall_v1 %s: %s", d.Id(), err)
 	}
 
 	stateConf = &resource.StateChangeConf{
@@ -301,7 +301,7 @@ func resourceFWFirewallV1Delete(ctx context.Context, d *schema.ResourceData, met
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_firewall_v1 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_fw_firewall_v1 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

@@ -33,7 +33,7 @@ func resourceNetworkingRouterInterfaceV2DeleteRefreshFunc(networkingClient *goph
 		routerID := d.Get("router_id").(string)
 		routerInterfaceID := d.Id()
 
-		log.Printf("[DEBUG] Attempting to delete openstack_networking_router_interface_v2 %s", routerInterfaceID)
+		log.Printf("[DEBUG] Attempting to delete viettelidc_networking_router_interface_v2 %s", routerInterfaceID)
 
 		removeOpts := routers.RemoveInterfaceOpts{
 			SubnetID: d.Get("subnet_id").(string),
@@ -42,14 +42,14 @@ func resourceNetworkingRouterInterfaceV2DeleteRefreshFunc(networkingClient *goph
 
 		if removeOpts.SubnetID != "" {
 			// We need to make sure to only send subnet_id, because the port may have multiple
-			// openstack_networking_router_interface_v2 attached. Otherwise openstack would delete them too.
+			// viettelidc_networking_router_interface_v2 attached. Otherwise openstack would delete them too.
 			removeOpts.PortID = ""
 		}
 
 		r, err := ports.Get(networkingClient, routerInterfaceID).Extract()
 		if err != nil {
 			if _, ok := err.(gophercloud.ErrDefault404); ok {
-				log.Printf("[DEBUG] Successfully deleted openstack_networking_router_interface_v2 %s", routerInterfaceID)
+				log.Printf("[DEBUG] Successfully deleted viettelidc_networking_router_interface_v2 %s", routerInterfaceID)
 				return r, "DELETED", nil
 			}
 			return r, "ACTIVE", err
@@ -58,7 +58,7 @@ func resourceNetworkingRouterInterfaceV2DeleteRefreshFunc(networkingClient *goph
 		_, err = routers.RemoveInterface(networkingClient, routerID, removeOpts).Extract()
 		if err != nil {
 			if _, ok := err.(gophercloud.ErrDefault404); ok {
-				log.Printf("[DEBUG] Successfully deleted openstack_networking_router_interface_v2 %s", routerInterfaceID)
+				log.Printf("[DEBUG] Successfully deleted viettelidc_networking_router_interface_v2 %s", routerInterfaceID)
 				return r, "DELETED", nil
 			}
 			if _, ok := err.(gophercloud.ErrDefault409); ok {
@@ -88,7 +88,7 @@ func resourceNetworkingRouterInterfaceV2DeleteRefreshFunc(networkingClient *goph
 						}
 					}
 
-					log.Printf("[DEBUG] Attempting to forceDestroy openstack_networking_router_interface_v2 '%s': %+v", d.Id(), err)
+					log.Printf("[DEBUG] Attempting to forceDestroy viettelidc_networking_router_interface_v2 '%s': %+v", d.Id(), err)
 
 					opts := &routers.UpdateOpts{
 						Routes: &updateRoutes,
@@ -99,14 +99,14 @@ func resourceNetworkingRouterInterfaceV2DeleteRefreshFunc(networkingClient *goph
 					}
 				}
 
-				log.Printf("[DEBUG] openstack_networking_router_interface_v2 %s is still in use", routerInterfaceID)
+				log.Printf("[DEBUG] viettelidc_networking_router_interface_v2 %s is still in use", routerInterfaceID)
 				return r, "ACTIVE", nil
 			}
 
 			return r, "ACTIVE", err
 		}
 
-		log.Printf("[DEBUG] openstack_networking_router_interface_v2 %s is still active", routerInterfaceID)
+		log.Printf("[DEBUG] viettelidc_networking_router_interface_v2 %s is still active", routerInterfaceID)
 		return r, "ACTIVE", nil
 	}
 }

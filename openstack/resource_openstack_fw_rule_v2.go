@@ -151,14 +151,14 @@ func resourceFWRuleV2Create(ctx context.Context, d *schema.ResourceData, meta in
 		ruleCreateOpts.Enabled = &enabled
 	}
 
-	log.Printf("[DEBUG] openstack_fw_rule_v2 create options: %#v", ruleCreateOpts)
+	log.Printf("[DEBUG] viettelidc_fw_rule_v2 create options: %#v", ruleCreateOpts)
 
 	rule, err := rules.Create(networkingClient, ruleCreateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_fw_rule_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_fw_rule_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Created openstack_fw_rule_v2 %s: %#v", rule.ID, rule)
+	log.Printf("[DEBUG] Created viettelidc_fw_rule_v2 %s: %#v", rule.ID, rule)
 
 	d.SetId(rule.ID)
 
@@ -174,10 +174,10 @@ func resourceFWRuleV2Read(_ context.Context, d *schema.ResourceData, meta interf
 
 	rule, err := rules.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_rule_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_rule_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_fw_rule_v2 %s: %#v", d.Id(), rule)
+	log.Printf("[DEBUG] Retrieved viettelidc_fw_rule_v2 %s: %#v", d.Id(), rule)
 
 	d.Set("name", rule.Name)
 	d.Set("description", rule.Description)
@@ -305,11 +305,11 @@ func resourceFWRuleV2Update(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] openstack_fw_rule_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_fw_rule_v2 %s update options: %#v", d.Id(), updateOpts)
 
 		_, err = rules.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_fw_rule_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_fw_rule_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -325,22 +325,22 @@ func resourceFWRuleV2Delete(_ context.Context, d *schema.ResourceData, meta inte
 
 	rule, err := rules.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_rule_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_rule_v2"))
 	}
 
 	if len(rule.FirewallPolicyID) > 0 {
 		for _, firewallPolicyID := range rule.FirewallPolicyID {
-			log.Printf("[DEBUG] openstack_fw_rule_v2 %s associate with openstack_fw_policy_v2: %#v", d.Id(), firewallPolicyID)
+			log.Printf("[DEBUG] viettelidc_fw_rule_v2 %s associate with viettelidc_fw_policy_v2: %#v", d.Id(), firewallPolicyID)
 			_, err := policies.RemoveRule(networkingClient, firewallPolicyID, rule.ID).Extract()
 			if err != nil {
-				return diag.Errorf("Error removing openstack_fw_rule_v2 %s from policy %s: %s", d.Id(), firewallPolicyID, err)
+				return diag.Errorf("Error removing viettelidc_fw_rule_v2 %s from policy %s: %s", d.Id(), firewallPolicyID, err)
 			}
 		}
 	}
 
 	err = rules.Delete(networkingClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting openstack_fw_rule_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error deleting viettelidc_fw_rule_v2 %s: %s", d.Id(), err)
 	}
 
 	return nil

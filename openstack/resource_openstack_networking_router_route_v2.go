@@ -61,10 +61,10 @@ func resourceNetworkingRouterRouteV2Create(ctx context.Context, d *schema.Resour
 
 	r, err := routers.Get(networkingClient, routerID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_router_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_router_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_router_v2 %s: %#v", routerID, r)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_router_v2 %s: %#v", routerID, r)
 
 	routes := r.Routes
 	dstCIDR := d.Get("destination_cidr").(string)
@@ -79,7 +79,7 @@ func resourceNetworkingRouterRouteV2Create(ctx context.Context, d *schema.Resour
 	}
 
 	if exists {
-		log.Printf("[DEBUG] openstack_networking_router_v2 %s already has route to %s via %s", routerID, dstCIDR, nextHop)
+		log.Printf("[DEBUG] viettelidc_networking_router_v2 %s already has route to %s via %s", routerID, dstCIDR, nextHop)
 		return resourceNetworkingRouterRouteV2Read(ctx, d, meta)
 	}
 
@@ -90,10 +90,10 @@ func resourceNetworkingRouterRouteV2Create(ctx context.Context, d *schema.Resour
 	updateOpts := routers.UpdateOpts{
 		Routes: &routes,
 	}
-	log.Printf("[DEBUG] openstack_networking_router_v2 %s update options: %#v", routerID, updateOpts)
+	log.Printf("[DEBUG] viettelidc_networking_router_v2 %s update options: %#v", routerID, updateOpts)
 	_, err = routers.Update(networkingClient, routerID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_networking_router_v2: %s", err)
+		return diag.Errorf("Error updating viettelidc_networking_router_v2: %s", err)
 	}
 
 	d.SetId(resourceNetworkingRouterRouteV2BuildID(routerID, dstCIDR, nextHop))
@@ -110,7 +110,7 @@ func resourceNetworkingRouterRouteV2Read(ctx context.Context, d *schema.Resource
 
 	idFromResource, dstCIDR, nextHop, err := resourceNetworkingRouterRouteV2ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error reading openstack_networking_router_route_v2 ID %s: %s", d.Id(), err)
+		return diag.Errorf("Error reading viettelidc_networking_router_route_v2 ID %s: %s", d.Id(), err)
 	}
 
 	routerID := d.Get("router_id").(string)
@@ -121,10 +121,10 @@ func resourceNetworkingRouterRouteV2Read(ctx context.Context, d *schema.Resource
 
 	r, err := routers.Get(networkingClient, routerID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_router_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_router_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_router_v2 %s: %#v", routerID, r)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_router_v2 %s: %#v", routerID, r)
 
 	for _, route := range r.Routes {
 		if route.DestinationCIDR == dstCIDR && route.NextHop == nextHop {
@@ -152,10 +152,10 @@ func resourceNetworkingRouterRouteV2Delete(ctx context.Context, d *schema.Resour
 
 	r, err := routers.Get(networkingClient, routerID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_router_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_router_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_router_v2 %s: %#v", routerID, r)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_router_v2 %s: %#v", routerID, r)
 
 	dstCIDR := d.Get("destination_cidr").(string)
 	nextHop := d.Get("next_hop").(string)
@@ -170,16 +170,16 @@ func resourceNetworkingRouterRouteV2Delete(ctx context.Context, d *schema.Resour
 	}
 
 	if len(oldRoutes) == len(newRoute) {
-		return diag.Errorf("Can't find route to %s via %s on openstack_networking_router_v2 %s", dstCIDR, nextHop, routerID)
+		return diag.Errorf("Can't find route to %s via %s on viettelidc_networking_router_v2 %s", dstCIDR, nextHop, routerID)
 	}
 
-	log.Printf("[DEBUG] Deleting openstack_networking_router_v2 %s route to %s via %s", routerID, dstCIDR, nextHop)
+	log.Printf("[DEBUG] Deleting viettelidc_networking_router_v2 %s route to %s via %s", routerID, dstCIDR, nextHop)
 	updateOpts := routers.UpdateOpts{
 		Routes: &newRoute,
 	}
 	_, err = routers.Update(networkingClient, routerID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_networking_router_v2: %s", err)
+		return diag.Errorf("Error updating viettelidc_networking_router_v2: %s", err)
 	}
 
 	return nil

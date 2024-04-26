@@ -23,17 +23,17 @@ func TestAccFWGroupV2DataSource_basic(t *testing.T) {
 			{
 				Config: testAccFWGroupV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWGroupV2DataSourceID("data.openstack_fw_group_v2.group_1"),
+					testAccCheckFWGroupV2DataSourceID("data.viettelidc_fw_group_v2.group_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "name", "group_1"),
+						"data.viettelidc_fw_group_v2.group_1", "name", "group_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "description", "My firewall group"),
+						"data.viettelidc_fw_group_v2.group_1", "description", "My firewall group"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "shared", "false"),
+						"data.viettelidc_fw_group_v2.group_1", "shared", "false"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_fw_group_v2.group_1", "ingress_firewall_policy_id"),
+						"data.viettelidc_fw_group_v2.group_1", "ingress_firewall_policy_id"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_fw_group_v2.group_1", "egress_firewall_policy_id"),
+						"data.viettelidc_fw_group_v2.group_1", "egress_firewall_policy_id"),
 				),
 			},
 		},
@@ -55,17 +55,17 @@ func TestAccFWGroupV2DataSource_shared(t *testing.T) {
 			{
 				Config: testAccFWGroupV2DataSourceShared(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWGroupV2DataSourceID("data.openstack_fw_group_v2.group_1"),
+					testAccCheckFWGroupV2DataSourceID("data.viettelidc_fw_group_v2.group_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "name", "group_1"),
+						"data.viettelidc_fw_group_v2.group_1", "name", "group_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "description", "My firewall group"),
+						"data.viettelidc_fw_group_v2.group_1", "description", "My firewall group"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "shared", "true"),
+						"data.viettelidc_fw_group_v2.group_1", "shared", "true"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_fw_group_v2.group_1", "ingress_firewall_policy_id"),
+						"data.viettelidc_fw_group_v2.group_1", "ingress_firewall_policy_id"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_fw_group_v2.group_1", "egress_firewall_policy_id"),
+						"data.viettelidc_fw_group_v2.group_1", "egress_firewall_policy_id"),
 				),
 			},
 		},
@@ -87,9 +87,9 @@ func TestAccFWGroupV2DataSource_FWGroupID(t *testing.T) {
 			{
 				Config: testAccFWGroupV2DataSourceGroupID(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWGroupV2DataSourceID("data.openstack_fw_group_v2.group_1"),
+					testAccCheckFWGroupV2DataSourceID("data.viettelidc_fw_group_v2.group_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_group_v2.group_1", "name", "group_1"),
+						"data.viettelidc_fw_group_v2.group_1", "name", "group_1"),
 				),
 			},
 		},
@@ -112,21 +112,21 @@ func testAccCheckFWGroupV2DataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccFWGroupV2DataSourceGroup = `
-resource "openstack_fw_policy_v2" "policy_1" {
+resource "viettelidc_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "My firewall ingress policy"
 }
 
-resource "openstack_fw_policy_v2" "policy_2" {
+resource "viettelidc_fw_policy_v2" "policy_2" {
   name        = "policy_2"
   description = "My firewall egress policy"
 }
 
-resource "openstack_fw_group_v2" "group_1" {
+resource "viettelidc_fw_group_v2" "group_1" {
   name                       = "group_1"
   description                = "My firewall group"
-  ingress_firewall_policy_id = "${openstack_fw_policy_v2.policy_1.id}"
-  egress_firewall_policy_id  = "${openstack_fw_policy_v2.policy_2.id}"
+  ingress_firewall_policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+  egress_firewall_policy_id  = "${viettelidc_fw_policy_v2.policy_2.id}"
 }
 `
 
@@ -134,34 +134,34 @@ func testAccFWGroupV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_group_v2" "group_1" {
+data "viettelidc_fw_group_v2" "group_1" {
   name                       = "group_1"
   description                = "My firewall group"
-  project_id                 = "${openstack_fw_group_v2.group_1.project_id}"
+  project_id                 = "${viettelidc_fw_group_v2.group_1.project_id}"
   shared                     = false
-  ingress_firewall_policy_id = "${openstack_fw_policy_v2.policy_1.id}"
-  egress_firewall_policy_id  = "${openstack_fw_policy_v2.policy_2.id}"
+  ingress_firewall_policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+  egress_firewall_policy_id  = "${viettelidc_fw_policy_v2.policy_2.id}"
 }
 `, testAccFWGroupV2DataSourceGroup)
 }
 
 const testAccFWGroupV2DataSourceGroupShared = `
-resource "openstack_fw_policy_v2" "policy_1" {
+resource "viettelidc_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "My firewall ingress policy"
 }
 
-resource "openstack_fw_policy_v2" "policy_2" {
+resource "viettelidc_fw_policy_v2" "policy_2" {
   name        = "policy_2"
   description = "My firewall egress policy"
 }
 
-resource "openstack_fw_group_v2" "group_1" {
+resource "viettelidc_fw_group_v2" "group_1" {
   name                       = "group_1"
   description                = "My firewall group"
   shared                     = true
-  ingress_firewall_policy_id = "${openstack_fw_policy_v2.policy_1.id}"
-  egress_firewall_policy_id  = "${openstack_fw_policy_v2.policy_2.id}"
+  ingress_firewall_policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+  egress_firewall_policy_id  = "${viettelidc_fw_policy_v2.policy_2.id}"
 }
 `
 
@@ -169,13 +169,13 @@ func testAccFWGroupV2DataSourceShared() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_group_v2" "group_1" {
+data "viettelidc_fw_group_v2" "group_1" {
   name                       = "group_1"
   description                = "My firewall group"
-  tenant_id                  = "${openstack_fw_group_v2.group_1.tenant_id}"
+  tenant_id                  = "${viettelidc_fw_group_v2.group_1.tenant_id}"
   shared                     = true
-  ingress_firewall_policy_id = "${openstack_fw_policy_v2.policy_1.id}"
-  egress_firewall_policy_id  = "${openstack_fw_policy_v2.policy_2.id}"
+  ingress_firewall_policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
+  egress_firewall_policy_id  = "${viettelidc_fw_policy_v2.policy_2.id}"
 }
 `, testAccFWGroupV2DataSourceGroupShared)
 }
@@ -184,8 +184,8 @@ func testAccFWGroupV2DataSourceGroupID() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_group_v2" "group_1" {
-  group_id = "${openstack_fw_group_v2.group_1.id}"
+data "viettelidc_fw_group_v2" "group_1" {
+  group_id = "${viettelidc_fw_group_v2.group_1.id}"
 }
 `, testAccFWGroupV2DataSourceGroup)
 }

@@ -14,7 +14,7 @@ func dataSourceBlockStorageSnapshotV2() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceBlockStorageSnapshotV2Read,
 
-		DeprecationMessage: "use openstack_blockstorage_snapshot_v3 data-source instead",
+		DeprecationMessage: "use viettelidc_blockstorage_snapshot_v3 data-source instead",
 		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,
@@ -79,16 +79,16 @@ func dataSourceBlockStorageSnapshotV2Read(ctx context.Context, d *schema.Resourc
 
 	allPages, err := snapshots.List(client, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query openstack_blockstorage_snapshot_v2: %s", err)
+		return diag.Errorf("Unable to query viettelidc_blockstorage_snapshot_v2: %s", err)
 	}
 
 	allSnapshots, err := snapshots.ExtractSnapshots(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_blockstorage_snapshot_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_blockstorage_snapshot_v2: %s", err)
 	}
 
 	if len(allSnapshots) < 1 {
-		return diag.Errorf("Your openstack_blockstorage_snapshot_v2 query returned no results. " +
+		return diag.Errorf("Your viettelidc_blockstorage_snapshot_v2 query returned no results. " +
 			"Please change your search criteria and try again.")
 	}
 
@@ -99,7 +99,7 @@ func dataSourceBlockStorageSnapshotV2Read(ctx context.Context, d *schema.Resourc
 		if recent {
 			snapshot = dataSourceBlockStorageV2MostRecentSnapshot(allSnapshots)
 		} else {
-			log.Printf("[DEBUG] Multiple openstack_blockstorage_snapshot_v2 results found: %#v", allSnapshots)
+			log.Printf("[DEBUG] Multiple viettelidc_blockstorage_snapshot_v2 results found: %#v", allSnapshots)
 
 			return diag.Errorf("Your query returned more than one result. Please try a more " +
 				"specific search criteria, or set `most_recent` attribute to true.")

@@ -29,52 +29,52 @@ func TestAccIdentityV3User_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3UserBasic(projectName, userName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3UserExists("openstack_identity_user_v3.user_1", &user),
-					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
+					testAccCheckIdentityV3UserExists("viettelidc_identity_user_v3.user_1", &user),
+					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_identity_user_v3.user_1", "name", &user.Name),
+						"viettelidc_identity_user_v3.user_1", "name", &user.Name),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_identity_user_v3.user_1", "description", &user.Description),
+						"viettelidc_identity_user_v3.user_1", "description", &user.Description),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "enabled", "true"),
+						"viettelidc_identity_user_v3.user_1", "enabled", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "ignore_change_password_upon_first_use", "true"),
+						"viettelidc_identity_user_v3.user_1", "ignore_change_password_upon_first_use", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_enabled", "true"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_enabled", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.#", "2"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.#", "2"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.0", "password"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.0", "password"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.1", "totp"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.1", "totp"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.1.rule.0", "password"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.1.rule.0", "password"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.1.rule.1", "custom-auth-method"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.1.rule.1", "custom-auth-method"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "extra.email", "jdoe@example.com"),
+						"viettelidc_identity_user_v3.user_1", "extra.email", "jdoe@example.com"),
 				),
 			},
 			{
 				Config: testAccIdentityV3UserUpdate(projectName, userName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3UserExists("openstack_identity_user_v3.user_1", &user),
+					testAccCheckIdentityV3UserExists("viettelidc_identity_user_v3.user_1", &user),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_identity_user_v3.user_1", "name", &user.Name),
+						"viettelidc_identity_user_v3.user_1", "name", &user.Name),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_identity_user_v3.user_1", "description", &user.Description),
+						"viettelidc_identity_user_v3.user_1", "description", &user.Description),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "enabled", "false"),
+						"viettelidc_identity_user_v3.user_1", "enabled", "false"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "ignore_change_password_upon_first_use", "false"),
+						"viettelidc_identity_user_v3.user_1", "ignore_change_password_upon_first_use", "false"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.#", "1"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.#", "1"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.0", "password"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.0", "password"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.1", "totp"),
+						"viettelidc_identity_user_v3.user_1", "multi_factor_auth_rule.0.rule.1", "totp"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_user_v3.user_1", "extra.email", "jdoe@foobar.com"),
+						"viettelidc_identity_user_v3.user_1", "extra.email", "jdoe@foobar.com"),
 				),
 			},
 		},
@@ -89,7 +89,7 @@ func testAccCheckIdentityV3UserDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_identity_user_v3" {
+		if rs.Type != "viettelidc_identity_user_v3" {
 			continue
 		}
 
@@ -136,12 +136,12 @@ func testAccCheckIdentityV3UserExists(n string, user *users.User) resource.TestC
 
 func testAccIdentityV3UserBasic(projectName, userName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_identity_project_v3" "project_1" {
+    resource "viettelidc_identity_project_v3" "project_1" {
       name = "%s"
     }
 
-    resource "openstack_identity_user_v3" "user_1" {
-      default_project_id = "${openstack_identity_project_v3.project_1.id}"
+    resource "viettelidc_identity_user_v3" "user_1" {
+      default_project_id = "${viettelidc_identity_project_v3.project_1.id}"
       name = "%s"
       description = "A user"
       password = "password123"
@@ -165,12 +165,12 @@ func testAccIdentityV3UserBasic(projectName, userName string) string {
 
 func testAccIdentityV3UserUpdate(projectName, userName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_identity_project_v3" "project_1" {
+    resource "viettelidc_identity_project_v3" "project_1" {
       name = "%s"
     }
 
-    resource "openstack_identity_user_v3" "user_1" {
-      default_project_id = "${openstack_identity_project_v3.project_1.id}"
+    resource "viettelidc_identity_user_v3" "user_1" {
+      default_project_id = "${viettelidc_identity_project_v3.project_1.id}"
       name = "%s"
       description = "Some user"
       enabled = false

@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV2Listener_importBasic(t *testing.T) {
-	resourceName := "openstack_lb_listener_v2.listener_1"
+	resourceName := "viettelidc_lb_listener_v2.listener_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -32,7 +32,7 @@ func TestAccLBV2Listener_importBasic(t *testing.T) {
 }
 
 func TestAccLBV2Listener_importOctavia(t *testing.T) {
-	resourceName := "openstack_lb_listener_v2.listener_1"
+	resourceName := "viettelidc_lb_listener_v2.listener_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

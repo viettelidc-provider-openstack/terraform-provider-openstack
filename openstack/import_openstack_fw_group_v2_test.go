@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccFWGroupV2_importBasic(t *testing.T) {
-	resourceName := "openstack_fw_group_v2.group_1"
+	resourceName := "viettelidc_fw_group_v2.group_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

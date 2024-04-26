@@ -56,7 +56,7 @@ func resourceBlockstorageVolumeTypeAccessV3Create(ctx context.Context, d *schema
 	}
 
 	if err := volumetypes.AddAccess(blockStorageClient, vtID, accessOpts).ExtractErr(); err != nil {
-		return diag.Errorf("Error creating openstack_blockstorage_volume_type_access_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_blockstorage_volume_type_access_v3: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", vtID, projectID)
@@ -74,17 +74,17 @@ func resourceBlockstorageVolumeTypeAccessV3Read(ctx context.Context, d *schema.R
 
 	vtID, projectID, err := parseVolumeTypeAccessID(d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of openstack_blockstorage_volume_type_access_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of viettelidc_blockstorage_volume_type_access_v3"))
 	}
 
 	allPages, err := volumetypes.ListAccesses(blockStorageClient, vtID).AllPages()
 	if err != nil {
-		return diag.Errorf("Error retrieving accesses openstack_blockstorage_volume_type_access_v3 for vt: %s", vtID)
+		return diag.Errorf("Error retrieving accesses viettelidc_blockstorage_volume_type_access_v3 for vt: %s", vtID)
 	}
 
 	allAccesses, err := volumetypes.ExtractAccesses(allPages)
 	if err != nil {
-		return diag.Errorf("Error extracting accesses openstack_blockstorage_volume_type_access_v3 for vt: %s", vtID)
+		return diag.Errorf("Error extracting accesses viettelidc_blockstorage_volume_type_access_v3 for vt: %s", vtID)
 	}
 
 	found := false
@@ -96,7 +96,7 @@ func resourceBlockstorageVolumeTypeAccessV3Read(ctx context.Context, d *schema.R
 	}
 
 	if !found {
-		return diag.Errorf("Error getting volume type access openstack_blockstorage_volume_type_access_v3 for vt: %s", vtID)
+		return diag.Errorf("Error getting volume type access viettelidc_blockstorage_volume_type_access_v3 for vt: %s", vtID)
 	}
 
 	d.Set("region", GetRegion(d, config))
@@ -115,7 +115,7 @@ func resourceBlockstorageVolumeTypeAccessV3Delete(ctx context.Context, d *schema
 
 	vtID, projectID, err := parseVolumeTypeAccessID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error parsing ID of openstack_blockstorage_volume_type_access_v3 %s: %s", d.Id(), err)
+		return diag.Errorf("Error parsing ID of viettelidc_blockstorage_volume_type_access_v3 %s: %s", d.Id(), err)
 	}
 
 	removeOpts := volumetypes.RemoveAccessOpts{
@@ -123,7 +123,7 @@ func resourceBlockstorageVolumeTypeAccessV3Delete(ctx context.Context, d *schema
 	}
 
 	if err := volumetypes.RemoveAccess(blockStorageClient, vtID, removeOpts).ExtractErr(); err != nil {
-		return diag.Errorf("Error removing openstack_blockstorage_volume_type_access_v3 %s: %s", d.Id(), err)
+		return diag.Errorf("Error removing viettelidc_blockstorage_volume_type_access_v3 %s: %s", d.Id(), err)
 	}
 
 	return nil

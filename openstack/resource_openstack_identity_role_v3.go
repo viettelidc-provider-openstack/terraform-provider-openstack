@@ -54,10 +54,10 @@ func resourceIdentityRoleV3Create(ctx context.Context, d *schema.ResourceData, m
 		Name:     d.Get("name").(string),
 	}
 
-	log.Printf("[DEBUG] openstack_identity_role_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_identity_role_v3 create options: %#v", createOpts)
 	role, err := roles.Create(identityClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_identity_role_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_identity_role_v3: %s", err)
 	}
 
 	d.SetId(role.ID)
@@ -74,10 +74,10 @@ func resourceIdentityRoleV3Read(ctx context.Context, d *schema.ResourceData, met
 
 	role, err := roles.Get(identityClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_role_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_role_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_identity_role_v3: %#v", role)
+	log.Printf("[DEBUG] Retrieved viettelidc_identity_role_v3: %#v", role)
 
 	d.Set("domain_id", role.DomainID)
 	d.Set("name", role.Name)
@@ -104,7 +104,7 @@ func resourceIdentityRoleV3Update(ctx context.Context, d *schema.ResourceData, m
 	if hasChange {
 		_, err := roles.Update(identityClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_identity_role_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_identity_role_v3 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -120,7 +120,7 @@ func resourceIdentityRoleV3Delete(ctx context.Context, d *schema.ResourceData, m
 
 	err = roles.Delete(identityClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_identity_role_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_identity_role_v3"))
 	}
 
 	return nil

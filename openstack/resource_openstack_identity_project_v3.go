@@ -98,10 +98,10 @@ func resourceIdentityProjectV3Create(ctx context.Context, d *schema.ResourceData
 		createOpts.Tags = expandToStringSlice(tags)
 	}
 
-	log.Printf("[DEBUG] openstack_identity_project_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_identity_project_v3 create options: %#v", createOpts)
 	project, err := projects.Create(identityClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_identity_project_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_identity_project_v3: %s", err)
 	}
 
 	d.SetId(project.ID)
@@ -118,10 +118,10 @@ func resourceIdentityProjectV3Read(ctx context.Context, d *schema.ResourceData, 
 
 	project, err := projects.Get(identityClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_project_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_project_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_identity_project_v3 %s: %#v", d.Id(), project)
+	log.Printf("[DEBUG] Retrieved viettelidc_identity_project_v3 %s: %#v", d.Id(), project)
 
 	d.Set("description", project.Description)
 	d.Set("domain_id", project.DomainID)
@@ -192,7 +192,7 @@ func resourceIdentityProjectV3Update(ctx context.Context, d *schema.ResourceData
 	if hasChange {
 		_, err := projects.Update(identityClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_identity_project_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_identity_project_v3 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -208,7 +208,7 @@ func resourceIdentityProjectV3Delete(ctx context.Context, d *schema.ResourceData
 
 	err = projects.Delete(identityClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_identity_project_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_identity_project_v3"))
 	}
 
 	return nil

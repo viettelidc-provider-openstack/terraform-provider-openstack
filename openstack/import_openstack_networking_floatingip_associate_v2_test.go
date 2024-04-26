@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2FloatingIPAssociate_importBasic(t *testing.T) {
-	resourceName := "openstack_networking_floatingip_associate_v2.fip_1"
+	resourceName := "viettelidc_networking_floatingip_associate_v2.fip_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

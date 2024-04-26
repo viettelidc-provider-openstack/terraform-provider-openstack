@@ -29,11 +29,11 @@ func TestAccDatabaseV1User_basic(t *testing.T) {
 				Config: testAccDatabaseV1UserBasic(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDatabaseV1InstanceExists(
-						"openstack_db_instance_v1.basic", &instance),
+						"viettelidc_db_instance_v1.basic", &instance),
 					testAccCheckDatabaseV1UserExists(
-						"openstack_db_user_v1.basic", &instance, &user),
+						"viettelidc_db_user_v1.basic", &instance, &user),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_db_user_v1.basic", "name", &user.Name),
+						"viettelidc_db_user_v1.basic", "name", &user.Name),
 				),
 			},
 		},
@@ -92,7 +92,7 @@ func testAccCheckDatabaseV1UserDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_db_user_v1" {
+		if rs.Type != "viettelidc_db_user_v1" {
 			continue
 		}
 
@@ -128,7 +128,7 @@ func testAccCheckDatabaseV1UserDestroy(s *terraform.State) error {
 
 func testAccDatabaseV1UserBasic() string {
 	return fmt.Sprintf(`
-resource "openstack_db_instance_v1" "basic" {
+resource "viettelidc_db_instance_v1" "basic" {
   name = "basic"
 
   datastore {
@@ -143,9 +143,9 @@ resource "openstack_db_instance_v1" "basic" {
   size = 10
 }
 
-resource "openstack_db_user_v1" "basic" {
+resource "viettelidc_db_user_v1" "basic" {
   name        = "basic"
-  instance_id = "${openstack_db_instance_v1.basic.id}"
+  instance_id = "${viettelidc_db_instance_v1.basic.id}"
   password    = "password"
   databases   = ["testdb"]
 }

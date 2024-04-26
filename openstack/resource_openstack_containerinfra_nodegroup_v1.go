@@ -178,12 +178,12 @@ func resourceContainerInfraNodeGroupV1Create(ctx context.Context, d *schema.Reso
 		createOpts.MergeLabels = &mergeLabels
 	}
 
-	log.Printf("[DEBUG] openstack_containerinfra_nodegroup_v1 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_containerinfra_nodegroup_v1 create options: %#v", createOpts)
 
 	clusterID := d.Get("cluster_id").(string)
 	nodeGroup, err := nodegroups.Create(containerInfraClient, clusterID, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_containerinfra_nodegroup_v1: %s", err)
+		return diag.Errorf("Error creating viettelidc_containerinfra_nodegroup_v1: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", clusterID, nodeGroup.UUID)
@@ -200,10 +200,10 @@ func resourceContainerInfraNodeGroupV1Create(ctx context.Context, d *schema.Reso
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for openstack_containerinfra_nodegroup_v1 %s to become ready: %s", nodeGroup.UUID, err)
+			"Error waiting for viettelidc_containerinfra_nodegroup_v1 %s to become ready: %s", nodeGroup.UUID, err)
 	}
 
-	log.Printf("[DEBUG] Created openstack_containerinfra_nodegroup_v1 %s", nodeGroup.UUID)
+	log.Printf("[DEBUG] Created viettelidc_containerinfra_nodegroup_v1 %s", nodeGroup.UUID)
 
 	return resourceContainerInfraNodeGroupV1Read(ctx, d, meta)
 }
@@ -219,15 +219,15 @@ func resourceContainerInfraNodeGroupV1Read(_ context.Context, d *schema.Resource
 
 	clusterID, nodeGroupID, err := parseNodeGroupID(d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of openstack_containerinfra_nodegroup_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of viettelidc_containerinfra_nodegroup_v1"))
 	}
 
 	nodeGroup, err := nodegroups.Get(containerInfraClient, clusterID, nodeGroupID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_containerinfra_nodegroup_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_containerinfra_nodegroup_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_containerinfra_nodegroup_v1 %s: %#v", d.Id(), nodeGroup)
+	log.Printf("[DEBUG] Retrieved viettelidc_containerinfra_nodegroup_v1 %s: %#v", d.Id(), nodeGroup)
 
 	labels := nodeGroup.Labels
 	if d.Get("merge_labels").(bool) {
@@ -238,7 +238,7 @@ func resourceContainerInfraNodeGroupV1Read(_ context.Context, d *schema.Resource
 		labels = containerInfraV1GetLabelsMerged(nodeGroup.LabelsAdded, nodeGroup.LabelsSkipped, nodeGroup.LabelsOverridden, nodeGroup.Labels, resourceDataLabels)
 	}
 	if err := d.Set("labels", labels); err != nil {
-		return diag.Errorf("Unable to set openstack_containerinfra_nodegroup_v1 labels: %s", err)
+		return diag.Errorf("Unable to set viettelidc_containerinfra_nodegroup_v1 labels: %s", err)
 	}
 
 	d.Set("cluster_id", clusterID)
@@ -254,10 +254,10 @@ func resourceContainerInfraNodeGroupV1Read(_ context.Context, d *schema.Resource
 	d.Set("docker_volume_size", nodeGroup.DockerVolumeSize)
 
 	if err := d.Set("created_at", nodeGroup.CreatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_containerinfra_nodegroup_v1 created_at: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_containerinfra_nodegroup_v1 created_at: %s", err)
 	}
 	if err := d.Set("updated_at", nodeGroup.UpdatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_containerinfra_nodegroup_v1 updated_at: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_containerinfra_nodegroup_v1 updated_at: %s", err)
 	}
 
 	return nil
@@ -274,7 +274,7 @@ func resourceContainerInfraNodeGroupV1Update(ctx context.Context, d *schema.Reso
 
 	clusterID, nodeGroupID, err := parseNodeGroupID(d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of openstack_containerinfra_nodegroup_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of viettelidc_containerinfra_nodegroup_v1"))
 	}
 
 	updateOpts := []nodegroups.UpdateOptsBuilder{}
@@ -293,11 +293,11 @@ func resourceContainerInfraNodeGroupV1Update(ctx context.Context, d *schema.Reso
 
 	if len(updateOpts) > 0 {
 		log.Printf(
-			"[DEBUG] Updating openstack_containerinfra_nodegroup_v1 %s with options: %#v", d.Id(), updateOpts)
+			"[DEBUG] Updating viettelidc_containerinfra_nodegroup_v1 %s with options: %#v", d.Id(), updateOpts)
 
 		_, err = nodegroups.Update(containerInfraClient, clusterID, nodeGroupID, updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_containerinfra_nodegroup_v1 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_containerinfra_nodegroup_v1 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -309,7 +309,7 @@ func resourceContainerInfraNodeGroupV1Update(ctx context.Context, d *schema.Reso
 		}
 		_, err = clusters.Resize(containerInfraClient, clusterID, resizeOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error resizing openstack_containerinfra_nodegroup_v1 %s: %s", d.Id(), err)
+			return diag.Errorf("Error resizing viettelidc_containerinfra_nodegroup_v1 %s: %s", d.Id(), err)
 		}
 
 		stateConf := &resource.StateChangeConf{
@@ -323,7 +323,7 @@ func resourceContainerInfraNodeGroupV1Update(ctx context.Context, d *schema.Reso
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for openstack_containerinfra_node_group_v1 %s to become updated: %s", d.Id(), err)
+				"Error waiting for viettelidc_containerinfra_node_group_v1 %s to become updated: %s", d.Id(), err)
 		}
 	}
 	return resourceContainerInfraNodeGroupV1Read(ctx, d, meta)
@@ -340,11 +340,11 @@ func resourceContainerInfraNodeGroupV1Delete(ctx context.Context, d *schema.Reso
 
 	clusterID, nodeGroupID, err := parseNodeGroupID(d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of openstack_containerinfra_nodegroup_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of viettelidc_containerinfra_nodegroup_v1"))
 	}
 
 	if err := nodegroups.Delete(containerInfraClient, clusterID, nodeGroupID).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_containerinfra_nodegroup_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_containerinfra_nodegroup_v1"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -358,7 +358,7 @@ func resourceContainerInfraNodeGroupV1Delete(ctx context.Context, d *schema.Reso
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for openstack_containerinfra_nodegroup_v1 %s to become deleted: %s", d.Id(), err)
+			"Error waiting for viettelidc_containerinfra_nodegroup_v1 %s to become deleted: %s", d.Id(), err)
 	}
 
 	return nil

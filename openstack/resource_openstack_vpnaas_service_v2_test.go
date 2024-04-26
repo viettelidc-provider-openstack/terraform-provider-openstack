@@ -28,9 +28,9 @@ func TestAccServiceVPNaaSV2_basic(t *testing.T) {
 				Config: testAccServiceV2Basic(),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckServiceV2Exists(
-						"openstack_vpnaas_service_v2.service_1", &service),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_service_v2.service_1", "router_id", &service.RouterID),
-					resource.TestCheckResourceAttr("openstack_vpnaas_service_v2.service_1", "admin_state_up", strconv.FormatBool(service.AdminStateUp)),
+						"viettelidc_vpnaas_service_v2.service_1", &service),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_service_v2.service_1", "router_id", &service.RouterID),
+					resource.TestCheckResourceAttr("viettelidc_vpnaas_service_v2.service_1", "admin_state_up", strconv.FormatBool(service.AdminStateUp)),
 				),
 			},
 		},
@@ -44,7 +44,7 @@ func testAccCheckServiceV2Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_vpnaas_service" {
+		if rs.Type != "viettelidc_vpnaas_service" {
 			continue
 		}
 		_, err = services.Get(networkingClient, rs.Primary.ID).Extract()
@@ -89,14 +89,14 @@ func testAccCheckServiceV2Exists(n string, serv *services.Service) resource.Test
 
 func testAccServiceV2Basic() string {
 	return fmt.Sprintf(`
-	resource "openstack_networking_router_v2" "router_1" {
+	resource "viettelidc_networking_router_v2" "router_1" {
 	  name = "router_1"
 	  admin_state_up = "true"
 	  external_network_id = "%s"
 	}
 
-	resource "openstack_vpnaas_service_v2" "service_1" {
-		router_id = "${openstack_networking_router_v2.router_1.id}"
+	resource "viettelidc_vpnaas_service_v2" "service_1" {
+		router_id = "${viettelidc_networking_router_v2.router_1.id}"
 		admin_state_up = "false"
 	}
 	`, osExtGwID)

@@ -30,26 +30,26 @@ func TestAccNetworkingV2QoSMinimumBandwidthRule_basic(t *testing.T) {
 				Config: testAccNetworkingV2QoSMinimumBandwidthRuleBasic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					testAccCheckNetworkingV2QoSMinimumBandwidthRuleExists(
-						"openstack_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", &rule),
+						"viettelidc_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", "min_kbps", "200"),
+						"viettelidc_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", "min_kbps", "200"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2QoSMinimumBandwidthRuleUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					testAccCheckNetworkingV2QoSMinimumBandwidthRuleExists(
-						"openstack_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", &rule),
+						"viettelidc_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", "min_kbps", "300"),
+						"viettelidc_networking_qos_minimum_bandwidth_rule_v2.minimum_bandwidth_rule_1", "min_kbps", "300"),
 				),
 			},
 		},
@@ -75,7 +75,7 @@ func testAccCheckNetworkingV2QoSMinimumBandwidthRuleExists(n string, rule *rules
 
 		qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error reading openstack_networking_qos_minimum_bandwidth_rule_v2 ID %s: %s", rs.Primary.ID, err)
+			return fmt.Errorf("Error reading viettelidc_networking_qos_minimum_bandwidth_rule_v2 ID %s: %s", rs.Primary.ID, err)
 		}
 
 		found, err := rules.GetMinimumBandwidthRule(networkingClient, qosPolicyID, qosRuleID).ExtractMinimumBandwidthRule()
@@ -103,13 +103,13 @@ func testAccCheckNetworkingV2QoSMinimumBandwidthRuleDestroy(s *terraform.State) 
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_networking_qos_minimum_bandwidth_rule_v2" {
+		if rs.Type != "viettelidc_networking_qos_minimum_bandwidth_rule_v2" {
 			continue
 		}
 
 		qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error reading openstack_networking_qos_minimum_bandwidth_rule_v2 ID %s: %s", rs.Primary.ID, err)
+			return fmt.Errorf("Error reading viettelidc_networking_qos_minimum_bandwidth_rule_v2 ID %s: %s", rs.Primary.ID, err)
 		}
 
 		_, err = rules.GetMinimumBandwidthRule(networkingClient, qosPolicyID, qosRuleID).ExtractMinimumBandwidthRule()
@@ -122,23 +122,23 @@ func testAccCheckNetworkingV2QoSMinimumBandwidthRuleDestroy(s *terraform.State) 
 }
 
 const testAccNetworkingV2QoSMinimumBandwidthRuleBasic = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "openstack_networking_qos_minimum_bandwidth_rule_v2" "minimum_bandwidth_rule_1" {
-  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+resource "viettelidc_networking_qos_minimum_bandwidth_rule_v2" "minimum_bandwidth_rule_1" {
+  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
   min_kbps       = 200
 }
 `
 
 const testAccNetworkingV2QoSMinimumBandwidthRuleUpdate = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "openstack_networking_qos_minimum_bandwidth_rule_v2" "minimum_bandwidth_rule_1" {
-  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+resource "viettelidc_networking_qos_minimum_bandwidth_rule_v2" "minimum_bandwidth_rule_1" {
+  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
   min_kbps       = 300
 }
 `

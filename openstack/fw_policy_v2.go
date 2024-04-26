@@ -20,11 +20,11 @@ func fwPolicyV2DeleteFunc(networkingClient *gophercloud.ServiceClient, id string
 			switch err.(type) {
 			case gophercloud.ErrDefault404:
 				// This error usually means that the policy was deleted manually
-				log.Printf("[DEBUG] Unable to find openstack_fw_policy_v2 %s: %s", id, err)
+				log.Printf("[DEBUG] Unable to find viettelidc_fw_policy_v2 %s: %s", id, err)
 				return "", "DELETED", nil
 			case gophercloud.ErrDefault409:
 				// This error usually means that the policy is attached to a firewall.
-				log.Printf("[DEBUG] Error to delete openstack_fw_policy_v2 %s: %s", id, err)
+				log.Printf("[DEBUG] Error to delete viettelidc_fw_policy_v2 %s: %s", id, err)
 				return nil, "ACTIVE", nil
 			}
 		}

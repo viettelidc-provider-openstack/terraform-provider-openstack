@@ -21,17 +21,17 @@ func TestAccSFSV2ShareDataSource_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2ShareDataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2ShareDataSourceID("data.openstack_sharedfilesystem_share_v2.share_1"),
+					testAccCheckSFSV2ShareDataSourceID("data.viettelidc_sharedfilesystem_share_v2.share_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_share_v2.share_1", "name", "nfs_share"),
+						"data.viettelidc_sharedfilesystem_share_v2.share_1", "name", "nfs_share"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_share_v2.share_1", "description", "test share description"),
+						"data.viettelidc_sharedfilesystem_share_v2.share_1", "description", "test share description"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_share_v2.share_1", "share_proto", "NFS"),
+						"data.viettelidc_sharedfilesystem_share_v2.share_1", "share_proto", "NFS"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_share_v2.share_1", "is_public", "false"),
+						"data.viettelidc_sharedfilesystem_share_v2.share_1", "is_public", "false"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_share_v2.share_1", "size", "1"),
+						"data.viettelidc_sharedfilesystem_share_v2.share_1", "size", "1"),
 				),
 			},
 		},
@@ -54,7 +54,7 @@ func testAccCheckSFSV2ShareDataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccSFSV2ShareDataSourceBasic = `
-resource "openstack_sharedfilesystem_share_v2" "share_1" {
+resource "viettelidc_sharedfilesystem_share_v2" "share_1" {
   name        = "nfs_share"
   description = "test share description"
   share_proto = "NFS"
@@ -62,8 +62,8 @@ resource "openstack_sharedfilesystem_share_v2" "share_1" {
   size        = 1
 }
 
-data "openstack_sharedfilesystem_share_v2" "share_1" {
-  name        = "${openstack_sharedfilesystem_share_v2.share_1.name}"
-  description = "${openstack_sharedfilesystem_share_v2.share_1.description}"
+data "viettelidc_sharedfilesystem_share_v2" "share_1" {
+  name        = "${viettelidc_sharedfilesystem_share_v2.share_1.name}"
+  description = "${viettelidc_sharedfilesystem_share_v2.share_1.description}"
 }
 `

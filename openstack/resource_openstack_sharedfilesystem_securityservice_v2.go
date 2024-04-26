@@ -119,11 +119,11 @@ func resourceSharedFilesystemSecurityServiceV2Create(ctx context.Context, d *sch
 		sfsClient.Microversion = sharedFilesystemV2SecurityServiceOUMicroversion
 	}
 
-	log.Printf("[DEBUG] openstack_sharedfilesystem_securityservice_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_sharedfilesystem_securityservice_v2 create options: %#v", createOpts)
 	createOpts.Password = d.Get("password").(string)
 	securityservice, err := securityservices.Create(sfsClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_sharedfilesystem_securityservice_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_sharedfilesystem_securityservice_v2: %s", err)
 	}
 
 	d.SetId(securityservice.ID)
@@ -146,7 +146,7 @@ func resourceSharedFilesystemSecurityServiceV2Read(ctx context.Context, d *schem
 
 	securityservice, err := securityservices.Get(sfsClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_sharedfilesystem_securityservice_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_sharedfilesystem_securityservice_v2"))
 	}
 
 	// Workaround for resource import.
@@ -160,7 +160,7 @@ func resourceSharedFilesystemSecurityServiceV2Read(ctx context.Context, d *schem
 
 	nopassword := securityservice
 	nopassword.Password = ""
-	log.Printf("[DEBUG] Retrieved openstack_sharedfilesystem_securityservice_v2 %s: %#v", d.Id(), nopassword)
+	log.Printf("[DEBUG] Retrieved viettelidc_sharedfilesystem_securityservice_v2 %s: %#v", d.Id(), nopassword)
 
 	d.Set("name", securityservice.Name)
 	d.Set("description", securityservice.Description)
@@ -228,7 +228,7 @@ func resourceSharedFilesystemSecurityServiceV2Update(ctx context.Context, d *sch
 		updateOpts.Server = &server
 	}
 
-	log.Printf("[DEBUG] openstack_sharedfilesystem_securityservice_v2 %s update options: %#v", d.Id(), updateOpts)
+	log.Printf("[DEBUG] viettelidc_sharedfilesystem_securityservice_v2 %s update options: %#v", d.Id(), updateOpts)
 
 	if d.HasChange("password") {
 		password := d.Get("password").(string)
@@ -237,7 +237,7 @@ func resourceSharedFilesystemSecurityServiceV2Update(ctx context.Context, d *sch
 
 	_, err = securityservices.Update(sfsClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_sharedfilesystem_securityservice_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating viettelidc_sharedfilesystem_securityservice_v2 %s: %s", d.Id(), err)
 	}
 
 	return resourceSharedFilesystemSecurityServiceV2Read(ctx, d, meta)
@@ -251,7 +251,7 @@ func resourceSharedFilesystemSecurityServiceV2Delete(ctx context.Context, d *sch
 	}
 
 	if err := securityservices.Delete(sfsClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_sharedfilesystem_securityservice_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_sharedfilesystem_securityservice_v2"))
 	}
 
 	return nil

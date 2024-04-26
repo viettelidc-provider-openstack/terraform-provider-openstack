@@ -14,7 +14,7 @@ import (
 )
 
 func TestAccBlockStorageV2VolumeDataSource_basic(t *testing.T) {
-	resourceName := "data.openstack_blockstorage_volume_v2.volume_1"
+	resourceName := "data.viettelidc_blockstorage_volume_v2.volume_1"
 	volumeName := acctest.RandomWithPrefix("tf-acc-volume")
 
 	var volumeID string
@@ -117,7 +117,7 @@ func testAccCheckBlockStorageV2VolumeDataSourceID(n, id string) resource.TestChe
 
 func testAccBlockStorageV2VolumeDataSourceBasic(snapshotName string) string {
 	return fmt.Sprintf(`
-    data "openstack_blockstorage_volume_v2" "volume_1" {
+    data "viettelidc_blockstorage_volume_v2" "volume_1" {
       name = "%s"
     }
   `, snapshotName)

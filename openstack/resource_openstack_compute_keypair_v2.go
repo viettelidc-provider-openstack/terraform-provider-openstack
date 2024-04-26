@@ -90,11 +90,11 @@ func resourceComputeKeypairV2Create(ctx context.Context, d *schema.ResourceData,
 		MapValueSpecs(d),
 	}
 
-	log.Printf("[DEBUG] openstack_compute_keypair_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_compute_keypair_v2 create options: %#v", createOpts)
 
 	kp, err := keypairs.Create(computeClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Unable to create openstack_compute_keypair_v2 %s: %s", name, err)
+		return diag.Errorf("Unable to create viettelidc_compute_keypair_v2 %s: %s", name, err)
 	}
 
 	d.SetId(kp.Name)
@@ -126,10 +126,10 @@ func resourceComputeKeypairV2Read(_ context.Context, d *schema.ResourceData, met
 
 	kp, err := keypairs.Get(computeClient, d.Id(), kpopts).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_keypair_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_keypair_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_compute_keypair_v2 %s: %#v", d.Id(), kp)
+	log.Printf("[DEBUG] Retrieved viettelidc_compute_keypair_v2 %s: %#v", d.Id(), kp)
 
 	d.Set("name", kp.Name)
 	d.Set("public_key", kp.PublicKey)
@@ -163,7 +163,7 @@ func resourceComputeKeypairV2Delete(_ context.Context, d *schema.ResourceData, m
 
 	err = keypairs.Delete(computeClient, d.Id(), kpopts).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_compute_keypair_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_compute_keypair_v2"))
 	}
 
 	return nil

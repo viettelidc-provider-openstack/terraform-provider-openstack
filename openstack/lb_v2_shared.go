@@ -430,10 +430,10 @@ func expandLBV2ListenerHeadersMap(raw map[string]interface{}) (map[string]string
 }
 
 func waitForLBV2Listener(ctx context.Context, lbClient *gophercloud.ServiceClient, listener *neutronlisteners.Listener, target string, pending []string, timeout time.Duration) error {
-	log.Printf("[DEBUG] Waiting for openstack_lb_listener_v2 %s to become %s.", listener.ID, target)
+	log.Printf("[DEBUG] Waiting for viettelidc_lb_listener_v2 %s to become %s.", listener.ID, target)
 
 	if len(listener.Loadbalancers) == 0 {
-		return fmt.Errorf("Failed to detect a openstack_lb_loadbalancer_v2 for the %s openstack_lb_listener_v2", listener.ID)
+		return fmt.Errorf("Failed to detect a viettelidc_lb_loadbalancer_v2 for the %s viettelidc_lb_listener_v2", listener.ID)
 	}
 
 	lbID := listener.Loadbalancers[0].ID
@@ -455,7 +455,7 @@ func waitForLBV2Listener(ctx context.Context, lbClient *gophercloud.ServiceClien
 			}
 		}
 
-		return fmt.Errorf("Error waiting for openstack_lb_listener_v2 %s to become %s: %s", listener.ID, target, err)
+		return fmt.Errorf("Error waiting for viettelidc_lb_listener_v2 %s to become %s: %s", listener.ID, target, err)
 	}
 
 	return nil
@@ -777,7 +777,7 @@ func resourceLBV2OctaviaMemberRefreshFunc(lbClient *gophercloud.ServiceClient, l
 }
 
 func waitForLBV2Monitor(ctx context.Context, lbClient *gophercloud.ServiceClient, parentPool *neutronpools.Pool, monitor *neutronmonitors.Monitor, target string, pending []string, timeout time.Duration) error {
-	log.Printf("[DEBUG] Waiting for openstack_lb_monitor_v2 %s to become %s.", monitor.ID, target)
+	log.Printf("[DEBUG] Waiting for viettelidc_lb_monitor_v2 %s to become %s.", monitor.ID, target)
 
 	lbID, err := lbV2FindLBIDviaPool(lbClient, parentPool)
 	if err != nil {
@@ -800,7 +800,7 @@ func waitForLBV2Monitor(ctx context.Context, lbClient *gophercloud.ServiceClient
 				return nil
 			}
 		}
-		return fmt.Errorf("Error waiting for openstack_lb_monitor_v2 %s to become %s: %s", monitor.ID, target, err)
+		return fmt.Errorf("Error waiting for viettelidc_lb_monitor_v2 %s to become %s: %s", monitor.ID, target, err)
 	}
 
 	return nil
@@ -1232,7 +1232,7 @@ func resourceLoadBalancerV2SetSecurityGroups(networkingClient *gophercloud.Servi
 				SecurityGroups: &securityGroups,
 			}
 
-			log.Printf("[DEBUG] Adding security groups to openstack_lb_loadbalancer_v2 "+
+			log.Printf("[DEBUG] Adding security groups to viettelidc_lb_loadbalancer_v2 "+
 				"VIP port %s: %#v", vipPortID, updateOpts)
 
 			_, err := ports.Update(networkingClient, vipPortID, updateOpts).Extract()

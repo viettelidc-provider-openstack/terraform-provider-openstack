@@ -208,7 +208,7 @@ func resourceBlockStorageVolumeV3Create(ctx context.Context, d *schema.ResourceD
 
 	schedulerHintsRaw := d.Get("scheduler_hints").(*schema.Set).List()
 	if len(schedulerHintsRaw) > 0 {
-		log.Printf("[DEBUG] openstack_blockstorage_volume_v3 scheduler hints: %+v", schedulerHintsRaw[0])
+		log.Printf("[DEBUG] viettelidc_blockstorage_volume_v3 scheduler hints: %+v", schedulerHintsRaw[0])
 		schedulerHints = resourceBlockStorageSchedulerHints(schedulerHintsRaw[0].(map[string]interface{}))
 	}
 	createOpts = schedulerhints.CreateOptsExt{
@@ -216,11 +216,11 @@ func resourceBlockStorageVolumeV3Create(ctx context.Context, d *schema.ResourceD
 		SchedulerHints:          schedulerHints,
 	}
 
-	log.Printf("[DEBUG] openstack_blockstorage_volume_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_blockstorage_volume_v3 create options: %#v", createOpts)
 
 	v, err := volumes.Create(blockStorageClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_blockstorage_volume_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_blockstorage_volume_v3: %s", err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -235,7 +235,7 @@ func resourceBlockStorageVolumeV3Create(ctx context.Context, d *schema.ResourceD
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
 		return diag.Errorf(
-			"Error waiting for openstack_blockstorage_volume_v3 %s to become ready: %s", v.ID, err)
+			"Error waiting for viettelidc_blockstorage_volume_v3 %s to become ready: %s", v.ID, err)
 	}
 
 	d.SetId(v.ID)
@@ -252,10 +252,10 @@ func resourceBlockStorageVolumeV3Read(_ context.Context, d *schema.ResourceData,
 
 	v, err := volumes.Get(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_volume_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_volume_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_blockstorage_volume_v3 %s: %#v", d.Id(), v)
+	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_volume_v3 %s: %#v", d.Id(), v)
 
 	d.Set("size", v.Size)
 	d.Set("description", v.Description)
@@ -268,10 +268,10 @@ func resourceBlockStorageVolumeV3Read(_ context.Context, d *schema.ResourceData,
 	d.Set("region", GetRegion(d, config))
 
 	attachments := flattenBlockStorageVolumeV3Attachments(v.Attachments)
-	log.Printf("[DEBUG] openstack_blockstorage_volume_v3 %s attachments: %#v", d.Id(), attachments)
+	log.Printf("[DEBUG] viettelidc_blockstorage_volume_v3 %s attachments: %#v", d.Id(), attachments)
 	if err := d.Set("attachment", attachments); err != nil {
 		log.Printf(
-			"[DEBUG] unable to set openstack_blockstorage_volume_v3 %s attachments: %s", d.Id(), err)
+			"[DEBUG] unable to set viettelidc_blockstorage_volume_v3 %s attachments: %s", d.Id(), err)
 	}
 
 	return nil
@@ -300,13 +300,13 @@ func resourceBlockStorageVolumeV3Update(ctx context.Context, d *schema.ResourceD
 	if d.HasChange("size") {
 		v, err = volumes.Get(blockStorageClient, d.Id()).Extract()
 		if err != nil {
-			return diag.Errorf("Error extending openstack_blockstorage_volume_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error extending viettelidc_blockstorage_volume_v3 %s: %s", d.Id(), err)
 		}
 
 		if v.Status == "in-use" {
 			if v, ok := d.Get("enable_online_resize").(bool); ok && !v {
 				return diag.Errorf(
-					`Error extending openstack_blockstorage_volume_v3 %s,
+					`Error extending viettelidc_blockstorage_volume_v3 %s,
 					volume is attached to the instance and
 					resizing online is disabled,
 					see enable_online_resize option`, d.Id())
@@ -321,7 +321,7 @@ func resourceBlockStorageVolumeV3Update(ctx context.Context, d *schema.ResourceD
 
 		err = volumeactions.ExtendSize(blockStorageClient, d.Id(), extendOpts).ExtractErr()
 		if err != nil {
-			return diag.Errorf("Error extending openstack_blockstorage_volume_v3 %s size: %s", d.Id(), err)
+			return diag.Errorf("Error extending viettelidc_blockstorage_volume_v3 %s size: %s", d.Id(), err)
 		}
 
 		stateConf := &resource.StateChangeConf{
@@ -336,13 +336,13 @@ func resourceBlockStorageVolumeV3Update(ctx context.Context, d *schema.ResourceD
 		_, err := stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for openstack_blockstorage_volume_v3 %s to become ready: %s", d.Id(), err)
+				"Error waiting for viettelidc_blockstorage_volume_v3 %s to become ready: %s", d.Id(), err)
 		}
 	}
 
 	_, err = volumes.Update(blockStorageClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_blockstorage_volume_v3 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating viettelidc_blockstorage_volume_v3 %s: %s", d.Id(), err)
 	}
 
 	return resourceBlockStorageVolumeV3Read(ctx, d, meta)
@@ -357,7 +357,7 @@ func resourceBlockStorageVolumeV3Delete(ctx context.Context, d *schema.ResourceD
 
 	v, err := volumes.Get(blockStorageClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_volume_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_volume_v3"))
 	}
 
 	// make sure this volume is detached from all instances before deleting
@@ -368,13 +368,13 @@ func resourceBlockStorageVolumeV3Delete(ctx context.Context, d *schema.ResourceD
 		}
 
 		for _, volumeAttachment := range v.Attachments {
-			log.Printf("[DEBUG] openstack_blockstorage_volume_v3 %s attachment: %#v", d.Id(), volumeAttachment)
+			log.Printf("[DEBUG] viettelidc_blockstorage_volume_v3 %s attachment: %#v", d.Id(), volumeAttachment)
 
 			serverID := volumeAttachment.ServerID
 			attachmentID := volumeAttachment.ID
 			if err := volumeattach.Delete(computeClient, serverID, attachmentID).ExtractErr(); err != nil {
 				// It's possible the volume was already detached by
-				// openstack_compute_volume_attach_v2, so consider
+				// viettelidc_compute_volume_attach_v2, so consider
 				// a 404 acceptable and continue.
 				if _, ok := err.(gophercloud.ErrDefault404); ok {
 					continue
@@ -387,7 +387,7 @@ func resourceBlockStorageVolumeV3Delete(ctx context.Context, d *schema.ResourceD
 				}
 
 				return diag.Errorf(
-					"Error detaching openstack_blockstorage_volume_v3 %s from %s: %s", d.Id(), serverID, err)
+					"Error detaching viettelidc_blockstorage_volume_v3 %s from %s: %s", d.Id(), serverID, err)
 			}
 		}
 
@@ -403,7 +403,7 @@ func resourceBlockStorageVolumeV3Delete(ctx context.Context, d *schema.ResourceD
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
 			return diag.Errorf(
-				"Error waiting for openstack_blockstorage_volume_v3 %s to become available: %s", d.Id(), err)
+				"Error waiting for viettelidc_blockstorage_volume_v3 %s to become available: %s", d.Id(), err)
 		}
 	}
 
@@ -412,7 +412,7 @@ func resourceBlockStorageVolumeV3Delete(ctx context.Context, d *schema.ResourceD
 	// If this is true, just move on. It'll eventually delete.
 	if v.Status != "deleting" {
 		if err := volumes.Delete(blockStorageClient, d.Id(), nil).ExtractErr(); err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_blockstorage_volume_v3"))
+			return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_blockstorage_volume_v3"))
 		}
 	}
 
@@ -427,7 +427,7 @@ func resourceBlockStorageVolumeV3Delete(ctx context.Context, d *schema.ResourceD
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_blockstorage_volume_v3 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_blockstorage_volume_v3 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

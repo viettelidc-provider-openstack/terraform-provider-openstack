@@ -26,29 +26,29 @@ func TestAccComputeV2Flavor_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2FlavorBasic(flavorName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2FlavorExists("openstack_compute_flavor_v2.flavor_1", &flavor),
+					testAccCheckComputeV2FlavorExists("viettelidc_compute_flavor_v2.flavor_1", &flavor),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "ram", "2048"),
+						"viettelidc_compute_flavor_v2.flavor_1", "ram", "2048"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "vcpus", "2"),
+						"viettelidc_compute_flavor_v2.flavor_1", "vcpus", "2"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "disk", "5"),
+						"viettelidc_compute_flavor_v2.flavor_1", "disk", "5"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "ephemeral", "64"),
+						"viettelidc_compute_flavor_v2.flavor_1", "ephemeral", "64"),
 				),
 			},
 			{
 				Config: testAccComputeV2FlavorBasicWithID(flavorName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2FlavorExists("openstack_compute_flavor_v2.flavor_1", &flavor),
+					testAccCheckComputeV2FlavorExists("viettelidc_compute_flavor_v2.flavor_1", &flavor),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "ram", "2048"),
+						"viettelidc_compute_flavor_v2.flavor_1", "ram", "2048"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "vcpus", "2"),
+						"viettelidc_compute_flavor_v2.flavor_1", "vcpus", "2"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "disk", "5"),
+						"viettelidc_compute_flavor_v2.flavor_1", "disk", "5"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "flavor_id", "b50e603d-29d0-461a-88f7-bd6750d4ce3d"),
+						"viettelidc_compute_flavor_v2.flavor_1", "flavor_id", "b50e603d-29d0-461a-88f7-bd6750d4ce3d"),
 				),
 			},
 		},
@@ -70,27 +70,27 @@ func TestAccComputeV2Flavor_extraSpecs(t *testing.T) {
 			{
 				Config: testAccComputeV2FlavorExtraSpecs1(flavorName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2FlavorExists("openstack_compute_flavor_v2.flavor_1", &flavor),
+					testAccCheckComputeV2FlavorExists("viettelidc_compute_flavor_v2.flavor_1", &flavor),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "description", "foo"),
+						"viettelidc_compute_flavor_v2.flavor_1", "description", "foo"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "extra_specs.%", "2"),
+						"viettelidc_compute_flavor_v2.flavor_1", "extra_specs.%", "2"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "extra_specs.hw:cpu_policy", "CPU-POLICY"),
+						"viettelidc_compute_flavor_v2.flavor_1", "extra_specs.hw:cpu_policy", "CPU-POLICY"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "extra_specs.hw:cpu_thread_policy", "CPU-THREAD-POLICY"),
+						"viettelidc_compute_flavor_v2.flavor_1", "extra_specs.hw:cpu_thread_policy", "CPU-THREAD-POLICY"),
 				),
 			},
 			{
 				Config: testAccComputeV2FlavorExtraSpecs2(flavorName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2FlavorExists("openstack_compute_flavor_v2.flavor_1", &flavor),
+					testAccCheckComputeV2FlavorExists("viettelidc_compute_flavor_v2.flavor_1", &flavor),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "description", "bar"),
+						"viettelidc_compute_flavor_v2.flavor_1", "description", "bar"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "extra_specs.%", "1"),
+						"viettelidc_compute_flavor_v2.flavor_1", "extra_specs.%", "1"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_flavor_v2.flavor_1", "extra_specs.hw:cpu_policy", "CPU-POLICY-2"),
+						"viettelidc_compute_flavor_v2.flavor_1", "extra_specs.hw:cpu_policy", "CPU-POLICY-2"),
 				),
 			},
 		},
@@ -105,7 +105,7 @@ func testAccCheckComputeV2FlavorDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_compute_flavor_v2" {
+		if rs.Type != "viettelidc_compute_flavor_v2" {
 			continue
 		}
 
@@ -152,7 +152,7 @@ func testAccCheckComputeV2FlavorExists(n string, flavor *flavors.Flavor) resourc
 
 func testAccComputeV2FlavorBasic(flavorName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_compute_flavor_v2" "flavor_1" {
+    resource "viettelidc_compute_flavor_v2" "flavor_1" {
       name = "%s"
       ram = 2048
       vcpus = 2
@@ -166,7 +166,7 @@ func testAccComputeV2FlavorBasic(flavorName string) string {
 
 func testAccComputeV2FlavorBasicWithID(flavorName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_compute_flavor_v2" "flavor_1" {
+    resource "viettelidc_compute_flavor_v2" "flavor_1" {
       name = "%s"
       flavor_id = "b50e603d-29d0-461a-88f7-bd6750d4ce3d"
       ram = 2048
@@ -179,7 +179,7 @@ func testAccComputeV2FlavorBasicWithID(flavorName string) string {
 }
 func testAccComputeV2FlavorExtraSpecs1(flavorName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_compute_flavor_v2" "flavor_1" {
+    resource "viettelidc_compute_flavor_v2" "flavor_1" {
       name = "%s"
       ram = 2048
       vcpus = 2
@@ -198,7 +198,7 @@ func testAccComputeV2FlavorExtraSpecs1(flavorName string) string {
 
 func testAccComputeV2FlavorExtraSpecs2(flavorName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_compute_flavor_v2" "flavor_1" {
+    resource "viettelidc_compute_flavor_v2" "flavor_1" {
       name = "%s"
       ram = 2048
       vcpus = 2

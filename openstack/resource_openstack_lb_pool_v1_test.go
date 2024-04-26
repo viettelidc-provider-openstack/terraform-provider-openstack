@@ -27,14 +27,14 @@ func TestAccLBV1Pool_basic(t *testing.T) {
 			{
 				Config: testAccLbV1PoolBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV1PoolExists("openstack_lb_pool_v1.pool_1", &pool),
-					resource.TestCheckResourceAttr("openstack_lb_pool_v1.pool_1", "lb_provider", "haproxy"),
+					testAccCheckLBV1PoolExists("viettelidc_lb_pool_v1.pool_1", &pool),
+					resource.TestCheckResourceAttr("viettelidc_lb_pool_v1.pool_1", "lb_provider", "haproxy"),
 				),
 			},
 			{
 				Config: testAccLbV1PoolUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("openstack_lb_pool_v1.pool_1", "name", "pool_1"),
+					resource.TestCheckResourceAttr("viettelidc_lb_pool_v1.pool_1", "name", "pool_1"),
 				),
 			},
 		},
@@ -58,27 +58,27 @@ func TestAccLBV1Pool_fullstack(t *testing.T) {
 			{
 				Config: testAccLbV1PoolFullstack1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.secgroup_1", &secgroup),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance1),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_2", &instance2),
-					testAccCheckLBV1PoolExists("openstack_lb_pool_v1.pool_1", &pool),
-					testAccCheckLBV1MonitorExists("openstack_lb_monitor_v1.monitor_1", &monitor),
-					testAccCheckLBV1VIPExists("openstack_lb_vip_v1.vip_1", &vip),
+					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.secgroup_1", &secgroup),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance1),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_2", &instance2),
+					testAccCheckLBV1PoolExists("viettelidc_lb_pool_v1.pool_1", &pool),
+					testAccCheckLBV1MonitorExists("viettelidc_lb_monitor_v1.monitor_1", &monitor),
+					testAccCheckLBV1VIPExists("viettelidc_lb_vip_v1.vip_1", &vip),
 				),
 			},
 			{
 				Config: testAccLbV1PoolFullstack2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckComputeV2SecGroupExists("openstack_compute_secgroup_v2.secgroup_1", &secgroup),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance1),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_2", &instance2),
-					testAccCheckLBV1PoolExists("openstack_lb_pool_v1.pool_1", &pool),
-					testAccCheckLBV1MonitorExists("openstack_lb_monitor_v1.monitor_1", &monitor),
-					testAccCheckLBV1VIPExists("openstack_lb_vip_v1.vip_1", &vip),
+					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckComputeV2SecGroupExists("viettelidc_compute_secgroup_v2.secgroup_1", &secgroup),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance1),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_2", &instance2),
+					testAccCheckLBV1PoolExists("viettelidc_lb_pool_v1.pool_1", &pool),
+					testAccCheckLBV1MonitorExists("viettelidc_lb_monitor_v1.monitor_1", &monitor),
+					testAccCheckLBV1VIPExists("viettelidc_lb_vip_v1.vip_1", &vip),
 				),
 			},
 		},
@@ -96,8 +96,8 @@ func TestAccLBV1Pool_timeout(t *testing.T) {
 			{
 				Config: testAccLbV1PoolTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV1PoolExists("openstack_lb_pool_v1.pool_1", &pool),
-					resource.TestCheckResourceAttr("openstack_lb_pool_v1.pool_1", "lb_provider", "haproxy"),
+					testAccCheckLBV1PoolExists("viettelidc_lb_pool_v1.pool_1", &pool),
+					resource.TestCheckResourceAttr("viettelidc_lb_pool_v1.pool_1", "lb_provider", "haproxy"),
 				),
 			},
 		},
@@ -119,21 +119,21 @@ func TestAccLBV1Pool_updateMonitor(t *testing.T) {
 			{
 				Config: testAccLbV1PoolUpdateMonitor1,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckLBV1PoolExists("openstack_lb_pool_v1.pool_1", &pool),
-					testAccCheckLBV1MonitorExists("openstack_lb_monitor_v1.monitor_1", &monitor1),
-					testAccCheckLBV1MonitorExists("openstack_lb_monitor_v1.monitor_2", &monitor2),
+					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckLBV1PoolExists("viettelidc_lb_pool_v1.pool_1", &pool),
+					testAccCheckLBV1MonitorExists("viettelidc_lb_monitor_v1.monitor_1", &monitor1),
+					testAccCheckLBV1MonitorExists("viettelidc_lb_monitor_v1.monitor_2", &monitor2),
 				),
 			},
 			{
 				Config: testAccLbV1PoolUpdateMonitor2,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2NetworkExists("openstack_networking_network_v2.network_1", &network),
-					testAccCheckNetworkingV2SubnetExists("openstack_networking_subnet_v2.subnet_1", &subnet),
-					testAccCheckLBV1PoolExists("openstack_lb_pool_v1.pool_1", &pool),
-					testAccCheckLBV1MonitorExists("openstack_lb_monitor_v1.monitor_1", &monitor1),
-					testAccCheckLBV1MonitorExists("openstack_lb_monitor_v1.monitor_2", &monitor2),
+					testAccCheckNetworkingV2NetworkExists("viettelidc_networking_network_v2.network_1", &network),
+					testAccCheckNetworkingV2SubnetExists("viettelidc_networking_subnet_v2.subnet_1", &subnet),
+					testAccCheckLBV1PoolExists("viettelidc_lb_pool_v1.pool_1", &pool),
+					testAccCheckLBV1MonitorExists("viettelidc_lb_monitor_v1.monitor_1", &monitor1),
+					testAccCheckLBV1MonitorExists("viettelidc_lb_monitor_v1.monitor_2", &monitor2),
 				),
 			},
 		},
@@ -148,7 +148,7 @@ func testAccCheckLBV1PoolDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_lb_pool_v1" {
+		if rs.Type != "viettelidc_lb_pool_v1" {
 			continue
 		}
 
@@ -194,59 +194,59 @@ func testAccCheckLBV1PoolExists(n string, pool *pools.Pool) resource.TestCheckFu
 }
 
 const testAccLbV1PoolBasic = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
   lb_provider = "haproxy"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 `
 
 const testAccLbV1PoolUpdate = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 `
 
 const testAccLbV1PoolFullstack1 = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_compute_secgroup_v2" "secgroup_1" {
+resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "Rules for secgroup_1"
 
@@ -265,25 +265,25 @@ resource "openstack_compute_secgroup_v2" "secgroup_1" {
   }
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
-  security_groups = ["default", "${openstack_compute_secgroup_v2.secgroup_1.name}"]
+  security_groups = ["default", "${viettelidc_compute_secgroup_v2.secgroup_1.name}"]
 
   network {
-    uuid = "${openstack_networking_network_v2.network_1.id}"
+    uuid = "${viettelidc_networking_network_v2.network_1.id}"
   }
 }
 
-resource "openstack_compute_instance_v2" "instance_2" {
+resource "viettelidc_compute_instance_v2" "instance_2" {
   name = "instance_2"
-  security_groups = ["default", "${openstack_compute_secgroup_v2.secgroup_1.name}"]
+  security_groups = ["default", "${viettelidc_compute_secgroup_v2.secgroup_1.name}"]
 
   network {
-    uuid = "${openstack_networking_network_v2.network_1.id}"
+    uuid = "${viettelidc_networking_network_v2.network_1.id}"
   }
 }
 
-resource "openstack_lb_monitor_v1" "monitor_1" {
+resource "viettelidc_lb_monitor_v1" "monitor_1" {
   type = "TCP"
   delay = 30
   timeout = 5
@@ -291,51 +291,51 @@ resource "openstack_lb_monitor_v1" "monitor_1" {
   admin_state_up = "true"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "TCP"
   lb_method = "ROUND_ROBIN"
-  monitor_ids = ["${openstack_lb_monitor_v1.monitor_1.id}"]
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  monitor_ids = ["${viettelidc_lb_monitor_v1.monitor_1.id}"]
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "openstack_lb_member_v1" "member_1" {
+resource "viettelidc_lb_member_v1" "member_1" {
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  address = "${openstack_compute_instance_v2.instance_1.access_ip_v4}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  address = "${viettelidc_compute_instance_v2.instance_1.access_ip_v4}"
 }
 
-resource "openstack_lb_member_v1" "member_2" {
+resource "viettelidc_lb_member_v1" "member_2" {
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  address = "${openstack_compute_instance_v2.instance_2.access_ip_v4}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  address = "${viettelidc_compute_instance_v2.instance_2.access_ip_v4}"
 }
 
-resource "openstack_lb_vip_v1" "vip_1" {
+resource "viettelidc_lb_vip_v1" "vip_1" {
   name = "vip_1"
   protocol = "TCP"
   port = 80
   admin_state_up = true
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
 }
 `
 
 const testAccLbV1PoolFullstack2 = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_compute_secgroup_v2" "secgroup_1" {
+resource "viettelidc_compute_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "Rules for secgroup_1"
 
@@ -354,26 +354,26 @@ resource "openstack_compute_secgroup_v2" "secgroup_1" {
   }
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
-  security_groups = ["default", "${openstack_compute_secgroup_v2.secgroup_1.name}"]
+  security_groups = ["default", "${viettelidc_compute_secgroup_v2.secgroup_1.name}"]
 
   network {
-    uuid = "${openstack_networking_network_v2.network_1.id}"
+    uuid = "${viettelidc_networking_network_v2.network_1.id}"
   }
 }
 
-resource "openstack_compute_instance_v2" "instance_2" {
+resource "viettelidc_compute_instance_v2" "instance_2" {
   name = "instance_2"
-  security_groups = ["default", "${openstack_compute_secgroup_v2.secgroup_1.name}"]
+  security_groups = ["default", "${viettelidc_compute_secgroup_v2.secgroup_1.name}"]
 	user_data = "#cloud-config\ndisable_root: false"
 
   network {
-    uuid = "${openstack_networking_network_v2.network_1.id}"
+    uuid = "${viettelidc_networking_network_v2.network_1.id}"
   }
 }
 
-resource "openstack_lb_monitor_v1" "monitor_1" {
+resource "viettelidc_lb_monitor_v1" "monitor_1" {
   type = "TCP"
   delay = 30
   timeout = 5
@@ -381,56 +381,56 @@ resource "openstack_lb_monitor_v1" "monitor_1" {
   admin_state_up = "true"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "TCP"
   lb_method = "ROUND_ROBIN"
-  monitor_ids = ["${openstack_lb_monitor_v1.monitor_1.id}"]
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  monitor_ids = ["${viettelidc_lb_monitor_v1.monitor_1.id}"]
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "openstack_lb_member_v1" "member_1" {
+resource "viettelidc_lb_member_v1" "member_1" {
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  address = "${openstack_compute_instance_v2.instance_1.access_ip_v4}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  address = "${viettelidc_compute_instance_v2.instance_1.access_ip_v4}"
 }
 
-resource "openstack_lb_member_v1" "member_2" {
+resource "viettelidc_lb_member_v1" "member_2" {
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  address = "${openstack_compute_instance_v2.instance_2.access_ip_v4}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  address = "${viettelidc_compute_instance_v2.instance_2.access_ip_v4}"
 }
 
-resource "openstack_lb_vip_v1" "vip_1" {
+resource "viettelidc_lb_vip_v1" "vip_1" {
   name = "vip_1"
   protocol = "TCP"
   port = 80
   admin_state_up = true
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
 }
 `
 
 const testAccLbV1PoolTimeout = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
   lb_provider = "haproxy"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 
   timeouts {
     create = "5m"
@@ -440,18 +440,18 @@ resource "openstack_lb_pool_v1" "pool_1" {
 `
 
 const testAccLbV1PoolUpdateMonitor1 = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_monitor_v1" "monitor_1" {
+resource "viettelidc_lb_monitor_v1" "monitor_1" {
   type = "TCP"
   delay = 30
   timeout = 5
@@ -459,7 +459,7 @@ resource "openstack_lb_monitor_v1" "monitor_1" {
   admin_state_up = "true"
 }
 
-resource "openstack_lb_monitor_v1" "monitor_2" {
+resource "viettelidc_lb_monitor_v1" "monitor_2" {
   type = "TCP"
   delay = 30
   timeout = 5
@@ -467,28 +467,28 @@ resource "openstack_lb_monitor_v1" "monitor_2" {
   admin_state_up = "true"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "TCP"
   lb_method = "ROUND_ROBIN"
-  monitor_ids = ["${openstack_lb_monitor_v1.monitor_1.id}"]
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  monitor_ids = ["${viettelidc_lb_monitor_v1.monitor_1.id}"]
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 `
 
 const testAccLbV1PoolUpdateMonitor2 = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_monitor_v1" "monitor_1" {
+resource "viettelidc_lb_monitor_v1" "monitor_1" {
   type = "TCP"
   delay = 30
   timeout = 5
@@ -496,7 +496,7 @@ resource "openstack_lb_monitor_v1" "monitor_1" {
   admin_state_up = "true"
 }
 
-resource "openstack_lb_monitor_v1" "monitor_2" {
+resource "viettelidc_lb_monitor_v1" "monitor_2" {
   type = "TCP"
   delay = 30
   timeout = 5
@@ -504,11 +504,11 @@ resource "openstack_lb_monitor_v1" "monitor_2" {
   admin_state_up = "true"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "TCP"
   lb_method = "ROUND_ROBIN"
-  monitor_ids = ["${openstack_lb_monitor_v1.monitor_2.id}"]
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  monitor_ids = ["${viettelidc_lb_monitor_v1.monitor_2.id}"]
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 `

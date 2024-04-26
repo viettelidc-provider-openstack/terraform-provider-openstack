@@ -113,25 +113,25 @@ func dataSourceFWPolicyV2Read(ctx context.Context, d *schema.ResourceData, meta 
 
 	pages, err := policies.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list openstack_fw_policy_v2 policies: %s", err)
+		return diag.Errorf("Unable to list viettelidc_fw_policy_v2 policies: %s", err)
 	}
 
 	allFWPolicies, err := policies.ExtractPolicies(pages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_fw_policy_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_fw_policy_v2: %s", err)
 	}
 
 	if len(allFWPolicies) < 1 {
-		return diag.Errorf("Your openstack_fw_policy_v2 query returned no results")
+		return diag.Errorf("Your viettelidc_fw_policy_v2 query returned no results")
 	}
 
 	if len(allFWPolicies) > 1 {
-		return diag.Errorf("Your openstack_fw_policy_v2 query returned more than one result")
+		return diag.Errorf("Your viettelidc_fw_policy_v2 query returned more than one result")
 	}
 
 	policy := allFWPolicies[0]
 
-	log.Printf("[DEBUG] Retrieved openstack_fw_policy_v2 %s: %#v", policy.ID, policy)
+	log.Printf("[DEBUG] Retrieved viettelidc_fw_policy_v2 %s: %#v", policy.ID, policy)
 
 	d.SetId(policy.ID)
 

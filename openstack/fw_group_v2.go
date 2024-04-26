@@ -51,12 +51,12 @@ func fwGroupV2IngressPolicyDeleteFunc(networkingClient *gophercloud.ServiceClien
 
 	_, err := stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_group_v2 %s to become active: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_fw_group_v2 %s to become active: %s", d.Id(), err)
 	}
 
 	_, err = groups.RemoveIngressPolicy(networkingClient, groupID).Extract()
 	if err != nil {
-		return diag.Errorf("Error removing ingress firewall policy from openstack_fw_group_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error removing ingress firewall policy from viettelidc_fw_group_v2 %s: %s", d.Id(), err)
 	}
 
 	return nil
@@ -74,12 +74,12 @@ func fwGroupV2EgressPolicyDeleteFunc(networkingClient *gophercloud.ServiceClient
 
 	_, err := stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_group_v2 %s to become active: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_fw_group_v2 %s to become active: %s", d.Id(), err)
 	}
 
 	_, err = groups.RemoveEgressPolicy(networkingClient, groupID).Extract()
 	if err != nil {
-		return diag.Errorf("Error removing egress firewall policy from openstack_fw_group_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error removing egress firewall policy from viettelidc_fw_group_v2 %s: %s", d.Id(), err)
 	}
 
 	return nil

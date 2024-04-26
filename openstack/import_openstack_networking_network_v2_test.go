@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2Network_importBasic(t *testing.T) {
-	resourceName := "openstack_networking_network_v2.network_1"
+	resourceName := "viettelidc_networking_network_v2.network_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -31,7 +31,7 @@ func TestAccNetworkingV2Network_importBasic(t *testing.T) {
 }
 
 func TestAccNetworkingV2Network_importSegments(t *testing.T) {
-	resourceName := "openstack_networking_network_v2.network_1"
+	resourceName := "viettelidc_networking_network_v2.network_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

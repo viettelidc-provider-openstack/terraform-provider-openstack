@@ -180,19 +180,19 @@ func resourcePoolV2Create(ctx context.Context, d *schema.ResourceData, meta inte
 	if listenerID != "" {
 		listener, err := listeners.Get(lbClient, listenerID).Extract()
 		if err != nil {
-			return diag.Errorf("Unable to get openstack_lb_listener_v2 %s: %s", listenerID, err)
+			return diag.Errorf("Unable to get viettelidc_lb_listener_v2 %s: %s", listenerID, err)
 		}
 
 		waitErr := waitForLBV2Listener(ctx, lbClient, listener, "ACTIVE", getLbPendingStatuses(), timeout)
 		if waitErr != nil {
 			return diag.Errorf(
-				"Error waiting for openstack_lb_listener_v2 %s to become active: %s", listenerID, err)
+				"Error waiting for viettelidc_lb_listener_v2 %s to become active: %s", listenerID, err)
 		}
 	} else {
 		waitErr := waitForLBV2LoadBalancer(ctx, lbClient, lbID, "ACTIVE", getLbPendingStatuses(), timeout)
 		if waitErr != nil {
 			return diag.Errorf(
-				"Error waiting for openstack_lb_loadbalancer_v2 %s to become active: %s", lbID, err)
+				"Error waiting for viettelidc_lb_loadbalancer_v2 %s to become active: %s", lbID, err)
 		}
 	}
 

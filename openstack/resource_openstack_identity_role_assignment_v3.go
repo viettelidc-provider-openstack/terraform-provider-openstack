@@ -86,7 +86,7 @@ func resourceIdentityRoleAssignmentV3Create(ctx context.Context, d *schema.Resou
 
 	err = roles.Assign(identityClient, roleID, opts).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_identity_role_assignment_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_identity_role_assignment_v3: %s", err)
 	}
 
 	id := identityRoleAssignmentV3ID(domainID, projectID, groupID, userID, roleID)
@@ -104,10 +104,10 @@ func resourceIdentityRoleAssignmentV3Read(ctx context.Context, d *schema.Resourc
 
 	roleAssignment, err := identityRoleAssignmentV3FindAssignment(identityClient, d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_role_assignment_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_role_assignment_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_identity_role_assignment_v3 %s: %#v", d.Id(), roleAssignment)
+	log.Printf("[DEBUG] Retrieved viettelidc_identity_role_assignment_v3 %s: %#v", d.Id(), roleAssignment)
 	d.Set("domain_id", roleAssignment.Scope.Domain.ID)
 	d.Set("project_id", roleAssignment.Scope.Project.ID)
 	d.Set("group_id", roleAssignment.Group.ID)
@@ -127,7 +127,7 @@ func resourceIdentityRoleAssignmentV3Delete(ctx context.Context, d *schema.Resou
 
 	domainID, projectID, groupID, userID, roleID, err := identityRoleAssignmentV3ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error determining openstack_identity_role_assignment_v3 ID: %s", err)
+		return diag.Errorf("Error determining viettelidc_identity_role_assignment_v3 ID: %s", err)
 	}
 
 	opts := roles.UnassignOpts{
@@ -138,7 +138,7 @@ func resourceIdentityRoleAssignmentV3Delete(ctx context.Context, d *schema.Resou
 	}
 
 	if err := roles.Unassign(identityClient, roleID, opts).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error unassigning openstack_identity_role_assignment_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error unassigning viettelidc_identity_role_assignment_v3"))
 	}
 
 	return nil

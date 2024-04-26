@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccOrchestrationStackV1_importBasic(t *testing.T) {
-	resourceName := "openstack_orchestration_stack_v1.stack_1"
+	resourceName := "viettelidc_orchestration_stack_v1.stack_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

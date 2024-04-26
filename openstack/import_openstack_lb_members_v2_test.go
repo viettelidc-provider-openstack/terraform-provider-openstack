@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV2Members_importBasic(t *testing.T) {
-	membersResourceName := "openstack_lb_members_v2.members_1"
+	membersResourceName := "viettelidc_lb_members_v2.members_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

@@ -28,17 +28,17 @@ func TestAccOpenStackIdentityV3ProjectDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityProjectV3DataSourceBasic(projectName, projectDescription, projectTag1, projectTag2),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectDataSourceID("data.openstack_identity_project_v3.project_1"),
+					testAccCheckIdentityV3ProjectDataSourceID("data.viettelidc_identity_project_v3.project_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_project_v3.project_1", "name", projectName),
+						"data.viettelidc_identity_project_v3.project_1", "name", projectName),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "description", projectDescription),
+						"viettelidc_identity_project_v3.project_1", "description", projectDescription),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "enabled", "true"),
+						"viettelidc_identity_project_v3.project_1", "enabled", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "is_domain", "false"),
+						"viettelidc_identity_project_v3.project_1", "is_domain", "false"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "tags.#", "2"),
+						"viettelidc_identity_project_v3.project_1", "tags.#", "2"),
 				),
 			},
 		},
@@ -64,17 +64,17 @@ func TestAccOpenStackIdentityV3ProjectDataSource_withProjectID(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityProjectV3DataSourceWithProjectID(projectName, projectDescription, projectTag1, projectTag2),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectDataSourceID("data.openstack_identity_project_v3.project_1"),
+					testAccCheckIdentityV3ProjectDataSourceID("data.viettelidc_identity_project_v3.project_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_project_v3.project_1", "name", projectName),
+						"data.viettelidc_identity_project_v3.project_1", "name", projectName),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "description", projectDescription),
+						"viettelidc_identity_project_v3.project_1", "description", projectDescription),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "enabled", "true"),
+						"viettelidc_identity_project_v3.project_1", "enabled", "true"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "is_domain", "false"),
+						"viettelidc_identity_project_v3.project_1", "is_domain", "false"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_project_v3.project_1", "tags.#", "2"),
+						"viettelidc_identity_project_v3.project_1", "tags.#", "2"),
 				),
 			},
 		},
@@ -98,7 +98,7 @@ func testAccCheckIdentityV3ProjectDataSourceID(n string) resource.TestCheckFunc 
 
 func testAccOpenStackIdentityProjectV3DataSourceProject(name, description, tag1, tag2 string) string {
 	return fmt.Sprintf(`
-	resource "openstack_identity_project_v3" "project_1" {
+	resource "viettelidc_identity_project_v3" "project_1" {
 	  name = "%s"
 	  description = "%s"
 	  tags = ["%s", "%s"]
@@ -110,8 +110,8 @@ func testAccOpenStackIdentityProjectV3DataSourceBasic(name, description, tag1, t
 	return fmt.Sprintf(`
 	%s
 
-	data "openstack_identity_project_v3" "project_1" {
-      name = "${openstack_identity_project_v3.project_1.name}"
+	data "viettelidc_identity_project_v3" "project_1" {
+      name = "${viettelidc_identity_project_v3.project_1.name}"
 	}
 `, testAccOpenStackIdentityProjectV3DataSourceProject(name, description, tag1, tag2))
 }
@@ -120,8 +120,8 @@ func testAccOpenStackIdentityProjectV3DataSourceWithProjectID(name, description,
 	return fmt.Sprintf(`
 	%s
 
-	data "openstack_identity_project_v3" "project_1" {
-      project_id = "${openstack_identity_project_v3.project_1.id}"
+	data "viettelidc_identity_project_v3" "project_1" {
+      project_id = "${viettelidc_identity_project_v3.project_1.id}"
 	}
 `, testAccOpenStackIdentityProjectV3DataSourceProject(name, description, tag1, tag2))
 }

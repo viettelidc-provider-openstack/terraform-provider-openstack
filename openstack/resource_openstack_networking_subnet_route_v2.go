@@ -67,7 +67,7 @@ func resourceNetworkingSubnetRouteV2Create(ctx context.Context, d *schema.Resour
 			return nil
 		}
 
-		return diag.Errorf("Error retrieving openstack_networking_subnet_v2: %s", err)
+		return diag.Errorf("Error retrieving viettelidc_networking_subnet_v2: %s", err)
 	}
 
 	destCIDR := d.Get("destination_cidr").(string)
@@ -76,7 +76,7 @@ func resourceNetworkingSubnetRouteV2Create(ctx context.Context, d *schema.Resour
 	for _, r := range subnet.HostRoutes {
 		if r.DestinationCIDR == destCIDR && r.NextHop == nextHop {
 			return diag.Errorf(
-				"openstack_networking_subnet_v2 %s already has a route to %s via %s",
+				"viettelidc_networking_subnet_v2 %s already has a route to %s via %s",
 				subnetID,
 				r.DestinationCIDR,
 				r.NextHop,
@@ -91,7 +91,7 @@ func resourceNetworkingSubnetRouteV2Create(ctx context.Context, d *schema.Resour
 	})
 
 	log.Printf(
-		"[DEBUG] Adding openstack_networking_subnet_v2 %s route to %s via %s",
+		"[DEBUG] Adding viettelidc_networking_subnet_v2 %s route to %s via %s",
 		subnetID,
 		destCIDR,
 		nextHop,
@@ -99,10 +99,10 @@ func resourceNetworkingSubnetRouteV2Create(ctx context.Context, d *schema.Resour
 	updateOpts := subnets.UpdateOpts{
 		HostRoutes: &subnet.HostRoutes,
 	}
-	log.Printf("[DEBUG] Updating openstack_networking_subnet_v2 %s with options: %+v", subnetID, updateOpts)
+	log.Printf("[DEBUG] Updating viettelidc_networking_subnet_v2 %s with options: %+v", subnetID, updateOpts)
 	_, err = subnets.Update(networkingClient, subnetID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_networking_subnet_v2: %s", err)
+		return diag.Errorf("Error updating viettelidc_networking_subnet_v2: %s", err)
 	}
 
 	d.SetId(resourceNetworkingSubnetRouteV2BuildID(subnetID, destCIDR, nextHop))
@@ -119,7 +119,7 @@ func resourceNetworkingSubnetRouteV2Read(ctx context.Context, d *schema.Resource
 
 	subnetID, destCIDR, nextHop, err := resourceNetworkingSubnetRouteV2ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error reading openstack_networking_subnet_route_v2 ID %s: %s", d.Id(), err)
+		return diag.Errorf("Error reading viettelidc_networking_subnet_route_v2 ID %s: %s", d.Id(), err)
 	}
 
 	subnet, err := subnets.Get(networkingClient, subnetID).Extract()
@@ -129,7 +129,7 @@ func resourceNetworkingSubnetRouteV2Read(ctx context.Context, d *schema.Resource
 			return nil
 		}
 
-		return diag.Errorf("Error retrieving openstack_networking_subnet_v2: %s", err)
+		return diag.Errorf("Error retrieving viettelidc_networking_subnet_v2: %s", err)
 	}
 
 	exists := false
@@ -140,7 +140,7 @@ func resourceNetworkingSubnetRouteV2Read(ctx context.Context, d *schema.Resource
 	}
 	if !exists {
 		return diag.Errorf(
-			"openstack_networking_subnet_v2 %s doesn't have a route to %s via %s",
+			"viettelidc_networking_subnet_v2 %s doesn't have a route to %s via %s",
 			subnetID,
 			destCIDR,
 			nextHop,
@@ -172,7 +172,7 @@ func resourceNetworkingSubnetRouteV2Delete(ctx context.Context, d *schema.Resour
 			return nil
 		}
 
-		return diag.Errorf("Error retrieving openstack_networking_subnet_v2: %s", err)
+		return diag.Errorf("Error retrieving viettelidc_networking_subnet_v2: %s", err)
 	}
 
 	var destCIDR = d.Get("destination_cidr").(string)
@@ -189,7 +189,7 @@ func resourceNetworkingSubnetRouteV2Delete(ctx context.Context, d *schema.Resour
 
 	if len(oldRoutes) == len(newRoutes) {
 		return diag.Errorf(
-			"openstack_networking_subnet_v2 %s already doesn't have a route to %s via %s",
+			"viettelidc_networking_subnet_v2 %s already doesn't have a route to %s via %s",
 			subnetID,
 			destCIDR,
 			nextHop,
@@ -197,7 +197,7 @@ func resourceNetworkingSubnetRouteV2Delete(ctx context.Context, d *schema.Resour
 	}
 
 	log.Printf(
-		"[DEBUG] Deleting openstack_networking_subnet_v2 %s route to %s via %s",
+		"[DEBUG] Deleting viettelidc_networking_subnet_v2 %s route to %s via %s",
 		subnetID,
 		destCIDR,
 		nextHop,
@@ -205,10 +205,10 @@ func resourceNetworkingSubnetRouteV2Delete(ctx context.Context, d *schema.Resour
 	updateOpts := subnets.UpdateOpts{
 		HostRoutes: &newRoutes,
 	}
-	log.Printf("[DEBUG] Updating openstack_networking_subnet_v2 %s with options: %#v", subnetID, updateOpts)
+	log.Printf("[DEBUG] Updating viettelidc_networking_subnet_v2 %s with options: %#v", subnetID, updateOpts)
 	_, err = subnets.Update(networkingClient, subnetID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_networking_subnet_v2: %s", err)
+		return diag.Errorf("Error updating viettelidc_networking_subnet_v2: %s", err)
 	}
 
 	return nil

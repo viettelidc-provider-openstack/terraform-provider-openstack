@@ -29,17 +29,17 @@ func TestAccNetworkingV2SecGroupRule_basic(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupRuleBasic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_1", &secgroupRule1),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_1", &secgroupRule1),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_2", &secgroupRule2),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_2", &secgroupRule2),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_1", "description", "secgroup_rule_1"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_1", "description", "secgroup_rule_1"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_2", "description", ""),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_2", "description", ""),
 				),
 			},
 		},
@@ -62,11 +62,11 @@ func TestAccNetworkingV2SecGroupRule_lowerCaseCIDR(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupRuleLowerCaseCidr,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_1", &secgroupRule1),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_1", &secgroupRule1),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_1", "remote_ip_prefix", "2001:558:fc00::/39"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_1", "remote_ip_prefix", "2001:558:fc00::/39"),
 				),
 			},
 		},
@@ -89,9 +89,9 @@ func TestAccNetworkingV2SecGroupRule_timeout(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupRuleTimeout,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_2", &secgroup2),
+						"viettelidc_networking_secgroup_v2.secgroup_2", &secgroup2),
 				),
 			},
 		},
@@ -131,79 +131,79 @@ func TestAccNetworkingV2SecGroupRule_protocols(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupRuleProtocols,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ah", &secgroupRuleAh),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ah", &secgroupRuleAh),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_dccp", &secgroupRuleDccp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_dccp", &secgroupRuleDccp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_egp", &secgroupRuleEgp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_egp", &secgroupRuleEgp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_esp", &secgroupRuleEsp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_esp", &secgroupRuleEsp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_gre", &secgroupRuleGre),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_gre", &secgroupRuleGre),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_igmp", &secgroupRuleIgmp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_igmp", &secgroupRuleIgmp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_encap", &secgroupRuleIPv6Encap),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_encap", &secgroupRuleIPv6Encap),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_frag", &secgroupRuleIPv6Frag),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_frag", &secgroupRuleIPv6Frag),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_icmp", &secgroupRuleIPv6Icmp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_icmp", &secgroupRuleIPv6Icmp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_nonxt", &secgroupRuleIPv6Nonxt),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_nonxt", &secgroupRuleIPv6Nonxt),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_opts", &secgroupRuleIPv6Opts),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_opts", &secgroupRuleIPv6Opts),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_route", &secgroupRuleIPv6Route),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_route", &secgroupRuleIPv6Route),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ospf", &secgroupRuleOspf),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ospf", &secgroupRuleOspf),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_pgm", &secgroupRulePgm),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_pgm", &secgroupRulePgm),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_rsvp", &secgroupRuleRsvp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_rsvp", &secgroupRuleRsvp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_sctp", &secgroupRuleSctp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_sctp", &secgroupRuleSctp),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_udplite", &secgroupRuleUdplite),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_udplite", &secgroupRuleUdplite),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_vrrp", &secgroupRuleVrrp),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_vrrp", &secgroupRuleVrrp),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ah", "protocol", "ah"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ah", "protocol", "ah"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_dccp", "protocol", "dccp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_dccp", "protocol", "dccp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_egp", "protocol", "egp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_egp", "protocol", "egp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_esp", "protocol", "esp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_esp", "protocol", "esp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_gre", "protocol", "gre"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_gre", "protocol", "gre"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_igmp", "protocol", "igmp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_igmp", "protocol", "igmp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_encap", "protocol", "ipv6-encap"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_encap", "protocol", "ipv6-encap"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_frag", "protocol", "ipv6-frag"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_frag", "protocol", "ipv6-frag"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_icmp", "protocol", "ipv6-icmp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_icmp", "protocol", "ipv6-icmp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_nonxt", "protocol", "ipv6-nonxt"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_nonxt", "protocol", "ipv6-nonxt"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_opts", "protocol", "ipv6-opts"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_opts", "protocol", "ipv6-opts"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ipv6_route", "protocol", "ipv6-route"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ipv6_route", "protocol", "ipv6-route"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_ospf", "protocol", "ospf"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_ospf", "protocol", "ospf"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_pgm", "protocol", "pgm"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_pgm", "protocol", "pgm"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_rsvp", "protocol", "rsvp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_rsvp", "protocol", "rsvp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_sctp", "protocol", "sctp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_sctp", "protocol", "sctp"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_udplite", "protocol", "udplite"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_udplite", "protocol", "udplite"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_vrrp", "protocol", "vrrp"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_vrrp", "protocol", "vrrp"),
 				),
 			},
 		},
@@ -226,11 +226,11 @@ func TestAccNetworkingV2SecGroupRule_numericProtocol(t *testing.T) {
 				Config: testAccNetworkingV2SecGroupRuleNumericProtocol,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2SecGroupExists(
-						"openstack_networking_secgroup_v2.secgroup_1", &secgroup1),
+						"viettelidc_networking_secgroup_v2.secgroup_1", &secgroup1),
 					testAccCheckNetworkingV2SecGroupRuleExists(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_1", &secgroupRule1),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_1", &secgroupRule1),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_secgroup_rule_v2.secgroup_rule_1", "protocol", "6"),
+						"viettelidc_networking_secgroup_rule_v2.secgroup_rule_1", "protocol", "6"),
 				),
 			},
 		},
@@ -245,7 +245,7 @@ func testAccCheckNetworkingV2SecGroupRuleDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_networking_secgroup_rule_v2" {
+		if rs.Type != "viettelidc_networking_secgroup_rule_v2" {
 			continue
 		}
 
@@ -291,88 +291,88 @@ func testAccCheckNetworkingV2SecGroupRuleExists(n string, securityGroupRule *rul
 }
 
 const testAccNetworkingV2SecGroupRuleBasic = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_v2" "secgroup_2" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_1" {
   direction = "ingress"
   ethertype = "IPv4"
   port_range_max = 22
   port_range_min = 22
   protocol = "tcp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 	description = "secgroup_rule_1"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_2" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_2" {
   direction = "ingress"
   ethertype = "IPv4"
   port_range_max = 80
   port_range_min = 80
   protocol = "tcp"
-  remote_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_2.id}"
+  remote_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_2.id}"
 }
 `
 
 const testAccNetworkingV2SecGroupRuleLowerCaseCidr = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_1" {
   direction = "ingress"
   ethertype = "IPv6"
   port_range_max = 22
   port_range_min = 22
   protocol = "tcp"
   remote_ip_prefix = "2001:558:FC00::/39"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 `
 
 const testAccNetworkingV2SecGroupRuleTimeout = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_v2" "secgroup_2" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_1" {
   direction = "ingress"
   ethertype = "IPv4"
   port_range_max = 22
   port_range_min = 22
   protocol = "tcp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 
   timeouts {
     delete = "5m"
   }
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_2" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_2" {
   direction = "ingress"
   ethertype = "IPv4"
   port_range_max = 80
   port_range_min = 80
   protocol = "tcp"
-  remote_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_2.id}"
+  remote_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_2.id}"
 
   timeouts {
     delete = "5m"
@@ -381,169 +381,169 @@ resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_2" {
 `
 
 const testAccNetworkingV2SecGroupRuleProtocols = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ah" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ah" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "ah"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_dccp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_dccp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "dccp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_egp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_egp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "egp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_esp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_esp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "esp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_gre" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_gre" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "gre"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_igmp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_igmp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "igmp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ipv6_encap" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ipv6_encap" {
   direction = "ingress"
   ethertype = "IPv6"
   protocol = "ipv6-encap"
   remote_ip_prefix = "::/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ipv6_frag" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ipv6_frag" {
   direction = "ingress"
   ethertype = "IPv6"
   protocol = "ipv6-frag"
   remote_ip_prefix = "::/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ipv6_icmp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ipv6_icmp" {
   direction = "ingress"
   ethertype = "IPv6"
   protocol = "ipv6-icmp"
   remote_ip_prefix = "::/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ipv6_nonxt" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ipv6_nonxt" {
   direction = "ingress"
   ethertype = "IPv6"
   protocol = "ipv6-nonxt"
   remote_ip_prefix = "::/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ipv6_opts" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ipv6_opts" {
   direction = "ingress"
   ethertype = "IPv6"
   protocol = "ipv6-opts"
   remote_ip_prefix = "::/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ipv6_route" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ipv6_route" {
   direction = "ingress"
   ethertype = "IPv6"
   protocol = "ipv6-route"
   remote_ip_prefix = "::/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_ospf" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_ospf" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "ospf"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_pgm" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_pgm" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "pgm"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_rsvp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_rsvp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "rsvp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_sctp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_sctp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "sctp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_udplite" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_udplite" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "udplite"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_vrrp" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_vrrp" {
   direction = "ingress"
   ethertype = "IPv4"
   protocol = "vrrp"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 `
 
 const testAccNetworkingV2SecGroupRuleNumericProtocol = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group rule acceptance test"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "secgroup_rule_1" {
+resource "viettelidc_networking_secgroup_rule_v2" "secgroup_rule_1" {
   direction = "ingress"
   ethertype = "IPv4"
   port_range_max = 22
   port_range_min = 22
   protocol = "6"
   remote_ip_prefix = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+  security_group_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
 }
 `

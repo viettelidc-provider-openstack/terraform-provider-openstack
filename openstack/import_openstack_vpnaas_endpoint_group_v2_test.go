@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccEndpointGroup_importBasic(t *testing.T) {
-	resourceName := "openstack_vpnaas_endpoint_group_v2.group_1"
+	resourceName := "viettelidc_vpnaas_endpoint_group_v2.group_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

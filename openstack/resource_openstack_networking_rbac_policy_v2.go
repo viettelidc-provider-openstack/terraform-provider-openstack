@@ -83,7 +83,7 @@ func resourceNetworkingRBACPolicyV2Create(ctx context.Context, d *schema.Resourc
 	log.Printf("[DEBUG] Create Options: %#v", createOpts)
 	rbac, err := rbacpolicies.Create(networkingClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_rbac_policy_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_rbac_policy_v2: %s", err)
 	}
 
 	d.SetId(rbac.ID)
@@ -100,7 +100,7 @@ func resourceNetworkingRBACPolicyV2Read(ctx context.Context, d *schema.ResourceD
 
 	rbac, err := rbacpolicies.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_networking_rbac_policy_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_networking_rbac_policy_v2"))
 	}
 
 	log.Printf("[DEBUG] Retrieved RBAC policy %s: %+v", d.Id(), rbac)
@@ -130,7 +130,7 @@ func resourceNetworkingRBACPolicyV2Update(ctx context.Context, d *schema.Resourc
 
 		_, err := rbacpolicies.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_networking_rbac_policy_v2: %s", err)
+			return diag.Errorf("Error updating viettelidc_networking_rbac_policy_v2: %s", err)
 		}
 	}
 
@@ -146,7 +146,7 @@ func resourceNetworkingRBACPolicyV2Delete(ctx context.Context, d *schema.Resourc
 
 	err = rbacpolicies.Delete(networkingClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_rbac_policy_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_rbac_policy_v2"))
 	}
 
 	return nil

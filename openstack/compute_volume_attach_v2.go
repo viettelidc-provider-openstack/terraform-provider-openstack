@@ -15,7 +15,7 @@ import (
 func computeVolumeAttachV2ParseID(id string) (string, string, error) {
 	parts := strings.Split(id, "/")
 	if len(parts) < 2 {
-		return "", "", fmt.Errorf("unable to determine openstack_compute_volume_attach_v2 ID")
+		return "", "", fmt.Errorf("unable to determine viettelidc_compute_volume_attach_v2 ID")
 	}
 
 	instanceID := parts[0]
@@ -56,7 +56,7 @@ func computeVolumeAttachV2AttachFunc(computeClient *gophercloud.ServiceClient, b
 
 func computeVolumeAttachV2DetachFunc(computeClient *gophercloud.ServiceClient, instanceID, attachmentID string) resource.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		log.Printf("[DEBUG] openstack_compute_volume_attach_v2 attempting to detach OpenStack volume %s from instance %s",
+		log.Printf("[DEBUG] viettelidc_compute_volume_attach_v2 attempting to detach OpenStack volume %s from instance %s",
 			attachmentID, instanceID)
 
 		va, err := volumeattach.Get(computeClient, instanceID, attachmentID).Extract()
@@ -80,7 +80,7 @@ func computeVolumeAttachV2DetachFunc(computeClient *gophercloud.ServiceClient, i
 			return nil, "", err
 		}
 
-		log.Printf("[DEBUG] openstack_compute_volume_attach_v2 (%s/%s) is still active.", instanceID, attachmentID)
+		log.Printf("[DEBUG] viettelidc_compute_volume_attach_v2 (%s/%s) is still active.", instanceID, attachmentID)
 		return nil, "", nil
 	}
 }

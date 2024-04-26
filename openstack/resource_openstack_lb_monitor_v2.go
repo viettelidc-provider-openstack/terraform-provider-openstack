@@ -130,7 +130,7 @@ func resourceMonitorV2Create(ctx context.Context, d *schema.ResourceData, meta i
 	poolID := d.Get("pool_id").(string)
 	parentPool, err := pools.Get(lbClient, poolID).Extract()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve parent openstack_lb_pool_v2 %s: %s", poolID, err)
+		return diag.Errorf("Unable to retrieve parent viettelidc_lb_pool_v2 %s: %s", poolID, err)
 	}
 
 	// Wait for parent pool to become active before continuing.
@@ -140,7 +140,7 @@ func resourceMonitorV2Create(ctx context.Context, d *schema.ResourceData, meta i
 		return diag.FromErr(err)
 	}
 
-	log.Printf("[DEBUG] openstack_lb_monitor_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_lb_monitor_v2 create options: %#v", createOpts)
 	var monitor *neutronmonitors.Monitor
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		monitor, err = neutronmonitors.Create(lbClient, createOpts).Extract()
@@ -151,7 +151,7 @@ func resourceMonitorV2Create(ctx context.Context, d *schema.ResourceData, meta i
 	})
 
 	if err != nil {
-		return diag.Errorf("Unable to create openstack_lb_monitor_v2: %s", err)
+		return diag.Errorf("Unable to create viettelidc_lb_monitor_v2: %s", err)
 	}
 
 	// Wait for monitor to become active before continuing
@@ -179,7 +179,7 @@ func resourceMonitorV2Read(ctx context.Context, d *schema.ResourceData, meta int
 			return diag.FromErr(CheckDeleted(d, err, "monitor"))
 		}
 
-		log.Printf("[DEBUG] Retrieved openstack_lb_monitor_v2 %s: %#v", d.Id(), monitor)
+		log.Printf("[DEBUG] Retrieved viettelidc_lb_monitor_v2 %s: %#v", d.Id(), monitor)
 
 		d.Set("tenant_id", monitor.ProjectID)
 		d.Set("type", monitor.Type)
@@ -208,7 +208,7 @@ func resourceMonitorV2Read(ctx context.Context, d *schema.ResourceData, meta int
 		return diag.FromErr(CheckDeleted(d, err, "monitor"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_lb_monitor_v2 %s: %#v", d.Id(), monitor)
+	log.Printf("[DEBUG] Retrieved viettelidc_lb_monitor_v2 %s: %#v", d.Id(), monitor)
 
 	// OpenContrail workaround (https://github.com/vtdc/terraform-provider-openstack/issues/762)
 	if len(monitor.Pools) > 0 && monitor.Pools[0].ID != "" {
@@ -239,7 +239,7 @@ func resourceMonitorV2Update(ctx context.Context, d *schema.ResourceData, meta i
 
 	updateOpts := chooseLBV2MonitorUpdateOpts(d, config)
 	if updateOpts == nil {
-		log.Printf("[DEBUG] openstack_lb_monitor_v2 %s: nothing to update", d.Id())
+		log.Printf("[DEBUG] viettelidc_lb_monitor_v2 %s: nothing to update", d.Id())
 		return resourceMonitorV2Read(ctx, d, meta)
 	}
 
@@ -247,13 +247,13 @@ func resourceMonitorV2Update(ctx context.Context, d *schema.ResourceData, meta i
 	poolID := d.Get("pool_id").(string)
 	parentPool, err := pools.Get(lbClient, poolID).Extract()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve parent openstack_lb_pool_v2 %s: %s", poolID, err)
+		return diag.Errorf("Unable to retrieve parent viettelidc_lb_pool_v2 %s: %s", poolID, err)
 	}
 
 	// Get a clean copy of the monitor.
 	monitor, err := neutronmonitors.Get(lbClient, d.Id()).Extract()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_lb_monitor_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Unable to retrieve viettelidc_lb_monitor_v2 %s: %s", d.Id(), err)
 	}
 
 	// Wait for parent pool to become active before continuing.
@@ -269,7 +269,7 @@ func resourceMonitorV2Update(ctx context.Context, d *schema.ResourceData, meta i
 		return diag.FromErr(err)
 	}
 
-	log.Printf("[DEBUG] openstack_lb_monitor_v2 %s update options: %#v", d.Id(), updateOpts)
+	log.Printf("[DEBUG] viettelidc_lb_monitor_v2 %s update options: %#v", d.Id(), updateOpts)
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		_, err = neutronmonitors.Update(lbClient, d.Id(), updateOpts).Extract()
 		if err != nil {
@@ -279,7 +279,7 @@ func resourceMonitorV2Update(ctx context.Context, d *schema.ResourceData, meta i
 	})
 
 	if err != nil {
-		return diag.Errorf("Unable to update openstack_lb_monitor_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Unable to update viettelidc_lb_monitor_v2 %s: %s", d.Id(), err)
 	}
 
 	// Wait for monitor to become active before continuing
@@ -302,14 +302,14 @@ func resourceMonitorV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 	poolID := d.Get("pool_id").(string)
 	parentPool, err := pools.Get(lbClient, poolID).Extract()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve parent openstack_lb_pool_v2 (%s)"+
-			" for the openstack_lb_monitor_v2: %s", poolID, err)
+		return diag.Errorf("Unable to retrieve parent viettelidc_lb_pool_v2 (%s)"+
+			" for the viettelidc_lb_monitor_v2: %s", poolID, err)
 	}
 
 	// Get a clean copy of the monitor.
 	monitor, err := neutronmonitors.Get(lbClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve openstack_lb_monitor_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve viettelidc_lb_monitor_v2"))
 	}
 
 	// Wait for parent pool to become active before continuing
@@ -319,7 +319,7 @@ func resourceMonitorV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 		return diag.FromErr(err)
 	}
 
-	log.Printf("[DEBUG] Deleting openstack_lb_monitor_v2 %s", d.Id())
+	log.Printf("[DEBUG] Deleting viettelidc_lb_monitor_v2 %s", d.Id())
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		err = neutronmonitors.Delete(lbClient, d.Id()).ExtractErr()
 		if err != nil {
@@ -329,7 +329,7 @@ func resourceMonitorV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 	})
 
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_lb_monitor_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_lb_monitor_v2"))
 	}
 
 	// Wait for monitor to become DELETED
@@ -346,7 +346,7 @@ func resourceMonitorV2Import(ctx context.Context, d *schema.ResourceData, meta i
 	monitorID := parts[0]
 
 	if len(monitorID) == 0 {
-		return nil, fmt.Errorf("Invalid format specified for openstack_lb_monitor_v2. Format must be <monitorID>[/<poolID>]")
+		return nil, fmt.Errorf("Invalid format specified for viettelidc_lb_monitor_v2. Format must be <monitorID>[/<poolID>]")
 	}
 
 	d.SetId(monitorID)

@@ -28,15 +28,15 @@ func TestAccIPSecPolicyVPNaaSV2_basic(t *testing.T) {
 				Config: testAccIPSecPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIPSecPolicyV2Exists(
-						"openstack_vpnaas_ipsec_policy_v2.policy_1", &policy),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "name", &policy.Name),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "description", &policy.Description),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "tenant_id", &policy.TenantID),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "pfs", &policy.PFS),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "transform_protocol", &policy.TransformProtocol),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "encapsulation_mode", &policy.EncapsulationMode),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "auth_algorithm", &policy.AuthAlgorithm),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "encryption_algorithm", &policy.EncryptionAlgorithm),
+						"viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "name", &policy.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "description", &policy.Description),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "tenant_id", &policy.TenantID),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "pfs", &policy.PFS),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "transform_protocol", &policy.TransformProtocol),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "encapsulation_mode", &policy.EncapsulationMode),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "auth_algorithm", &policy.AuthAlgorithm),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "encryption_algorithm", &policy.EncryptionAlgorithm),
 				),
 			},
 		},
@@ -58,8 +58,8 @@ func TestAccIPSecPolicyVPNaaSV2_withLifetime(t *testing.T) {
 				Config: testAccIPSecPolicyV2WithLifetime,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIPSecPolicyV2Exists(
-						"openstack_vpnaas_ipsec_policy_v2.policy_1", &policy),
-					testAccCheckLifetime("openstack_vpnaas_ipsec_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
+						"viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy),
+					testAccCheckLifetime("viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
 				),
 			},
 		},
@@ -81,16 +81,16 @@ func TestAccIPSecPolicyVPNaaSV2_Update(t *testing.T) {
 				Config: testAccIPSecPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIPSecPolicyV2Exists(
-						"openstack_vpnaas_ipsec_policy_v2.policy_1", &policy),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "name", &policy.Name),
+						"viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "name", &policy.Name),
 				),
 			},
 			{
 				Config: testAccIPSecPolicyV2Update,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIPSecPolicyV2Exists(
-						"openstack_vpnaas_ipsec_policy_v2.policy_1", &policy),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "name", &policy.Name),
+						"viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "name", &policy.Name),
 				),
 			},
 		},
@@ -112,18 +112,18 @@ func TestAccIPSecPolicyVPNaaSV2_withLifetimeUpdate(t *testing.T) {
 				Config: testAccIPSecPolicyV2WithLifetime,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIPSecPolicyV2Exists(
-						"openstack_vpnaas_ipsec_policy_v2.policy_1", &policy),
-					testAccCheckLifetime("openstack_vpnaas_ipsec_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "auth_algorithm", &policy.AuthAlgorithm),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ipsec_policy_v2.policy_1", "pfs", &policy.PFS),
+						"viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy),
+					testAccCheckLifetime("viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "auth_algorithm", &policy.AuthAlgorithm),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ipsec_policy_v2.policy_1", "pfs", &policy.PFS),
 				),
 			},
 			{
 				Config: testAccIPSecPolicyV2WithLifetimeUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIPSecPolicyV2Exists(
-						"openstack_vpnaas_ipsec_policy_v2.policy_1", &policy),
-					testAccCheckLifetime("openstack_vpnaas_ipsec_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
+						"viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy),
+					testAccCheckLifetime("viettelidc_vpnaas_ipsec_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
 				),
 			},
 		},
@@ -137,7 +137,7 @@ func testAccCheckIPSecPolicyV2Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_vpnaas_ipsec_policy_v2" {
+		if rs.Type != "viettelidc_vpnaas_ipsec_policy_v2" {
 			continue
 		}
 		_, err = ipsecpolicies.Get(networkingClient, rs.Primary.ID).Extract()
@@ -213,18 +213,18 @@ func testAccCheckLifetime(n string, unit *string, value *int) resource.TestCheck
 }
 
 const testAccIPSecPolicyV2Basic = `
-resource "openstack_vpnaas_ipsec_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ipsec_policy_v2" "policy_1" {
 }
 `
 
 const testAccIPSecPolicyV2Update = `
-resource "openstack_vpnaas_ipsec_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ipsec_policy_v2" "policy_1" {
 	name = "updatedname"
 }
 `
 
 const testAccIPSecPolicyV2WithLifetime = `
-resource "openstack_vpnaas_ipsec_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ipsec_policy_v2" "policy_1" {
 	auth_algorithm = "sha256"
 	pfs = "group14"
 	lifetime {
@@ -235,7 +235,7 @@ resource "openstack_vpnaas_ipsec_policy_v2" "policy_1" {
 `
 
 const testAccIPSecPolicyV2WithLifetimeUpdate = `
-resource "openstack_vpnaas_ipsec_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ipsec_policy_v2" "policy_1" {
 	auth_algorithm = "sha256"
 	pfs = "group14"
 	lifetime {

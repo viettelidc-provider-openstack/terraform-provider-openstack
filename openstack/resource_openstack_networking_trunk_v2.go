@@ -121,13 +121,13 @@ func resourceNetworkingTrunkV2Create(ctx context.Context, d *schema.ResourceData
 		createOpts.AdminStateUp = &asu
 	}
 
-	log.Printf("[DEBUG] openstack_networking_trunk_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_networking_trunk_v2 create options: %#v", createOpts)
 	trunk, err := trunks.Create(client, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_trunk_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_trunk_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_networking_trunk_v2 %s to become available.", trunk.ID)
+	log.Printf("[DEBUG] Waiting for viettelidc_networking_trunk_v2 %s to become available.", trunk.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE", "DOWN"},
@@ -139,7 +139,7 @@ func resourceNetworkingTrunkV2Create(ctx context.Context, d *schema.ResourceData
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_trunk_v2 %s to become available: %s", trunk.ID, err)
+		return diag.Errorf("Error waiting for viettelidc_networking_trunk_v2 %s to become available: %s", trunk.ID, err)
 	}
 
 	d.SetId(trunk.ID)
@@ -149,12 +149,12 @@ func resourceNetworkingTrunkV2Create(ctx context.Context, d *schema.ResourceData
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(client, "trunks", trunk.ID, tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_networking_trunk_v2 %s: %s", trunk.ID, err)
+			return diag.Errorf("Error setting tags on viettelidc_networking_trunk_v2 %s: %s", trunk.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_trunk_v2 %s", tags, trunk.ID)
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_trunk_v2 %s", tags, trunk.ID)
 	}
 
-	log.Printf("[DEBUG] Created openstack_networking_trunk_v2 %s: %#v", trunk.ID, trunk)
+	log.Printf("[DEBUG] Created viettelidc_networking_trunk_v2 %s: %#v", trunk.ID, trunk)
 	return resourceNetworkingTrunkV2Read(ctx, d, meta)
 }
 
@@ -167,10 +167,10 @@ func resourceNetworkingTrunkV2Read(ctx context.Context, d *schema.ResourceData, 
 
 	trunk, err := trunks.Get(client, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_trunk_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_trunk_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_trunk_v2 %s: %#v", d.Id(), trunk)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_trunk_v2 %s: %#v", d.Id(), trunk)
 
 	d.Set("region", GetRegion(d, config))
 	d.Set("name", trunk.Name)
@@ -183,7 +183,7 @@ func resourceNetworkingTrunkV2Read(ctx context.Context, d *schema.ResourceData, 
 
 	err = d.Set("sub_port", flattenNetworkingTrunkV2Subports(trunk.Subports))
 	if err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_networking_trunk_v2 %s sub_port: %s", d.Id(), err)
+		log.Printf("[DEBUG] Unable to set viettelidc_networking_trunk_v2 %s sub_port: %s", d.Id(), err)
 	}
 
 	return nil
@@ -221,10 +221,10 @@ func resourceNetworkingTrunkV2Update(ctx context.Context, d *schema.ResourceData
 	}
 
 	if updateTrunk {
-		log.Printf("[DEBUG] openstack_networking_trunk_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_networking_trunk_v2 %s update options: %#v", d.Id(), updateOpts)
 		_, err = trunks.Update(client, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_networking_trunk_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_networking_trunk_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -242,10 +242,10 @@ func resourceNetworkingTrunkV2Update(ctx context.Context, d *schema.ResourceData
 				Subports: removeSubports,
 			}
 
-			log.Printf("[DEBUG] Deleting old subports for openstack_networking_trunk_v2 %s: %#v", d.Id(), removeSubportsOpts)
+			log.Printf("[DEBUG] Deleting old subports for viettelidc_networking_trunk_v2 %s: %#v", d.Id(), removeSubportsOpts)
 			_, err := trunks.RemoveSubports(client, d.Id(), removeSubportsOpts).Extract()
 			if err != nil {
-				return diag.Errorf("Error removing subports for openstack_networking_trunk_v2 %s: %s", d.Id(), err)
+				return diag.Errorf("Error removing subports for viettelidc_networking_trunk_v2 %s: %s", d.Id(), err)
 			}
 		}
 
@@ -256,10 +256,10 @@ func resourceNetworkingTrunkV2Update(ctx context.Context, d *schema.ResourceData
 				Subports: addSubports,
 			}
 
-			log.Printf("[DEBUG] openstack_networking_trunk_v2 %s subports update options: %#v", d.Id(), addSubports)
+			log.Printf("[DEBUG] viettelidc_networking_trunk_v2 %s subports update options: %#v", d.Id(), addSubports)
 			_, err := trunks.AddSubports(client, d.Id(), addSubportsOpts).Extract()
 			if err != nil {
-				return diag.Errorf("Error updating openstack_networking_trunk_v2 %s subports: %s", d.Id(), err)
+				return diag.Errorf("Error updating viettelidc_networking_trunk_v2 %s subports: %s", d.Id(), err)
 			}
 		}
 	}
@@ -269,9 +269,9 @@ func resourceNetworkingTrunkV2Update(ctx context.Context, d *schema.ResourceData
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
 		tags, err := attributestags.ReplaceAll(client, "trunks", d.Id(), tagOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_networking_trunk_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on viettelidc_networking_trunk_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_trunk_v2 %s", tags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on viettelidc_networking_trunk_v2 %s", tags, d.Id())
 	}
 
 	return resourceNetworkingTrunkV2Read(ctx, d, meta)
@@ -285,7 +285,7 @@ func resourceNetworkingTrunkV2Delete(ctx context.Context, d *schema.ResourceData
 	}
 
 	if err := trunks.Delete(client, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_networking_trunk_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_networking_trunk_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -299,7 +299,7 @@ func resourceNetworkingTrunkV2Delete(ctx context.Context, d *schema.ResourceData
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_trunk_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_networking_trunk_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

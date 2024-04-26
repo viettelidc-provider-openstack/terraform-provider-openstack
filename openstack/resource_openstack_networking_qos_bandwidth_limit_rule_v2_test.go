@@ -30,34 +30,34 @@ func TestAccNetworkingV2QoSBandwidthLimitRule_basic(t *testing.T) {
 				Config: testAccNetworkingV2QoSBandwidthLimitRuleBasic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					testAccCheckNetworkingV2QoSBandwidthLimitRuleExists(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", &rule),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "3000"),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "3000"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "300"),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "300"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "egress"),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "egress"),
 				),
 			},
 			{
 				Config: testAccNetworkingV2QoSBandwidthLimitRuleUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckNetworkingV2QoSPolicyExists(
-						"openstack_networking_qos_policy_v2.qos_policy_1", &policy),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", &policy),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					testAccCheckNetworkingV2QoSBandwidthLimitRuleExists(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", &rule),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", &rule),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "2000"),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_kbps", "2000"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "100"),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "max_burst_kbps", "100"),
 					resource.TestCheckResourceAttr(
-						"openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "ingress"),
+						"viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1", "direction", "ingress"),
 				),
 			},
 		},
@@ -83,7 +83,7 @@ func testAccCheckNetworkingV2QoSBandwidthLimitRuleExists(n string, rule *rules.B
 
 		qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error reading openstack_networking_qos_bandwidth_limit_rule_v2 ID %s: %s", rs.Primary.ID, err)
+			return fmt.Errorf("Error reading viettelidc_networking_qos_bandwidth_limit_rule_v2 ID %s: %s", rs.Primary.ID, err)
 		}
 
 		found, err := rules.GetBandwidthLimitRule(networkingClient, qosPolicyID, qosRuleID).ExtractBandwidthLimitRule()
@@ -111,13 +111,13 @@ func testAccCheckNetworkingV2QoSBandwidthLimitRuleDestroy(s *terraform.State) er
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_networking_qos_bandwidth_limit_rule_v2" {
+		if rs.Type != "viettelidc_networking_qos_bandwidth_limit_rule_v2" {
 			continue
 		}
 
 		qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(rs.Primary.ID)
 		if err != nil {
-			return fmt.Errorf("Error reading openstack_networking_qos_bandwidth_limit_rule_v2 ID %s: %s", rs.Primary.ID, err)
+			return fmt.Errorf("Error reading viettelidc_networking_qos_bandwidth_limit_rule_v2 ID %s: %s", rs.Primary.ID, err)
 		}
 
 		_, err = rules.GetBandwidthLimitRule(networkingClient, qosPolicyID, qosRuleID).ExtractBandwidthLimitRule()
@@ -130,24 +130,24 @@ func testAccCheckNetworkingV2QoSBandwidthLimitRuleDestroy(s *terraform.State) er
 }
 
 const testAccNetworkingV2QoSBandwidthLimitRuleBasic = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "openstack_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
-  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+resource "viettelidc_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
+  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
   max_kbps       = 3000
   max_burst_kbps = 300
 }
 `
 
 const testAccNetworkingV2QoSBandwidthLimitRuleUpdate = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
   name = "qos_policy_1"
 }
 
-resource "openstack_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
-  qos_policy_id  = "${openstack_networking_qos_policy_v2.qos_policy_1.id}"
+resource "viettelidc_networking_qos_bandwidth_limit_rule_v2" "bw_limit_rule_1" {
+  qos_policy_id  = "${viettelidc_networking_qos_policy_v2.qos_policy_1.id}"
   max_kbps       = 2000
   max_burst_kbps = 100
   direction      = "ingress"

@@ -50,11 +50,11 @@ func dataSourceComputeAvailabilityZonesV2Read(ctx context.Context, d *schema.Res
 
 	allPages, err := availabilityzones.List(computeClient).AllPages()
 	if err != nil {
-		return diag.Errorf("Error retrieving openstack_compute_availability_zones_v2: %s", err)
+		return diag.Errorf("Error retrieving viettelidc_compute_availability_zones_v2: %s", err)
 	}
 	zoneInfo, err := availabilityzones.ExtractAvailabilityZones(allPages)
 	if err != nil {
-		return diag.Errorf("Error extracting openstack_compute_availability_zones_v2 from response: %s", err)
+		return diag.Errorf("Error extracting viettelidc_compute_availability_zones_v2 from response: %s", err)
 	}
 
 	stateBool := d.Get("state").(string) == "available"

@@ -140,14 +140,14 @@ func resourceIdentityUserV3Create(ctx context.Context, d *schema.ResourceData, m
 
 	createOpts.Options = options
 
-	log.Printf("[DEBUG] openstack_identity_user_v3 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_identity_user_v3 create options: %#v", createOpts)
 
 	// Add password here so it wouldn't go in the above log entry
 	createOpts.Password = d.Get("password").(string)
 
 	user, err := users.Create(identityClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_identity_user_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_identity_user_v3: %s", err)
 	}
 
 	d.SetId(user.ID)
@@ -164,10 +164,10 @@ func resourceIdentityUserV3Read(ctx context.Context, d *schema.ResourceData, met
 
 	user, err := users.Get(identityClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_user_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_user_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_identity_user_v3 %s: %#v", d.Id(), user)
+	log.Printf("[DEBUG] Retrieved viettelidc_identity_user_v3 %s: %#v", d.Id(), user)
 
 	d.Set("default_project_id", user.DefaultProjectID)
 	d.Set("description", user.Description)
@@ -255,7 +255,7 @@ func resourceIdentityUserV3Update(ctx context.Context, d *schema.ResourceData, m
 	updateOpts.Options = options
 
 	if hasChange {
-		log.Printf("[DEBUG] openstack_identity_user_v3 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_identity_user_v3 %s update options: %#v", d.Id(), updateOpts)
 	}
 
 	if d.HasChange("password") {
@@ -266,7 +266,7 @@ func resourceIdentityUserV3Update(ctx context.Context, d *schema.ResourceData, m
 	if hasChange {
 		_, err := users.Update(identityClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_identity_user_v3 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_identity_user_v3 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -282,7 +282,7 @@ func resourceIdentityUserV3Delete(ctx context.Context, d *schema.ResourceData, m
 
 	err = users.Delete(identityClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_identity_user_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_identity_user_v3"))
 	}
 
 	return nil

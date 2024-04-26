@@ -22,16 +22,16 @@ func TestAccNetworkingV2QuotaDataSource(t *testing.T) {
 			{
 				Config: testAccNetworkingV2QuotaDataSourceSource(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQuotaV2DataSourceID("data.openstack_networking_quota_v2.source"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "floatingip"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "network"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "port"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "rbac_policy"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "router"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "security_group"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "security_group_rule"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "subnet"),
-					resource.TestCheckResourceAttrSet("data.openstack_networking_quota_v2.source", "subnetpool"),
+					testAccCheckNetworkingQuotaV2DataSourceID("data.viettelidc_networking_quota_v2.source"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "floatingip"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "network"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "port"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "rbac_policy"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "router"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "security_group"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "security_group_rule"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "subnet"),
+					resource.TestCheckResourceAttrSet("data.viettelidc_networking_quota_v2.source", "subnetpool"),
 				),
 			},
 		},
@@ -54,7 +54,7 @@ func testAccCheckNetworkingQuotaV2DataSourceID(n string) resource.TestCheckFunc 
 }
 
 const testAccNetworkingV2QuotaDataSourceBasic = `
-resource "openstack_identity_project_v3" "project" {
+resource "viettelidc_identity_project_v3" "project" {
   name = "test-quota-datasource"
 }
 `
@@ -63,8 +63,8 @@ func testAccNetworkingV2QuotaDataSourceSource() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_quota_v2" "source" {
-  project_id = "${openstack_identity_project_v3.project.id}"
+data "viettelidc_networking_quota_v2" "source" {
+  project_id = "${viettelidc_identity_project_v3.project.id}"
 }
 `, testAccNetworkingV2QuotaDataSourceBasic)
 }

@@ -106,7 +106,7 @@ func resourceSharedFilesystemShareAccessV2Create(ctx context.Context, d *schema.
 		AccessLevel: d.Get("access_level").(string),
 	}
 
-	log.Printf("[DEBUG] openstack_sharedfilesystem_share_access_v2 create options: %#v", grantOpts)
+	log.Printf("[DEBUG] viettelidc_sharedfilesystem_share_access_v2 create options: %#v", grantOpts)
 
 	timeout := d.Timeout(schema.TimeoutCreate)
 
@@ -123,14 +123,14 @@ func resourceSharedFilesystemShareAccessV2Create(ctx context.Context, d *schema.
 		detailedErr := errors.ErrorDetails{}
 		e := errors.ExtractErrorInto(err, &detailedErr)
 		if e != nil {
-			return diag.Errorf("Error creating openstack_sharedfilesystem_share_access_v2: %s: %s", err, e)
+			return diag.Errorf("Error creating viettelidc_sharedfilesystem_share_access_v2: %s: %s", err, e)
 		}
 		for k, msg := range detailedErr {
-			return diag.Errorf("Error creating openstack_sharedfilesystem_share_access_v2: %s (%d): %s", k, msg.Code, msg.Message)
+			return diag.Errorf("Error creating viettelidc_sharedfilesystem_share_access_v2: %s (%d): %s", k, msg.Code, msg.Message)
 		}
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_sharedfilesystem_share_access_v2 %s to become available.", access.ID)
+	log.Printf("[DEBUG] Waiting for viettelidc_sharedfilesystem_share_access_v2 %s to become available.", access.ID)
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"active"},
 		Pending:    []string{"new", "queued_to_apply", "applying"},
@@ -142,7 +142,7 @@ func resourceSharedFilesystemShareAccessV2Create(ctx context.Context, d *schema.
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_sharedfilesystem_share_access_v2 %s to become available: %s", access.ID, err)
+		return diag.Errorf("Error waiting for viettelidc_sharedfilesystem_share_access_v2 %s to become available: %s", access.ID, err)
 	}
 
 	d.SetId(access.ID)
@@ -160,10 +160,10 @@ func resourceSharedFilesystemShareAccessV2Read(ctx context.Context, d *schema.Re
 	shareID := d.Get("share_id").(string)
 	access, _, err := sharedFilesystemShareAccessV2StateRefreshFunc(sfsClient, shareID, d.Id())()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Failed to retrieve openstack_sharedfilesystem_share_access_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Failed to retrieve viettelidc_sharedfilesystem_share_access_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_sharedfilesystem_share_access_v2 %s: %#v", d.Id(), access)
+	log.Printf("[DEBUG] Retrieved viettelidc_sharedfilesystem_share_access_v2 %s: %#v", d.Id(), access)
 	switch access := access.(type) {
 	case shareaccessrules.ShareAccess:
 		d.Set("access_type", access.AccessType)
@@ -206,7 +206,7 @@ func resourceSharedFilesystemShareAccessV2Delete(ctx context.Context, d *schema.
 
 	timeout := d.Timeout(schema.TimeoutDelete)
 
-	log.Printf("[DEBUG] Attempting to delete openstack_sharedfilesystem_share_access_v2 %s", d.Id())
+	log.Printf("[DEBUG] Attempting to delete viettelidc_sharedfilesystem_share_access_v2 %s", d.Id())
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		err = shares.RevokeAccess(sfsClient, shareID, revokeOpts).ExtractErr()
 		if err != nil {
@@ -216,21 +216,21 @@ func resourceSharedFilesystemShareAccessV2Delete(ctx context.Context, d *schema.
 	})
 
 	if err != nil {
-		e := CheckDeleted(d, err, "Error deleting openstack_sharedfilesystem_share_access_v2")
+		e := CheckDeleted(d, err, "Error deleting viettelidc_sharedfilesystem_share_access_v2")
 		if e == nil {
 			return nil
 		}
 		detailedErr := errors.ErrorDetails{}
 		e = errors.ExtractErrorInto(err, &detailedErr)
 		if e != nil {
-			return diag.Errorf("Error waiting for openstack_sharedfilesystem_share_access_v2 on %s to be removed: %s: %s", shareID, err, e)
+			return diag.Errorf("Error waiting for viettelidc_sharedfilesystem_share_access_v2 on %s to be removed: %s: %s", shareID, err, e)
 		}
 		for k, msg := range detailedErr {
-			return diag.Errorf("Error waiting for openstack_sharedfilesystem_share_access_v2 on %s to be removed: %s (%d): %s", shareID, k, msg.Code, msg.Message)
+			return diag.Errorf("Error waiting for viettelidc_sharedfilesystem_share_access_v2 on %s to be removed: %s (%d): %s", shareID, k, msg.Code, msg.Message)
 		}
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_sharedfilesystem_share_access_v2 %s to become denied.", d.Id())
+	log.Printf("[DEBUG] Waiting for viettelidc_sharedfilesystem_share_access_v2 %s to become denied.", d.Id())
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"denied"},
 		Pending:    []string{"active", "new", "queued_to_deny", "denying"},
@@ -245,7 +245,7 @@ func resourceSharedFilesystemShareAccessV2Delete(ctx context.Context, d *schema.
 		if _, ok := err.(gophercloud.ErrDefault404); ok {
 			return nil
 		}
-		return diag.Errorf("Error waiting for openstack_sharedfilesystem_share_access_v2 %s to become denied: %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_sharedfilesystem_share_access_v2 %s to become denied: %s", d.Id(), err)
 	}
 
 	return nil
@@ -254,7 +254,7 @@ func resourceSharedFilesystemShareAccessV2Delete(ctx context.Context, d *schema.
 func resourceSharedFilesystemShareAccessV2Import(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	parts := strings.SplitN(d.Id(), "/", 2)
 	if len(parts) != 2 {
-		err := fmt.Errorf("Invalid format specified for openstack_sharedfilesystem_share_access_v2. Format must be <share id>/<ACL id>")
+		err := fmt.Errorf("Invalid format specified for viettelidc_sharedfilesystem_share_access_v2. Format must be <share id>/<ACL id>")
 		return nil, err
 	}
 
@@ -271,12 +271,12 @@ func resourceSharedFilesystemShareAccessV2Import(ctx context.Context, d *schema.
 
 	access, err := shares.ListAccessRights(sfsClient, shareID).Extract()
 	if err != nil {
-		return nil, fmt.Errorf("Unable to get %s openstack_sharedfilesystem_share_v2: %s", shareID, err)
+		return nil, fmt.Errorf("Unable to get %s viettelidc_sharedfilesystem_share_v2: %s", shareID, err)
 	}
 
 	for _, v := range access {
 		if v.ID == accessID {
-			log.Printf("[DEBUG] Retrieved openstack_sharedfilesystem_share_access_v2 %s: %#v", accessID, v)
+			log.Printf("[DEBUG] Retrieved viettelidc_sharedfilesystem_share_access_v2 %s: %#v", accessID, v)
 
 			d.SetId(accessID)
 			d.Set("share_id", shareID)
@@ -284,5 +284,5 @@ func resourceSharedFilesystemShareAccessV2Import(ctx context.Context, d *schema.
 		}
 	}
 
-	return nil, fmt.Errorf("[DEBUG] Unable to find openstack_sharedfilesystem_share_access_v2 %s", accessID)
+	return nil, fmt.Errorf("[DEBUG] Unable to find viettelidc_sharedfilesystem_share_access_v2 %s", accessID)
 }

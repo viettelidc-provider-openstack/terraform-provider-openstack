@@ -18,7 +18,7 @@ func TestAccOpenStackAvailabilityZonesV2_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackAvailabilityZonesConfig,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestMatchResourceAttr("data.openstack_compute_availability_zones_v2.zones", "names.#", regexp.MustCompile(`[1-9]\d*`)),
+					resource.TestMatchResourceAttr("data.viettelidc_compute_availability_zones_v2.zones", "names.#", regexp.MustCompile(`[1-9]\d*`)),
 				),
 			},
 		},
@@ -26,5 +26,5 @@ func TestAccOpenStackAvailabilityZonesV2_basic(t *testing.T) {
 }
 
 const testAccOpenStackAvailabilityZonesConfig = `
-data "openstack_compute_availability_zones_v2" "zones" {}
+data "viettelidc_compute_availability_zones_v2" "zones" {}
 `

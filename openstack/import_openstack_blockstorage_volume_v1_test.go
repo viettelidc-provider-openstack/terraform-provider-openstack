@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccBlockStorageV1Volume_importBasic(t *testing.T) {
-	resourceName := "openstack_blockstorage_volume_v1.volume_1"
+	resourceName := "viettelidc_blockstorage_volume_v1.volume_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:          func() { testAccPreCheckDeprecated(t) },

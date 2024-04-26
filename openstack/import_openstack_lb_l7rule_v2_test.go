@@ -9,8 +9,8 @@ import (
 )
 
 func TestAccLBV2L7Rule_importBasic(t *testing.T) {
-	l7ruleResourceName := "openstack_lb_l7rule_v2.l7rule_1"
-	l7policyResourceName := "openstack_lb_l7policy_v2.l7policy_1"
+	l7ruleResourceName := "viettelidc_lb_l7rule_v2.l7rule_1"
+	l7policyResourceName := "viettelidc_lb_l7policy_v2.l7policy_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
