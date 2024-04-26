@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccBlockStorageV3Quotaset_importBasic(t *testing.T) {
-	resourceName := "openstack_blockstorage_quotaset_v3.quotaset_1"
+	resourceName := "viettelidc_blockstorage_quotaset_v3.quotaset_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

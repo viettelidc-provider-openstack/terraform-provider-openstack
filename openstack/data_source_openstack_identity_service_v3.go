@@ -59,17 +59,17 @@ func dataSourceIdentityServiceV3Read(ctx context.Context, d *schema.ResourceData
 		ServiceType: d.Get("type").(string),
 	}
 
-	log.Printf("[DEBUG] openstack_identity_service_v3 list options: %#v", listOpts)
+	log.Printf("[DEBUG] viettelidc_identity_service_v3 list options: %#v", listOpts)
 
 	var service services.Service
 	allPages, err := services.List(identityClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query openstack_identity_service_v3: %s", err)
+		return diag.Errorf("Unable to query viettelidc_identity_service_v3: %s", err)
 	}
 
 	allServices, err := services.ExtractServices(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_identity_service_v3: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_identity_service_v3: %s", err)
 	}
 
 	// filter by enabled, when the enabled is specified
@@ -84,12 +84,12 @@ func dataSourceIdentityServiceV3Read(ctx context.Context, d *schema.ResourceData
 	}
 
 	if len(allServices) < 1 {
-		return diag.Errorf("Your openstack_identity_service_v3 query returned no results. " +
+		return diag.Errorf("Your viettelidc_identity_service_v3 query returned no results. " +
 			"Please change your search criteria and try again.")
 	}
 
 	if len(allServices) > 1 {
-		return diag.Errorf("Your openstack_identity_service_v3 query returned more than one result")
+		return diag.Errorf("Your viettelidc_identity_service_v3 query returned more than one result")
 	}
 	service = allServices[0]
 
@@ -101,7 +101,7 @@ func dataSourceIdentityServiceV3Read(ctx context.Context, d *schema.ResourceData
 		description = v
 	}
 
-	log.Printf("[DEBUG] openstack_identity_service_v3 details: %#v", service)
+	log.Printf("[DEBUG] viettelidc_identity_service_v3 details: %#v", service)
 
 	d.SetId(service.ID)
 

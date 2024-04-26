@@ -52,7 +52,7 @@ func resourceIdentityUserMembershipV3Create(ctx context.Context, d *schema.Resou
 	groupID := d.Get("group_id").(string)
 
 	if err := users.AddToGroup(identityClient, groupID, userID).ExtractErr(); err != nil {
-		return diag.Errorf("Error creating openstack_identity_user_membership_v3: %s", err)
+		return diag.Errorf("Error creating viettelidc_identity_user_membership_v3: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", userID, groupID)
@@ -70,12 +70,12 @@ func resourceIdentityUserMembershipV3Read(ctx context.Context, d *schema.Resourc
 
 	userID, groupID, err := parseUserMembershipID(d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of openstack_identity_user_membership_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of viettelidc_identity_user_membership_v3"))
 	}
 
 	userMembership, err := users.IsMemberOfGroup(identityClient, groupID, userID).Extract()
 	if err != nil || !userMembership {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_identity_user_membership_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_identity_user_membership_v3"))
 	}
 
 	d.Set("region", GetRegion(d, config))
@@ -94,11 +94,11 @@ func resourceIdentityUserMembershipV3Delete(ctx context.Context, d *schema.Resou
 
 	userID, groupID, err := parseUserMembershipID(d.Id())
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of openstack_identity_user_membership_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error parsing ID of viettelidc_identity_user_membership_v3"))
 	}
 
 	if err := users.RemoveFromGroup(identityClient, groupID, userID).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error removing openstack_identity_user_membership_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error removing viettelidc_identity_user_membership_v3"))
 	}
 
 	return nil

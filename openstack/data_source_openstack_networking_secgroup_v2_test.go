@@ -22,15 +22,15 @@ func TestAccOpenStackNetworkingSecGroupV2DataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSecGroupV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSecGroupV2DataSourceID("data.openstack_networking_secgroup_v2.secgroup_1"),
+					testAccCheckNetworkingSecGroupV2DataSourceID("data.viettelidc_networking_secgroup_v2.secgroup_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "name", "secgroup_1"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "name", "secgroup_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "description", "My neutron security group"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "description", "My neutron security group"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "tags.#", "1"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -51,13 +51,13 @@ func TestAccOpenStackNetworkingSecGroupV2DataSource_secGroupID(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingSecGroupV2DataSourceSecGroupID(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingSecGroupV2DataSourceID("data.openstack_networking_secgroup_v2.secgroup_1"),
+					testAccCheckNetworkingSecGroupV2DataSourceID("data.viettelidc_networking_secgroup_v2.secgroup_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "name", "secgroup_1"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "name", "secgroup_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "tags.#", "1"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_secgroup_v2.secgroup_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_secgroup_v2.secgroup_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -80,7 +80,7 @@ func testAccCheckNetworkingSecGroupV2DataSourceID(n string) resource.TestCheckFu
 }
 
 const testAccOpenStackNetworkingSecGroupV2DataSourceGroup = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name        = "secgroup_1"
   description = "My neutron security group"
   tags = [
@@ -94,8 +94,8 @@ func testAccOpenStackNetworkingSecGroupV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_secgroup_v2" "secgroup_1" {
-  name = "${openstack_networking_secgroup_v2.secgroup_1.name}"
+data "viettelidc_networking_secgroup_v2" "secgroup_1" {
+  name = "${viettelidc_networking_secgroup_v2.secgroup_1.name}"
   tags = [
     "bar",
   ]
@@ -107,8 +107,8 @@ func testAccOpenStackNetworkingSecGroupV2DataSourceSecGroupID() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_secgroup_v2" "secgroup_1" {
-  secgroup_id = "${openstack_networking_secgroup_v2.secgroup_1.id}"
+data "viettelidc_networking_secgroup_v2" "secgroup_1" {
+  secgroup_id = "${viettelidc_networking_secgroup_v2.secgroup_1.id}"
   tags = [
     "foo",
   ]

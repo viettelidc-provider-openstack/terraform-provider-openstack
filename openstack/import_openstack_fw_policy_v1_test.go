@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccFWPolicyV1_importBasic(t *testing.T) {
-	resourceName := "openstack_fw_policy_v1.policy_1"
+	resourceName := "viettelidc_fw_policy_v1.policy_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

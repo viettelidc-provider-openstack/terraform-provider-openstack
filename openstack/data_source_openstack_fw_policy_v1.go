@@ -14,7 +14,7 @@ func dataSourceFWPolicyV1() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceFWPolicyV1Read,
 
-		DeprecationMessage: "use openstack_fw_policy_v2 data-source instead",
+		DeprecationMessage: "use viettelidc_fw_policy_v2 data-source instead",
 		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,
@@ -84,20 +84,20 @@ func dataSourceFWPolicyV1Read(ctx context.Context, d *schema.ResourceData, meta 
 
 	allFWPolicies, err := policies.ExtractPolicies(pages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_fw_policy_v1: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_fw_policy_v1: %s", err)
 	}
 
 	if len(allFWPolicies) < 1 {
-		return diag.Errorf("No openstack_fw_policy_v1 found with name: %s", d.Get("name"))
+		return diag.Errorf("No viettelidc_fw_policy_v1 found with name: %s", d.Get("name"))
 	}
 
 	if len(allFWPolicies) > 1 {
-		return diag.Errorf("More than one openstack_fw_policy_v1 found with name: %s", d.Get("name"))
+		return diag.Errorf("More than one viettelidc_fw_policy_v1 found with name: %s", d.Get("name"))
 	}
 
 	policy := allFWPolicies[0]
 
-	log.Printf("[DEBUG] Retrieved openstack_fw_policy_v1 %s: %#v", policy.ID, policy)
+	log.Printf("[DEBUG] Retrieved viettelidc_fw_policy_v1 %s: %#v", policy.ID, policy)
 	d.SetId(policy.ID)
 
 	d.Set("name", policy.Name)

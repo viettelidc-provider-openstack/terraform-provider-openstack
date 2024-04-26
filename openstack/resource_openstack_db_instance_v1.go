@@ -222,15 +222,15 @@ func resourceDatabaseInstanceV1Create(ctx context.Context, d *schema.ResourceDat
 	}
 	createOpts.Users = userList
 
-	log.Printf("[DEBUG] openstack_db_instance_v1 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_db_instance_v1 create options: %#v", createOpts)
 
 	instance, err := instances.Create(DatabaseV1Client, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_db_instance_v1: %s", err)
+		return diag.Errorf("Error creating viettelidc_db_instance_v1: %s", err)
 	}
 
 	// Wait for the instance to become available.
-	log.Printf("[DEBUG] Waiting for openstack_db_instance_v1 %s to become available", instance.ID)
+	log.Printf("[DEBUG] Waiting for viettelidc_db_instance_v1 %s to become available", instance.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"BUILD"},
@@ -243,14 +243,14 @@ func resourceDatabaseInstanceV1Create(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_db_instance_v1 %s to become ready: %s", instance.ID, err)
+		return diag.Errorf("Error waiting for viettelidc_db_instance_v1 %s to become ready: %s", instance.ID, err)
 	}
 
 	if configuration, ok := d.GetOk("configuration_id"); ok {
-		log.Printf("[DEBUG] Attaching configuration %s to openstack_db_instance_v1 %s", configuration, instance.ID)
+		log.Printf("[DEBUG] Attaching configuration %s to viettelidc_db_instance_v1 %s", configuration, instance.ID)
 		err := instances.AttachConfigurationGroup(DatabaseV1Client, instance.ID, configuration.(string)).ExtractErr()
 		if err != nil {
-			return diag.Errorf("error attaching configuration group %s to openstack_db_instance_v1 %s: %s",
+			return diag.Errorf("error attaching configuration group %s to viettelidc_db_instance_v1 %s: %s",
 				configuration, instance.ID, err)
 		}
 	}
@@ -270,10 +270,10 @@ func resourceDatabaseInstanceV1Read(_ context.Context, d *schema.ResourceData, m
 
 	instance, err := instances.Get(DatabaseV1Client, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_db_instance_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_db_instance_v1"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_db_instance_v1 %s: %#v", d.Id(), instance)
+	log.Printf("[DEBUG] Retrieved viettelidc_db_instance_v1 %s: %#v", d.Id(), instance)
 
 	d.Set("name", instance.Name)
 	d.Set("flavor_id", instance.Flavor)
@@ -298,14 +298,14 @@ func resourceDatabaseInstanceUpdate(ctx context.Context, d *schema.ResourceData,
 		if err != nil {
 			return diag.FromErr(err)
 		}
-		log.Printf("Detaching configuration %s from openstack_db_instance_v1 %s", o, d.Id())
+		log.Printf("Detaching configuration %s from viettelidc_db_instance_v1 %s", o, d.Id())
 
 		if n != "" {
 			err := instances.AttachConfigurationGroup(DatabaseV1Client, d.Id(), n.(string)).ExtractErr()
 			if err != nil {
 				return diag.FromErr(err)
 			}
-			log.Printf("Attaching configuration to openstack_db_instance_v1 %s", d.Id())
+			log.Printf("Attaching configuration to viettelidc_db_instance_v1 %s", d.Id())
 		}
 	}
 
@@ -321,7 +321,7 @@ func resourceDatabaseInstanceV1Delete(ctx context.Context, d *schema.ResourceDat
 
 	err = instances.Delete(DatabaseV1Client, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_db_instance_v1"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_db_instance_v1"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -335,7 +335,7 @@ func resourceDatabaseInstanceV1Delete(ctx context.Context, d *schema.ResourceDat
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_db_instance_v1 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_db_instance_v1 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

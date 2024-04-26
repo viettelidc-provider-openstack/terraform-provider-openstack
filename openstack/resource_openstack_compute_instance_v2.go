@@ -91,7 +91,7 @@ func resourceComputeInstanceV2() *schema.Resource {
 				Type:       schema.TypeString,
 				Optional:   true,
 				ForceNew:   false,
-				Deprecated: "Use the openstack_compute_floatingip_associate_v2 resource instead",
+				Deprecated: "Use the viettelidc_compute_floatingip_associate_v2 resource instead",
 			},
 			"user_data": {
 				Type:     schema.TypeString,
@@ -181,7 +181,7 @@ func resourceComputeInstanceV2() *schema.Resource {
 							Type:       schema.TypeString,
 							Optional:   true,
 							Computed:   true,
-							Deprecated: "Use the openstack_compute_floatingip_associate_v2 resource instead",
+							Deprecated: "Use the viettelidc_compute_floatingip_associate_v2 resource instead",
 						},
 						"mac": {
 							Type:     schema.TypeString,
@@ -296,7 +296,7 @@ func resourceComputeInstanceV2() *schema.Resource {
 			"volume": {
 				Type:       schema.TypeSet,
 				Optional:   true,
-				Deprecated: "Use block_device or openstack_compute_volume_attach_v2 instead",
+				Deprecated: "Use block_device or viettelidc_compute_volume_attach_v2 instead",
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
@@ -794,7 +794,7 @@ func resourceComputeInstanceV2Read(_ context.Context, d *schema.ResourceData, me
 	computeClient.Microversion = computeV2TagsExtensionMicroversion
 	instanceTags, err := tags.List(computeClient, server.ID).Extract()
 	if err != nil {
-		log.Printf("[DEBUG] Unable to get tags for openstack_compute_instance_v2: %s", err)
+		log.Printf("[DEBUG] Unable to get tags for viettelidc_compute_instance_v2: %s", err)
 	} else {
 		computeV2InstanceReadTags(d, instanceTags)
 	}
@@ -1115,9 +1115,9 @@ func resourceComputeInstanceV2Update(ctx context.Context, d *schema.ResourceData
 		computeClient.Microversion = computeV2TagsExtensionMicroversion
 		instanceTags, err := tags.ReplaceAll(computeClient, d.Id(), instanceTagsOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error setting tags on openstack_compute_instance_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error setting tags on viettelidc_compute_instance_v2 %s: %s", d.Id(), err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_compute_instance_v2 %s", instanceTags, d.Id())
+		log.Printf("[DEBUG] Set tags %s on viettelidc_compute_instance_v2 %s", instanceTags, d.Id())
 	}
 
 	return resourceComputeInstanceV2Read(ctx, d, meta)
@@ -1133,7 +1133,7 @@ func resourceComputeInstanceV2Delete(ctx context.Context, d *schema.ResourceData
 	if d.Get("stop_before_destroy").(bool) {
 		err = startstop.Stop(computeClient, d.Id()).ExtractErr()
 		if err != nil {
-			log.Printf("[WARN] Error stopping openstack_compute_instance_v2: %s", err)
+			log.Printf("[WARN] Error stopping viettelidc_compute_instance_v2: %s", err)
 		} else {
 			stopStateConf := &resource.StateChangeConf{
 				Pending:    []string{"ACTIVE"},
@@ -1159,7 +1159,7 @@ func resourceComputeInstanceV2Delete(ctx context.Context, d *schema.ResourceData
 	if detachPortBeforeDestroy {
 		allInstanceNetworks, err := getAllInstanceNetworks(d, meta)
 		if err != nil {
-			log.Printf("[WARN] Unable to get openstack_compute_instance_v2 ports: %s", err)
+			log.Printf("[WARN] Unable to get viettelidc_compute_instance_v2 ports: %s", err)
 		} else {
 			for _, network := range allInstanceNetworks {
 				if network.Port != "" {
@@ -1172,7 +1172,7 @@ func resourceComputeInstanceV2Delete(ctx context.Context, d *schema.ResourceData
 						MinTimeout: 5 * time.Second,
 					}
 					if _, err = stateConf.WaitForStateContext(ctx); err != nil {
-						return diag.Errorf("Error detaching openstack_compute_instance_v2 %s: %s", d.Id(), err)
+						return diag.Errorf("Error detaching viettelidc_compute_instance_v2 %s: %s", d.Id(), err)
 					}
 				}
 			}
@@ -1182,13 +1182,13 @@ func resourceComputeInstanceV2Delete(ctx context.Context, d *schema.ResourceData
 		log.Printf("[DEBUG] Force deleting OpenStack Instance %s", d.Id())
 		err = servers.ForceDelete(computeClient, d.Id()).ExtractErr()
 		if err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Error force deleting openstack_compute_instance_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Error force deleting viettelidc_compute_instance_v2"))
 		}
 	} else {
 		log.Printf("[DEBUG] Deleting OpenStack Instance %s", d.Id())
 		err = servers.Delete(computeClient, d.Id()).ExtractErr()
 		if err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_compute_instance_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_compute_instance_v2"))
 		}
 	}
 
@@ -1228,19 +1228,19 @@ func resourceOpenStackComputeInstanceV2ImportState(ctx context.Context, d *schem
 	results := make([]*schema.ResourceData, 1)
 	diagErr := resourceComputeInstanceV2Read(ctx, d, meta)
 	if diagErr != nil {
-		return nil, fmt.Errorf("Error reading openstack_compute_instance_v2 %s: %v", d.Id(), diagErr)
+		return nil, fmt.Errorf("Error reading viettelidc_compute_instance_v2 %s: %v", d.Id(), diagErr)
 	}
 
 	raw := servers.Get(computeClient, d.Id())
 	if raw.Err != nil {
-		return nil, CheckDeleted(d, raw.Err, "openstack_compute_instance_v2")
+		return nil, CheckDeleted(d, raw.Err, "viettelidc_compute_instance_v2")
 	}
 
 	if err := raw.ExtractInto(&serverWithAttachments); err != nil {
 		log.Printf("[DEBUG] unable to unmarshal raw struct to serverWithAttachments: %s", err)
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_compute_instance_v2 %s volume attachments: %#v",
+	log.Printf("[DEBUG] Retrieved viettelidc_compute_instance_v2 %s volume attachments: %#v",
 		d.Id(), serverWithAttachments)
 
 	bds := []map[string]interface{}{}
@@ -1318,7 +1318,7 @@ func resourceOpenStackComputeInstanceV2ImportState(ctx context.Context, d *schem
 
 	metadata, err := servers.Metadata(computeClient, d.Id()).Extract()
 	if err != nil {
-		return nil, fmt.Errorf("Unable to read metadata for openstack_compute_instance_v2 %s: %s", d.Id(), err)
+		return nil, fmt.Errorf("Unable to read metadata for viettelidc_compute_instance_v2 %s: %s", d.Id(), err)
 	}
 
 	d.Set("metadata", metadata)

@@ -17,21 +17,21 @@ func TestAccNetworkingV2PortIDsDataSource_basic(t *testing.T) {
 			{
 				Config: testAccNetworkingV2PortIDsDataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("data.openstack_networking_port_ids_v2.ports", "ids.#", "2"),
+					resource.TestCheckResourceAttr("data.viettelidc_networking_port_ids_v2.ports", "ids.#", "2"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_networking_port_ids_v2.ports", "ids.0",
-						"openstack_networking_port_v2.port_1", "id"),
+						"data.viettelidc_networking_port_ids_v2.ports", "ids.0",
+						"viettelidc_networking_port_v2.port_1", "id"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_networking_port_ids_v2.ports", "ids.1",
-						"openstack_networking_port_v2.port_2", "id"),
-					resource.TestCheckResourceAttr("data.openstack_networking_port_ids_v2.port_1", "ids.#", "1"),
+						"data.viettelidc_networking_port_ids_v2.ports", "ids.1",
+						"viettelidc_networking_port_v2.port_2", "id"),
+					resource.TestCheckResourceAttr("data.viettelidc_networking_port_ids_v2.port_1", "ids.#", "1"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_networking_port_ids_v2.port_1", "ids.0",
-						"openstack_networking_port_v2.port_1", "id"),
-					resource.TestCheckResourceAttr("data.openstack_networking_port_ids_v2.port_2", "ids.#", "1"),
+						"data.viettelidc_networking_port_ids_v2.port_1", "ids.0",
+						"viettelidc_networking_port_v2.port_1", "id"),
+					resource.TestCheckResourceAttr("data.viettelidc_networking_port_ids_v2.port_2", "ids.#", "1"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_networking_port_ids_v2.port_2", "ids.0",
-						"openstack_networking_port_v2.port_2", "id"),
+						"data.viettelidc_networking_port_ids_v2.port_2", "ids.0",
+						"viettelidc_networking_port_v2.port_2", "id"),
 				),
 			},
 		},
@@ -39,23 +39,23 @@ func TestAccNetworkingV2PortIDsDataSource_basic(t *testing.T) {
 }
 
 const testAccNetworkingV2PortIDsDataSourceBasic = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name           = "network_1"
   admin_state_up = "true"
 }
 
-data "openstack_networking_secgroup_v2" "default" {
+data "viettelidc_networking_secgroup_v2" "default" {
   name = "default"
 }
 
-resource "openstack_networking_port_v2" "port_1" {
+resource "viettelidc_networking_port_v2" "port_1" {
   name           = "port_1"
   description    = "test port ids"
-  network_id     = "${openstack_networking_network_v2.network_1.id}"
+  network_id     = "${viettelidc_networking_network_v2.network_1.id}"
   admin_state_up = "true"
 
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default.id}",
+    "${data.viettelidc_networking_secgroup_v2.default.id}",
   ]
 
   tags = [
@@ -65,14 +65,14 @@ resource "openstack_networking_port_v2" "port_1" {
   ]
 }
 
-resource "openstack_networking_port_v2" "port_2" {
+resource "viettelidc_networking_port_v2" "port_2" {
   name           = "port_2"
   description    = "test port ids"
-  network_id     = "${openstack_networking_network_v2.network_1.id}"
+  network_id     = "${viettelidc_networking_network_v2.network_1.id}"
   admin_state_up = "true"
 
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default.id}",
+    "${data.viettelidc_networking_secgroup_v2.default.id}",
   ]
 
   tags = [
@@ -82,14 +82,14 @@ resource "openstack_networking_port_v2" "port_2" {
   ]
 }
 
-data "openstack_networking_port_ids_v2" "ports" {
-  admin_state_up = "${openstack_networking_port_v2.port_1.admin_state_up == openstack_networking_port_v2.port_2.admin_state_up ? "true" : "true"}"
+data "viettelidc_networking_port_ids_v2" "ports" {
+  admin_state_up = "${viettelidc_networking_port_v2.port_1.admin_state_up == viettelidc_networking_port_v2.port_2.admin_state_up ? "true" : "true"}"
   description    = "test port ids"
   sort_direction = "asc"
   sort_key       = "name"
 
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default.id}",
+    "${data.viettelidc_networking_secgroup_v2.default.id}",
   ]
 
   tags = [
@@ -98,14 +98,14 @@ data "openstack_networking_port_ids_v2" "ports" {
   ]
 }
 
-data "openstack_networking_port_ids_v2" "port_1" {
-  admin_state_up = "${openstack_networking_port_v2.port_1.admin_state_up == openstack_networking_port_v2.port_2.admin_state_up ? "true" : "true"}"
+data "viettelidc_networking_port_ids_v2" "port_1" {
+  admin_state_up = "${viettelidc_networking_port_v2.port_1.admin_state_up == viettelidc_networking_port_v2.port_2.admin_state_up ? "true" : "true"}"
   description    = "test port ids"
   sort_direction = "asc"
   sort_key       = "name"
 
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default.id}",
+    "${data.viettelidc_networking_secgroup_v2.default.id}",
   ]
 
   tags = [
@@ -115,14 +115,14 @@ data "openstack_networking_port_ids_v2" "port_1" {
   ]
 }
 
-data "openstack_networking_port_ids_v2" "port_2" {
-  admin_state_up = "${openstack_networking_port_v2.port_1.admin_state_up == openstack_networking_port_v2.port_2.admin_state_up ? "true" : "true"}"
+data "viettelidc_networking_port_ids_v2" "port_2" {
+  admin_state_up = "${viettelidc_networking_port_v2.port_1.admin_state_up == viettelidc_networking_port_v2.port_2.admin_state_up ? "true" : "true"}"
   description    = "test port ids"
   sort_direction = "asc"
   sort_key       = "name"
 
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default.id}",
+    "${data.viettelidc_networking_secgroup_v2.default.id}",
   ]
 
   tags = [

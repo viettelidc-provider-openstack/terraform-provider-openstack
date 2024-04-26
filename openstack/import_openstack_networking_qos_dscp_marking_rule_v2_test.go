@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2QoSDSCPMarkingRule_importBasic(t *testing.T) {
-	resourceName := "openstack_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1"
+	resourceName := "viettelidc_networking_qos_dscp_marking_rule_v2.dscp_marking_rule_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

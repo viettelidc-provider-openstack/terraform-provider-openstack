@@ -21,13 +21,13 @@ func TestAccLBV1VIP_basic(t *testing.T) {
 			{
 				Config: testAccLbV1VIPBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV1VIPExists("openstack_lb_vip_v1.vip_1", &vip),
+					testAccCheckLBV1VIPExists("viettelidc_lb_vip_v1.vip_1", &vip),
 				),
 			},
 			{
 				Config: testAccLbV1VIPUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("openstack_lb_vip_v1.vip_1", "name", "vip_1_updated"),
+					resource.TestCheckResourceAttr("viettelidc_lb_vip_v1.vip_1", "name", "vip_1_updated"),
 				),
 			},
 		},
@@ -45,7 +45,7 @@ func TestAccLBV1VIP_timeout(t *testing.T) {
 			{
 				Config: testAccLbV1VIPTimeout,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLBV1VIPExists("openstack_lb_vip_v1.vip_1", &vip),
+					testAccCheckLBV1VIPExists("viettelidc_lb_vip_v1.vip_1", &vip),
 				),
 			},
 		},
@@ -60,7 +60,7 @@ func testAccCheckLBV1VIPDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_lb_vip_v1" {
+		if rs.Type != "viettelidc_lb_vip_v1" {
 			continue
 		}
 
@@ -106,31 +106,31 @@ func testAccCheckLBV1VIPExists(n string, vip *vips.VirtualIP) resource.TestCheck
 }
 
 const testAccLbV1VIPBasic = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "openstack_lb_vip_v1" "vip_1" {
+resource "viettelidc_lb_vip_v1" "vip_1" {
   name = "vip_1"
   protocol = "HTTP"
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 
   persistence = {
     type = "SOURCE_IP"
@@ -139,31 +139,31 @@ resource "openstack_lb_vip_v1" "vip_1" {
 `
 
 const testAccLbV1VIPUpdate = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "openstack_lb_vip_v1" "vip_1" {
+resource "viettelidc_lb_vip_v1" "vip_1" {
   name = "vip_1_updated"
   protocol = "HTTP"
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 
   persistence = {
     type = "SOURCE_IP"
@@ -172,31 +172,31 @@ resource "openstack_lb_vip_v1" "vip_1" {
 `
 
 const testAccLbV1VIPTimeout = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_lb_pool_v1" "pool_1" {
+resource "viettelidc_lb_pool_v1" "pool_1" {
   name = "pool_1"
   protocol = "HTTP"
   lb_method = "ROUND_ROBIN"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 }
 
-resource "openstack_lb_vip_v1" "vip_1" {
+resource "viettelidc_lb_vip_v1" "vip_1" {
   name = "vip_1"
   protocol = "HTTP"
   port = 80
   admin_state_up = true
-  pool_id = "${openstack_lb_pool_v1.pool_1.id}"
-  subnet_id = "${openstack_networking_subnet_v2.subnet_1.id}"
+  pool_id = "${viettelidc_lb_pool_v1.pool_1.id}"
+  subnet_id = "${viettelidc_networking_subnet_v2.subnet_1.id}"
 
   persistence = {
     type = "SOURCE_IP"

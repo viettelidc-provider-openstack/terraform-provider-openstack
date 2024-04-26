@@ -213,16 +213,16 @@ func dataSourceNetworkingPortIDsV2Read(ctx context.Context, d *schema.ResourceDa
 
 	allPages, err := ports.List(networkingClient, listOptsBuilder).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to list openstack_networking_port_ids_v2: %s", err)
+		return diag.Errorf("Unable to list viettelidc_networking_port_ids_v2: %s", err)
 	}
 
 	allPorts, err := ports.ExtractPorts(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_networking_port_ids_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_networking_port_ids_v2: %s", err)
 	}
 
 	if len(allPorts) == 0 {
-		log.Printf("[DEBUG] No ports in openstack_networking_port_ids_v2 found")
+		log.Printf("[DEBUG] No ports in viettelidc_networking_port_ids_v2 found")
 	}
 
 	portsList := make([]ports.Port, 0, len(allPorts))
@@ -238,7 +238,7 @@ func dataSourceNetworkingPortIDsV2Read(ctx context.Context, d *schema.ResourceDa
 			}
 		}
 		if len(portsList) == 0 {
-			log.Printf("[DEBUG] No ports in openstack_networking_port_ids_v2 found after the 'fixed_ip' filter")
+			log.Printf("[DEBUG] No ports in viettelidc_networking_port_ids_v2 found after the 'fixed_ip' filter")
 		}
 	} else {
 		portsList = allPorts
@@ -255,7 +255,7 @@ func dataSourceNetworkingPortIDsV2Read(ctx context.Context, d *schema.ResourceDa
 			}
 		}
 		if len(sgPorts) == 0 {
-			log.Printf("[DEBUG] No ports in openstack_networking_port_ids_v2 found after the 'security_group_ids' filter")
+			log.Printf("[DEBUG] No ports in viettelidc_networking_port_ids_v2 found after the 'security_group_ids' filter")
 		}
 		portsList = sgPorts
 	}
@@ -264,7 +264,7 @@ func dataSourceNetworkingPortIDsV2Read(ctx context.Context, d *schema.ResourceDa
 		portIDs = append(portIDs, p.ID)
 	}
 
-	log.Printf("[DEBUG] Retrieved %d ports in openstack_networking_port_ids_v2: %+v", len(portsList), portsList)
+	log.Printf("[DEBUG] Retrieved %d ports in viettelidc_networking_port_ids_v2: %+v", len(portsList), portsList)
 
 	d.SetId(fmt.Sprintf("%d", hashcode.String(strings.Join(portIDs, ""))))
 	d.Set("ids", portIDs)

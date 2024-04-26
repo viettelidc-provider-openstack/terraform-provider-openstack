@@ -82,10 +82,10 @@ func dataSourceBlockStorageQuotasetV3Read(ctx context.Context, d *schema.Resourc
 
 	q, err := quotasets.Get(blockStorageClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_blockstorage_quotaset_v3"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_blockstorage_quotaset_v3"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_blockstorage_quotaset_v3 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved viettelidc_blockstorage_quotaset_v3 %s: %#v", d.Id(), q)
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)
@@ -101,7 +101,7 @@ func dataSourceBlockStorageQuotasetV3Read(ctx context.Context, d *schema.Resourc
 
 	volumeTypeQuota, _ := blockStorageQuotasetVolTypeQuotaToStr(q.Extra)
 	if err := d.Set("volume_type_quota", volumeTypeQuota); err != nil {
-		log.Printf("[WARN] Unable to set openstack_blockstorage_quotaset_v3 %s volume_type_quotas: %s", d.Id(), err)
+		log.Printf("[WARN] Unable to set viettelidc_blockstorage_quotaset_v3 %s volume_type_quotas: %s", d.Id(), err)
 	}
 
 	return nil

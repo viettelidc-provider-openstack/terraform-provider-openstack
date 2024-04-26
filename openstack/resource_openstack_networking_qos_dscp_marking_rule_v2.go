@@ -62,13 +62,13 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Create(ctx context.Context, d *schema
 	}
 	qosPolicyID := d.Get("qos_policy_id").(string)
 
-	log.Printf("[DEBUG] openstack_networking_qos_dscp_marking_rule_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_networking_qos_dscp_marking_rule_v2 create options: %#v", createOpts)
 	r, err := rules.CreateDSCPMarkingRule(networkingClient, qosPolicyID, createOpts).ExtractDSCPMarkingRule()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_qos_dscp_marking_rule_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_qos_dscp_marking_rule_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_networking_qos_dscp_marking_rule_v2 %s to become available.", r.ID)
+	log.Printf("[DEBUG] Waiting for viettelidc_networking_qos_dscp_marking_rule_v2 %s to become available.", r.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE"},
@@ -80,13 +80,13 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Create(ctx context.Context, d *schema
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_qos_dscp_marking_rule_v2 %s to become available: %s", r.ID, err)
+		return diag.Errorf("Error waiting for viettelidc_networking_qos_dscp_marking_rule_v2 %s to become available: %s", r.ID, err)
 	}
 
 	id := resourceNetworkingQoSRuleV2BuildID(qosPolicyID, r.ID)
 	d.SetId(id)
 
-	log.Printf("[DEBUG] Created openstack_networking_qos_dscp_marking_rule_v2 %s: %#v", id, r)
+	log.Printf("[DEBUG] Created viettelidc_networking_qos_dscp_marking_rule_v2 %s: %#v", id, r)
 
 	return resourceNetworkingQoSDSCPMarkingRuleV2Read(ctx, d, meta)
 }
@@ -100,15 +100,15 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Read(ctx context.Context, d *schema.R
 
 	qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error reading openstack_networking_qos_dscp_marking_rule_v2 ID %s: %s", d.Id(), err)
+		return diag.Errorf("Error reading viettelidc_networking_qos_dscp_marking_rule_v2 ID %s: %s", d.Id(), err)
 	}
 
 	r, err := rules.GetDSCPMarkingRule(networkingClient, qosPolicyID, qosRuleID).ExtractDSCPMarkingRule()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_qos_dscp_marking_rule_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_qos_dscp_marking_rule_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_qos_dscp_marking_rule_v2 %s: %#v", d.Id(), r)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_qos_dscp_marking_rule_v2 %s: %#v", d.Id(), r)
 
 	d.Set("qos_policy_id", qosPolicyID)
 	d.Set("dscp_mark", r.DSCPMark)
@@ -126,7 +126,7 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Update(ctx context.Context, d *schema
 
 	qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error reading openstack_networking_qos_dscp_marking_rule_v2 ID %s: %s", d.Id(), err)
+		return diag.Errorf("Error reading viettelidc_networking_qos_dscp_marking_rule_v2 ID %s: %s", d.Id(), err)
 	}
 
 	if d.HasChange("dscp_mark") {
@@ -134,10 +134,10 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Update(ctx context.Context, d *schema
 		updateOpts := rules.UpdateDSCPMarkingRuleOpts{
 			DSCPMark: &dscpMark,
 		}
-		log.Printf("[DEBUG] openstack_networking_qos_dscp_marking_rule_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_networking_qos_dscp_marking_rule_v2 %s update options: %#v", d.Id(), updateOpts)
 		_, err = rules.UpdateDSCPMarkingRule(networkingClient, qosPolicyID, qosRuleID, updateOpts).ExtractDSCPMarkingRule()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_networking_qos_dscp_marking_rule_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_networking_qos_dscp_marking_rule_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -153,11 +153,11 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Delete(ctx context.Context, d *schema
 
 	qosPolicyID, qosRuleID, err := resourceNetworkingQoSRuleV2ParseID(d.Id())
 	if err != nil {
-		return diag.Errorf("Error reading openstack_networking_qos_dscp_marking_rule_v2 ID %s: %s", d.Id(), err)
+		return diag.Errorf("Error reading viettelidc_networking_qos_dscp_marking_rule_v2 ID %s: %s", d.Id(), err)
 	}
 
 	if err := rules.DeleteDSCPMarkingRule(networkingClient, qosPolicyID, qosRuleID).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_qos_dscp_marking_rule_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_qos_dscp_marking_rule_v2"))
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -171,7 +171,7 @@ func resourceNetworkingQoSDSCPMarkingRuleV2Delete(ctx context.Context, d *schema
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_networking_qos_dscp_marking_rule_v2 %s to Delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_networking_qos_dscp_marking_rule_v2 %s to Delete:  %s", d.Id(), err)
 	}
 
 	return nil

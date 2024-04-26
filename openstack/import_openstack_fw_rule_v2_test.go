@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccFWRuleV2_importBasic(t *testing.T) {
-	resourceName := "openstack_fw_rule_v2.rule_1"
+	resourceName := "viettelidc_fw_rule_v2.rule_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

@@ -136,14 +136,14 @@ func resourceFWGroupV2Create(ctx context.Context, d *schema.ResourceData, meta i
 		groupcreateOpts.Ports = portIds
 	}
 
-	log.Printf("[DEBUG] openstack_fw_group_v2 create options: %#v", groupcreateOpts)
+	log.Printf("[DEBUG] viettelidc_fw_group_v2 create options: %#v", groupcreateOpts)
 
 	group, err := groups.Create(networkingClient, groupcreateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_fw_group_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_fw_group_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Created openstack_fw_group_v2 %s: %#v", group.ID, group)
+	log.Printf("[DEBUG] Created viettelidc_fw_group_v2 %s: %#v", group.ID, group)
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"PENDING_CREATE"},
@@ -156,7 +156,7 @@ func resourceFWGroupV2Create(ctx context.Context, d *schema.ResourceData, meta i
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_group_v2 to become active: %s", err)
+		return diag.Errorf("Error waiting for viettelidc_fw_group_v2 to become active: %s", err)
 	}
 
 	d.SetId(group.ID)
@@ -173,10 +173,10 @@ func resourceFWGroupV2Read(_ context.Context, d *schema.ResourceData, meta inter
 
 	group, err := groups.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_group_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_group_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_fw_group_v2 %s: %#v", d.Id(), group)
+	log.Printf("[DEBUG] Retrieved viettelidc_fw_group_v2 %s: %#v", d.Id(), group)
 
 	d.Set("name", group.Name)
 	d.Set("description", group.Description)
@@ -202,7 +202,7 @@ func resourceFWGroupV2Update(ctx context.Context, d *schema.ResourceData, meta i
 
 	group, err := groups.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_group_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_group_v2"))
 	}
 
 	var (
@@ -225,7 +225,7 @@ func resourceFWGroupV2Update(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChange("ingress_firewall_policy_id") {
 		ingressFirewallPolicyID := d.Get("ingress_firewall_policy_id").(string)
 		if ingressFirewallPolicyID == "" {
-			log.Printf("[DEBUG] Attempting to clear ingress policy of openstack_fw_group_v2: %s.", group.ID)
+			log.Printf("[DEBUG] Attempting to clear ingress policy of viettelidc_fw_group_v2: %s.", group.ID)
 
 			err := fwGroupV2IngressPolicyDeleteFunc(networkingClient, d, ctx, group.ID)
 			if err != nil {
@@ -241,7 +241,7 @@ func resourceFWGroupV2Update(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChange("egress_firewall_policy_id") {
 		egressFirewallPolicyID := d.Get("egress_firewall_policy_id").(string)
 		if egressFirewallPolicyID == "" {
-			log.Printf("[DEBUG] Attempting to clear egress policy of openstack_fw_group_v2: %s.", group.ID)
+			log.Printf("[DEBUG] Attempting to clear egress policy of viettelidc_fw_group_v2: %s.", group.ID)
 
 			err := fwGroupV2EgressPolicyDeleteFunc(networkingClient, d, ctx, group.ID)
 			if err != nil {
@@ -281,11 +281,11 @@ func resourceFWGroupV2Update(ctx context.Context, d *schema.ResourceData, meta i
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] openstack_fw_group_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_fw_group_v2 %s update options: %#v", d.Id(), updateOpts)
 
 		_, err = groups.Update(networkingClient, d.Id(), updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_fw_group_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_fw_group_v2 %s: %s", d.Id(), err)
 		}
 
 		stateConf := &resource.StateChangeConf{
@@ -299,7 +299,7 @@ func resourceFWGroupV2Update(ctx context.Context, d *schema.ResourceData, meta i
 
 		_, err = stateConf.WaitForStateContext(ctx)
 		if err != nil {
-			return diag.Errorf("Error waiting for openstack_fw_group_v2 %s to become active: %s", d.Id(), err)
+			return diag.Errorf("Error waiting for viettelidc_fw_group_v2 %s to become active: %s", d.Id(), err)
 		}
 	}
 
@@ -315,7 +315,7 @@ func resourceFWGroupV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 
 	group, err := groups.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_fw_group_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_fw_group_v2"))
 	}
 
 	if len(group.Ports) > 0 {
@@ -324,7 +324,7 @@ func resourceFWGroupV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 		updateGroupOpts.Ports = &emptyPorts
 		_, err := groups.Update(networkingClient, group.ID, updateGroupOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error removing ports from openstack_fw_group_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error removing ports from viettelidc_fw_group_v2 %s: %s", d.Id(), err)
 		}
 	}
 
@@ -344,7 +344,7 @@ func resourceFWGroupV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 
 	err = groups.Delete(networkingClient, d.Id()).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting openstack_fw_group_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error deleting viettelidc_fw_group_v2 %s: %s", d.Id(), err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -358,7 +358,7 @@ func resourceFWGroupV2Delete(ctx context.Context, d *schema.ResourceData, meta i
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_fw_firewall_v2 %s to delete:  %s", d.Id(), err)
+		return diag.Errorf("Error waiting for viettelidc_fw_firewall_v2 %s to delete:  %s", d.Id(), err)
 	}
 
 	return nil

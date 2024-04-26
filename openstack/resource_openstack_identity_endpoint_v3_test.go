@@ -27,32 +27,32 @@ func TestAccIdentityV3Endpoint_basic(t *testing.T) {
 			{
 				Config: testAccIdentityV3EndpointBasic(endpointName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3EndpointExists("openstack_identity_endpoint_v3.endpoint_1", &endpoint),
+					testAccCheckIdentityV3EndpointExists("viettelidc_identity_endpoint_v3.endpoint_1", &endpoint),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_identity_endpoint_v3.endpoint_1", "name", &endpoint.Name),
+						"viettelidc_identity_endpoint_v3.endpoint_1", "name", &endpoint.Name),
 					resource.TestCheckResourceAttrPair(
-						"openstack_identity_service_v3.service_1", "id",
-						"openstack_identity_endpoint_v3.endpoint_1", "service_id"),
+						"viettelidc_identity_service_v3.service_1", "id",
+						"viettelidc_identity_endpoint_v3.endpoint_1", "service_id"),
 					resource.TestCheckResourceAttrPair(
-						"openstack_identity_service_v3.service_1", "region",
-						"openstack_identity_endpoint_v3.endpoint_1", "endpoint_region"),
+						"viettelidc_identity_service_v3.service_1", "region",
+						"viettelidc_identity_endpoint_v3.endpoint_1", "endpoint_region"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_endpoint_v3.endpoint_1", "url", "http://myservice.local"),
+						"viettelidc_identity_endpoint_v3.endpoint_1", "url", "http://myservice.local"),
 				),
 			},
 			{
 				Config: testAccIdentityV3EndpointUpdate(endpointName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3EndpointExists("openstack_identity_endpoint_v3.endpoint_1", &endpoint),
+					testAccCheckIdentityV3EndpointExists("viettelidc_identity_endpoint_v3.endpoint_1", &endpoint),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_identity_endpoint_v3.endpoint_1", "name", &endpoint.Name),
+						"viettelidc_identity_endpoint_v3.endpoint_1", "name", &endpoint.Name),
 					resource.TestCheckResourceAttrPair(
-						"openstack_identity_service_v3.service_1", "id",
-						"openstack_identity_endpoint_v3.endpoint_1", "service_id"),
+						"viettelidc_identity_service_v3.service_1", "id",
+						"viettelidc_identity_endpoint_v3.endpoint_1", "service_id"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_endpoint_v3.endpoint_1", "endpoint_region", "interstate76"),
+						"viettelidc_identity_endpoint_v3.endpoint_1", "endpoint_region", "interstate76"),
 					resource.TestCheckResourceAttr(
-						"openstack_identity_endpoint_v3.endpoint_1", "url", "http://my-new-service.local"),
+						"viettelidc_identity_endpoint_v3.endpoint_1", "url", "http://my-new-service.local"),
 				),
 			},
 		},
@@ -67,7 +67,7 @@ func testAccCheckIdentityV3EndpointDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_identity_endpoint_v3" {
+		if rs.Type != "viettelidc_identity_endpoint_v3" {
 			continue
 		}
 
@@ -143,15 +143,15 @@ func testAccCheckIdentityV3EndpointExists(n string, endpoint *endpoints.Endpoint
 
 func testAccIdentityV3EndpointBasic(endpointName string) string {
 	return fmt.Sprintf(`
-resource "openstack_identity_service_v3" "service_1" {
+resource "viettelidc_identity_service_v3" "service_1" {
   name = "foo"
   type = "bar"
 }
 
-resource "openstack_identity_endpoint_v3" "endpoint_1" {
+resource "viettelidc_identity_endpoint_v3" "endpoint_1" {
   name = "%s"
-  service_id = "${openstack_identity_service_v3.service_1.id}"
-  endpoint_region = "${openstack_identity_service_v3.service_1.region}"
+  service_id = "${viettelidc_identity_service_v3.service_1.id}"
+  endpoint_region = "${viettelidc_identity_service_v3.service_1.region}"
   url = "http://myservice.local"
 }
   `, endpointName)
@@ -159,14 +159,14 @@ resource "openstack_identity_endpoint_v3" "endpoint_1" {
 
 func testAccIdentityV3EndpointUpdate(endpointName string) string {
 	return fmt.Sprintf(`
-resource "openstack_identity_service_v3" "service_1" {
+resource "viettelidc_identity_service_v3" "service_1" {
   name = "baz"
   type = "qux"
 }
 
-resource "openstack_identity_endpoint_v3" "endpoint_1" {
+resource "viettelidc_identity_endpoint_v3" "endpoint_1" {
   name = "%s"
-  service_id = "${openstack_identity_service_v3.service_1.id}"
+  service_id = "${viettelidc_identity_service_v3.service_1.id}"
   endpoint_region = "interstate76"
   url = "http://my-new-service.local"
 }

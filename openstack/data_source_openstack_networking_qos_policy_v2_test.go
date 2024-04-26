@@ -23,11 +23,11 @@ func TestAccNetworkingV2QoSPolicyDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingQoSPolicyV2DataSourceBasic(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQoSPolicyV2DataSourceID("data.openstack_networking_qos_policy_v2.qos_policy_1"),
+					testAccCheckNetworkingQoSPolicyV2DataSourceID("data.viettelidc_networking_qos_policy_v2.qos_policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"data.viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test"),
+						"data.viettelidc_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test"),
 				),
 			},
 		},
@@ -49,11 +49,11 @@ func TestAccNetworkingV2QoSPolicyDataSource_description(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingQoSPolicyV2DataSourceDescription(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingQoSPolicyV2DataSourceID("data.openstack_networking_qos_policy_v2.qos_policy_1"),
+					testAccCheckNetworkingQoSPolicyV2DataSourceID("data.viettelidc_networking_qos_policy_v2.qos_policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
+						"data.viettelidc_networking_qos_policy_v2.qos_policy_1", "name", "qos_policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test"),
+						"data.viettelidc_networking_qos_policy_v2.qos_policy_1", "description", "terraform qos policy acceptance test"),
 				),
 			},
 		},
@@ -76,7 +76,7 @@ func testAccCheckNetworkingQoSPolicyV2DataSourceID(n string) resource.TestCheckF
 }
 
 const testAccNetworkingV2QoSPolicyDataSource = `
-resource "openstack_networking_qos_policy_v2" "qos_policy_1" {
+resource "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
   name        = "qos_policy_1"
   description = "terraform qos policy acceptance test"
 }
@@ -86,8 +86,8 @@ func testAccOpenStackNetworkingQoSPolicyV2DataSourceBasic() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_qos_policy_v2" "qos_policy_1" {
-  name = "${openstack_networking_qos_policy_v2.qos_policy_1.name}"
+data "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+  name = "${viettelidc_networking_qos_policy_v2.qos_policy_1.name}"
 }
 `, testAccNetworkingV2QoSPolicyDataSource)
 }
@@ -96,8 +96,8 @@ func testAccOpenStackNetworkingQoSPolicyV2DataSourceDescription() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_qos_policy_v2" "qos_policy_1" {
-  description = "${openstack_networking_qos_policy_v2.qos_policy_1.description}"
+data "viettelidc_networking_qos_policy_v2" "qos_policy_1" {
+  description = "${viettelidc_networking_qos_policy_v2.qos_policy_1.description}"
 }
 `, testAccNetworkingV2QoSPolicyDataSource)
 }

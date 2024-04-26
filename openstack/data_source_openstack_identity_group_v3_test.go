@@ -19,9 +19,9 @@ func TestAccOpenStackIdentityV3GroupDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityV3GroupDataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3GroupDataSourceID("data.openstack_identity_group_v3.group_1"),
+					testAccCheckIdentityV3GroupDataSourceID("data.viettelidc_identity_group_v3.group_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_group_v3.group_1", "name", "admins"),
+						"data.viettelidc_identity_group_v3.group_1", "name", "admins"),
 				),
 			},
 		},
@@ -44,7 +44,7 @@ func testAccCheckIdentityV3GroupDataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccOpenStackIdentityV3GroupDataSourceBasic = `
-data "openstack_identity_group_v3" "group_1" {
+data "viettelidc_identity_group_v3" "group_1" {
     name = "admins"
 }
 `

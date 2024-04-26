@@ -19,27 +19,27 @@ func TestAccSFSV2ShareNetworkDataSource_basic(t *testing.T) {
 				Config: testAccSFSV2ShareNetworkDataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "id",
-						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "id"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "id",
+						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "id"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "2"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "security_service_ids.#", "2"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id",
-						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id",
+						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "neutron_net_id"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "ip_version",
-						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "ip_version"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "ip_version",
+						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1", "ip_version"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "id",
-						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "id"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "id",
+						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "id"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "security_service_ids.#", "1"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "security_service_ids.#", "1"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "neutron_net_id",
-						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "neutron_net_id"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "neutron_net_id",
+						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "neutron_net_id"),
 					resource.TestCheckResourceAttrPair(
-						"data.openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "ip_version",
-						"openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "ip_version"),
+						"data.viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "ip_version",
+						"viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2", "ip_version"),
 				),
 			},
 		},
@@ -47,19 +47,19 @@ func TestAccSFSV2ShareNetworkDataSource_basic(t *testing.T) {
 }
 
 const testAccSFSV2ShareNetworkDataSourceBasic = `
-resource "openstack_networking_network_v2" "network_1" {
+resource "viettelidc_networking_network_v2" "network_1" {
   name = "network_1"
   admin_state_up = "true"
 }
 
-resource "openstack_networking_subnet_v2" "subnet_1" {
+resource "viettelidc_networking_subnet_v2" "subnet_1" {
   name = "subnet_1"
   cidr = "192.168.199.0/24"
   ip_version = 4
-  network_id = "${openstack_networking_network_v2.network_1.id}"
+  network_id = "${viettelidc_networking_network_v2.network_1.id}"
 }
 
-resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_1" {
+resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_1" {
   name        = "security"
   description = "created by terraform"
   type        = "active_directory"
@@ -71,7 +71,7 @@ resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_1" {
   password    = "s8cret"
 }
 
-resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_2" {
+resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_2" {
   name        = "security_through_obscurity"
   description = ""
   type        = "kerberos"
@@ -79,36 +79,36 @@ resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_2" {
   dns_ip      = "192.168.199.11"
 }
 
-resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
   name                = "test_sharenetwork_secure"
   description         = "share the secure love"
-  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
   security_service_ids = [
-    "${openstack_sharedfilesystem_securityservice_v2.securityservice_1.id}",
-    "${openstack_sharedfilesystem_securityservice_v2.securityservice_2.id}",
+    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_1.id}",
+    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_2.id}",
   ]
 }
 
-resource "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_2" {
+resource "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_2" {
   name                = "test_sharenetwork_secure"
   description         = "share the less secure love"
-  neutron_net_id      = "${openstack_networking_network_v2.network_1.id}"
-  neutron_subnet_id   = "${openstack_networking_subnet_v2.subnet_1.id}"
+  neutron_net_id      = "${viettelidc_networking_network_v2.network_1.id}"
+  neutron_subnet_id   = "${viettelidc_networking_subnet_v2.subnet_1.id}"
   security_service_ids = [
-    "${openstack_sharedfilesystem_securityservice_v2.securityservice_1.id}",
+    "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_1.id}",
   ]
 }
 
-data "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
-  name                = "${openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1.name}"
-  security_service_id = "${openstack_sharedfilesystem_securityservice_v2.securityservice_2.id}"
-  ip_version          = "${openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_1.ip_version}"
+data "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_1" {
+  name                = "${viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1.name}"
+  security_service_id = "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_2.id}"
+  ip_version          = "${viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_1.ip_version}"
 }
 
-data "openstack_sharedfilesystem_sharenetwork_v2" "sharenetwork_2" {
+data "viettelidc_sharedfilesystem_sharenetwork_v2" "sharenetwork_2" {
   name                = "test_sharenetwork_secure"
-  description         = "${openstack_sharedfilesystem_sharenetwork_v2.sharenetwork_2.description}"
-  security_service_id = "${openstack_sharedfilesystem_securityservice_v2.securityservice_1.id}"
+  description         = "${viettelidc_sharedfilesystem_sharenetwork_v2.sharenetwork_2.description}"
+  security_service_id = "${viettelidc_sharedfilesystem_securityservice_v2.securityservice_1.id}"
 }
 `

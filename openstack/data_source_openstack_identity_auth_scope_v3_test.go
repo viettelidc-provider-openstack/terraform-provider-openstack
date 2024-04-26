@@ -22,13 +22,13 @@ func TestAccOpenStackIdentityAuthScopeV3DataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityAuthScopeV3DataSourceBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityAuthScopeV3DataSourceID("data.openstack_identity_auth_scope_v3.token"),
+					testAccCheckIdentityAuthScopeV3DataSourceID("data.viettelidc_identity_auth_scope_v3.token"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_auth_scope_v3.token", "user_name", userName),
+						"data.viettelidc_identity_auth_scope_v3.token", "user_name", userName),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_auth_scope_v3.token", "project_name", projectName),
+						"data.viettelidc_identity_auth_scope_v3.token", "project_name", projectName),
 					resource.TestCheckNoResourceAttr(
-						"data.openstack_identity_auth_scope_v3.token", "token_id"),
+						"data.viettelidc_identity_auth_scope_v3.token", "token_id"),
 				),
 			},
 		},
@@ -48,12 +48,12 @@ func TestAccOpenStackIdentityAuthScopeV3DataSource_token_id(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityAuthScopeV3DataSourceTokenID,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityAuthScopeV3DataSourceID("data.openstack_identity_auth_scope_v3.token"),
+					testAccCheckIdentityAuthScopeV3DataSourceID("data.viettelidc_identity_auth_scope_v3.token"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_auth_scope_v3.token", "user_name", userName),
+						"data.viettelidc_identity_auth_scope_v3.token", "user_name", userName),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_auth_scope_v3.token", "project_name", projectName),
-					resource.TestCheckResourceAttrSet("data.openstack_identity_auth_scope_v3.token", "token_id"),
+						"data.viettelidc_identity_auth_scope_v3.token", "project_name", projectName),
+					resource.TestCheckResourceAttrSet("data.viettelidc_identity_auth_scope_v3.token", "token_id"),
 				),
 			},
 		},
@@ -76,13 +76,13 @@ func testAccCheckIdentityAuthScopeV3DataSourceID(n string) resource.TestCheckFun
 }
 
 const testAccOpenStackIdentityAuthScopeV3DataSourceBasic = `
-data "openstack_identity_auth_scope_v3" "token" {
+data "viettelidc_identity_auth_scope_v3" "token" {
   name = "my_token"
 }
 `
 
 const testAccOpenStackIdentityAuthScopeV3DataSourceTokenID = `
-data "openstack_identity_auth_scope_v3" "token" {
+data "viettelidc_identity_auth_scope_v3" "token" {
   name         = "my_token"
   set_token_id = true
 }

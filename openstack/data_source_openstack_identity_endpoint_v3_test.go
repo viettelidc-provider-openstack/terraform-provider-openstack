@@ -22,11 +22,11 @@ func TestAccOpenStackIdentityV3EndpointDataSource_basic(t *testing.T) {
 			{
 				Config: testAccOpenStackIdentityEndpointV3DataSourceBasic(serviceName, "public"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityEndpointV3DataSourceID("data.openstack_identity_endpoint_v3.endpoint_1"),
+					testAccCheckIdentityEndpointV3DataSourceID("data.viettelidc_identity_endpoint_v3.endpoint_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_endpoint_v3.endpoint_1", "service_name", serviceName),
+						"data.viettelidc_identity_endpoint_v3.endpoint_1", "service_name", serviceName),
 					resource.TestCheckResourceAttr(
-						"data.openstack_identity_endpoint_v3.endpoint_1", "service_type", serviceType),
+						"data.viettelidc_identity_endpoint_v3.endpoint_1", "service_type", serviceType),
 				),
 			},
 		},
@@ -50,7 +50,7 @@ func testAccCheckIdentityEndpointV3DataSourceID(n string) resource.TestCheckFunc
 
 func testAccOpenStackIdentityEndpointV3DataSourceBasic(name, iface string) string {
 	return fmt.Sprintf(`
-	data "openstack_identity_endpoint_v3" "endpoint_1" {
+	data "viettelidc_identity_endpoint_v3" "endpoint_1" {
       service_name = "%s"
       interface = "%s"
 	}

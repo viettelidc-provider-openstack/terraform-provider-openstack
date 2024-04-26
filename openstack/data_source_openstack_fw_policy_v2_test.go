@@ -23,17 +23,17 @@ func TestAccFWPolicyV2DataSource_basic(t *testing.T) {
 			{
 				Config: testAccFWPolicyV2DataSourceName(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2DataSourceID("data.openstack_fw_policy_v2.policy_1"),
+					testAccCheckFWPolicyV2DataSourceID("data.viettelidc_fw_policy_v2.policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "name", "policy_1"),
+						"data.viettelidc_fw_policy_v2.policy_1", "name", "policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "description", "My firewall policy"),
+						"data.viettelidc_fw_policy_v2.policy_1", "description", "My firewall policy"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "shared", "false"),
+						"data.viettelidc_fw_policy_v2.policy_1", "shared", "false"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "audited", "false"),
+						"data.viettelidc_fw_policy_v2.policy_1", "audited", "false"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_fw_policy_v2.policy_1", "tenant_id"),
+						"data.viettelidc_fw_policy_v2.policy_1", "tenant_id"),
 				),
 			},
 		},
@@ -55,17 +55,17 @@ func TestAccFWPolicyV2DataSource_shared(t *testing.T) {
 			{
 				Config: testAccFWPolicyV2DataSourceShared,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2DataSourceID("data.openstack_fw_policy_v2.policy_1"),
+					testAccCheckFWPolicyV2DataSourceID("data.viettelidc_fw_policy_v2.policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "name", "policy_1"),
+						"data.viettelidc_fw_policy_v2.policy_1", "name", "policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "description", "My firewall policy"),
+						"data.viettelidc_fw_policy_v2.policy_1", "description", "My firewall policy"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "shared", "true"),
+						"data.viettelidc_fw_policy_v2.policy_1", "shared", "true"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "audited", "true"),
+						"data.viettelidc_fw_policy_v2.policy_1", "audited", "true"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_fw_policy_v2.policy_1", "tenant_id"),
+						"data.viettelidc_fw_policy_v2.policy_1", "tenant_id"),
 				),
 			},
 		},
@@ -87,9 +87,9 @@ func TestAccFWPolicyV2DataSource_FWPolicyID(t *testing.T) {
 			{
 				Config: testAccFWPolicyV2DataSourcePolicyID(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFWPolicyV2DataSourceID("data.openstack_fw_policy_v2.policy_1"),
+					testAccCheckFWPolicyV2DataSourceID("data.viettelidc_fw_policy_v2.policy_1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_fw_policy_v2.policy_1", "name", "policy_1"),
+						"data.viettelidc_fw_policy_v2.policy_1", "name", "policy_1"),
 				),
 			},
 		},
@@ -112,24 +112,24 @@ func testAccCheckFWPolicyV2DataSourceID(n string) resource.TestCheckFunc {
 }
 
 const testAccFWPolicyV2DataSourceBasic = `
-resource "openstack_fw_policy_v2" "policy_1" {
+resource "viettelidc_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "My firewall policy"
 }
 `
 
 const testAccFWPolicyV2DataSourceShared = `
-resource "openstack_fw_policy_v2" "policy_1" {
+resource "viettelidc_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "My firewall policy"
   shared      = true
   audited     = true
 }
 
-data "openstack_fw_policy_v2" "policy_1" {
-  name        = "${openstack_fw_policy_v2.policy_1.name}"
-  description = "${openstack_fw_policy_v2.policy_1.description}"
-  tenant_id   = "${openstack_fw_policy_v2.policy_1.tenant_id}"
+data "viettelidc_fw_policy_v2" "policy_1" {
+  name        = "${viettelidc_fw_policy_v2.policy_1.name}"
+  description = "${viettelidc_fw_policy_v2.policy_1.description}"
+  tenant_id   = "${viettelidc_fw_policy_v2.policy_1.tenant_id}"
   shared      = true
   audited     = true
 }
@@ -139,10 +139,10 @@ func testAccFWPolicyV2DataSourceName() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_policy_v2" "policy_1" {
+data "viettelidc_fw_policy_v2" "policy_1" {
   name        = "policy_1"
   description = "My firewall policy"
-  tenant_id   = "${openstack_fw_policy_v2.policy_1.tenant_id}"
+  tenant_id   = "${viettelidc_fw_policy_v2.policy_1.tenant_id}"
   shared      = false
   audited     = false
 }
@@ -153,8 +153,8 @@ func testAccFWPolicyV2DataSourcePolicyID() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_fw_policy_v2" "policy_1" {
-  policy_id = "${openstack_fw_policy_v2.policy_1.id}"
+data "viettelidc_fw_policy_v2" "policy_1" {
+  policy_id = "${viettelidc_fw_policy_v2.policy_1.id}"
 }
 `, testAccFWPolicyV2DataSourceBasic)
 }

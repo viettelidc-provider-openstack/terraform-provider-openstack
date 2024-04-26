@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV2L7Policy_importBasic(t *testing.T) {
-	resourceName := "openstack_lb_l7policy_v2.l7policy_1"
+	resourceName := "viettelidc_lb_l7policy_v2.l7policy_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

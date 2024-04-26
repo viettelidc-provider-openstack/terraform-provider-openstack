@@ -89,7 +89,7 @@ func resourceDatabaseUserV1Create(ctx context.Context, d *schema.ResourceData, m
 
 	err = users.Create(DatabaseV1Client, instanceID, usersList).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_db_user_v1: %s", err)
+		return diag.Errorf("Error creating viettelidc_db_user_v1: %s", err)
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -103,7 +103,7 @@ func resourceDatabaseUserV1Create(ctx context.Context, d *schema.ResourceData, m
 
 	_, err = stateConf.WaitForStateContext(ctx)
 	if err != nil {
-		return diag.Errorf("Error waiting for openstack_db_user_v1 %s to be created: %s", userName, err)
+		return diag.Errorf("Error waiting for viettelidc_db_user_v1 %s to be created: %s", userName, err)
 	}
 
 	// Store the ID now
@@ -121,7 +121,7 @@ func resourceDatabaseUserV1Read(_ context.Context, d *schema.ResourceData, meta 
 
 	userID := strings.SplitN(d.Id(), "/", 2)
 	if len(userID) != 2 {
-		return diag.Errorf("Invalid openstack_db_user_v1 ID: %s", d.Id())
+		return diag.Errorf("Invalid viettelidc_db_user_v1 ID: %s", d.Id())
 	}
 
 	instanceID := userID[0]
@@ -129,7 +129,7 @@ func resourceDatabaseUserV1Read(_ context.Context, d *schema.ResourceData, meta 
 
 	exists, userObj, err := databaseUserV1Exists(DatabaseV1Client, instanceID, userName)
 	if err != nil {
-		return diag.Errorf("Error checking if openstack_db_user_v1 %s exists: %s", d.Id(), err)
+		return diag.Errorf("Error checking if viettelidc_db_user_v1 %s exists: %s", d.Id(), err)
 	}
 
 	if !exists {
@@ -156,7 +156,7 @@ func resourceDatabaseUserV1Delete(_ context.Context, d *schema.ResourceData, met
 
 	userID := strings.SplitN(d.Id(), "/", 2)
 	if len(userID) != 2 {
-		return diag.Errorf("Invalid openstack_db_user_v1 ID: %s", d.Id())
+		return diag.Errorf("Invalid viettelidc_db_user_v1 ID: %s", d.Id())
 	}
 
 	instanceID := userID[0]
@@ -164,7 +164,7 @@ func resourceDatabaseUserV1Delete(_ context.Context, d *schema.ResourceData, met
 
 	exists, _, err := databaseUserV1Exists(DatabaseV1Client, instanceID, userName)
 	if err != nil {
-		return diag.Errorf("Error checking if openstack_db_user_v1 %s exists: %s", d.Id(), err)
+		return diag.Errorf("Error checking if viettelidc_db_user_v1 %s exists: %s", d.Id(), err)
 	}
 
 	if !exists {
@@ -173,7 +173,7 @@ func resourceDatabaseUserV1Delete(_ context.Context, d *schema.ResourceData, met
 
 	err = users.Delete(DatabaseV1Client, instanceID, userName).ExtractErr()
 	if err != nil {
-		return diag.Errorf("Error deleting openstack_db_user_v1 %s: %s", d.Id(), err)
+		return diag.Errorf("Error deleting viettelidc_db_user_v1 %s: %s", d.Id(), err)
 	}
 
 	return nil

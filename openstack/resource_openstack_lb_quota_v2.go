@@ -96,7 +96,7 @@ func resourceLoadBalancerQuotaV2Create(ctx context.Context, d *schema.ResourceDa
 	}
 
 	if lbClient.Type != octaviaLBClientType {
-		return diag.Errorf("Error creating openstack_lb_quota_v2: Only available when using octavia")
+		return diag.Errorf("Error creating viettelidc_lb_quota_v2: Only available when using octavia")
 	}
 
 	region := GetRegion(d, config)
@@ -129,13 +129,13 @@ func resourceLoadBalancerQuotaV2Create(ctx context.Context, d *schema.ResourceDa
 
 	q, err := quotas.Update(lbClient, projectID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_lb_quota_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_lb_quota_v2: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)
 
-	log.Printf("[DEBUG] Created openstack_lb_quota_v2 %#v", q)
+	log.Printf("[DEBUG] Created viettelidc_lb_quota_v2 %#v", q)
 
 	return resourceLoadBalancerQuotaV2Read(ctx, d, meta)
 }
@@ -149,7 +149,7 @@ func resourceLoadBalancerQuotaV2Read(ctx context.Context, d *schema.ResourceData
 	}
 
 	if lbClient.Type != octaviaLBClientType {
-		return diag.Errorf("Error creating openstack_lb_quota_v2: Only available when using octavia")
+		return diag.Errorf("Error creating viettelidc_lb_quota_v2: Only available when using octavia")
 	}
 
 	// Pase projectID from resource id that is <project_id>/<region>
@@ -157,10 +157,10 @@ func resourceLoadBalancerQuotaV2Read(ctx context.Context, d *schema.ResourceData
 
 	q, err := quotas.Get(lbClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_lb_quota_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_lb_quota_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_lb_quota_v2 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved viettelidc_lb_quota_v2 %s: %#v", d.Id(), q)
 
 	d.Set("project_id", projectID)
 	d.Set("region", region)
@@ -183,7 +183,7 @@ func resourceLoadBalancerQuotaV2Update(ctx context.Context, d *schema.ResourceDa
 	}
 
 	if lbClient.Type != octaviaLBClientType {
-		return diag.Errorf("Error creating openstack_lb_quota_v2: Only available when using octavia")
+		return diag.Errorf("Error creating viettelidc_lb_quota_v2: Only available when using octavia")
 	}
 
 	var (
@@ -234,11 +234,11 @@ func resourceLoadBalancerQuotaV2Update(ctx context.Context, d *schema.ResourceDa
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] openstack_lb_quota_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_lb_quota_v2 %s update options: %#v", d.Id(), updateOpts)
 		projectID := d.Get("project_id").(string)
 		_, err := quotas.Update(lbClient, projectID, updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_lb_quota_v2: %s", err)
+			return diag.Errorf("Error updating viettelidc_lb_quota_v2: %s", err)
 		}
 	}
 

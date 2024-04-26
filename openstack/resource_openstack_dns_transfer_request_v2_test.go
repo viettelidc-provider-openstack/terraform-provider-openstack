@@ -28,16 +28,16 @@ func TestAccDNSV2TransferRequest_basic(t *testing.T) {
 				Config: testAccDNSV2TransferRequestBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDNSV2TransferRequestExists(
-						"openstack_dns_transfer_request_v2.request_1", &transferRequest),
+						"viettelidc_dns_transfer_request_v2.request_1", &transferRequest),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_transfer_request_v2.request_1", "description", "a transfer request"),
+						"viettelidc_dns_transfer_request_v2.request_1", "description", "a transfer request"),
 				),
 			},
 			{
 				Config: testAccDNSV2TransferRequestUpdate(zoneName),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
-						"openstack_dns_transfer_request_v2.request_1", "description", "an updated transfer request"),
+						"viettelidc_dns_transfer_request_v2.request_1", "description", "an updated transfer request"),
 				),
 			},
 		},
@@ -60,17 +60,17 @@ func TestAccDNSV2TransferRequest_ignoreStatusCheck(t *testing.T) {
 			{
 				Config: testAccDNSV2TransferRequestDisableCheck(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2TransferRequestExists("openstack_dns_transfer_request_v2.request_1", &transferRequest),
+					testAccCheckDNSV2TransferRequestExists("viettelidc_dns_transfer_request_v2.request_1", &transferRequest),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_transfer_request_v2.request_1", "disable_status_check", "true"),
+						"viettelidc_dns_transfer_request_v2.request_1", "disable_status_check", "true"),
 				),
 			},
 			{
 				Config: testAccDNSV2TransferRequestBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2TransferRequestExists("openstack_dns_transfer_request_v2.request_1", &transferRequest),
+					testAccCheckDNSV2TransferRequestExists("viettelidc_dns_transfer_request_v2.request_1", &transferRequest),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_transfer_request_v2.request_1", "disable_status_check", "false"),
+						"viettelidc_dns_transfer_request_v2.request_1", "disable_status_check", "false"),
 				),
 			},
 		},
@@ -85,7 +85,7 @@ func testAccCheckDNSV2TransferRequestDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_dns_transfer_request_v2" {
+		if rs.Type != "viettelidc_dns_transfer_request_v2" {
 			continue
 		}
 
@@ -132,7 +132,7 @@ func testAccCheckDNSV2TransferRequestExists(n string, transferRequest *request.T
 
 func testAccDNSV2TransferRequestBasic(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email1@example.com"
 			description = "a zone"
@@ -140,9 +140,9 @@ func testAccDNSV2TransferRequestBasic(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_transfer_request_v2" "request_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
-			target_project_id = "${openstack_dns_zone_v2.zone_1.project_id}"
+		resource "viettelidc_dns_transfer_request_v2" "request_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
+			target_project_id = "${viettelidc_dns_zone_v2.zone_1.project_id}"
 			description = "a transfer request"
         }
 	`, zoneName)
@@ -150,7 +150,7 @@ func testAccDNSV2TransferRequestBasic(zoneName string) string {
 
 func testAccDNSV2TransferRequestUpdate(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email1@example.com"
 			description = "a zone"
@@ -158,9 +158,9 @@ func testAccDNSV2TransferRequestUpdate(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_transfer_request_v2" "request_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
-			target_project_id = "${openstack_dns_zone_v2.zone_1.project_id}"
+		resource "viettelidc_dns_transfer_request_v2" "request_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
+			target_project_id = "${viettelidc_dns_zone_v2.zone_1.project_id}"
 			description = "an updated transfer request"
         }
 	`, zoneName)
@@ -168,7 +168,7 @@ func testAccDNSV2TransferRequestUpdate(zoneName string) string {
 
 func testAccDNSV2TransferRequestDisableCheck(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email1@example.com"
 			description = "a zone"
@@ -177,9 +177,9 @@ func testAccDNSV2TransferRequestDisableCheck(zoneName string) string {
 			disable_status_check = true
 		}
 
-		resource "openstack_dns_transfer_request_v2" "request_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
-			target_project_id = "${openstack_dns_zone_v2.zone_1.project_id}"
+		resource "viettelidc_dns_transfer_request_v2" "request_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
+			target_project_id = "${viettelidc_dns_zone_v2.zone_1.project_id}"
 			description = "a transfer request"
 			disable_status_check = true
         }

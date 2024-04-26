@@ -26,11 +26,11 @@ func TestAccComputeV2ServerGroup_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.#", "1"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.#", "1"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
 				),
 			},
 		},
@@ -51,9 +51,9 @@ func TestAccComputeV2ServerGroup_basic_v2_64(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupV264Policy,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
 				),
 			},
 		},
@@ -74,9 +74,9 @@ func TestAccComputeV2ServerGroup_v2_64_anti_affinity(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupV264PolicyAntiAffinity,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "anti-affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "anti-affinity"),
 				),
 			},
 		},
@@ -97,11 +97,11 @@ func TestAccComputeV2ServerGroup_v2_64_with_rules(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupV264PolicyRules,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "anti-affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "anti-affinity"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "rules.0.max_server_per_host", "2"),
+						"viettelidc_compute_servergroup_v2.sg_1", "rules.0.max_server_per_host", "2"),
 				),
 			},
 		},
@@ -140,13 +140,13 @@ func TestAccComputeV2ServerGroup_affinity(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupAffinity(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceInServerGroup(&instance, &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.#", "1"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.#", "1"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
 				),
 			},
 		},
@@ -168,11 +168,11 @@ func TestAccComputeV2ServerGroup_affinity_v2_64(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupAffinityV264(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceInServerGroup(&instance, &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "affinity"),
 				),
 			},
 		},
@@ -194,13 +194,13 @@ func TestAccComputeV2ServerGroup_soft_affinity(t *testing.T) {
 			{
 				Config: testAccComputeV2ServerGroupSoftAffinity(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeV2ServerGroupExists("openstack_compute_servergroup_v2.sg_1", &sg),
-					testAccCheckComputeV2InstanceExists("openstack_compute_instance_v2.instance_1", &instance),
+					testAccCheckComputeV2ServerGroupExists("viettelidc_compute_servergroup_v2.sg_1", &sg),
+					testAccCheckComputeV2InstanceExists("viettelidc_compute_instance_v2.instance_1", &instance),
 					testAccCheckComputeV2InstanceInServerGroup(&instance, &sg),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.#", "1"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.#", "1"),
 					resource.TestCheckResourceAttr(
-						"openstack_compute_servergroup_v2.sg_1", "policies.0", "soft-affinity"),
+						"viettelidc_compute_servergroup_v2.sg_1", "policies.0", "soft-affinity"),
 				),
 			},
 		},
@@ -215,7 +215,7 @@ func testAccCheckComputeV2ServerGroupDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_compute_servergroup_v2" {
+		if rs.Type != "viettelidc_compute_servergroup_v2" {
 			continue
 		}
 
@@ -275,28 +275,28 @@ func testAccCheckComputeV2InstanceInServerGroup(instance *servers.Server, sg *se
 }
 
 const testAccComputeV2ServerGroupBasic = `
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["affinity"]
 }
 `
 
 const testAccComputeV2ServerGroupV264Policy = `
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["affinity"]
 }
 `
 
 const testAccComputeV2ServerGroupV264PolicyAntiAffinity = `
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["anti-affinity"]
 }
 `
 
 const testAccComputeV2ServerGroupV264PolicyRules = `
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["anti-affinity"]
   rules {
@@ -306,7 +306,7 @@ resource "openstack_compute_servergroup_v2" "sg_1" {
 `
 
 const testAccComputeV2ServerGroupV264InvalidPolicyRules = `
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["anti-affinity"]
   rules {
@@ -317,16 +317,16 @@ resource "openstack_compute_servergroup_v2" "sg_1" {
 
 func testAccComputeV2ServerGroupAffinity() string {
 	return fmt.Sprintf(`
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["affinity"]
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   scheduler_hints {
-    group = "${openstack_compute_servergroup_v2.sg_1.id}"
+    group = "${viettelidc_compute_servergroup_v2.sg_1.id}"
   }
   network {
     uuid = "%s"
@@ -337,16 +337,16 @@ resource "openstack_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2ServerGroupSoftAffinity() string {
 	return fmt.Sprintf(`
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["soft-affinity"]
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   scheduler_hints {
-    group = "${openstack_compute_servergroup_v2.sg_1.id}"
+    group = "${viettelidc_compute_servergroup_v2.sg_1.id}"
   }
   network {
     uuid = "%s"
@@ -357,16 +357,16 @@ resource "openstack_compute_instance_v2" "instance_1" {
 
 func testAccComputeV2ServerGroupAffinityV264() string {
 	return fmt.Sprintf(`
-resource "openstack_compute_servergroup_v2" "sg_1" {
+resource "viettelidc_compute_servergroup_v2" "sg_1" {
   name = "sg_1"
   policies = ["affinity"]
 }
 
-resource "openstack_compute_instance_v2" "instance_1" {
+resource "viettelidc_compute_instance_v2" "instance_1" {
   name = "instance_1"
   security_groups = ["default"]
   scheduler_hints {
-    group = "${openstack_compute_servergroup_v2.sg_1.id}"
+    group = "${viettelidc_compute_servergroup_v2.sg_1.id}"
   }
   network {
     uuid = "%s"

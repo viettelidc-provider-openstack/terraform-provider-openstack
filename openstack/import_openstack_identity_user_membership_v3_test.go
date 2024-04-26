@@ -9,7 +9,7 @@ import (
 )
 
 func TestAccIdentityV3UserMembership_importBasic(t *testing.T) {
-	resourceName := "openstack_identity_user_membership_v3.user_membership_1"
+	resourceName := "viettelidc_identity_user_membership_v3.user_membership_1"
 
 	groupName := fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))
 	userName := fmt.Sprintf("ACCPTTEST-%s", acctest.RandString(5))

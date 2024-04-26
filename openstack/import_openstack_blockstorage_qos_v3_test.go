@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccBlockStorageQosV3_importBasic(t *testing.T) {
-	resourceName := "openstack_blockstorage_qos_v3.qos"
+	resourceName := "viettelidc_blockstorage_qos_v3.qos"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

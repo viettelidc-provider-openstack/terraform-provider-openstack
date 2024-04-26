@@ -208,15 +208,15 @@ func dataSourceNetworkingSubnetIDsV2Read(ctx context.Context, d *schema.Resource
 
 	pages, err := subnets.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_networking_subnet_ids_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_networking_subnet_ids_v2: %s", err)
 	}
 
 	allSubnets, err := subnets.ExtractSubnets(pages)
 	if err != nil {
-		return diag.Errorf("Unable to extract openstack_networking_subnet_ids_v2: %s", err)
+		return diag.Errorf("Unable to extract viettelidc_networking_subnet_ids_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Retrieved %d subnets in openstack_networking_subnet_ids_v2: %+v", len(allSubnets), allSubnets)
+	log.Printf("[DEBUG] Retrieved %d subnets in viettelidc_networking_subnet_ids_v2: %+v", len(allSubnets), allSubnets)
 
 	var subnetIDs []string
 	if nameRegex, ok := d.GetOk("name_regex"); !ok {
@@ -242,7 +242,7 @@ func dataSourceNetworkingSubnetIDsV2Read(ctx context.Context, d *schema.Resource
 		}
 
 		log.Printf("[DEBUG] Subnet list filtered by regex: %s", d.Get("name_regex"))
-		log.Printf("[DEBUG] Retrieved %d subnet IDs after filtering in openstack_networking_subnet_ids_v2: %+v", len(subnetIDs), subnetIDs)
+		log.Printf("[DEBUG] Retrieved %d subnet IDs after filtering in viettelidc_networking_subnet_ids_v2: %+v", len(subnetIDs), subnetIDs)
 	}
 
 	d.SetId(fmt.Sprintf("%d", hashcode.String(strings.Join(subnetIDs, ","))))

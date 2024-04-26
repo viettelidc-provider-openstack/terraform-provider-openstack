@@ -10,7 +10,7 @@ import (
 
 func testAccHypervisorDataSource() string {
 	return fmt.Sprintf(`
-data "openstack_compute_hypervisor_v2" "host01" {
+data "viettelidc_compute_hypervisor_v2" "host01" {
   hostname = "%s"
 }
     `, osHypervisorEnvironment)
@@ -27,8 +27,8 @@ func TestAccComputeHypervisorV2DataSource(t *testing.T) {
 			{
 				Config: testAccHypervisorDataSource(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckComputeHypervisorV2DataSourceID("data.openstack_compute_hypervisor_v2.host01"),
-					resource.TestCheckResourceAttr("data.openstack_compute_hypervisor_v2.host01", "hostname", osHypervisorEnvironment),
+					testAccCheckComputeHypervisorV2DataSourceID("data.viettelidc_compute_hypervisor_v2.host01"),
+					resource.TestCheckResourceAttr("data.viettelidc_compute_hypervisor_v2.host01", "hostname", osHypervisorEnvironment),
 				),
 			},
 		},

@@ -25,49 +25,49 @@ func TestAccSFSV2SecurityService_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2SecurityServiceConfigBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2SecurityServiceExists("openstack_sharedfilesystem_securityservice_v2.securityservice_1", &securityservice),
+					testAccCheckSFSV2SecurityServiceExists("viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", &securityservice),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "name", "security"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "name", "security"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "description", "created by terraform"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "description", "created by terraform"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "type", "active_directory"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "type", "active_directory"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "server", "192.168.199.10"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "server", "192.168.199.10"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "dns_ip", "192.168.199.10"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "dns_ip", "192.168.199.10"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "domain", "example.com"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "domain", "example.com"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "ou", "CN=Computers,DC=example,DC=com"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "ou", "CN=Computers,DC=example,DC=com"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "user", "joinDomainUser"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "user", "joinDomainUser"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "password", "s8cret"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "password", "s8cret"),
 				),
 			},
 			{
 				Config: testAccSFSV2SecurityServiceConfigUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSFSV2SecurityServiceExists("openstack_sharedfilesystem_securityservice_v2.securityservice_1", &securityservice),
+					testAccCheckSFSV2SecurityServiceExists("viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", &securityservice),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "name", "security_through_obscurity"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "name", "security_through_obscurity"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "description", ""),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "description", ""),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "type", "kerberos"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "type", "kerberos"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "server", "192.168.199.11"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "server", "192.168.199.11"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "dns_ip", "192.168.199.11"),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "dns_ip", "192.168.199.11"),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "domain", ""),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "domain", ""),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "ou", ""),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "ou", ""),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "user", ""),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "user", ""),
 					resource.TestCheckResourceAttr(
-						"openstack_sharedfilesystem_securityservice_v2.securityservice_1", "password", ""),
+						"viettelidc_sharedfilesystem_securityservice_v2.securityservice_1", "password", ""),
 				),
 			},
 		},
@@ -82,7 +82,7 @@ func testAccCheckSFSV2SecurityServiceDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_sharedfilesystem_securityservice_v2" {
+		if rs.Type != "viettelidc_sharedfilesystem_securityservice_v2" {
 			continue
 		}
 
@@ -128,7 +128,7 @@ func testAccCheckSFSV2SecurityServiceExists(n string, securityservice *securitys
 }
 
 const testAccSFSV2SecurityServiceConfigBasic = `
-resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_1" {
+resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_1" {
   name        = "security"
   description = "created by terraform"
   type        = "active_directory"
@@ -142,7 +142,7 @@ resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_1" {
 `
 
 const testAccSFSV2SecurityServiceConfigUpdate = `
-resource "openstack_sharedfilesystem_securityservice_v2" "securityservice_1" {
+resource "viettelidc_sharedfilesystem_securityservice_v2" "securityservice_1" {
   name        = "security_through_obscurity"
   description = ""
   type        = "kerberos"

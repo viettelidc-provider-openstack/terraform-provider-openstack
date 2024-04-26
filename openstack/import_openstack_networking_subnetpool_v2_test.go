@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2SubnetPoolImportBasic(t *testing.T) {
-	resourceName := "openstack_networking_subnetpool_v2.subnetpool_1"
+	resourceName := "viettelidc_networking_subnetpool_v2.subnetpool_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

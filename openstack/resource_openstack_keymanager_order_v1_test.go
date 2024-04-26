@@ -28,12 +28,12 @@ func TestAccKeyManagerOrderV1_basic(t *testing.T) {
 				Config: testAccKeyManagerOrderV1Symmetric,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOrderV1Exists(
-						"openstack_keymanager_order_v1.test-acc-basic", &order),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_order_v1.test-acc-basic", "type", &order.Type),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_order_v1.test-acc-basic", "meta.0.name", &order.Meta.Name),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_order_v1.test-acc-basic", "meta.0.algorithm", &order.Meta.Algorithm),
-					resource.TestCheckResourceAttrSet("openstack_keymanager_order_v1.test-acc-basic", "meta.0.bit_length"),
-					resource.TestCheckResourceAttrPtr("openstack_keymanager_order_v1.test-acc-basic", "meta.0.mode", &order.Meta.Mode),
+						"viettelidc_keymanager_order_v1.test-acc-basic", &order),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_order_v1.test-acc-basic", "type", &order.Type),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_order_v1.test-acc-basic", "meta.0.name", &order.Meta.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_order_v1.test-acc-basic", "meta.0.algorithm", &order.Meta.Algorithm),
+					resource.TestCheckResourceAttrSet("viettelidc_keymanager_order_v1.test-acc-basic", "meta.0.bit_length"),
+					resource.TestCheckResourceAttrPtr("viettelidc_keymanager_order_v1.test-acc-basic", "meta.0.mode", &order.Meta.Mode),
 				),
 			},
 		},
@@ -47,7 +47,7 @@ func testAccCheckOrderV1Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack KeyManager client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_keymanager_order_v1" {
+		if rs.Type != "viettelidc_keymanager_order_v1" {
 			continue
 		}
 		_, err = orders.Get(kmClient, rs.Primary.ID).Extract()
@@ -97,7 +97,7 @@ func testAccCheckOrderV1Exists(n string, order *orders.Order) resource.TestCheck
 }
 
 const testAccKeyManagerOrderV1Symmetric = `
-resource "openstack_keymanager_order_v1" "test-acc-basic" {
+resource "viettelidc_keymanager_order_v1" "test-acc-basic" {
   type = "key"
   meta {
     name = "test-acc-basic"

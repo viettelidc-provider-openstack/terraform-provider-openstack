@@ -64,11 +64,11 @@ func resourceComputeFloatingIPV2Create(ctx context.Context, d *schema.ResourceDa
 		Pool: d.Get("pool").(string),
 	}
 
-	log.Printf("[DEBUG] openstack_compute_floatingip_v2 Create Options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_compute_floatingip_v2 Create Options: %#v", createOpts)
 
 	newFip, err := floatingips.Create(computeClient, createOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_compute_floatingip_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_compute_floatingip_v2: %s", err)
 	}
 
 	d.SetId(newFip.ID)
@@ -85,10 +85,10 @@ func resourceComputeFloatingIPV2Read(_ context.Context, d *schema.ResourceData, 
 
 	fip, err := floatingips.Get(computeClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_floatingip_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_floatingip_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_compute_floatingip_v2 %s: %#v", d.Id(), fip)
+	log.Printf("[DEBUG] Retrieved viettelidc_compute_floatingip_v2 %s: %#v", d.Id(), fip)
 
 	d.Set("pool", fip.Pool)
 	d.Set("instance_id", fip.InstanceID)
@@ -107,7 +107,7 @@ func resourceComputeFloatingIPV2Delete(_ context.Context, d *schema.ResourceData
 	}
 
 	if err := floatingips.Delete(computeClient, d.Id()).ExtractErr(); err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_compute_floatingip_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_compute_floatingip_v2"))
 	}
 
 	return nil

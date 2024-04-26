@@ -78,11 +78,11 @@ func resourceDNSTransferAcceptV2Create(d *schema.ResourceData, meta interface{})
 		MapValueSpecs(d),
 	}
 
-	log.Printf("[DEBUG] openstack_dns_transfer_accept_v2 create options: %#v", createOpts)
+	log.Printf("[DEBUG] viettelidc_dns_transfer_accept_v2 create options: %#v", createOpts)
 
 	n, err := accept.Create(dnsClient, createOpts).Extract()
 	if err != nil {
-		return fmt.Errorf("Error creating openstack_transfer_accept_zone_v2: %s", err)
+		return fmt.Errorf("Error creating viettelidc_transfer_accept_zone_v2: %s", err)
 	}
 
 	// Key is returned only once
@@ -106,7 +106,7 @@ func resourceDNSTransferAcceptV2Create(d *schema.ResourceData, meta interface{})
 	_, err = stateConf.WaitForState()
 	if err != nil {
 		return fmt.Errorf(
-			"Error waiting for openstack_dns_transfer_accept_v2 %s to become active: %s", d.Id(), err)
+			"Error waiting for viettelidc_dns_transfer_accept_v2 %s to become active: %s", d.Id(), err)
 	}
 
 	d.SetId(n.ID)
@@ -124,10 +124,10 @@ func resourceDNSTransferAcceptV2Read(d *schema.ResourceData, meta interface{}) e
 
 	n, err := accept.Get(dnsClient, d.Id()).Extract()
 	if err != nil {
-		return CheckDeleted(d, err, "Error retrieving openstack_dns_transfer_accept_v2")
+		return CheckDeleted(d, err, "Error retrieving viettelidc_dns_transfer_accept_v2")
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_dns_transfer_accept_v2 %s: %#v", d.Id(), n)
+	log.Printf("[DEBUG] Retrieved viettelidc_dns_transfer_accept_v2 %s: %#v", d.Id(), n)
 
 	d.Set("region", GetRegion(d, config))
 	d.Set("zone_transfer_request_id", n.ZoneTransferRequestID)
@@ -147,7 +147,7 @@ func resourceDNSTransferAcceptV2Delete(d *schema.ResourceData, meta interface{})
 
 	err = request.Delete(dnsClient, d.Get("zone_transfer_request_id").(string)).ExtractErr()
 	if err != nil {
-		return CheckDeleted(d, err, "Error deleting openstack_dns_transfer_request_v2")
+		return CheckDeleted(d, err, "Error deleting viettelidc_dns_transfer_request_v2")
 	}
 
 	stateConf := &resource.StateChangeConf{
@@ -162,7 +162,7 @@ func resourceDNSTransferAcceptV2Delete(d *schema.ResourceData, meta interface{})
 	_, err = stateConf.WaitForState()
 	if err != nil {
 		return fmt.Errorf(
-			"Error waiting for openstack_dns_transfer_accept_v2 %s to become deleted: %s", d.Id(), err)
+			"Error waiting for viettelidc_dns_transfer_accept_v2 %s to become deleted: %s", d.Id(), err)
 	}
 
 	return nil
@@ -177,7 +177,7 @@ func resourceDNSTransferAcceptV2Import(d *schema.ResourceData, meta interface{})
 
 	n, err := accept.Get(dnsClient, d.Id()).Extract()
 	if err != nil {
-		return nil, fmt.Errorf("Error retrieving openstack_dns_transfer_accept_v2 %s: %s", d.Id(), err)
+		return nil, fmt.Errorf("Error retrieving viettelidc_dns_transfer_accept_v2 %s: %s", d.Id(), err)
 	}
 
 	d.Set("key", n.Key)

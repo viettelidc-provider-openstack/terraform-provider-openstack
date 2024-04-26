@@ -159,13 +159,13 @@ func resourceNetworkingQuotaV2Create(ctx context.Context, d *schema.ResourceData
 
 	q, err := quotas.Update(networkingClient, projectID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error creating openstack_networking_quota_v2: %s", err)
+		return diag.Errorf("Error creating viettelidc_networking_quota_v2: %s", err)
 	}
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)
 
-	log.Printf("[DEBUG] Created openstack_networking_quota_v2 %#v", q)
+	log.Printf("[DEBUG] Created viettelidc_networking_quota_v2 %#v", q)
 
 	return resourceNetworkingQuotaV2Read(ctx, d, meta)
 }
@@ -185,10 +185,10 @@ func resourceNetworkingQuotaV2Read(ctx context.Context, d *schema.ResourceData, 
 
 	q, err := quotas.Get(networkingClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_networking_quota_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_networking_quota_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_quota_v2 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_quota_v2 %s: %#v", d.Id(), q)
 
 	d.Set("project_id", projectID)
 	d.Set("region", region)
@@ -272,11 +272,11 @@ func resourceNetworkingQuotaV2Update(ctx context.Context, d *schema.ResourceData
 	}
 
 	if hasChange {
-		log.Printf("[DEBUG] openstack_networking_quota_v2 %s update options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] viettelidc_networking_quota_v2 %s update options: %#v", d.Id(), updateOpts)
 		projectID := d.Get("project_id").(string)
 		_, err := quotas.Update(networkingClient, projectID, updateOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error updating openstack_networking_quota_v2: %s", err)
+			return diag.Errorf("Error updating viettelidc_networking_quota_v2: %s", err)
 		}
 	}
 

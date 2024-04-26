@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2QoSBandwidthLimitRule_importBasic(t *testing.T) {
-	resourceName := "openstack_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1"
+	resourceName := "viettelidc_networking_qos_bandwidth_limit_rule_v2.bw_limit_rule_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

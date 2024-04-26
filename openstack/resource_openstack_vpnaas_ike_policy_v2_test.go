@@ -26,10 +26,10 @@ func TestAccIKEPolicyVPNaaSV2_basic(t *testing.T) {
 				Config: testAccIKEPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIKEPolicyV2Exists(
-						"openstack_vpnaas_ike_policy_v2.policy_1", &policy),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "name", &policy.Name),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "description", &policy.Description),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "tenant_id", &policy.TenantID),
+						"viettelidc_vpnaas_ike_policy_v2.policy_1", &policy),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "name", &policy.Name),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "description", &policy.Description),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "tenant_id", &policy.TenantID),
 				),
 			},
 		},
@@ -51,8 +51,8 @@ func TestAccIKEPolicyVPNaaSV2_withLifetime(t *testing.T) {
 				Config: testAccIKEPolicyV2WithLifetime,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIKEPolicyV2Exists(
-						"openstack_vpnaas_ike_policy_v2.policy_1", &policy),
-					//testAccCheckLifetime("openstack_vpnaas_ike_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
+						"viettelidc_vpnaas_ike_policy_v2.policy_1", &policy),
+					//testAccCheckLifetime("viettelidc_vpnaas_ike_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
 				),
 			},
 		},
@@ -74,16 +74,16 @@ func TestAccIKEPolicyVPNaaSV2_Update(t *testing.T) {
 				Config: testAccIKEPolicyV2Basic,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIKEPolicyV2Exists(
-						"openstack_vpnaas_ike_policy_v2.policy_1", &policy),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "name", &policy.Name),
+						"viettelidc_vpnaas_ike_policy_v2.policy_1", &policy),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "name", &policy.Name),
 				),
 			},
 			{
 				Config: testAccIKEPolicyV2Update,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIKEPolicyV2Exists(
-						"openstack_vpnaas_ike_policy_v2.policy_1", &policy),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "name", &policy.Name),
+						"viettelidc_vpnaas_ike_policy_v2.policy_1", &policy),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "name", &policy.Name),
 				),
 			},
 		},
@@ -105,18 +105,18 @@ func TestAccIKEPolicyVPNaaSV2_withLifetimeUpdate(t *testing.T) {
 				Config: testAccIKEPolicyV2WithLifetime,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIKEPolicyV2Exists(
-						"openstack_vpnaas_ike_policy_v2.policy_1", &policy),
-					//testAccCheckLifetime("openstack_vpnaas_ike_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "auth_algorithm", &policy.AuthAlgorithm),
-					resource.TestCheckResourceAttrPtr("openstack_vpnaas_ike_policy_v2.policy_1", "pfs", &policy.PFS),
+						"viettelidc_vpnaas_ike_policy_v2.policy_1", &policy),
+					//testAccCheckLifetime("viettelidc_vpnaas_ike_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "auth_algorithm", &policy.AuthAlgorithm),
+					resource.TestCheckResourceAttrPtr("viettelidc_vpnaas_ike_policy_v2.policy_1", "pfs", &policy.PFS),
 				),
 			},
 			{
 				Config: testAccIKEPolicyV2WithLifetimeUpdate,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckIKEPolicyV2Exists(
-						"openstack_vpnaas_ike_policy_v2.policy_1", &policy),
-					//testAccCheckLifetime("openstack_vpnaas_ike_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
+						"viettelidc_vpnaas_ike_policy_v2.policy_1", &policy),
+					//testAccCheckLifetime("viettelidc_vpnaas_ike_policy_v2.policy_1", &policy.Lifetime.Units, &policy.Lifetime.Value),
 				),
 			},
 		},
@@ -130,7 +130,7 @@ func testAccCheckIKEPolicyV2Destroy(s *terraform.State) error {
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_vpnaas_ike_policy_v2" {
+		if rs.Type != "viettelidc_vpnaas_ike_policy_v2" {
 			continue
 		}
 		_, err = ikepolicies.Get(networkingClient, rs.Primary.ID).Extract()
@@ -172,18 +172,18 @@ func testAccCheckIKEPolicyV2Exists(n string, policy *ikepolicies.Policy) resourc
 }
 
 const testAccIKEPolicyV2Basic = `
-resource "openstack_vpnaas_ike_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ike_policy_v2" "policy_1" {
 }
 `
 
 const testAccIKEPolicyV2Update = `
-resource "openstack_vpnaas_ike_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ike_policy_v2" "policy_1" {
 	name = "updatedname"
 }
 `
 
 const testAccIKEPolicyV2WithLifetime = `
-resource "openstack_vpnaas_ike_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ike_policy_v2" "policy_1" {
 	auth_algorithm = "sha256"
 	pfs = "group14"
 	lifetime {
@@ -194,7 +194,7 @@ resource "openstack_vpnaas_ike_policy_v2" "policy_1" {
 `
 
 const testAccIKEPolicyV2WithLifetimeUpdate = `
-resource "openstack_vpnaas_ike_policy_v2" "policy_1" {
+resource "viettelidc_vpnaas_ike_policy_v2" "policy_1" {
 	auth_algorithm = "sha256"
 	pfs = "group14"
 	lifetime {

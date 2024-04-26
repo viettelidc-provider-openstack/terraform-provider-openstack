@@ -36,14 +36,14 @@ func TestAccNetworkingV2PortSecGroupAssociate_update(t *testing.T) {
 			{ // step 0
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate0(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 3),
 				),
 			},
 			{ // step 1
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate1(), // unset user defined security groups only
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("data.openstack_networking_port_v2.hidden_port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("data.viettelidc_networking_port_v2.hidden_port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 2),
 				),
 			},
@@ -51,35 +51,35 @@ func TestAccNetworkingV2PortSecGroupAssociate_update(t *testing.T) {
 			{ // step 2
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate2(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 1),
 				),
 			},
 			{ // step 3
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate3(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 3),
 				),
 			},
 			{ // step 4
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate4(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 1),
 				),
 			},
 			{ // step 5
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate5(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 0),
 				),
 			},
 			{ // step 6
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate6(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 1),
 				),
 			},
@@ -87,42 +87,42 @@ func TestAccNetworkingV2PortSecGroupAssociate_update(t *testing.T) {
 			{ // step 7
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate7(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 1),
 				),
 			},
 			{ // step 8
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate8(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 3),
 				),
 			},
 			{ // step 9
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate9(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 1),
 				),
 			},
 			{ // step 10
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate10(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 0),
 				),
 			},
 			{ // step 11
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate11(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("openstack_networking_port_secgroup_associate_v2.port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("viettelidc_networking_port_secgroup_associate_v2.port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 1),
 				),
 			},
 			{ // step 12
 				Config: testAccNetworkingV2PortSecGroupAssociateManifestUpdate12(), // cleanup all the ports
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingV2PortSecGroupAssociateExists("data.openstack_networking_port_v2.hidden_port_1", &port),
+					testAccCheckNetworkingV2PortSecGroupAssociateExists("data.viettelidc_networking_port_v2.hidden_port_1", &port),
 					testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(&port, 0),
 				),
 			},
@@ -283,25 +283,25 @@ func testAccCheckNetworkingV2PortSecGroupAssociateCountSecurityGroups(port *port
 }
 
 const testAccNetworkingV2PortSecGroupAssociate = `
-resource "openstack_networking_secgroup_v2" "secgroup_1" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_1" {
   name = "secgroup_1"
   description = "terraform security group acceptance test"
 }
 
-resource "openstack_networking_secgroup_v2" "secgroup_2" {
+resource "viettelidc_networking_secgroup_v2" "secgroup_2" {
   name = "secgroup_2"
   description = "terraform security group acceptance test"
 }
 
-data "openstack_networking_secgroup_v2" "default_1" {
+data "viettelidc_networking_secgroup_v2" "default_1" {
   name = "default_1"
 }
 
-data "openstack_networking_secgroup_v2" "default_2" {
+data "viettelidc_networking_secgroup_v2" "default_2" {
   name = "default_2"
 }
 
-data "openstack_networking_port_v2" "hidden_port_1" {
+data "viettelidc_networking_port_v2" "hidden_port_1" {
   name = "hidden_port"
 }
 `
@@ -310,11 +310,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate0() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "false"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_1.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -330,11 +330,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate2() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "true"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_1.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -344,13 +344,13 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate3() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "true"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_1.id}",
-    "${openstack_networking_secgroup_v2.secgroup_2.id}",
-    "${data.openstack_networking_secgroup_v2.default_2.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_2.id}",
+    "${data.viettelidc_networking_secgroup_v2.default_2.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -360,11 +360,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate4() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "true"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_2.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_2.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -374,12 +374,12 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate5() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_port_v2" "port_1" {
-  port_id = "${openstack_networking_port_secgroup_associate_v2.port_1.id}"
+data "viettelidc_networking_port_v2" "port_1" {
+  port_id = "${viettelidc_networking_port_secgroup_associate_v2.port_1.id}"
 }
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "true"
   security_group_ids = []
 }
@@ -390,11 +390,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate6() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "true"
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default_2.id}",
+    "${data.viettelidc_networking_secgroup_v2.default_2.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -404,11 +404,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate7() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "false"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_1.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -418,13 +418,13 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate8() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "false"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_1.id}",
-    "${openstack_networking_secgroup_v2.secgroup_2.id}",
-    "${data.openstack_networking_secgroup_v2.default_2.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_1.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_2.id}",
+    "${data.viettelidc_networking_secgroup_v2.default_2.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -434,11 +434,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate9() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "false"
   security_group_ids = [
-    "${openstack_networking_secgroup_v2.secgroup_2.id}",
+    "${viettelidc_networking_secgroup_v2.secgroup_2.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)
@@ -448,8 +448,8 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate10() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "false"
   security_group_ids = []
 }
@@ -460,11 +460,11 @@ func testAccNetworkingV2PortSecGroupAssociateManifestUpdate11() string {
 	return fmt.Sprintf(`
 %s
 
-resource "openstack_networking_port_secgroup_associate_v2" "port_1" {
-  port_id = "${data.openstack_networking_port_v2.hidden_port_1.id}"
+resource "viettelidc_networking_port_secgroup_associate_v2" "port_1" {
+  port_id = "${data.viettelidc_networking_port_v2.hidden_port_1.id}"
   enforce = "false"
   security_group_ids = [
-    "${data.openstack_networking_secgroup_v2.default_2.id}",
+    "${data.viettelidc_networking_secgroup_v2.default_2.id}",
   ]
 }
 `, testAccNetworkingV2PortSecGroupAssociate)

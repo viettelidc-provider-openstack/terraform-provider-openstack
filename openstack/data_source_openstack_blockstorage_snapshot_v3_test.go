@@ -15,7 +15,7 @@ import (
 )
 
 func TestAccBlockStorageV3SnapshotDataSource_basic(t *testing.T) {
-	resourceName := "data.openstack_blockstorage_snapshot_v3.snapshot_1"
+	resourceName := "data.viettelidc_blockstorage_snapshot_v3.snapshot_1"
 	volumeName := acctest.RandomWithPrefix("tf-acc-volume")
 	snapshotName := acctest.RandomWithPrefix("tf-acc-snapshot")
 
@@ -145,7 +145,7 @@ func testAccCheckBlockStorageV3SnapshotDataSourceID(n string) resource.TestCheck
 
 func testAccBlockStorageV3SnapshotDataSourceBasic(snapshotName string) string {
 	return fmt.Sprintf(`
-    data "openstack_blockstorage_snapshot_v3" "snapshot_1" {
+    data "viettelidc_blockstorage_snapshot_v3" "snapshot_1" {
       name = "%s"
     }
   `, snapshotName)

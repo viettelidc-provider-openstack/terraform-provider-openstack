@@ -42,7 +42,7 @@ func dnsTransferRequestV2RefreshFunc(dnsClient *gophercloud.ServiceClient, trans
 			return nil, "", err
 		}
 
-		log.Printf("[DEBUG] openstack_dns_transfer_request_v2 %s current status: %s", transferRequest.ID, transferRequest.Status)
+		log.Printf("[DEBUG] viettelidc_dns_transfer_request_v2 %s current status: %s", transferRequest.ID, transferRequest.Status)
 		return transferRequest, transferRequest.Status, nil
 	}
 }

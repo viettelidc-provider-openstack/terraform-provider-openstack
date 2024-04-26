@@ -18,7 +18,7 @@ func TestAccSFSV2AvailabilityZonesV2_basic(t *testing.T) {
 			{
 				Config: testAccSFSV2AvailabilityZonesConfig,
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestMatchResourceAttr("data.openstack_sharedfilesystem_availability_zones_v2.zones", "names.#", regexp.MustCompile(`[1-9]\d*`)),
+					resource.TestMatchResourceAttr("data.viettelidc_sharedfilesystem_availability_zones_v2.zones", "names.#", regexp.MustCompile(`[1-9]\d*`)),
 				),
 			},
 		},
@@ -26,5 +26,5 @@ func TestAccSFSV2AvailabilityZonesV2_basic(t *testing.T) {
 }
 
 const testAccSFSV2AvailabilityZonesConfig = `
-data "openstack_sharedfilesystem_availability_zones_v2" "zones" {}
+data "viettelidc_sharedfilesystem_availability_zones_v2" "zones" {}
 `

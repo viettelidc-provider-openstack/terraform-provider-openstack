@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2SecGroupRule_importBasic(t *testing.T) {
-	resourceName := "openstack_networking_secgroup_rule_v2.secgroup_rule_1"
+	resourceName := "viettelidc_networking_secgroup_rule_v2.secgroup_rule_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

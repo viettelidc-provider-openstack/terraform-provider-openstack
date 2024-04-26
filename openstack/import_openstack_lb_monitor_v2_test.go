@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccLBV2Monitor_importBasic(t *testing.T) {
-	resourceName := "openstack_lb_monitor_v2.monitor_1"
+	resourceName := "viettelidc_lb_monitor_v2.monitor_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

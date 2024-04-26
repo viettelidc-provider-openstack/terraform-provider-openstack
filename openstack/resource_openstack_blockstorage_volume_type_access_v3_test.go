@@ -30,13 +30,13 @@ func TestAccBlockstorageV3VolumeTypeAccess_basic(t *testing.T) {
 			{
 				Config: testAccBlockstorageV3VolumeTypeAccessBasic(projectName, vtName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
-					testAccCheckBlockStorageVolumeTypeV3Exists("openstack_blockstorage_volume_type_v3.volume_type_1", &vt),
-					testAccCheckBlockstorageV3VolumeTypeAccessExists("openstack_blockstorage_volume_type_access_v3.volume_type_access"),
+					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckBlockStorageVolumeTypeV3Exists("viettelidc_blockstorage_volume_type_v3.volume_type_1", &vt),
+					testAccCheckBlockstorageV3VolumeTypeAccessExists("viettelidc_blockstorage_volume_type_access_v3.volume_type_access"),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_blockstorage_volume_type_access_v3.volume_type_access", "project_id", &project.ID),
+						"viettelidc_blockstorage_volume_type_access_v3.volume_type_access", "project_id", &project.ID),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_blockstorage_volume_type_access_v3.volume_type_access", "volume_type_id", &vt.ID),
+						"viettelidc_blockstorage_volume_type_access_v3.volume_type_access", "volume_type_id", &vt.ID),
 				),
 			},
 		},
@@ -51,7 +51,7 @@ func testAccCheckBlockstorageV3VolumeTypeAccessDestroy(s *terraform.State) error
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_blockstorage_volume_type_access_v3" {
+		if rs.Type != "viettelidc_blockstorage_volume_type_access_v3" {
 			continue
 		}
 
@@ -126,18 +126,18 @@ func testAccCheckBlockstorageV3VolumeTypeAccessExists(n string) resource.TestChe
 
 func testAccBlockstorageV3VolumeTypeAccessBasic(projectName, vtName string) string {
 	return fmt.Sprintf(`
-resource "openstack_identity_project_v3" "project_1" {
+resource "viettelidc_identity_project_v3" "project_1" {
   name = "%s"
 }
 
-resource "openstack_blockstorage_volume_type_v3" "volume_type_1" {
+resource "viettelidc_blockstorage_volume_type_v3" "volume_type_1" {
   name = "%s"
   is_public = false
 }
 
-resource "openstack_blockstorage_volume_type_access_v3" "volume_type_access" {
-  project_id = "${openstack_identity_project_v3.project_1.id}"
-  volume_type_id = "${openstack_blockstorage_volume_type_v3.volume_type_1.id}"
+resource "viettelidc_blockstorage_volume_type_access_v3" "volume_type_access" {
+  project_id = "${viettelidc_identity_project_v3.project_1.id}"
+  volume_type_id = "${viettelidc_blockstorage_volume_type_v3.volume_type_1.id}"
 }
 `, projectName, vtName)
 }

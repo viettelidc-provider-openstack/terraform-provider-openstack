@@ -169,10 +169,10 @@ func resourceLoadBalancerV2Create(ctx context.Context, d *schema.ResourceData, m
 			createOpts.Tags = expandToStringSlice(tags)
 		}
 
-		log.Printf("[DEBUG][Octavia] openstack_lb_loadbalancer_v2 create options: %#v", createOpts)
+		log.Printf("[DEBUG][Octavia] viettelidc_lb_loadbalancer_v2 create options: %#v", createOpts)
 		lb, err := octavialoadbalancers.Create(lbClient, createOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error creating openstack_lb_loadbalancer_v2: %s", err)
+			return diag.Errorf("Error creating viettelidc_lb_loadbalancer_v2: %s", err)
 		}
 		lbID = lb.ID
 		vipPortID = lb.VipPortID
@@ -188,10 +188,10 @@ func resourceLoadBalancerV2Create(ctx context.Context, d *schema.ResourceData, m
 			Provider:     lbProvider,
 		}
 
-		log.Printf("[DEBUG][Neutron] openstack_lb_loadbalancer_v2 create options: %#v", createOpts)
+		log.Printf("[DEBUG][Neutron] viettelidc_lb_loadbalancer_v2 create options: %#v", createOpts)
 		lb, err := neutronloadbalancers.Create(lbClient, createOpts).Extract()
 		if err != nil {
-			return diag.Errorf("Error creating openstack_lb_loadbalancer_v2: %s", err)
+			return diag.Errorf("Error creating viettelidc_lb_loadbalancer_v2: %s", err)
 		}
 		lbID = lb.ID
 		vipPortID = lb.VipPortID
@@ -211,7 +211,7 @@ func resourceLoadBalancerV2Create(ctx context.Context, d *schema.ResourceData, m
 		return diag.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 	if err := resourceLoadBalancerV2SetSecurityGroups(networkingClient, vipPortID, d); err != nil {
-		return diag.Errorf("Error setting openstack_lb_loadbalancer_v2 security groups: %s", err)
+		return diag.Errorf("Error setting viettelidc_lb_loadbalancer_v2 security groups: %s", err)
 	}
 
 	d.SetId(lbID)
@@ -231,10 +231,10 @@ func resourceLoadBalancerV2Read(ctx context.Context, d *schema.ResourceData, met
 	if lbClient.Type == octaviaLBClientType {
 		lb, err := octavialoadbalancers.Get(lbClient, d.Id()).Extract()
 		if err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve openstack_lb_loadbalancer_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve viettelidc_lb_loadbalancer_v2"))
 		}
 
-		log.Printf("[DEBUG][Octavia] Retrieved openstack_lb_loadbalancer_v2 %s: %#v", d.Id(), lb)
+		log.Printf("[DEBUG][Octavia] Retrieved viettelidc_lb_loadbalancer_v2 %s: %#v", d.Id(), lb)
 
 		d.Set("name", lb.Name)
 		d.Set("description", lb.Description)
@@ -253,10 +253,10 @@ func resourceLoadBalancerV2Read(ctx context.Context, d *schema.ResourceData, met
 	} else {
 		lb, err := neutronloadbalancers.Get(lbClient, d.Id()).Extract()
 		if err != nil {
-			return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve openstack_lb_loadbalancer_v2"))
+			return diag.FromErr(CheckDeleted(d, err, "Unable to retrieve viettelidc_lb_loadbalancer_v2"))
 		}
 
-		log.Printf("[DEBUG][Neutron] Retrieved openstack_lb_loadbalancer_v2 %s: %#v", d.Id(), lb)
+		log.Printf("[DEBUG][Neutron] Retrieved viettelidc_lb_loadbalancer_v2 %s: %#v", d.Id(), lb)
 
 		d.Set("name", lb.Name)
 		d.Set("description", lb.Description)
@@ -278,7 +278,7 @@ func resourceLoadBalancerV2Read(ctx context.Context, d *schema.ResourceData, met
 			return diag.Errorf("Error creating OpenStack networking client: %s", err)
 		}
 		if err := resourceLoadBalancerV2GetSecurityGroups(networkingClient, vipPortID, d); err != nil {
-			return diag.Errorf("Error getting port security groups for openstack_lb_loadbalancer_v2: %s", err)
+			return diag.Errorf("Error getting port security groups for viettelidc_lb_loadbalancer_v2: %s", err)
 		}
 	}
 
@@ -294,7 +294,7 @@ func resourceLoadBalancerV2Update(ctx context.Context, d *schema.ResourceData, m
 
 	updateOpts, err := chooseLBV2LoadbalancerUpdateOpts(d, config)
 	if err != nil {
-		return diag.Errorf("Error building openstack_lb_loadbalancer_v2 update options: %s", err)
+		return diag.Errorf("Error building viettelidc_lb_loadbalancer_v2 update options: %s", err)
 	}
 
 	if updateOpts != nil {
@@ -305,7 +305,7 @@ func resourceLoadBalancerV2Update(ctx context.Context, d *schema.ResourceData, m
 			return diag.FromErr(err)
 		}
 
-		log.Printf("[DEBUG] Updating openstack_lb_loadbalancer_v2 %s with options: %#v", d.Id(), updateOpts)
+		log.Printf("[DEBUG] Updating viettelidc_lb_loadbalancer_v2 %s with options: %#v", d.Id(), updateOpts)
 		err = resource.Retry(timeout, func() *resource.RetryError {
 			_, err = neutronloadbalancers.Update(lbClient, d.Id(), updateOpts).Extract()
 			if err != nil {
@@ -315,7 +315,7 @@ func resourceLoadBalancerV2Update(ctx context.Context, d *schema.ResourceData, m
 		})
 
 		if err != nil {
-			return diag.Errorf("Error updating openstack_lb_loadbalancer_v2 %s: %s", d.Id(), err)
+			return diag.Errorf("Error updating viettelidc_lb_loadbalancer_v2 %s: %s", d.Id(), err)
 		}
 
 		// Wait for load-balancer to become active before continuing.
@@ -333,7 +333,7 @@ func resourceLoadBalancerV2Update(ctx context.Context, d *schema.ResourceData, m
 		}
 		vipPortID := d.Get("vip_port_id").(string)
 		if err := resourceLoadBalancerV2SetSecurityGroups(networkingClient, vipPortID, d); err != nil {
-			return diag.Errorf("Error setting openstack_lb_loadbalancer_v2 security groups: %s", err)
+			return diag.Errorf("Error setting viettelidc_lb_loadbalancer_v2 security groups: %s", err)
 		}
 	}
 
@@ -347,7 +347,7 @@ func resourceLoadBalancerV2Delete(ctx context.Context, d *schema.ResourceData, m
 		return diag.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 
-	log.Printf("[DEBUG] Deleting openstack_lb_loadbalancer_v2 %s", d.Id())
+	log.Printf("[DEBUG] Deleting viettelidc_lb_loadbalancer_v2 %s", d.Id())
 	timeout := d.Timeout(schema.TimeoutDelete)
 	err = resource.Retry(timeout, func() *resource.RetryError {
 		err = neutronloadbalancers.Delete(lbClient, d.Id()).ExtractErr()
@@ -358,7 +358,7 @@ func resourceLoadBalancerV2Delete(ctx context.Context, d *schema.ResourceData, m
 	})
 
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error deleting openstack_lb_loadbalancer_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error deleting viettelidc_lb_loadbalancer_v2"))
 	}
 
 	// Wait for load-balancer to become deleted.

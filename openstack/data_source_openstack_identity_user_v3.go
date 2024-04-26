@@ -93,26 +93,26 @@ func dataSourceIdentityUserV3Read(ctx context.Context, d *schema.ResourceData, m
 		UniqueID:          d.Get("unique_id").(string),
 	}
 
-	log.Printf("[DEBUG] openstack_identity_user_v3 list options: %#v", listOpts)
+	log.Printf("[DEBUG] viettelidc_identity_user_v3 list options: %#v", listOpts)
 
 	var user users.User
 	allPages, err := users.List(identityClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to query openstack_identity_user_v3: %s", err)
+		return diag.Errorf("Unable to query viettelidc_identity_user_v3: %s", err)
 	}
 
 	allUsers, err := users.ExtractUsers(allPages)
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_identity_user_v3: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_identity_user_v3: %s", err)
 	}
 
 	if len(allUsers) < 1 {
-		return diag.Errorf("Your openstack_identity_user_v3 query returned no results. " +
+		return diag.Errorf("Your viettelidc_identity_user_v3 query returned no results. " +
 			"Please change your search criteria and try again")
 	}
 
 	if len(allUsers) > 1 {
-		return diag.Errorf("Your openstack_identity_user_v3 query returned more than one result")
+		return diag.Errorf("Your viettelidc_identity_user_v3 query returned more than one result")
 	}
 
 	user = allUsers[0]
@@ -124,7 +124,7 @@ func dataSourceIdentityUserV3Read(ctx context.Context, d *schema.ResourceData, m
 
 // dataSourceIdentityUserV3Attributes populates the fields of an User resource.
 func dataSourceIdentityUserV3Attributes(d *schema.ResourceData, user *users.User) {
-	log.Printf("[DEBUG] openstack_identity_user_v3 details: %#v", user)
+	log.Printf("[DEBUG] viettelidc_identity_user_v3 details: %#v", user)
 
 	d.SetId(user.ID)
 	d.Set("default_project_id", user.DefaultProjectID)

@@ -283,7 +283,7 @@ func dataSourceImagesImageV2Read(ctx context.Context, d *schema.ResourceData, me
 
 	log.Printf("[DEBUG] Single Image found: %s", image.ID)
 
-	log.Printf("[DEBUG] openstack_images_image details: %#v", image)
+	log.Printf("[DEBUG] viettelidc_images_image details: %#v", image)
 
 	d.SetId(image.ID)
 	d.Set("name", image.Name)

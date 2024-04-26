@@ -41,11 +41,11 @@ func dataSourceSharedFilesystemAvailabilityZonesV2Read(ctx context.Context, d *s
 
 	allPages, err := availabilityzones.List(client).AllPages()
 	if err != nil {
-		return diag.Errorf("Error retrieving openstack_sharedfilesystem_availability_zones_v2: %s", err)
+		return diag.Errorf("Error retrieving viettelidc_sharedfilesystem_availability_zones_v2: %s", err)
 	}
 	zoneInfo, err := availabilityzones.ExtractAvailabilityZones(allPages)
 	if err != nil {
-		return diag.Errorf("Error extracting openstack_sharedfilesystem_availability_zones_v2 from response: %s", err)
+		return diag.Errorf("Error extracting viettelidc_sharedfilesystem_availability_zones_v2 from response: %s", err)
 	}
 
 	zones := make([]string, 0, len(zoneInfo))

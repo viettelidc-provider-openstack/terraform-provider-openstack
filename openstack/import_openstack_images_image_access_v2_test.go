@@ -9,9 +9,9 @@ import (
 )
 
 func TestAccImagesImageAccessV2_importBasic(t *testing.T) {
-	memberName := "data.openstack_identity_auth_scope_v3.scope"
-	imageName := "openstack_images_image_v2.image_1"
-	resourceName := "openstack_images_image_access_v2.image_access_1"
+	memberName := "data.viettelidc_identity_auth_scope_v3.scope"
+	imageName := "viettelidc_images_image_v2.image_1"
+	resourceName := "viettelidc_images_image_access_v2.image_access_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

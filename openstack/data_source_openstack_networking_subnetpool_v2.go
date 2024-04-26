@@ -211,27 +211,27 @@ func dataSourceNetworkingSubnetPoolV2Read(ctx context.Context, d *schema.Resourc
 
 	pages, err := subnetpools.List(networkingClient, listOpts).AllPages()
 	if err != nil {
-		return diag.Errorf("Unable to retrieve openstack_networking_subnetpool_v2: %s", err)
+		return diag.Errorf("Unable to retrieve viettelidc_networking_subnetpool_v2: %s", err)
 	}
 
 	allSubnetPools, err := subnetpools.ExtractSubnetPools(pages)
 	if err != nil {
-		return diag.Errorf("Unable to extract openstack_networking_subnetpool_v2: %s", err)
+		return diag.Errorf("Unable to extract viettelidc_networking_subnetpool_v2: %s", err)
 	}
 
 	if len(allSubnetPools) < 1 {
-		return diag.Errorf("Your query returned no openstack_networking_subnetpool_v2. " +
+		return diag.Errorf("Your query returned no viettelidc_networking_subnetpool_v2. " +
 			"Please change your search criteria and try again.")
 	}
 
 	if len(allSubnetPools) > 1 {
-		return diag.Errorf("Your query returned more than one openstack_networking_subnetpool_v2." +
+		return diag.Errorf("Your query returned more than one viettelidc_networking_subnetpool_v2." +
 			" Please try a more specific search criteria")
 	}
 
 	subnetPool := allSubnetPools[0]
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_subnetpool_v2 %s: %+v", subnetPool.ID, subnetPool)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_subnetpool_v2 %s: %+v", subnetPool.ID, subnetPool)
 	d.SetId(subnetPool.ID)
 
 	d.Set("name", subnetPool.Name)
@@ -250,10 +250,10 @@ func dataSourceNetworkingSubnetPoolV2Read(ctx context.Context, d *schema.Resourc
 	d.Set("region", GetRegion(d, config))
 
 	if err := d.Set("created_at", subnetPool.CreatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_networking_subnetpool_v2 created_at: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnetpool_v2 created_at: %s", err)
 	}
 	if err := d.Set("updated_at", subnetPool.UpdatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_networking_subnetpool_v2 updated_at: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_networking_subnetpool_v2 updated_at: %s", err)
 	}
 	if err := d.Set("prefixes", subnetPool.Prefixes); err != nil {
 		log.Printf("[WARN] unable to set prefixes: %s", err)

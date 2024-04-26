@@ -113,10 +113,10 @@ func dataSourceComputeQuotasetV2Read(ctx context.Context, d *schema.ResourceData
 
 	q, err := quotasets.Get(computeClient, projectID).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error retrieving openstack_compute_quotaset_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error retrieving viettelidc_compute_quotaset_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_compute_quotaset_v2 %s: %#v", d.Id(), q)
+	log.Printf("[DEBUG] Retrieved viettelidc_compute_quotaset_v2 %s: %#v", d.Id(), q)
 
 	id := fmt.Sprintf("%s/%s", projectID, region)
 	d.SetId(id)

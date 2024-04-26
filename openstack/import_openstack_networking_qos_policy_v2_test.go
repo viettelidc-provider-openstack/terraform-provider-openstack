@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2QoSPolicyImportBasic(t *testing.T) {
-	resourceName := "openstack_networking_qos_policy_v2.qos_policy_1"
+	resourceName := "viettelidc_networking_qos_policy_v2.qos_policy_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

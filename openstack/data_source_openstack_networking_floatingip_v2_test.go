@@ -22,19 +22,19 @@ func TestAccOpenStackNetworkingFloatingIPV2DataSource_address(t *testing.T) {
 			{
 				Config: testAccOpenStackNetworkingFloatingIPV2DataSourceAddress(),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckNetworkingFloatingIPV2DataSourceID("data.openstack_networking_floatingip_v2.fip_1"),
+					testAccCheckNetworkingFloatingIPV2DataSourceID("data.viettelidc_networking_floatingip_v2.fip_1"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_networking_floatingip_v2.fip_1", "address"),
+						"data.viettelidc_networking_floatingip_v2.fip_1", "address"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_networking_floatingip_v2.fip_1", "pool"),
+						"data.viettelidc_networking_floatingip_v2.fip_1", "pool"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_networking_floatingip_v2.fip_1", "status"),
+						"data.viettelidc_networking_floatingip_v2.fip_1", "status"),
 					resource.TestCheckResourceAttrSet(
-						"data.openstack_networking_floatingip_v2.fip_1", "description"),
+						"data.viettelidc_networking_floatingip_v2.fip_1", "description"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_floatingip_v2.fip_1", "tags.#", "1"),
+						"data.viettelidc_networking_floatingip_v2.fip_1", "tags.#", "1"),
 					resource.TestCheckResourceAttr(
-						"data.openstack_networking_floatingip_v2.fip_1", "all_tags.#", "2"),
+						"data.viettelidc_networking_floatingip_v2.fip_1", "all_tags.#", "2"),
 				),
 			},
 		},
@@ -58,7 +58,7 @@ func testAccCheckNetworkingFloatingIPV2DataSourceID(n string) resource.TestCheck
 
 func testAccOpenStackNetworkingFloatingIPV2DataSourceFloatingIP() string {
 	return fmt.Sprintf(`
-resource "openstack_networking_floatingip_v2" "fip_1" {
+resource "viettelidc_networking_floatingip_v2" "fip_1" {
   pool = "%s"
   description = "test fip"
   tags = [
@@ -73,8 +73,8 @@ func testAccOpenStackNetworkingFloatingIPV2DataSourceAddress() string {
 	return fmt.Sprintf(`
 %s
 
-data "openstack_networking_floatingip_v2" "fip_1" {
-  address = "${openstack_networking_floatingip_v2.fip_1.address}"
+data "viettelidc_networking_floatingip_v2" "fip_1" {
+  address = "${viettelidc_networking_floatingip_v2.fip_1.address}"
   description = "test fip"
   tags = [
     "foo",

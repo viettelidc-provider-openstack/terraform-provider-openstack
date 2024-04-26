@@ -34,13 +34,13 @@ func TestAccComputeV2FlavorAccess_basic(t *testing.T) {
 			{
 				Config: testAccComputeV2FlavorAccessBasic(flavorName, projectName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckIdentityV3ProjectExists("openstack_identity_project_v3.project_1", &project),
-					testAccCheckComputeV2FlavorExists("openstack_compute_flavor_v2.flavor_1", &flavor),
-					testAccCheckComputeV2FlavorAccessExists("openstack_compute_flavor_access_v2.access_1", &flavorAccess),
+					testAccCheckIdentityV3ProjectExists("viettelidc_identity_project_v3.project_1", &project),
+					testAccCheckComputeV2FlavorExists("viettelidc_compute_flavor_v2.flavor_1", &flavor),
+					testAccCheckComputeV2FlavorAccessExists("viettelidc_compute_flavor_access_v2.access_1", &flavorAccess),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_compute_flavor_access_v2.access_1", "flavor_id", &flavor.ID),
+						"viettelidc_compute_flavor_access_v2.access_1", "flavor_id", &flavor.ID),
 					resource.TestCheckResourceAttrPtr(
-						"openstack_compute_flavor_access_v2.access_1", "tenant_id", &project.ID),
+						"viettelidc_compute_flavor_access_v2.access_1", "tenant_id", &project.ID),
 				),
 			},
 		},
@@ -55,7 +55,7 @@ func testAccCheckComputeV2FlavorAccessDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_compute_flavor_access_v2" {
+		if rs.Type != "viettelidc_compute_flavor_access_v2" {
 			continue
 		}
 
@@ -137,7 +137,7 @@ func testAccCheckComputeV2FlavorAccessExists(n string, access *flavors.FlavorAcc
 
 func testAccComputeV2FlavorAccessBasic(flavorName, tenantName string) string {
 	return fmt.Sprintf(`
-    resource "openstack_compute_flavor_v2" "flavor_1" {
+    resource "viettelidc_compute_flavor_v2" "flavor_1" {
       name = "%s"
       ram = 512
       vcpus = 1
@@ -146,13 +146,13 @@ func testAccComputeV2FlavorAccessBasic(flavorName, tenantName string) string {
       is_public = false
     }
 
-    resource "openstack_identity_project_v3" "project_1" {
+    resource "viettelidc_identity_project_v3" "project_1" {
       name = "%s"
     }
 
-    resource "openstack_compute_flavor_access_v2" "access_1" {
-      flavor_id = "${openstack_compute_flavor_v2.flavor_1.id}"
-      tenant_id = "${openstack_identity_project_v3.project_1.id}"
+    resource "viettelidc_compute_flavor_access_v2" "access_1" {
+      flavor_id = "${viettelidc_compute_flavor_v2.flavor_1.id}"
+      tenant_id = "${viettelidc_identity_project_v3.project_1.id}"
     }
     `, flavorName, tenantName)
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccSFSV2SecurityService_importBasic(t *testing.T) {
-	resourceName := "openstack_sharedfilesystem_securityservice_v2.securityservice_1"
+	resourceName := "viettelidc_sharedfilesystem_securityservice_v2.securityservice_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

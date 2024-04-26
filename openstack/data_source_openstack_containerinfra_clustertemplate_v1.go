@@ -194,7 +194,7 @@ func dataSourceContainerInfraClusterTemplateV1Read(ctx context.Context, d *schem
 	name := d.Get("name").(string)
 	ct, err := clustertemplates.Get(containerInfraClient, name).Extract()
 	if err != nil {
-		return diag.Errorf("Error getting openstack_containerinfra_clustertemplate_v1 %s: %s", name, err)
+		return diag.Errorf("Error getting viettelidc_containerinfra_clustertemplate_v1 %s: %s", name, err)
 	}
 
 	d.SetId(ct.UUID)
@@ -230,10 +230,10 @@ func dataSourceContainerInfraClusterTemplateV1Read(ctx context.Context, d *schem
 	d.Set("hidden", ct.Hidden)
 
 	if err := d.Set("created_at", ct.CreatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_containerinfra_clustertemplate_v1 created_at: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_containerinfra_clustertemplate_v1 created_at: %s", err)
 	}
 	if err := d.Set("updated_at", ct.UpdatedAt.Format(time.RFC3339)); err != nil {
-		log.Printf("[DEBUG] Unable to set openstack_containerinfra_clustertemplate_v1 updated_at: %s", err)
+		log.Printf("[DEBUG] Unable to set viettelidc_containerinfra_clustertemplate_v1 updated_at: %s", err)
 	}
 
 	d.Set("region", GetRegion(d, config))

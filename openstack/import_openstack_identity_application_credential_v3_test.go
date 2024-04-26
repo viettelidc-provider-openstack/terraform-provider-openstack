@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccIdentityV3ApplicationCredential_importBasic(t *testing.T) {
-	resourceName := "openstack_identity_application_credential_v3.app_cred_1"
+	resourceName := "viettelidc_identity_application_credential_v3.app_cred_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -32,7 +32,7 @@ func TestAccIdentityV3ApplicationCredential_importBasic(t *testing.T) {
 }
 
 func TestAccIdentityV3ApplicationCredential_importCustomSecret(t *testing.T) {
-	resourceName := "openstack_identity_application_credential_v3.app_cred_1"
+	resourceName := "viettelidc_identity_application_credential_v3.app_cred_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

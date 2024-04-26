@@ -32,25 +32,25 @@ func TestAccDNSV2RecordSet_basic(t *testing.T) {
 			{
 				Config: testAccDNSV2RecordSetBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "description", "a record set"),
+						"viettelidc_dns_recordset_v2.recordset_1", "description", "a record set"),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "10.1.0.0"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "10.1.0.0"),
 				),
 			},
 			{
 				Config: testAccDNSV2RecordSetUpdate(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("openstack_dns_recordset_v2.recordset_1", "name", zoneName),
-					resource.TestCheckResourceAttr("openstack_dns_recordset_v2.recordset_1", "ttl", "6000"),
-					resource.TestCheckResourceAttr("openstack_dns_recordset_v2.recordset_1", "type", "A"),
+					resource.TestCheckResourceAttr("viettelidc_dns_recordset_v2.recordset_1", "name", zoneName),
+					resource.TestCheckResourceAttr("viettelidc_dns_recordset_v2.recordset_1", "ttl", "6000"),
+					resource.TestCheckResourceAttr("viettelidc_dns_recordset_v2.recordset_1", "type", "A"),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "description", "an updated record set"),
+						"viettelidc_dns_recordset_v2.recordset_1", "description", "an updated record set"),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "10.1.0.1"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "10.1.0.1"),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "10.1.0.2"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "10.1.0.2"),
 				),
 			},
 		},
@@ -73,13 +73,13 @@ func TestAccDNSV2RecordSet_ipv6(t *testing.T) {
 			{
 				Config: testAccDNSV2RecordSetIPv6(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "description", "a record set"),
+						"viettelidc_dns_recordset_v2.recordset_1", "description", "a record set"),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "fd2b:db7f:6ae:dd8d::1"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "fd2b:db7f:6ae:dd8d::1"),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "fd2b:db7f:6ae:dd8d::2"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "fd2b:db7f:6ae:dd8d::2"),
 				),
 			},
 		},
@@ -102,9 +102,9 @@ func TestAccDNSV2RecordSet_readTTL(t *testing.T) {
 			{
 				Config: testAccDNSV2RecordSetReadTTL(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestMatchResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "ttl", regexp.MustCompile("^[0-9]+$")),
+						"viettelidc_dns_recordset_v2.recordset_1", "ttl", regexp.MustCompile("^[0-9]+$")),
 				),
 			},
 		},
@@ -127,20 +127,20 @@ func TestAccDNSV2RecordSet_ensureSameTTL(t *testing.T) {
 			{
 				Config: testAccDNSV2RecordSetEnsureSameTTL1(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "10.1.0.1"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "10.1.0.1"),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "ttl", "3000"),
+						"viettelidc_dns_recordset_v2.recordset_1", "ttl", "3000"),
 				),
 			},
 			{
 				Config: testAccDNSV2RecordSetEnsureSameTTL2(zoneName),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "10.1.0.2"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "10.1.0.2"),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "ttl", "3000"),
+						"viettelidc_dns_recordset_v2.recordset_1", "ttl", "3000"),
 				),
 			},
 		},
@@ -163,9 +163,9 @@ func TestAccDNSV2RecordSet_sudoProjectID(t *testing.T) {
 			{
 				Config: testAccDNSV2RecordSetSudoProjectID(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestCheckTypeSetElemAttr(
-						"openstack_dns_recordset_v2.recordset_1", "records.*", "10.1.0.1"),
+						"viettelidc_dns_recordset_v2.recordset_1", "records.*", "10.1.0.1"),
 				),
 			},
 		},
@@ -180,7 +180,7 @@ func testAccCheckDNSV2RecordSetDestroy(s *terraform.State) error {
 	}
 
 	for _, rs := range s.RootModule().Resources {
-		if rs.Type != "openstack_dns_recordset_v2" {
+		if rs.Type != "viettelidc_dns_recordset_v2" {
 			continue
 		}
 
@@ -247,17 +247,17 @@ func TestAccDNSV2RecordSet_ignoreStatusCheck(t *testing.T) {
 			{
 				Config: testAccDNSV2RecordSetDisableCheck(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "disable_status_check", "true"),
+						"viettelidc_dns_recordset_v2.recordset_1", "disable_status_check", "true"),
 				),
 			},
 			{
 				Config: testAccDNSV2RecordSetBasic(zoneName),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDNSV2RecordSetExists("openstack_dns_recordset_v2.recordset_1", &recordset),
+					testAccCheckDNSV2RecordSetExists("viettelidc_dns_recordset_v2.recordset_1", &recordset),
 					resource.TestCheckResourceAttr(
-						"openstack_dns_recordset_v2.recordset_1", "disable_status_check", "false"),
+						"viettelidc_dns_recordset_v2.recordset_1", "disable_status_check", "false"),
 				),
 			},
 		},
@@ -266,7 +266,7 @@ func TestAccDNSV2RecordSet_ignoreStatusCheck(t *testing.T) {
 
 func testAccDNSV2RecordSetBasic(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			description = "a zone"
@@ -274,8 +274,8 @@ func testAccDNSV2RecordSetBasic(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			description = "a record set"
@@ -287,7 +287,7 @@ func testAccDNSV2RecordSetBasic(zoneName string) string {
 
 func testAccDNSV2RecordSetUpdate(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			description = "an updated zone"
@@ -295,8 +295,8 @@ func testAccDNSV2RecordSetUpdate(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			description = "an updated record set"
@@ -308,7 +308,7 @@ func testAccDNSV2RecordSetUpdate(zoneName string) string {
 
 func testAccDNSV2RecordSetReadTTL(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			description = "an updated zone"
@@ -316,8 +316,8 @@ func testAccDNSV2RecordSetReadTTL(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			records = ["10.1.0.2"]
@@ -327,7 +327,7 @@ func testAccDNSV2RecordSetReadTTL(zoneName string) string {
 
 func testAccDNSV2RecordSetIPv6(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			description = "a zone"
@@ -335,8 +335,8 @@ func testAccDNSV2RecordSetIPv6(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "AAAA"
 			description = "a record set"
@@ -348,15 +348,15 @@ func testAccDNSV2RecordSetIPv6(zoneName string) string {
 
 func testAccDNSV2RecordSetEnsureSameTTL1(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			ttl = 6000
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			ttl = 3000
@@ -367,15 +367,15 @@ func testAccDNSV2RecordSetEnsureSameTTL1(zoneName string) string {
 
 func testAccDNSV2RecordSetEnsureSameTTL2(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			ttl = 6000
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			ttl = 3000
@@ -386,7 +386,7 @@ func testAccDNSV2RecordSetEnsureSameTTL2(zoneName string) string {
 
 func testAccDNSV2RecordSetDisableCheck(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			description = "a zone"
@@ -394,8 +394,8 @@ func testAccDNSV2RecordSetDisableCheck(zoneName string) string {
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			description = "a record set"
@@ -408,20 +408,20 @@ func testAccDNSV2RecordSetDisableCheck(zoneName string) string {
 
 func testAccDNSV2RecordSetSudoProjectID(zoneName string) string {
 	return fmt.Sprintf(`
-		resource "openstack_dns_zone_v2" "zone_1" {
+		resource "viettelidc_dns_zone_v2" "zone_1" {
 			name = "%s"
 			email = "email2@example.com"
 			ttl = 6000
 			type = "PRIMARY"
 		}
 
-		resource "openstack_dns_recordset_v2" "recordset_1" {
-			zone_id = "${openstack_dns_zone_v2.zone_1.id}"
+		resource "viettelidc_dns_recordset_v2" "recordset_1" {
+			zone_id = "${viettelidc_dns_zone_v2.zone_1.id}"
 			name = "%s"
 			type = "A"
 			ttl = 3000
 			records = ["10.1.0.1"]
-            project_id = "${openstack_dns_zone_v2.zone_1.project_id}"
+            project_id = "${viettelidc_dns_zone_v2.zone_1.project_id}"
 		}
 	`, zoneName, zoneName)
 }

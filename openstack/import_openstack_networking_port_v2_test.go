@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccNetworkingV2Port_importBasic(t *testing.T) {
-	resourceName := "openstack_networking_port_v2.port_1"
+	resourceName := "viettelidc_networking_port_v2.port_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -34,7 +34,7 @@ func TestAccNetworkingV2Port_importBasic(t *testing.T) {
 }
 
 func TestAccNetworkingV2Port_importAllowedAddressPairs(t *testing.T) {
-	resourceName := "openstack_networking_port_v2.instance_port"
+	resourceName := "viettelidc_networking_port_v2.instance_port"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -61,7 +61,7 @@ func TestAccNetworkingV2Port_importAllowedAddressPairs(t *testing.T) {
 }
 
 func TestAccNetworkingV2Port_importAllowedAddressPairsNoMAC(t *testing.T) {
-	resourceName := "openstack_networking_port_v2.instance_port"
+	resourceName := "viettelidc_networking_port_v2.instance_port"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
@@ -88,7 +88,7 @@ func TestAccNetworkingV2Port_importAllowedAddressPairsNoMAC(t *testing.T) {
 }
 
 func TestAccNetworkingV2Port_importDHCPOpts(t *testing.T) {
-	resourceName := "openstack_networking_port_v2.port_1"
+	resourceName := "viettelidc_networking_port_v2.port_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

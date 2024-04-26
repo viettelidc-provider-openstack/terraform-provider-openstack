@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccIdentityV3RoleAssignment_importBasic(t *testing.T) {
-	resourceName := "openstack_identity_role_assignment_v3.role_assignment_1"
+	resourceName := "viettelidc_identity_role_assignment_v3.role_assignment_1"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() {

@@ -61,7 +61,7 @@ func resourceNetworkingFloatingIPAssociateV2Create(ctx context.Context, d *schem
 
 	fipID, err := networkingFloatingIPV2ID(networkingClient, floatingIP)
 	if err != nil {
-		return diag.Errorf("Unable to get ID of openstack_networking_floatingip_associate_v2 floating_ip %s: %s", floatingIP, err)
+		return diag.Errorf("Unable to get ID of viettelidc_networking_floatingip_associate_v2 floating_ip %s: %s", floatingIP, err)
 	}
 
 	updateOpts := floatingips.UpdateOpts{
@@ -69,10 +69,10 @@ func resourceNetworkingFloatingIPAssociateV2Create(ctx context.Context, d *schem
 		FixedIP: fixedIP,
 	}
 
-	log.Printf("[DEBUG] openstack_networking_floatingip_associate_v2 create options: %#v", updateOpts)
+	log.Printf("[DEBUG] viettelidc_networking_floatingip_associate_v2 create options: %#v", updateOpts)
 	_, err = floatingips.Update(networkingClient, fipID, updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error associating openstack_networking_floatingip_associate_v2 floating_ip %s with port %s: %s", fipID, portID, err)
+		return diag.Errorf("Error associating viettelidc_networking_floatingip_associate_v2 floating_ip %s with port %s: %s", fipID, portID, err)
 	}
 
 	d.SetId(fipID)
@@ -89,10 +89,10 @@ func resourceNetworkingFloatingIPAssociateV2Read(ctx context.Context, d *schema.
 
 	fip, err := floatingips.Get(networkingClient, d.Id()).Extract()
 	if err != nil {
-		return diag.FromErr(CheckDeleted(d, err, "Error getting openstack_networking_floatingip_associate_v2"))
+		return diag.FromErr(CheckDeleted(d, err, "Error getting viettelidc_networking_floatingip_associate_v2"))
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_floatingip_associate_v2 %s: %#v", d.Id(), fip)
+	log.Printf("[DEBUG] Retrieved viettelidc_networking_floatingip_associate_v2 %s: %#v", d.Id(), fip)
 
 	d.Set("floating_ip", fip.FloatingIP)
 	d.Set("port_id", fip.PortID)
@@ -119,10 +119,10 @@ func resourceNetworkingFloatingIPAssociateV2Update(ctx context.Context, d *schem
 		updateOpts.FixedIP = d.Get("fixed_ip").(string)
 	}
 
-	log.Printf("[DEBUG] openstack_networking_floatingip_associate_v2 %s update options: %#v", d.Id(), updateOpts)
+	log.Printf("[DEBUG] viettelidc_networking_floatingip_associate_v2 %s update options: %#v", d.Id(), updateOpts)
 	_, err = floatingips.Update(networkingClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error updating openstack_networking_floatingip_associate_v2 %s: %s", d.Id(), err)
+		return diag.Errorf("Error updating viettelidc_networking_floatingip_associate_v2 %s: %s", d.Id(), err)
 	}
 
 	return resourceNetworkingFloatingIPAssociateV2Read(ctx, d, meta)
@@ -140,10 +140,10 @@ func resourceNetworkingFloatingIPAssociateV2Delete(ctx context.Context, d *schem
 		PortID: new(string),
 	}
 
-	log.Printf("[DEBUG] openstack_networking_floatingip_associate_v2 disassociating options: %#v", updateOpts)
+	log.Printf("[DEBUG] viettelidc_networking_floatingip_associate_v2 disassociating options: %#v", updateOpts)
 	_, err = floatingips.Update(networkingClient, d.Id(), updateOpts).Extract()
 	if err != nil {
-		return diag.Errorf("Error disassociating openstack_networking_floatingip_associate_v2 floating_ip %s with port %s: %s", d.Id(), portID, err)
+		return diag.Errorf("Error disassociating viettelidc_networking_floatingip_associate_v2 floating_ip %s with port %s: %s", d.Id(), portID, err)
 	}
 
 	return nil
