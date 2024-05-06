@@ -1,4 +1,4 @@
-module github.com/viettelidcx/terraform-provider-openstack
+module github.com/viettelidc-provider-openstack/terraform-provider-openstack
 
 go 1.21.5
 
