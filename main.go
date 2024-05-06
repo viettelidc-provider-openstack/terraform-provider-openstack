@@ -4,7 +4,7 @@ import (
 	"flag"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/viettelidcx/terraform-provider-openstack/openstack"
+	"github.com/viettelidc-provider-openstack/terraform-provider-openstack/openstack"
 )
 
 const providerAddr = "registry.terraform.io/terraform-provider-openstack/openstack"
